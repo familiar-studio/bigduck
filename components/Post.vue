@@ -61,12 +61,10 @@
     name: 'post',
     props: ['entry', 'categories', 'index'],
     computed: {
-      topicsIndexedById () {
-        return this.$store.getters['getTopicsIndexedById']
-      },
-      typesIndexedById () {
-        return this.$store.getters['getTypesIndexedById']
-      },
+      topicsIndexedById () { return this.$store.getters['getTopicsIndexedById'] },
+      typesIndexedById () { return this.$store.getters['getTypesIndexedById'] },
+      types () { return this.$store.state.types },
+      topics () { return this.$store.state.topcis },
       blockClass () {
         if (this.index === 0) {
           return 'first-block'
