@@ -611,8 +611,8 @@ $zindex-tooltip:            1070 !default;
 // Navbar
 
 $navbar-border-radius:              $border-radius !default;
-$navbar-padding-x:                  $spacer !default;
-$navbar-padding-y:                  ($spacer / 2) !default;
+$navbar-padding-x:                  .5rem !default;
+$navbar-padding-y:                  .5rem !default;
 
 $navbar-brand-padding-y:            .25rem !default;
 
