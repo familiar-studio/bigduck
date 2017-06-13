@@ -11,7 +11,7 @@
 
     </article>
   </div>
-   <Featured v-for="(caseStudy, index) in relatedCaseStudies"  :work="caseStudy" :index="index" :key="index"></Featured>
+   <!-- <Featured v-for="(caseStudy, index) in relatedCaseStudies"  :work="caseStudy" :index="index" :key="index"></Featured> -->
   <div class="container">
 
 

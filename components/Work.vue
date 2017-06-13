@@ -1,7 +1,7 @@
 <template id="">
   <div class="row">
     <div class="col-md-6 mb-3" v-for="(case_study, index) in work" >
-      <router-link :to="{name: 'CaseStudy', params: {id: case_study.id}}" :key="case_study.id">
+      <router-link :to="{name: 'work-id', params: {id: case_study.id}}" :key="case_study.id">
         <div v-if="case_study.acf.hero_image">
           <img :src="case_study.acf.hero_image.url"  class="img-fluid" />
         </div>

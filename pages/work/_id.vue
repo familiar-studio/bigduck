@@ -70,7 +70,7 @@
                 </div>
               </div>
               </article>
-              <Subscribe :entry="callouts[0]"></Subscribe>
+              <Subscribe v-if="callouts" :entry="callouts[0]"></Subscribe>
               <div class="mt-5" v-if="relatedCaseStudies && relatedCaseStudies.length > 0">
                 <h2>Similar Case Studies</h2>
                 <Work :work="relatedCaseStudies"></Work>

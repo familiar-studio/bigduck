@@ -1,4 +1,9 @@
 <template>
+  <div>
+    <div class="work-nav">
+      <router-link :to="{ name: 'work'}" class="work-link">Featured Work</router-link>
+      <router-link :to="{ name: 'work-all'}" class="work-link">All Projects</router-link>
+    </div>
   <div class="container-fluid no-hero">
     <div class="row">
       <div class="col-lg-2">
@@ -44,6 +49,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>

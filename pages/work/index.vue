@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h1>
+    <div class="work-nav">
       <router-link :to="{ name: 'work'}" class="work-link">Featured Work</router-link>
       <router-link :to="{ name: 'work-all'}" class="work-link">All Projects</router-link>
-    </h1>
+    </div>
     <div v-if="featured">
       <div v-for="work in featured">
         <div :style="{'background': 'url(' + work.acf.hero_image.url + ') ' + work.acf.primary_color }"
