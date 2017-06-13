@@ -1,7 +1,7 @@
 <template>
 
   <div class="block-insights" :class="blockClass" v-if="entry.type">
-    <router-link :to="{ name: 'Insight', params: { id: entry.id }}" :key="entry.id">
+    <nuxt-link :to="{ path: '/insight', params: { id: entry.id }}" :key="entry.id">
     <div>
         <div class="container">
           <!-- <div class="card-header badge-group"> -->
@@ -49,7 +49,7 @@
           </div>
         </div>
       </div>
-    </router-link>
+    </nuxt-link>
   </div>
 </template>
 

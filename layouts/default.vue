@@ -80,8 +80,15 @@
   </div>
 </template>
 
+<script>
+  export default {
+    created () {
+      console.log('hello from the layout')
+    }
+  }
+</script>
 
-<style lang="scss"> 
+<style lang="scss">
 
  @import '../scss/styles.scss';
 

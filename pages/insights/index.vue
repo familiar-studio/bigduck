@@ -98,11 +98,11 @@
         return Object.assign(this.$route.query, {page: this.previousPage})
       }
     },
-   async fetch ({ store, params, query }) {
+    async fetch ({ store, params, query }) {
      // this.fetchByQuery()
 
       const response = await store.dispatch('fetchByQuery', {query: query, path: 'wp/v2/bd_insight'})
-      //this.insights = response.data
+      //  this.insights = response.data
       // this.totalPages = response.totalPages
       // this.totalRecords = response.totalRecords
 
