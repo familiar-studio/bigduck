@@ -120,21 +120,12 @@
 //   // opacity: 0;
 // }
 //
-// // .slideRight-enter-active {
-// //   animation: slide-right .5s;
-// // }
-// //
-// // .slideRight-leave-active {
-// //   animation: slide-right .5s reverse;
-// // }
-// //
-// // .slideRight-enter {
-// //   position: relative;
-// // }
-// //
-// // .slideRight-leave {
-// //   position: relative;
-// // }
+.page-enter-active, .page-leave-active {
+  transition: opacity .5s;
+}
+.page-enter, .page-leave-to {
+  opacity: 0;
+}
 //
 // @keyFrames slide-up {
 //   0% {

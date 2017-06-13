@@ -135,6 +135,11 @@
       }
       return data
     },
+    head () {
+      return {
+        title: this.insight.title.rendered + ' | Big Duck'
+      }
+    },
     computed: {
       ...mapState(['types', 'topics']),
       ...mapGetters(['bareHostname']),

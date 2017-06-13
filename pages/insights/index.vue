@@ -93,6 +93,11 @@
         console.log(error)
       }
     },
+    head () {
+      return {
+        title: 'Insights | Big Duck'
+      }
+    },
     components: {
       Post,
       Subscribe,
