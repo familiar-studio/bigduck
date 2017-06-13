@@ -48,11 +48,10 @@
                 <div v-if="author && author.acf">
                   <div class="author-bio">
                     <div class="media">
-                      {{ author.acf }}
-                      <!-- <img class="round" :src="author.acf.headshot.sizes.thumbnail" alt="" /> -->
+                      <img class="round" :src="author.acf.headshot.sizes.thumbnail" alt="" />
                       <div class="media-body">
                         <h3>{{insight.acf.author.display_name}} {{insight.acf.author.user_lastname}} is
-                            <!-- {{ prependIndefiniteArticle(author.acf.job_title) }} -->
+                            {{ prependIndefiniteArticle(author.acf.job_title) }}
                             {{  author.acf.job_title }} at Big Duck</h3>
                           <p class="card-text" v-html="author.acf.bio"></p>
                         <router-link class="btn btn-primary" :to="{name: 'team-slug', params: { slug: insight.acf.author.user_nicename}}">More about {{insight.acf.author.user_firstname}}</router-link>
