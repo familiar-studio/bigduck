@@ -1,6 +1,5 @@
  <template>
   <div class="container-fluid no-hero">
-    <div class="types && topics">
     <div class="row">
       <div class="col-lg-2">
         <div v-if="types && topics" class="filter-bar">
@@ -35,16 +34,16 @@
       </div>
       <div class="col-lg-8">
         <div class="container">
-          <div v-if="insights && categories">
+          <div v-if="insights">
             <h1>Insights</h1>
             <Pager :totalPages="totalPages" path="/insights" ></Pager>
             <div v-if="insights">
               <div v-for="(insight, index) in insights">
 
-                <Post :entry="insight" :categories="categories" :index="index"></Post>
+                <Post :entry="insight" :index="index"></Post>
 
 
-                <Subscribe v-if="callouts[0] && index % 5 == 1 && index < insights.length - 1" :entry="callouts[0]"></Subscribe>
+                <Subscribe v-if="callouts && callouts[0] && index % 5 == 1 && index < insights.length - 1" :entry="callouts[0]"></Subscribe>
               </div>
             </div>
             <div v-else>
@@ -65,23 +64,33 @@
     </div>
   </div>
   </div>
-  </div>
 </template>
 <script>
 
-  import Post from '../../components/Post.vue'
-  import Subscribe from '../../components/subscribe/container.vue'
+  import Post from '~components/Post.vue'
+  import Subscribe from '~components/subscribe/container.vue'
   import { mapActions, mapState } from 'vuex'
-  import Pager from '../../components/Pager.vue'
+  import Pager from '~components/Pager.vue'
+  import axios from 'axios'
 
   export default {
     name: 'insights',
     data () {
       return {
-        insights: null,
-        totalPages: null,
-        totalRecords: null,
         flipCategory: null
+      }
+    },
+    async asyncData ({state, query, store}) {
+      let data = {}
+      try {
+        const response = await store.dispatch('fetchByQuery', {query: query, path: 'wp/v2/bd_insight'})
+        data['insights'] = response.data
+        data['totalPages'] = response.totalPages
+        data['totalRecords'] = response.totalRecords
+        return data
+      } catch (e) {
+        console.log('error')
+        console.log(error)
       }
     },
     components: {
@@ -98,28 +107,7 @@
         return Object.assign(this.$route.query, {page: this.previousPage})
       }
     },
-    async fetch ({ store, params, query }) {
-     // this.fetchByQuery()
-
-      const response = await store.dispatch('fetchByQuery', {query: query, path: 'wp/v2/bd_insight'})
-      //  this.insights = response.data
-      // this.totalPages = response.totalPages
-      // this.totalRecords = response.totalRecords
-
-      store.commit('insights/load', response.data)
-      // this.setActiveCategories()
-    },
-    watch: {
-      '$route.query': 'fetchByQuery',
-      '$route.query.page': 'fetchByQuery'
-    },
     methods: {
-      async fetchByQuery () {
-        const response = await this.$store.dispatch('fetchByQuery', {query: this.$route.query, path: 'wp/v2/bd_insight'})
-        this.insights = response.data
-        this.totalPages = response.totalPages
-        this.totalRecords = response.totalRecords
-      },
       flipCategory (type, id) {
         this.activeCategories[type][id] !== this.activeCategories[type][id]
       },
@@ -137,6 +125,5 @@
         this.activeCategories = activeCategories
       }
     }
-
   }
 </script>

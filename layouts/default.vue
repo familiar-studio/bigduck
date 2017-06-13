@@ -81,11 +81,9 @@
 </template>
 
 <script>
+  import Logo from '~components/Logo.vue'
   export default {
-    created () {
-      console.log('hello from the layout')
-      // this.$store.commit('fetchTopics')
-    }
+    components: [Logo]
   }
 </script>
 

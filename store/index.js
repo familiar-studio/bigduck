@@ -118,7 +118,7 @@ export const getters = {
     //   return state.remoteHostname
     // }
 
-    return state.localHostname
+    return state.remoteHostname
   },
   bareHostname: state => {
     // if ((window.location.hostname.indexOf('localhost') > -1 || window.location.hostname.indexOf('.dev') > -1)) {
@@ -127,7 +127,7 @@ export const getters = {
     //   return state.bareRemoteHostname
     // }
 
-    return state.bareLocalHostname
+    return state.bareRemoteHostname
   },
   callouts: state => {
     return state.callouts

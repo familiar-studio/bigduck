@@ -1,7 +1,7 @@
 <template>
 
   <div class="block-insights" :class="blockClass" :type="types ? typesIndexedById[entry.type[0]].slug : ''" v-if="entry.type">
-    <nuxt-link :to="{ to: '/insights', params: { id: entry.id }}" :key="entry.id">
+    <router-link :to="{ name: 'insights-id', params: { id: entry.id }}" :key="entry.id">
     <div class="col-image">
       <div :style="{ 'background-image': 'url(' + entry.acf.featured_image+ ')' }" class="featured-image"></div>
     </div>
@@ -52,7 +52,7 @@
           </div>
         </div>
       </div>
-    </nuxt-link>
+    </router-link>
   </div>
 </template>
 
