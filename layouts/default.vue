@@ -84,6 +84,7 @@
   export default {
     created () {
       console.log('hello from the layout')
+      // this.$store.commit('fetchTopics')
     }
   }
 </script>

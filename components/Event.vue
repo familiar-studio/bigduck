@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div v-if="types && topics">
+    <!-- <div v-if="types && topics"> -->
 
 
-  <div class="block-insights" :class="blockClass" :type="typesIndexedById[entry.type[0]].slug">
-    <router-link :to="{ name: 'Event', params: { id: entry.id }}" :key="entry.id">
+  <div class="block-insights" :class="blockClass" :type="types ? typesIndexedById[entry.type[0]].slug : ''">
+    <router-link :to="{ to: '/event', params: { id: entry.id }}" :key="entry.id">
     <div class="col-image" v-if="entry.acf.featured_image">
       <div :style="{ 'background-image': 'url(' + entry.acf.featured_image.url + ')' }" class="featured-image"></div>
     </div>
@@ -14,11 +14,11 @@
             <div class="badge badge-secondary badge-type">
               {{displayDate}}
             </div>
-            <div class="badge badge-default badge-type" v-for="type in entry.type">
+            <div class="badge badge-default badge-type" v-if="types" v-for="type in entry.type" >
                 <div v-html="typesIndexedById[type].icon"></div>
                 <div v-html="typesIndexedById[type].name"></div>
             </div>
-            <div class="badge badge-default" v-for="topic in entry.topic">
+            <div class="badge badge-default"  v-if="topics" v-for="topic in entry.topic">
                 <div v-html="topicsIndexedById[topic].icon"></div>
                 <div v-html="topicsIndexedById[topic].name"></div>
             </div>
@@ -30,7 +30,7 @@
           </div>
           <div class="card-footer">
             <div class="chat-bubble">
-              <span v-if="entry.type[0]">
+              <span v-if="entry.type[0] && types">
                 {{ typesIndexedById[entry.type[0]].verb }} Now
               </span>
               <span v-else>
@@ -46,7 +46,7 @@
       </div>
     </router-link>
   </div>
-</div>
+<!-- </div> -->
 </div>
 </template>
 

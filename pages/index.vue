@@ -48,12 +48,7 @@
       Featured,
       Post
     },
-    fetch ({state, params}) {
-      if (!topics) {
-        state.store.commit('fetchTopics')
-      }
-    },
-    async asyncData () {
+    async asyncData ({store}) {
       let data = {}
       let response = await Axios.get(store.getters['hostname'] + 'wp/v2/pages/37')
       let page = response.data
