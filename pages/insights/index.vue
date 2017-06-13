@@ -6,31 +6,31 @@
         <div v-if="types && topics" class="filter-bar">
           <div class="label label-lg">Topics</div>
           <div class="media-list">
-            <!-- <router-link v-for="topic in topics" key="topic.id" :to="{name: 'Insights', query: {topic: topic.id}}" @click="flipCategory('topic', topic.id)" :class="activeCategories[topic][topic.id] == true ? 'active' : ''"> -->
-            <router-link v-for="topic in topics" key="topic.id" :to="{name: 'Insights', query: {topic: topic.id}}">
+            <!-- <nuxt-link v-for="topic in topics" key="topic.id" :to="{name: 'Insights', query: {topic: topic.id}}" @click="flipCategory('topic', topic.id)" :class="activeCategories[topic][topic.id] == true ? 'active' : ''"> -->
+            <nuxt-link v-for="topic in topics" key="topic.id" :to="{to: '/insights', query: {topic: topic.id}}">
               <div class="media">
                 <div v-if="topic.icon" v-html="topic.icon"></div>
                 <div class="media-body">
                   <h6 v-html="topic.name"></h6>
                 </div>
               </div>
-            </router-link>
+            </nuxt-link>
           </div>
           <div class="label label-lg">Types</div>
           <div class="media-list">
-            <!-- <router-link v-for="type in types" key="type.id" :to="{name: 'Insights', query: {type: type.id}}" @click="flipCategory('type', type.id)" :class="activeCategories[type][type.id] == true ? 'active' : ''"> -->
-            <router-link v-for="type in types" key="type.id" :to="{name: 'Insights', query: {type: type.id}}">
+            <!-- <nuxt-link v-for="type in types" key="type.id" :to="{name: 'Insights', query: {type: type.id}}" @click="flipCategory('type', type.id)" :class="activeCategories[type][type.id] == true ? 'active' : ''"> -->
+            <nuxt-link v-for="type in types" key="type.id" :to="{to: '/insights', query: {type: type.id}}">
               <div class="media">
                 <div v-if="type.icon" v-html="type.icon"></div>
                 <div class="media-body">
                   <h6 v-html="type.name"></h6>
                 </div>
               </div>
-            </router-link>
+            </nuxt-link>
           </div>
-          <router-link :to="{name: 'Insights'}">
+          <nuxt-link :to="{to: '/insights'}">
             <button class="btn btn-info">Clear All</button>
-          </router-link>
+          </nuxt-link>
         </div>
       </div>
       <div class="col-lg-8">

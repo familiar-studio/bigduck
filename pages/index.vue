@@ -22,16 +22,16 @@
     </div>
     <nuxt-link class="btn btn-primary" to="/events">View All Events</nuxt-link>
   </div>
-  <!-- <blockquote class="mt-5">
+  <blockquote class="mt-5">
     <p v-html="page.acf.testimonial"></p>
     <footer><span v-html="page.acf.citation"></span></footer>
-  </blockquote> -->
-  <!-- <div v-if="latestInsights && types && topics" class="mt-5">
+  </blockquote>
+  <div v-if="latestInsights" class="mt-5">
     <h2>Latest Insights</h2>
     <div class="" v-for="(insight, index) in latestInsights">
       <Post :entry="insight" :index="index + latestInsights.length"></Post>
     </div>
-  </div> -->
+  </div>
   </div>
   </div>
 </div>

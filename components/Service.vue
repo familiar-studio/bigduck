@@ -1,6 +1,6 @@
 <template>
 
-  <router-link :to="{ name: 'Service', params: { slug: entry.slug }}" :key="entry.id">
+  <nuxt-link :to="{ to: 'services', params: { slug: entry.slug }}" :key="entry.id">
   <div v-if="entry.acf && entry.acf.featured_image">
   <div class="row">
   <div class="col-image col-md-6 " >
@@ -25,7 +25,7 @@
     </div>
   </div>
 </div>
-  </router-link>
+  </nuxt-link>
 </template>
 <script>
   export default {
