@@ -1,0 +1,29 @@
+#share {
+  position: sticky;
+  top: 65px;
+  font-weight: 600;
+  text-transform: uppercase;
+  // letter-spacing:
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: -60px;
+  padding-top: 2rem;
+  a{
+    display: block;
+    margin: .3rem 0;
+  }
+  svg{
+    transition: all .3s ease;
+  }
+
+  svg path{
+    @include color-animation(fillChange);
+    fill: nth($duck-colors, 1);
+  }
+  a:hover{
+    svg{
+      transform: translateY(-3px);
+    }
+  }
+}

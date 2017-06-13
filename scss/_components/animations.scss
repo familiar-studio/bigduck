@@ -1,0 +1,155 @@
+@mixin color-animation($animation-name) {
+  // animation-name: $animation-name;
+  // animation-duration: #{length($duck-colors) * 8}s;
+  // animation-iteration-count: infinite;
+}
+//
+// .color-underline{
+//   background-image: linear-gradient(nth($duck-colors, 1), nth($duck-colors, 1));
+//   background-position: center 75%;
+//   background-repeat: no-repeat;
+//   background-size: 100% 1px;
+//   transition: all .3s ease;
+//   @include color-animation(underlineChange);
+// }
+//
+// .body.spaced .color-underline{
+//   @include color-animation(underlineChangeSpaced);
+// }
+//
+//
+//
+// @keyframes fillChange{
+//   @for $i from 1 through length($duck-colors) {
+//     #{100/length($duck-colors) * ($i - 1)}%{
+//       fill: nth($duck-colors, $i);
+//     }
+//     #{100/length($duck-colors) * $i - 4}%{
+//       fill: nth($duck-colors, $i);
+//     }
+//   }
+// }
+//
+// @keyframes colorChange{
+//   @for $i from 1 through length($duck-colors) {
+//     #{100/length($duck-colors) * ($i - 1)}%{
+//       color: nth($duck-colors, $i);
+//     }
+//     #{100/length($duck-colors) * $i - 4}%{
+//       color: nth($duck-colors, $i);
+//     }
+//   }
+// }
+//
+// @keyframes bgChange{
+//   @for $i from 1 through length($duck-colors) {
+//     #{100/length($duck-colors) * ($i - 1)}%{
+//       background-color: nth($duck-colors, $i);
+//     }
+//     #{100/length($duck-colors) * $i - 4}%{
+//       background-color: nth($duck-colors, $i);
+//     }
+//   }
+// }
+//
+// @keyframes borderChange{
+//   @for $i from 1 through length($duck-colors) {
+//     #{100/length($duck-colors) * ($i - 1)}%{
+//       border-color: nth($duck-colors, $i);
+//     }
+//     #{100/length($duck-colors) * $i - 4}%{
+//       border-color: nth($duck-colors, $i);
+//     }
+//   }
+// }
+//
+// @keyframes underlineChange{
+//   @for $i from 1 through length($duck-colors) {
+//     #{100/length($duck-colors) * ($i - 1)}%{
+//       background-image: linear-gradient(nth($duck-colors, $i), nth($duck-colors, $i));
+//     }
+//     #{100/length($duck-colors) * $i - 4}%{
+//       background-image: linear-gradient(nth($duck-colors, $i), nth($duck-colors, $i));
+//     }
+//   }
+// }
+//
+// @keyframes fadeInUp{
+//   0%{
+//     opacity: 0;
+//     transform: translateY(0);
+//   }
+//   100%{
+//     opacity: 1;
+//     transform: translateY(-8px);
+//   }
+// }
+//
+//
+// .fade-enter-active, .fade-leave-active {
+//   transition: opacity .5s;
+// }
+// .fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+//   opacity: 0;
+// }
+//
+// .slide-enter-active, .slide-leave-active {
+//   transition: opacity .5s, transform .8s ease-in;
+//   transform: translateX(0px);
+// }
+// .slide-enter {
+//   opacity: 0;
+//   transform: translateX(0px);
+// }
+//
+// .slide-leave-to {
+//   opacity: 0;
+//   transform: translateX(-1000px);
+// }
+//
+//
+//
+//
+//
+// .slideUp-enter-active {
+//   animation: slide-up .5s ease-in;
+//   transition: opacity .5s;
+// }
+//
+// .slideUp-enter {
+//   // opacity: 0;
+// }
+//
+// // .slideRight-enter-active {
+// //   animation: slide-right .5s;
+// // }
+// //
+// // .slideRight-leave-active {
+// //   animation: slide-right .5s reverse;
+// // }
+// //
+// // .slideRight-enter {
+// //   position: relative;
+// // }
+// //
+// // .slideRight-leave {
+// //   position: relative;
+// // }
+//
+// @keyFrames slide-up {
+//   0% {
+//     top: 100vh;
+//   }
+//   100% {
+//     top: -300px;
+//   }
+// }
+//
+// @keyFrames slide-right {
+//   0% {
+//     left: 0px;
+//   }
+//   100% {
+//     left: 100vw;
+//   }
+// }

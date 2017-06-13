@@ -5,7 +5,13 @@
   "author": "Keith Mancuso <keithmancuso@gmail.com>",
   "private": true,
   "dependencies": {
-    "nuxt": "latest"
+    "axios": "^0.16.2",
+    "bootstrap": "^4.0.0-alpha.6",
+    "moment": "^2.18.1",
+    "node-sass": "^4.5.3",
+    "nuxt": "latest",
+    "sass-loader": "^6.0.5",
+    "vue-style-loader": "^3.0.1"
   },
   "scripts": {
     "dev": "nuxt",

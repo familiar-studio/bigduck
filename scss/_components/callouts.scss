@@ -1,0 +1,17 @@
+.callout-fullwidth{
+  margin-bottom: 3rem;
+  padding: 2.5rem 5000px;
+  margin-left: -5000px;
+  margin-right: -5000px;
+  -webkit-font-smoothing: antialiased;
+  .callout-content{
+    max-width: $centered-content-width;
+    margin: auto;
+  }
+  .form-group{
+    opacity: 0;
+    height: 0;
+    margin: 0;
+    overflow: hidden;
+  }
+}

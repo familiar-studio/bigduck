@@ -1,0 +1,41 @@
+.filter-bar{
+  padding-left: 1rem;
+  margin-top: 1.6rem;
+  .label-lg{
+    color: $gray;
+  }
+  .media-list{
+    margin: .5rem 0 2rem;
+  }
+  .media{
+    align-items: center;
+    margin-bottom: .5rem;
+    h6{
+      margin-bottom: 0;
+      transition: all .3s ease;
+      @extend .color-underline;
+      background-size: 0% 1px;
+      background-position: center 98%;
+      display: inline-block;
+    }
+  }
+  img, svg{
+    opacity: .3;
+    transition: opacity .3s ease;
+    margin-right: .75rem;
+  }
+
+  a:hover, .router-link-exact-active{
+    .media h6{
+      background-size: 100% 1px;
+    }
+    img {
+      opacity: 1;
+    }
+  }
+
+  .router-link-exact-active .btn{
+    opacity: 0;
+    transform: translateY(3px);
+  }
+}

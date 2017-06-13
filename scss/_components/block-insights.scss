@@ -1,0 +1,162 @@
+.author-img{
+  width: 45px;
+  height: 45px;
+}
+
+.block-insights{
+  a {
+    display: flex;
+    position: relative;
+  }
+  margin-bottom: 3rem;
+  .col-image{
+    width: 40%;
+    background-color: $gray-light;
+    position: relative;
+    opacity: .9;
+    transition: all .3s ease;
+    &::before{
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      @include color-animation(bgChange);
+      background-color: nth($duck-colors, 1);
+      opacity: 0;
+      transition: all .3s ease;
+      z-index: 3;
+    }
+  }
+  .col-text{
+    width: 60%;
+    position: relative;
+    z-index: 4;
+    transition: all .3s ease;
+  }
+
+
+  &.even-block{
+    .col-image{
+      order: 2;
+    }
+  }
+
+  &[type=articles].first-block{
+    a{
+      align-items: center;
+    }
+    .card-title{
+      font-size: 2.25rem;
+    }
+    .col-image{
+      flex-basis: 75%;
+      height: 21rem;
+      @media (min-width:1900px){
+        height: 24rem;
+      }
+    }
+    .col-text{
+      position: absolute;
+      right: 0;
+    }
+  }
+
+  &[type=articles]:not(.first-block){
+    margin-bottom: 5.5rem;
+
+    .col-image{
+      width: 60%;
+      height: 100%;
+      position: absolute;
+    }
+
+    &.even-block{
+      .col-image{
+        right: 0;
+        top: 2.5rem;
+      }
+    }
+    &.odd-block{
+      .col-text{
+        margin-left: auto;
+        position: relative;
+        top: 2.5rem;
+      }
+    }
+  }
+
+  &[type=articles]{
+    .badge-type{
+      display: none;
+    }
+  }
+
+
+  .featured-image{
+    height: 100%;
+    background-size: cover;
+    background-position: 50% 50%;
+    opacity: .8;
+    transition: all .3s ease;
+    filter: grayscale(0%);
+  }
+
+
+  .card-title{
+    margin-bottom: .25rem;
+  }
+  .card-header{
+    padding-bottom: 0;
+    margin-top: .5rem;
+    display: flex;
+  }
+  .card-footer{
+    padding-top: 0;
+  }
+  .card-text p{
+    margin-bottom: 0;
+    font-size: .9rem;
+  }
+
+  .chat-bubble{
+    position: absolute;
+    bottom: 2.5rem;
+    transform: translateX(-100%);
+    left: 2.3rem;
+    opacity: 0;
+    transition: all .3s ease;
+    span{
+      @extend .h6;
+      color: $white;
+      margin-bottom: 0;
+      padding: .25rem 0;
+      display: block;
+      transform: translateY(-.1rem);
+    }
+    &::before{
+      right: .75rem;
+      left: auto;
+      border-width: 0 .75rem .75rem 0;
+      border-color: transparent $inverse-bg transparent transparent;
+    }
+  }
+  a:hover{
+    .featured-image{
+      filter: grayscale(90%);
+    }
+    .col-image::before{
+      opacity: 0.8;
+    }
+    .col-image{
+      opacity: .6;
+      transform: translateY(.5rem);
+    }
+    .col-text{
+      transform: translateY(-.5rem);
+    }
+    .chat-bubble{
+      opacity: 1;
+      bottom: 2.7rem;
+    }
+  }
+}
