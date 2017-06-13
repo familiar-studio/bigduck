@@ -54,6 +54,10 @@ export const actions = {
   error (context, error) {
     console.warn(error)
   },
+  async fetch (context, path) {
+    let response = axios.get(this.$store.getters['hostname'] + path)
+    return response.data
+  },
   async fetchCallouts (context) {
     let response = await axios.get(context.getters.hostname + 'wp/v2/bd_callout')
     context.commit('setCallouts', response.data)
