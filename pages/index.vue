@@ -7,7 +7,8 @@
 
     <article class="main">
 
-    <h1>Developing the <span class="color">voices</span> of <span class="bg-white">determined</span> nonprofits.</h1>
+    <h1>Developing the <span class="color">{{magicWord}}</span><br/>
+    of <span class="bg-white">determined</span> nonprofits.</h1>
 
     </article>
   </div>
@@ -70,11 +71,70 @@
       }
       return data
     },
+    data () {
+      return {
+        magicWord: 'voices',
+        magicIndex: 0,
+        typeIndex: 0,
+        typeInterval: 100,
+        typeIntervalVar: {},
+        wordInterval: 3000,
+        magicWords: [
+          'voices',
+          'brands',
+          'campaigns',
+          'teams'
+        ]
+      }
+    },
     computed: {
       topics () { return this.$store.state.topics },
       types () { return this.$store.state.types },
       topicsIndexedById () { return this.$store.getters['getTopicsIndexedById'] },
       typesIndexedById () { return this.$store.getters['getTypesIndexedById'] }
+    },
+    created () {
+      console.log('loaded')
+      setInterval(this.nextWord, this.wordInterval)
+      this.typeIntervalVar = setInterval(this.nextLetter, this.typeInterval)
+    },
+    methods: {
+      nextWord: function () {
+        this.typeIndex = 0
+        this.magicWord = null
+        clearInterval(this.typeIntervalVar)
+        this.typeIntervalVar = setInterval(this.nextLetter, this.typeInterval)
+        if (this.magicIndex === this.magicWords.length - 1) {
+          this.magicIndex = 0
+        } else {
+          this.magicIndex++
+        }
+      },
+      nextLetter: function () {
+        if (this.typeIndex < this.magicWords[this.magicIndex].length) {
+          this.typeIndex++
+          this.magicWord = this.magicWords[this.magicIndex].substring(0, this.typeIndex)
+        } else {
+          clearInterval(this.typeIntervalVar)
+          this.typeIntervalVar = null
+
+          setTimeout(() => {
+            this.typeIntervalVar = setInterval(this.removeLetter, this.typeInterval)
+          }, 1000)
+          // pause
+          // start removing letters
+        }
+      },
+      removeLetter: function () {
+        console.log('clear')
+        if (this.typeIndex > 0) {
+          this.typeIndex--
+          this.magicWord = this.magicWords[this.magicIndex].substring(0, this.typeIndex)
+        } else {
+          clearInterval(this.typeIntervalVar)
+          this.typeIntervalVar = null
+        }
+      }
     }
   }
 </script>

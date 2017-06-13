@@ -31,31 +31,29 @@
 
         </div>
       </div>
-      <div class="col-md-8">
-    <div v-if="events" >
-      <h1>Upcoming Events</h1>
-      <h3><img src="http://placehold.it/30x20" /> Interested in having Big Duck speak at your organization? <a href="#">Learn more about our talks...</a></h3>
-      <Pager :totalPages="totalPages" path="/events" ></Pager>
-      <div v-if="events">
-        <div v-for="(event, index) in events">
-            <Event :entry="event" :categories="categories" :index="index"></Event>
+      <div class="col-lg-8">
+        <div class="container">
+          <div v-if="events" >
+            <h1>Upcoming Events</h1>
+            <h3><img src="http://placehold.it/30x20" /> Interested in having Big Duck speak at your organization? <a href="#">Learn more about our talks...</a></h3>
+            <Pager :totalPages="totalPages" path="/events" ></Pager>
+            <div v-if="events">
+              <div v-for="(event, index) in events">
+                  <Event :entry="event" :categories="categories" :index="index"></Event>
 
-            <Subscribe v-if="callouts[0] && index % 5 == 1 && index < events.length - 1" :entry="callouts[0]"></Subscribe>
-        </div>
-      </div>
-      <div v-else>
-        No events found.
-      </div>
-    </div>
-    <div v-else>
-      Loading events...
+                  <Subscribe v-if="callouts[0] && index % 5 == 1 && index < events.length - 1" :entry="callouts[0]"></Subscribe>
+              </div>
+            </div>
+            <div v-else>
+              No events found.
+            </div>
+          </div>
+          <div v-else>
+            Loading events...
+          </div>
     </div>
   </div>
-<div class="col-md-3">
-  <div class="text-center">
-    CTAs go here!
-  </div>
-</div>
+ 
 </div>
 </div>
 </template>
