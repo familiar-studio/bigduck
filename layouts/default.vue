@@ -13,7 +13,7 @@
             <div class="label tagline hidden-xs-down">Smart communications for nonprofits</div>
           </router-link>
 
-          <div class="collapse navbar-collapse" id="main-menu">
+          <div class="navbar-collapse" id="main-menu">
             <div class="label tagline hidden-sm-up">Smart communications for nonprofits</div>
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
@@ -52,11 +52,11 @@
         </nav>
       </div>
     </header>
-  
+
     <main id="main">
       <nuxt/>
     </main>
-        
+
     <footer id="footer">
         <div class="container-fluid">
           <router-link to="/" class="navbar-brand">
@@ -93,7 +93,7 @@
         </div>
       </footer>
 
-      
+
     </div>
     <section id="footer-callout" class="text-white my-0 py-5 fixed-bottom">
       <div>

@@ -1,0 +1,40 @@
+.block-work-featured{
+  min-height: 485px;
+  padding: 1rem 0;
+  position: relative;
+  color: $white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-font-smoothing: antialiased;
+  a{
+    display: block;
+  }
+
+  .bg-img{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    filter: grayscale(100%);
+  }
+
+  .overlay{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: .85;
+  }
+  .badge-group{
+    margin-bottom: 1.5rem;
+  }
+  h1, p, .badge{
+    color: $white;
+  }
+}

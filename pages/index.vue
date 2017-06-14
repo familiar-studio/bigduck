@@ -2,9 +2,9 @@
   <div>
     <div class="jumbotron">
       <div class="container">
-
-        <h1 class="display-3">Developing the <span class="color">{{magicWord}}</span><br/>
-        of <span class="bg-white">determined</span> nonprofits.</h1>
+        <h1 class="display-2">Developing the <span class="color">{{magicWord}}</span><span class="cursor"></span><br/>
+        of determined nonprofits.</h1>
+        <router-link class="btn btn-primary" to="/services">See how we do it &rarr;</router-link>
       </div>
     </div>
     <!-- <Featured v-for="(caseStudy, index) in relatedCaseStudies"  :work="caseStudy" :index="index" :key="index"></Featured> -->
@@ -72,7 +72,7 @@
         typeIndex: 0,
         typeInterval: 100,
         typeIntervalVar: {},
-        wordInterval: 3000,
+        wordInterval: 4000,
         magicWords: [
           'voices',
           'brands',
@@ -114,7 +114,7 @@
 
           setTimeout(() => {
             this.typeIntervalVar = setInterval(this.removeLetter, this.typeInterval)
-          }, 1000)
+          }, 2000)
           // pause
           // start removing letters
         }

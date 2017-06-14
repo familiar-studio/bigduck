@@ -283,14 +283,14 @@ $headings-line-height:   1.03 !default;
 $headings-color:         inherit !default;
 
 $display1-size: 6rem !default;
-$display2-size: 5.5rem !default;
+$display2-size: 4.9rem !default;
 $display3-size: 4.5rem !default;
 $display4-size: 3.5rem !default;
 
-$display1-weight:     300 !default;
-$display2-weight:     300 !default;
-$display3-weight:     300 !default;
-$display4-weight:     300 !default;
+$display1-weight:     700 !default;
+$display2-weight:     700 !default;
+$display3-weight:     700 !default;
+$display4-weight:     700 !default;
 $display-line-height: $headings-line-height !default;
 
 $lead-font-size:   1.25rem !default;
@@ -689,7 +689,7 @@ $pagination-disabled-border:           #ddd !default;
 // Jumbotron
 
 $jumbotron-padding:              2rem !default;
-$jumbotron-bg:                   $gray-lighter !default;
+$jumbotron-bg:                   transparent !default;
 
 
 // Form states and alerts

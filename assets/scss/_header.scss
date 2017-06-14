@@ -1,10 +1,11 @@
 #header {
   background-color: $white;
   padding: .5rem 0;
-  transition: padding .5s ease;
+  transition: all .5s ease;
   position: fixed;
   z-index: 30;
   width: 100%;
+  min-height: 0;
 
   .navbar-brand .tagline{
     @include media-breakpoint-only(lg){
@@ -26,6 +27,7 @@
   }
 
 }
+
 
 .navbar-brand{
   white-space: normal;
@@ -64,7 +66,7 @@
     position: relative;
     margin-top: 12px;
     height: 4px;
-    background-color: transparent;
+    background-color: $gray-darker;
     width: 32px;
     transition: all .2s ease;
     &::before, &::after{
@@ -80,32 +82,23 @@
     }
     &::before{
       top: -8px;
-      transform: rotate(-45deg);
     }
     &::after{
-      top: -8px;
-      transform: rotate(45deg);
-    }
-  }
-  &.collapsed{
-    .navbar-toggler-icon{
-      background-color: $gray-darker;
-      &::before, &::after{
-        top: -8px;
-        transform: rotate(0deg);
-      }
-      &::after{
-        top: -16px;
-      }
+      top: -16px;
     }
   }
 }
 
 
 #main-menu{
+  max-height: 0;
+  overflow: hidden;
+  transition: all .3s ease;
   @include media-breakpoint-up(lg){
     padding-top: 0;
     align-self: flex-start;
+    max-height: none;
+    overflow: visible;
   }
   ul{
     margin-top: 1rem;
@@ -134,16 +127,16 @@
     span{
       @extend .color-underline;
       display: inline-block;
-      background-size: 0% 1px !important;
+      background-size: 0% 1px;
     }
-    &.router-link-active, &:hover{
+    &.nuxt-link-active, &:hover{
       opacity: 1;
        + .nav-text {
         opacity: 1;
       }
     }
-    &.router-link-active span{
-      background-size: 100% 1px !important;
+    &.nuxt-link-active span{
+      background-size: 100% 1px;
     }
   }
   .nav-text{
@@ -161,12 +154,48 @@
 
     }
   }
-  &.show{
-    min-height: calc(100vh - 100px);
-  }
 
 }
-#header.small-nav{
+
+#header.nav-open{
+  @include color-animation(bgChange);
+  background-color: nth($duck-colors, 1);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  .navbar-toggler-icon{
+    background-color: transparent;
+    &::before{
+      background-color: $white;
+      transform: rotate(-45deg);
+    }
+    &::after{
+      background-color: $white;
+      top: -8px;
+      transform: rotate(45deg);
+    }
+  }
+  #main-menu{
+    max-height: 1000px;
+    .nav-link{
+      color: $white;
+      opacity: 1;
+      span{
+        background-image: linear-gradient($white, $white);
+        animation: none;
+      }
+    }
+  }
+  svg path{
+    fill: $white !important;
+  }
+  .tagline{
+    color: $white;
+    animation: none;
+  }
+}
+
+#header.small-nav:not(.nav-open){
+  background-color: $white;
   padding: 0;
   box-shadow: 0px 0px 10px 0px rgba($black,0.1);
   .navbar-brand{
