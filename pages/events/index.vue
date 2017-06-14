@@ -84,9 +84,6 @@
       },
       previousPage () {
         return this.page - 1
-      },
-      totalPages () {
-        return this.$store.getters['totalPages']
       }
     },
     watch: {

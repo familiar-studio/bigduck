@@ -27,36 +27,21 @@
             <div class="container bg-white overlap-300">
               <article class="main row mb-5">
                 <div class="col-md-10">
-                <div class="badge-group" v-if="topics && types">
-                  <!-- <router-link class="badge badge-default underlineChange" :to="{name: 'Insights'}">Insights</router-link> -->
+                <div class="badge-group">
                   <div class="badge badge-default" v-for="topic in event.topic">
-                    <img :src="topicsIndexedById[topic].acf.icon">
-                    <div v-html="topicsIndexedById[topic].name"></div>
+                    <img :src="getTopicsIndexedById[topic].acf.icon">
+                    <div v-html="getTopicsIndexedById[topic].name"></div>
                   </div>
-                  <div class="badge badge-default" v-for="type in event.type">
-                    <img :src="typesIndexedById[type].acf.icon">
-                    <div v-html="typesIndexedById[type].name"></div>
+                  <div class="badge badge-default" v-for="eventCategory in event['event-category']">
+                    <img :src="getEventCategoriesIndexedById[eventCategory].acf.icon">
+                    <div v-html="getEventCategoriesIndexedById[eventCategory].name"></div>
                   </div>
-                  <div class="badge badge-default" v-for="type in event.type">
-                    <!-- <img :src="typesIndexedById[type].acf.icon">
-                    <div v-html="typesIndexedById[type].name"></div> -->
-                  </div>
-                  <!-- <div class="badge badge-default" v-if="insight.date">
-                    {{ month }} {{ day }}, {{ year }}
-                  </div> -->
+
                 </div>
 
                 <h1 v-html="event.title.rendered"></h1>
                 <h2 v-html="event.acf.subtitle"></h2>
-                <p v-html="event.content.rendered"></p>
-                <div v-for="block in event.acf.body" :class="['block-' + block.acf_fc_layout]">
-                  <div v-if="block.acf_fc_layout == 'text'" v-html="block.text"></div>
-                  <template v-if="block.acf_fc_layout == 'callout'">
-                    <div v-html="block.text">
-                    </div>
-                    <img :src="block.image" alt="callout image" v-if="block.image" />
-                  </template>
-              </div>
+                <p v-html="event.acf.text"></p>
               <div v-if="event.related_team_members.data">
                 <div class="media" v-for="team_member in event.related_team_members.data">
                   <img v-if="team_member.headshot" :src="team_member.headshot.sizes.thumbnail" class="round author-img mr-2">
@@ -85,19 +70,20 @@
             </div>
 
               </article>
-              <div class="" v-if="types && topics && categories">
+              <div class="" >
 
 
               <div v-if="relatedEvents">
                 <h2>Related Events</h2>
                 <div class="" v-for="(event, index) in relatedEvents">
-                  <Event :entry="event" :categories="categories" :index="index"></Event>
+                  {{ event }}
+                  <!-- <Event :entry="event" :index="index"></Event> -->
                 </div>
               </div>
               <div v-if="relatedInsights">
                 <h2>Related Insights</h2>
                 <div class="" v-for="(insight, index) in relatedInsights">
-                  <Post :entry="insight" :categories="categories" :index="index + relatedEvents.length"></Post>
+                  <Post :entry="insight" :index="relatedEvents ? index + relatedEvents.length : index"></Post>
                 </div>
               </div>
               </div>
@@ -108,30 +94,6 @@
         <div class="col-md-2">
         </div>
 
-      </div>
-
-      <div class="container overlap-300 mt-5" >
-        <!-- <h2>Related Case Studies</h2> -->
-        <!-- <div class="row">
-          <div v-for="case_study in insight.acf.related_case_studies" class="col-md-6">
-            <router-link :to="{name: 'CaseStudy', params: {id: case_study.ID}}" :key="case_study.ID">
-              <img :src="caseStudiesById[case_study.ID].acf.hero_image.sizes.large" style="width:100%">
-              <div class="card two-up-card mx-4">
-                <div class="card-header" v-if="categories">
-                  <div class="badge badge-default" v-for="topic in caseStudiesById[case_study.ID].topic">
-                      <div v-html="topicsIndexedById[topic].icon.data"></div>
-                      <div v-html="topicsIndexedById[topic].name"></div>
-                  </div>
-                </div>
-                <div class="card-block py-0">
-                  <h3 class="card-title">{{ caseStudiesById[case_study.ID].title.rendered }}</h3>
-                 <p class="card-text" v-html="caseStudiesById[case_study.ID].acf.short_description"></p>
-                </div>
-              </div>
-            </router-link>
-
-          </div>
-        </div> -->
       </div>
     </div>
   </div>
@@ -154,23 +116,22 @@
       let data = {}
       data.event = await store.dispatch('fetchOne', {path: 'wp/v2/bd_event', id: params.id})
 
-      let relatedEventIds = data.event.acf.related_events
-      let relatedInsightIds = data.event.acf.related_insights
-
-      if (relatedEventIds) {
-        let responseEvents = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_event?' + relatedEventIds.map((obj) => 'include[]=' + obj.ID).join('&'))
-        data.relatedEvents = responseEvents.data
+      const relatedEventsIds = data.event.acf.related_events
+      console.log(relatedEventsIds)
+      const relatedInsightsIds = data.event.acf.related_insights
+      if (typeof relatedEventsIds !== 'undefined' && relatedEventsIds) {
+        response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_event?' + relatedEventsIds.map((obj) => 'include[]=' + obj.ID).join('&'))
+        data['relatedEvents'] = response.data
       }
-
-      if (relatedInsightIds) {
-        let responseInsights = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_insight?' + relatedInsightIds.map((obj) => 'include[]=' + obj.ID).join('&'))
-        data.relatedInsights = responseInsights.data
+      if (typeof relatedInsightsIds !== 'undefined' && relatedInsightsIds) {
+        response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_event?' + relatedInsightsIds.map((obj) => 'include[]=' + obj.ID).join('&'))
+        data['relatedInsights'] = response.data
       }
       return data
     },
     computed: {
-      ...mapState(['categories', 'callouts', 'types', 'topics']),
-      ...mapGetters(['getTopicsIndexedById', 'getTypesIndexedById']),
+      ...mapState(['callouts', 'topics']),
+      ...mapGetters(['getTopicsIndexedById', 'getEventCategoriesIndexedById']),
       month () {
         return moment(this.event.acf.start_time).format('MMM')
       },
