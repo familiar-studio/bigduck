@@ -77,7 +77,7 @@
         }
       },
       displayDate () {
-        return moment(this.entry.acf.start_time).format('MMM Do YYYY')
+        return moment(this.entry.acf.start_time).format('MMM D, YYYY')
       },
       types () {
         return this.$store.state.types

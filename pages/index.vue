@@ -7,7 +7,7 @@
         <router-link class="btn btn-primary" to="/services">See how we do it &rarr;</router-link>
       </div>
     </div>
-    <!-- <Featured v-for="(caseStudy, index) in relatedCaseStudies"  :work="caseStudy" :index="index" :key="index"></Featured> -->
+    <Featured v-for="(caseStudy, index) in relatedCaseStudies"  :work="caseStudy" :index="index" :key="index"></Featured>
     <div class="container">
       <div v-if="upcomingEvents">
         <h2>Upcoming Events</h2>

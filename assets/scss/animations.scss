@@ -1,5 +1,8 @@
 .page-enter-active, .page-leave-active {
-  transition: opacity .5s, transform .5s ease-in-out;
+  transition: opacity .5s;
+  #content {
+    transition: transform .5s ease-in-out;
+  }
 }
 .page-enter, .page-leave-to {
   opacity: 0;
@@ -7,12 +10,19 @@
 
 .page-enter {
   opacity: 0;
-  transform: translateY(100px);
+  #content {
+    transform: translateY(100px);
+  }
+  
 }
 .page-leave-to {
   opacity: 0;
-  transform: translateY(100px);
+  #content {
+    transform: translateY(100px);
+  }
 }
+
+
 
 
 @keyframes fadeInUp{

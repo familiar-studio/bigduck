@@ -1,19 +1,26 @@
 <template>
-  <div :style="{'background': 'url(' + work.acf.hero_image.url + ') ' + work.acf.primary_color }"
-  >
+  <div class="block-work-featured">
   <router-link :to="{ name : 'work-id', params : { id: work.id }}">
+    <div class="bg-img" :style="{'background-image': 'url(' + work.acf.hero_image.url + ') '}"
+    ></div>
+    <div class="overlay" :style="{ backgroundColor: work.acf.primary_color }"></div>
     <div class="container">
-      <div v-if="topicsIndexedById && work.topic[0]">
-        <div class="media">
-          <img class="d-flex mr-3" :src="topicsIndexedById[work.topic[0]].acf.icon">
-          <div class="media-body" v-html="topicsIndexedById[work.topic[0]].name"></div>
+      <div class="badge-group">
+
+        <div class="badge badge-default" v-if="topics" v-for="topic in work.topic">
+            <div v-html="topicsIndexedById[topic].icon"></div>
+            <div v-html="topicsIndexedById[topic].name"></div>
         </div>
+        <div class="badge badge-default">
+          <div>{{ work.acf.client_name }}</div>
+        </div>
+
       </div>
-      {{ work.acf.client_name }}
-      <p v-html="work.acf.short_description"></p>
+
+      <h1 class="display-2" v-html="work.acf.short_description"></h1>
     </div>
   </router-link>
-  </div>
+</div>
 </template>
 
 <script>

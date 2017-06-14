@@ -33,7 +33,7 @@
         </div>
       </div>
       <div class="col-xl-8 col-lg-9">
-        <div class="container">
+        <div class="container" id="content">
           <div v-if="insights">
             <h1>Insights</h1>
             <Pager :totalPages="totalPages" path="/insights" ></Pager>
