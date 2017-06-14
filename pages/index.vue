@@ -1,41 +1,33 @@
 <template>
   <div>
-    <div v-if="page">
+    <div class="jumbotron">
+      <div class="container">
 
-
-  <div class="container  no-hero mb-5">
-
-    <article class="main">
-
-    <h1>Developing the <span class="color">{{magicWord}}</span><br/>
-    of <span class="bg-white">determined</span> nonprofits.</h1>
-
-    </article>
-  </div>
-   <!-- <Featured v-for="(caseStudy, index) in relatedCaseStudies"  :work="caseStudy" :index="index" :key="index"></Featured> -->
-  <div class="container">
-
-
-  <div v-if="upcomingEvents">
-    <h2>Upcoming Events</h2>
-    <div class="" v-for="(event, index) in upcomingEvents">
-      <Event :entry="event" index="index"></Event>
+        <h1 class="display-3">Developing the <span class="color">{{magicWord}}</span><br/>
+        of <span class="bg-white">determined</span> nonprofits.</h1>
+      </div>
     </div>
-    <nuxt-link class="btn btn-primary" to="/events">View All Events</nuxt-link>
-  </div>
-  <blockquote class="mt-5">
-    <p v-html="page.acf.testimonial"></p>
-    <footer><span v-html="page.acf.citation"></span></footer>
-  </blockquote>
-  <div v-if="latestInsights" class="mt-5">
-    <h2>Latest Insights</h2>
-    <div class="" v-for="(insight, index) in latestInsights">
-      <Post :entry="insight" :index="index + latestInsights.length"></Post>
+    <!-- <Featured v-for="(caseStudy, index) in relatedCaseStudies"  :work="caseStudy" :index="index" :key="index"></Featured> -->
+    <div class="container">
+      <div v-if="upcomingEvents">
+        <h2>Upcoming Events</h2>
+        <div class="" v-for="(event, index) in upcomingEvents">
+          <Event :entry="event" index="index"></Event>
+        </div>
+        <nuxt-link class="btn btn-primary" to="/events">View All Events</nuxt-link>
+      </div>
+      <blockquote class="mt-5">
+        <p v-html="page.acf.testimonial"></p>
+        <footer><span v-html="page.acf.citation"></span></footer>
+      </blockquote>
+      <div v-if="latestInsights" class="mt-5">
+        <h2>Latest Insights</h2>
+        <div class="" v-for="(insight, index) in latestInsights">
+          <Post :entry="insight" :index="index + latestInsights.length"></Post>
+        </div>
+      </div>
     </div>
   </div>
-  </div>
-  </div>
-</div>
 </template>
 <script>
   import Axios from 'axios'

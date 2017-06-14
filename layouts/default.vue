@@ -148,7 +148,7 @@
 
     },
     created () {
-      // window.addEventListener('scroll', this.handleScroll)
+      window.addEventListener('scroll', this.handleScroll)
     }
   }
 </script>
