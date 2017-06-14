@@ -70,60 +70,24 @@
   export default {
     name: 'about',
     async asyncData ({store, query}) {
+      let data = {}
+      let page = Axios.get(store.getters['hostname'] + 'wp/v2/pages?slug=about')
+      data[pageObject] = page.data
+      let [team, jobs, clients, openHouse] = Axios.all([
+        Axios.get(store.getters['hostname'], 'familiar/v1/team'),
+        Axios.get(store.getters['hostname'], 'wp/v2/bd_job'),
+        Axios.get(store.getters['hostname'], 'wp/v2/bd_client'),
+        Axios.get(store.getters['hostname'], 'wp/v2/bd_event?event-category=26')
+      ])
+      data['team'] = team.data
+      data['jobs'] = jobs.data
+      data['clients'] = clients.data
+      data['openHouse'] = openHouse.data
+      return data
+    },
       // data.pageObject = await store.dispatch('fetch', 'wp/v2/pages?slug=about')
       // data.team = await store.dispatch('fetch', 'familiar/v1/team')
 
-      // return data
-      // // return {
-      // //   pageObject: {},
-      // //   team: {},
-      // //   jobs: {},
-      // //   clients: {},
-      // //   openHouse: {}
-      // // }
-    },
-    data () {
-      return {
-        pageObject: {},
-        team: {},
-        jobs: {},
-        clients: {},
-        openHouse: {}
-      }
-    },
-    created () {
-      this.fetchPage()
-      this.fetchTeam()
-      this.fetchJobs()
-      this.fetchClients()
-      // this.fetchOpenHouse()
-    },
-    methods: {
-      fetch (path, property) {
-        return Axios.get(this.$store.getters['hostname'] + path)
-        .then((response) => {
-          this[property] = response.data
-        })
-        .catch((error) => {
-          console.warn(error)
-        })
-      },
-      fetchTeam () {
-        this.fetch('familiar/v1/team', 'team')
-      },
-      fetchPage () {
-        this.fetch('wp/v2/pages?slug=about', 'pageObject')
-      },
-      fetchJobs () {
-        this.fetch('wp/v2/bd_job', 'jobs')
-      },
-      fetchClients () {
-        this.fetch('wp/v2/bd_client', 'clients')
-      },
-      fetchOpenHouse () {
-        this.fetch('wp/v2/event?slug=open-house', 'openHouse')
-      }
-    },
     computed: {
       page () {
         return this.pageObject[0]
