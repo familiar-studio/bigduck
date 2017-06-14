@@ -37,7 +37,7 @@
               </div>
             </div>
 
-            <h3 class="card-title"><span class="color-underline" v-html="entry.title.rendered"></span></h3>
+            <h3 class="card-title"><span class="underlineChange" v-html="entry.title.rendered"></span></h3>
             <div class="card-text" v-html="entry.acf.short_description"></div>
             <div class="card-footer">
               <div class="chat-bubble">

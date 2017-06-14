@@ -6,7 +6,7 @@
     <div class="chat-bubble">
       Sign up for our newsletter!
     </div>
-    <div class="chat-bubble chat-response">
+    <div class="chat-bubble chat-response bgChange">
       <span>Sign up</span>
     </div>
   </div>

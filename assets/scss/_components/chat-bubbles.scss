@@ -63,8 +63,6 @@
       display: inline-block;
       padding: .5rem .75rem;
       border-radius: 1rem;
-      @include color-animation(bgChange);
-      background-color: nth($duck-colors, 1);
     }
   }
 }

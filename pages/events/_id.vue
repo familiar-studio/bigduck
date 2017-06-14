@@ -28,7 +28,7 @@
               <article class="main row mb-5">
                 <div class="col-md-10">
                 <div class="badge-group" v-if="topics && types">
-                  <!-- <router-link class="badge badge-default color-underline" :to="{name: 'Insights'}">Insights</router-link> -->
+                  <!-- <router-link class="badge badge-default underlineChange" :to="{name: 'Insights'}">Insights</router-link> -->
                   <div class="badge badge-default" v-for="topic in event.topic">
                     <img :src="topicsIndexedById[topic].acf.icon">
                     <div v-html="topicsIndexedById[topic].name"></div>

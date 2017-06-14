@@ -4,20 +4,19 @@
     line-height: 1.4;
   }
   a{
-    @extend .color-underline;
+    @extend .underlineChange;
     color: $gray-dark;
-    background-position: center 92%;
-    transition: all .3s ease;
+    background-position: center 92% !important;
     &:hover{
-      color: $white;
-      background-size: 100% 100%;
+      transition: color .3s ease !important;
+      @extend .colorChange;
     }
   }
 }
 .block-callout{
   margin: 2rem 0;
   border-left: .5rem solid nth($duck-colors, 1);
-  @include color-animation(borderChange);
+  @extend .borderChange;
   padding: .5rem 1.5rem;
   padding-right: 0;
   p{

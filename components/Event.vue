@@ -23,7 +23,7 @@
           </div>
           <div class="card-block">
 
-            <h3 class="card-title"><span class="color-underline" v-html="entry.title.rendered"></span></h3>
+            <h3 class="card-title"><span class="underlineChange" v-html="entry.title.rendered"></span></h3>
             <div class="card-text" v-html="entry.acf.subtitle"></div>
           </div>
           <div class="card-footer">

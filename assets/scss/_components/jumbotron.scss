@@ -1,11 +1,13 @@
 .jumbotron{
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
   .container{
     @include media-breakpoint-up(xl){
       width: 1180px;
     }
   }
   .cursor{
-    background-color: nth($duck-colors, 1);
     width: 5px;
     height: 5rem;
     display: inline-block;
