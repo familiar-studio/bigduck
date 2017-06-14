@@ -96,32 +96,23 @@
       
     </div>
     <section id="footer-callout" class="text-white my-0 py-5 fixed-bottom">
-      <form>
+      <div>
         <h2>Want to stay in the loop?</h2>
         <p>Subscribe to our newsletter and get the latest nonprofit communications tips and tools delivered monthly to your inbox.</p>
-        <div class="form-group">
-          <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-        </div>
-        <div class="form-group">
-          <label for="first-name-input">First Name</label>
-          <input class="form-control" type="text" value="First Name" id="first-name-input">
-        </div>
-        <div class="form-group">
-          <label for="last-name-input">Last Name</label>
-          <input class="form-control" type="text" value="Last Name" id="last-name-input">
-        </div>
-        <button type="submit" class="btn btn-secondary">Subscribe</button>
-      </form>
+        <GravityForm :formId="5"></GravityForm>
+      </div>
     </section>
   </div>
 </template>
 
 <script>
   import Logo from '~components/Logo.vue'
+  import GravityForm from '~components/GravityForm.vue'
+
   export default {
     components: {
-      Logo
+      Logo,
+      GravityForm
     },
     data () {
       return {

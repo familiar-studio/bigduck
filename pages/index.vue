@@ -46,20 +46,22 @@
       let response = await Axios.get(store.getters['hostname'] + 'wp/v2/pages/37')
       let page = response.data
       data['page'] = page
-      let relatedWorkIds = page.acf.featured_case_studies
-      if (typeof relatedWorkIds !== 'undefined' && relatedWorkIds) {
-        response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_case_study?' + relatedWorkIds.map((obj) => 'include[]=' + obj.ID).join('&'))
-        data['relatedCaseStudies'] = response.data
-      }
-      let upcomingEventIds = page.acf.upcoming_events
-      if (typeof upcomingEventIds !== 'undefined' && upcomingEventIds) {
-        response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_event?' + upcomingEventIds.map((obj) => 'include[]=' + obj.ID).join('&'))
-        data['upcomingEvents'] = response.data
-      }
-      let latestInsightIds = page.acf.latest_insights
-      if (typeof latestInsightIds !== 'undefined' && latestInsightIds) {
-        response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_insight?' + latestInsightIds.map((obj) => 'include[]=' + obj.ID).join('&'))
-        data['latestInsights'] = response.data
+      if (page && page.acf) {
+        let relatedWorkIds = page.acf.featured_case_studies
+        if (typeof relatedWorkIds !== 'undefined' && relatedWorkIds) {
+          response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_case_study?' + relatedWorkIds.map((obj) => 'include[]=' + obj.ID).join('&'))
+          data['relatedCaseStudies'] = response.data
+        }
+        let upcomingEventIds = page.acf.upcoming_events
+        if (typeof upcomingEventIds !== 'undefined' && upcomingEventIds) {
+          response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_event?' + upcomingEventIds.map((obj) => 'include[]=' + obj.ID).join('&'))
+          data['upcomingEvents'] = response.data
+        }
+        let latestInsightIds = page.acf.latest_insights
+        if (typeof latestInsightIds !== 'undefined' && latestInsightIds) {
+          response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_insight?' + latestInsightIds.map((obj) => 'include[]=' + obj.ID).join('&'))
+          data['latestInsights'] = response.data
+        }
       }
       return data
     },
