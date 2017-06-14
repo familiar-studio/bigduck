@@ -1,3 +1,23 @@
+.page-enter-active, .page-leave-active {
+  transition: opacity .5s, transform .5s ease-in-out;
+}
+.page-enter, .page-leave-to {
+  opacity: 0;
+}
+
+.page-enter {
+  opacity: 0;
+  transform: translateX(-100px);
+}
+.page-leave-to {
+  opacity: 0;
+  transform: translateX(100px);
+}
+
+
+
+
+
 @mixin color-animation($animation-name) {
   // animation-name: $animation-name;
   // animation-duration: #{length($duck-colors) * 8}s;
@@ -120,12 +140,7 @@
 //   // opacity: 0;
 // }
 //
-.page-enter-active, .page-leave-active {
-  transition: opacity .5s;
-}
-.page-enter, .page-leave-to {
-  opacity: 0;
-}
+
 //
 // @keyFrames slide-up {
 //   0% {

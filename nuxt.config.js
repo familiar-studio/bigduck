@@ -13,7 +13,13 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
-  transition: 'fade',
+  transition:  {
+    name: 'page',
+    mode: 'out-in',
+    beforeEnter (el) {
+      console.log('Before enter...');
+    }
+  },
   /*
   ** Customize the progress-bar color
   */
@@ -21,7 +27,9 @@ module.exports = {
   router: {
     middleware: 'categories'
   },
-
+  css: [
+     { src: '~assets/scss/styles.scss', lang: 'scss' }
+  ],
   /*
   ** Build configuration
   */

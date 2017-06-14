@@ -126,7 +126,6 @@
         }
       },
       removeLetter: function () {
-        console.log('clear')
         if (this.typeIndex > 0) {
           this.typeIndex--
           this.magicWord = this.magicWords[this.magicIndex].substring(0, this.typeIndex)

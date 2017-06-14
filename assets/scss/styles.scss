@@ -1,8 +1,8 @@
 @import './variables.scss';
-@import '../node_modules/bootstrap/scss/bootstrap.scss';
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
 
 @import './fonts.scss';
-@import './_components/animations.scss';
+@import './animations.scss';
 @import './layout.scss';
 @import './header.scss';
 @import './insights-detail.scss';
@@ -12,12 +12,6 @@
 @import './_components/filters.scss';
 @import './_components/img-hero.scss';
 @import './_components/share.scss';
-
-
-.pace .pace-progress {
-  @include color-animation(bgChange);
-  background-color: nth($duck-colors, 1);
-}
 
 .sidebar {
   a {

@@ -54,9 +54,7 @@
     </header>
   
     <main id="main">
-      <transition name="slideRight" appear>
-        <nuxt/>
-      </transition>
+      <nuxt/>
     </main>
         
     <footer id="footer">
@@ -156,8 +154,5 @@
 </script>
 
 <style lang="scss">
-
- @import '../scss/styles.scss';
-
 
 </style>
