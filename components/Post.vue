@@ -13,7 +13,6 @@
                   <div>Badges TK</div>
               </div>
               <div class="badge badge-default badge-type" v-if="types" v-for="type in entry.type">
-                  <div>Badges TK</div>
                   <div v-html="typesIndexedById[type].icon"></div>
                   <div v-html="typesIndexedById[type].name"></div>
               </div>

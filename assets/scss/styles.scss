@@ -15,6 +15,7 @@
 @import './_components/share.scss';
 @import './_components/jumbotron.scss';
 @import './_components/block-work.scss';
+@import './_components/testimonial.scss';
 
 .sidebar {
   a {
@@ -145,8 +146,9 @@ label, .label{
   background-color: nth($duck-colors, 1);
   -webkit-font-smoothing: antialiased;
   &:hover{
-    transition: background .3s ease !important;
-    background-color: $gray-darker;
+    transition: background-color .3s ease, color 1s ease, border 1s ease !important;
+    background-color: $white;
+    @extend .colorChange;
   }
 }
 

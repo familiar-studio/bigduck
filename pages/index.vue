@@ -2,7 +2,7 @@
   <div>
     <div class="jumbotron">
       <div class="container">
-        <h1 class="display-2">Developing the <span class="color">{{magicWord}}</span><span class="cursor bgChange"></span><br/>
+        <h1 class="display-2">Developing the <span class="color">{{magicWord}}</span><span class="cursor bgChange"></span><br class="hidden-lg-down"/>
         of determined nonprofits.</h1>
         <router-link class="btn btn-primary" to="/services">See how we do it &rarr;</router-link>
       </div>
@@ -16,10 +16,16 @@
         </div>
         <nuxt-link class="btn btn-primary" to="/events">View All Events</nuxt-link>
       </div>
-      <blockquote class="mt-5">
-        <p v-html="page.acf.testimonial"></p>
-        <footer><span v-html="page.acf.citation"></span></footer>
-      </blockquote>
+    </div>
+    <div class="testimonial">
+      <div class="container">
+        <blockquote>
+          <h3 v-html="page.acf.testimonial"></h3>
+          <footer class="label"><span v-html="page.acf.citation"></span></footer>
+        </blockquote>
+      </div>
+    </div>
+    <div class="container">
       <div v-if="latestInsights" class="mt-5">
         <h2>Latest Insights</h2>
         <div class="" v-for="(insight, index) in latestInsights">

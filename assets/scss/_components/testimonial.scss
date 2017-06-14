@@ -1,0 +1,22 @@
+.testimonial{
+  background-color: $white;
+  padding: 3rem 0;
+  margin: 2rem 0;
+  blockquote{
+    position: relative;
+    max-width: 800px;
+    margin: auto;
+    &::before{
+      content:'\201C';
+      font-size: 200px;
+      line-height: .9;
+      display: block;
+      position: absolute;
+      font-weight: 700;
+      font-family: $font-family-sans-serif;
+    }
+    h3{
+      padding-top: 80px;
+    }
+  }
+}
