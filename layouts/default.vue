@@ -148,7 +148,9 @@
 
     },
     created () {
-      window.addEventListener('scroll', this.handleScroll)
+      if (process.BROWSER_BUILD) {
+        window.addEventListener('scroll', this.handleScroll)
+      }
     }
   }
 </script>
