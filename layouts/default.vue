@@ -1,6 +1,6 @@
 <template>
-  <div :class="overflowX">
-   <div class="page-wrapper">
+  <div id="full-wrapper" :class="'color-'+currentColor" >
+   <div class="page-wrapper" :class="overflowX">
     <header id="header" :class="{ 'small-nav': haveScrolled, 'nav-open':showNav }">
       <div class="container-fluid">
         <nav class="navbar navbar-toggleable-md navbar-light">
@@ -117,7 +117,9 @@
     data () {
       return {
         showNav: false,
-        haveScrolled: false
+        haveScrolled: false,
+        totalColors: 7,
+        currentColor: 1
       }
     },
     computed: {
@@ -135,11 +137,20 @@
       },
       handleScroll () {
         this.haveScrolled = window.scrollY > 20
+      },
+      changeColor () {
+        console.log('changed')
+        if (this.currentColor < this.totalColors) {
+          this.currentColor ++
+        } else {
+          this.currentColor = 1
+        }
       }
 
     },
     created () {
       if (process.BROWSER_BUILD) {
+        setInterval(this.changeColor, 1000)
         window.addEventListener('scroll', this.handleScroll)
       }
     }
