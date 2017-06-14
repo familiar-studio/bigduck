@@ -50,3 +50,16 @@
     }
   }
 }
+
+.nav-pills{
+  margin-top: -45px;
+  background-color: rgba($white, .5);
+    .nav-item{
+    font-size: .9rem;
+  }
+  .nuxt-link-exact-active{
+    background-color: $gray-darker;
+    color: $white;
+    -webkit-font-smoothing: antialiased;
+  }
+}

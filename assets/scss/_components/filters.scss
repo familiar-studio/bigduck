@@ -3,19 +3,20 @@
   margin-top: 1.6rem;
   .label-lg{
     color: $gray;
+    margin-bottom: .3rem;
   }
   .media-list{
     margin: .5rem 0 2rem;
   }
   .media{
-    align-items: center;
+    // align-items: center;
     margin-bottom: .5rem;
     h6{
       margin-bottom: 0;
       transition: all .3s ease;
       @extend .underlineChange;
-      background-size: 0% 1px;
-      background-position: center 98%;
+      background-size: 0% 1px !important;
+      background-position: center 98% !important;
       display: inline-block;
     }
   }
@@ -25,17 +26,23 @@
     margin-right: .75rem;
   }
 
-  a:hover, .router-link-exact-active{
+  a:hover, .nuxt-link-exact-active{
+    @extend .fillChange;
     .media h6{
-      background-size: 100% 1px;
+      background-size: 100% 1px !important;
     }
-    img {
+    svg {
       opacity: 1;
     }
   }
-
-  .router-link-exact-active .btn{
-    opacity: 0;
-    transform: translateY(3px);
+  .nuxt-link-exact-active{
+    .media h6{
+      @extend .colorChange;
+    }
+    .btn{
+      opacity: 0;
+      transform: translateY(3px);
+    }
   }
+
 }
