@@ -76,11 +76,11 @@
               <div v-if="relatedEvents">
                 <h2>Related Events</h2>
                 <div class="" v-for="(event, index) in relatedEvents">
-                  {{ event }}
-                  <!-- <Event :entry="event" :index="index"></Event> -->
+                  <Event :entry="event" :index="index"></Event>
                 </div>
               </div>
               <div v-if="relatedInsights">
+                {{ relatedInsights }}
                 <h2>Related Insights</h2>
                 <div class="" v-for="(insight, index) in relatedInsights">
                   <Post :entry="insight" :index="relatedEvents ? index + relatedEvents.length : index"></Post>
@@ -120,13 +120,13 @@
       console.log(relatedEventsIds)
       const relatedInsightsIds = data.event.acf.related_insights
       if (typeof relatedEventsIds !== 'undefined' && relatedEventsIds) {
-        response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_event?' + relatedEventsIds.map((obj) => 'include[]=' + obj.ID).join('&'))
-        data['relatedEvents'] = response.data
-      }
+        let events = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_event?' + relatedEventsIds.map((obj) => 'include[]=' + obj.ID).join('&'))
+        data['relatedEvents'] = events.data
+      } else { data['relatedEvents'] = null }
       if (typeof relatedInsightsIds !== 'undefined' && relatedInsightsIds) {
-        response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_event?' + relatedInsightsIds.map((obj) => 'include[]=' + obj.ID).join('&'))
-        data['relatedInsights'] = response.data
-      }
+        let insights = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_event?' + relatedInsightsIds.map((obj) => 'include[]=' + obj.ID).join('&'))
+        data['relatedInsights'] = insights.data
+      } else { data['relatedInsights'] = null }
       return data
     },
     computed: {
