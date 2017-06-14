@@ -8,10 +8,11 @@
     }
   }
   .cursor{
-    width: 5px;
+    width: 4px;
     height: 5rem;
     display: inline-block;
-    transform:translateY(.75rem);
+    position: absolute;
+    transform:translateY(-.5rem);
     animation-name: fadeIn;
     animation-duration: .4s;
     animation-direction: alternate;
