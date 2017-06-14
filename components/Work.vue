@@ -14,7 +14,7 @@
             </div>
           </div>
           <div class="card-block">
-            <h3 class="card-title">{{ case_study.title.rendered }}</h3>
+            <h3 class="card-title">{{ case_study.acf.client_name }}</h3>
             <p class="card-text" v-html="case_study.acf.short_description"></p>
           </div>
         </div>

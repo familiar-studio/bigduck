@@ -13,11 +13,11 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
-  transition:  {
+  transition: {
     name: 'page',
     mode: 'out-in',
     beforeEnter (el) {
-      console.log('Before enter...');
+      console.log('Before enter...')
     }
   },
   /*

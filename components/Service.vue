@@ -1,10 +1,10 @@
 <template>
 
-  <nuxt-link :to="{ to: 'services', params: { slug: entry.slug }}" :key="entry.id">
-  <div v-if="entry.acf && entry.acf.featured_image">
+  <router-link :to="{ name: 'services-slug', params: { slug: entry.slug }}" :key="entry.id">
+  <div v-if="entry.acf">
   <div class="row">
   <div class="col-image col-md-6 " >
-    <div class="featured-image" :style="{ 'background-image': 'url(' + entry.acf.featured_image.url+ ')' }">
+    <div class="featured-image" v-if="entry.acf.featured_image":style="{ 'background-image': 'url(' + entry.acf.featured_image.url+ ')' }">
 
     </div>
 
@@ -25,7 +25,7 @@
     </div>
   </div>
 </div>
-  </nuxt-link>
+  </router-link>
 </template>
 <script>
   export default {
