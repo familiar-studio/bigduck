@@ -17,10 +17,6 @@
     transition: all .3s ease;
   }
 
-  svg path{
-    @include color-animation(fillChange);
-    fill: nth($duck-colors, 1);
-  }
   a:hover{
     svg{
       transform: translateY(-3px);

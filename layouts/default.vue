@@ -1,6 +1,6 @@
 <template>
   <div id="full-wrapper" :class="'color-'+currentColor" >
-   <div class="page-wrapper" :class="overflowX">
+   <div class="page-wrapper" :class="pageClass">
     <header id="header" :class="{ 'small-nav': haveScrolled, 'nav-open':showNav }">
       <div class="container-fluid">
         <nav class="navbar navbar-toggleable-md navbar-light">
@@ -95,7 +95,7 @@
 
 
     </div>
-    <section id="footer-callout" class="text-white my-0 py-5 fixed-bottom">
+    <section id="footer-callout" class="bgChange text-white my-0 py-5 fixed-bottom">
       <div>
         <h2>Want to stay in the loop?</h2>
         <p>Subscribe to our newsletter and get the latest nonprofit communications tips and tools delivered monthly to your inbox.</p>
@@ -123,9 +123,11 @@
       }
     },
     computed: {
-      overflowX () {
-        if (this.$route.name === 'Insight') {
+      pageClass () {
+        if (this.$route.name === 'insights-id') {
           return 'overflow-x-visible'
+        } else if (this.$route.name === 'index') {
+          return 'homepage'
         } else {
           return ''
         }
@@ -150,7 +152,7 @@
     },
     created () {
       if (process.BROWSER_BUILD) {
-        setInterval(this.changeColor, 1000)
+        setInterval(this.changeColor, 5000)
         window.addEventListener('scroll', this.handleScroll)
       }
     }

@@ -14,7 +14,7 @@
     }
   }
   .tagline{
-    @include color-animation(colorChange);
+    @extend .colorChange;
     color: nth($duck-colors, 1);
     -webkit-font-smoothing: antialiased;
     margin-top: .2rem;
@@ -22,10 +22,12 @@
   }
 
   #logo {
-    @include color-animation(fillChange);
-    fill: nth($duck-colors, 1);
+    @extend .fillChange;
   }
 
+}
+.homepage #header{
+  background-color: $gray-lightest;
 }
 
 
@@ -125,9 +127,9 @@
       font-size: 1rem;
     }
     span{
-      @extend .color-underline;
+      @extend .underlineChange;
       display: inline-block;
-      background-size: 0% 1px;
+      background-size: 0% 1px !important;
     }
     &.nuxt-link-active, &:hover{
       opacity: 1;
@@ -136,7 +138,7 @@
       }
     }
     &.nuxt-link-active span{
-      background-size: 100% 1px;
+      background-size: 100% 1px !important;
     }
   }
   .nav-text{
@@ -158,7 +160,7 @@
 }
 
 #header.nav-open{
-  @include color-animation(bgChange);
+  @extend .bgChange;
   background-color: nth($duck-colors, 1);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
@@ -190,7 +192,6 @@
   }
   .tagline{
     color: $white;
-    animation: none;
   }
 }
 

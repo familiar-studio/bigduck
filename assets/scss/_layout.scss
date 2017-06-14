@@ -18,8 +18,6 @@ body{
   display: flex;
   align-items: center;
   justify-content: center;
-  @include color-animation(bgChange);
-  background-color: nth($duck-colors, 1);
   -webkit-font-smoothing: antialiased;
   form{
     max-width: $centered-content-width;
@@ -72,12 +70,17 @@ body{
       height: 20px;
       margin-right: 1.25rem;
     }
+
   }
   h4, a{
     color: $white;
   }
   address, h4{
     margin-bottom: 0;
+  }
+  a:hover{
+    @extend .colorChange;
+    @extend .fillChange;
   }
 }
 

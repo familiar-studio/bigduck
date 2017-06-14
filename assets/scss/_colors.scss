@@ -1,0 +1,28 @@
+@for $i from 1 through length($duck-colors) {
+  .color-#{$i}{
+    .bgChange{
+      transition: background 1s ease;
+      background-color: nth($duck-colors, $i);
+    }
+    .colorChange{
+      transition: color 1s ease;
+      color: nth($duck-colors, $i);
+    }
+    .underlineChange{
+      transition: background-image 1s ease, background-size .3s ease;
+      background-image: linear-gradient(nth($duck-colors, $i), nth($duck-colors, $i));
+      background-position: center 75%;
+      background-repeat: no-repeat;
+      background-size: 100% 1px;
+    }
+    .borderChange{
+      transition: border 1s ease;
+      border-color: nth($duck-colors, $i);
+    }
+
+    .fillChange path{
+      transition: fill 1s ease;
+      fill: nth($duck-colors, $i);
+    }
+  }
+}

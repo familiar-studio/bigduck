@@ -2,7 +2,7 @@
   <div>
     <div class="jumbotron">
       <div class="container">
-        <h1 class="display-2">Developing the <span class="color">{{magicWord}}</span><span class="cursor"></span><br/>
+        <h1 class="display-2">Developing the <span class="color">{{magicWord}}</span><span class="cursor bgChange"></span><br/>
         of determined nonprofits.</h1>
         <router-link class="btn btn-primary" to="/services">See how we do it &rarr;</router-link>
       </div>
@@ -72,7 +72,7 @@
         typeIndex: 0,
         typeInterval: 100,
         typeIntervalVar: {},
-        wordInterval: 4000,
+        wordInterval: 5000,
         magicWords: [
           'voices',
           'brands',
@@ -113,7 +113,7 @@
 
           setTimeout(() => {
             this.typeIntervalVar = setInterval(this.removeLetter, this.typeInterval)
-          }, 2000)
+          }, 3000)
           // pause
           // start removing letters
         }

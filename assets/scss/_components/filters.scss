@@ -13,7 +13,7 @@
     h6{
       margin-bottom: 0;
       transition: all .3s ease;
-      @extend .color-underline;
+      @extend .underlineChange;
       background-size: 0% 1px;
       background-position: center 98%;
       display: inline-block;

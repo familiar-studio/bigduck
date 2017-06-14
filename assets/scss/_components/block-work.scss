@@ -1,14 +1,14 @@
 .block-work-featured{
-  min-height: 485px;
-  padding: 1rem 0;
-  position: relative;
-  color: $white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  -webkit-font-smoothing: antialiased;
   a{
-    display: block;
+    display: flex;
+    padding: 1rem 0;
+    min-height: 450px;
+    position: relative;
+    color: $white;
+    align-items: center;
+    justify-content: center;
+    -webkit-font-smoothing: antialiased;
+    transition: all .4s ease;
   }
 
   .bg-img{
@@ -21,6 +21,7 @@
     background-position: 50% 50%;
     background-repeat: no-repeat;
     filter: grayscale(100%);
+    transition: all .4s ease;
   }
 
   .overlay{
@@ -30,11 +31,22 @@
     top: 0;
     left: 0;
     opacity: .85;
+    transition: all .4s ease;
   }
   .badge-group{
     margin-bottom: 1.5rem;
   }
   h1, p, .badge{
     color: $white;
+  }
+
+  a:hover{
+    min-height: 520px;
+    .bg-img{
+      filter: grayscale(0);
+    }
+    .overlay{
+      background-color: rgba($black, .4) !important;
+    }
   }
 }

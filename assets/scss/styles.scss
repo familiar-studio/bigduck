@@ -3,6 +3,7 @@
 
 @import './fonts.scss';
 @import './animations.scss';
+@import './_colors.scss';
 @import './layout.scss';
 @import './header.scss';
 @import './insights-detail.scss';
@@ -39,6 +40,11 @@
   .featured-image {
 
   }
+}
+
+::selection{
+  @extend .bgChange;
+  color: white;
 }
 
 //TYPOGRAPHY
@@ -97,7 +103,7 @@ p{
     width: 40px;
   }
 
-  &.color-underline{
+  &.underlineChange{
     background-position: center 92%;
     transition: all .3s ease;
     &:hover{
@@ -135,14 +141,17 @@ label, .label{
 }
 
 .btn-primary{
-  @include color-animation(bgChange);
+  @extend .bgChange;
   background-color: nth($duck-colors, 1);
   -webkit-font-smoothing: antialiased;
+  &:hover{
+    transition: background .3s ease !important;
+    background-color: $gray-darker;
+  }
 }
 
 .btn-secondary{
-  @include color-animation(colorChange);
-  color: nth($duck-colors, 1);
+  @extend .colorChange;
   &:hover{
     background-color: $gray-darker;
   }

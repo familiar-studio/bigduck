@@ -17,7 +17,7 @@
               <div class="container bg-white overlap-300">
                 <article class="main">
                   <div class="badge-group">
-                    <router-link class="badge badge-default color-underline" :to="{name: 'insights'}">Insights</router-link>
+                    <router-link class="badge badge-default underlineChange" :to="{name: 'insights'}">Insights</router-link>
                     <div class="badge badge-default" v-for="topic in insight.topic" v-if="topics">
                       <img :src="topicsIndexedById[topic].acf.icon">
                       <div v-html="topicsIndexedById[topic].name"></div>
