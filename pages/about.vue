@@ -14,7 +14,7 @@
         <ul v-for="value in page.acf.values_" class="list-unstyled">
           <li>
             <div class="media">
-              <img :src="value.value_icon.icon" class="d-flex mr-3">
+              <img :src="value.value_icon.url" class="d-flex mr-3">
               <div class="media-body">
                 <h2>{{ value.value_name }}</h2>
                 <div v-html="value.value_description"></div>
@@ -24,20 +24,35 @@
         </ul>
       </article>
 
-      <article>
+      <article v-if="openHouse">
          <h1>Open House</h1>
-         <!-- <Event></Event> -->
+         <div class="" v-for="event in openHouse">
+           <Event :entry="event"></Event>
+         </div>
       </article>
 
-      <article>
-        Clients
+      <article v-if="clientsBySector">
+        <h1 v-html="page.acf.our_clients_headline"></h1>
+        <p v-html="page.acf.clients_body"></p>
+        <div class="" v-for="(sector, key) in clientsBySector">
+          <div class="" v-if="clientsBySector[key].length > 0">
+
+          <img v-if="sectorsByIndex[key].acf.icon" :src="sectorsByIndex[key].acf.icon.url" />
+          <h2 v-html="sectorsByIndex[key].name"></h2>
+          <ul>
+            <li class="" v-for="client in clientsBySector[key]">
+              {{client.title.rendered}}
+            </li>
+          </ul>
+          </div>
+        </div>
       </article>
 
       <article>
         <h1>{{page.acf.team_headline}}</h1>
         <div v-html="page.acf.team_body"></div>
         <div class="row">
-        <router-link :key="member.id" :to=" {name: 'team-member', params: {slug: member.headshot.name}}" v-for="member in team" class="col-md-4 card">
+        <router-link :key="member.id" :to=" {name: 'team-slug', params: {slug: member.headshot.name}}" v-for="member in team" class="col-md-4 card">
             <img class="card-img-top" :src="member.headshot.url" :alt="member.headshot.name" />
             <div class="card-block">
               <h4 class="card-title">{{member.headshot.title}}</h4>
@@ -69,28 +84,47 @@
 
   export default {
     name: 'about',
-    async asyncData ({store, query}) {
+    components: {
+      Event
+    },
+    async asyncData ({store, query, dispatch}) {
       let data = {}
-      let page = Axios.get(store.getters['hostname'] + 'wp/v2/pages?slug=about')
-      data[pageObject] = page.data
-      let [team, jobs, clients, openHouse] = Axios.all([
-        Axios.get(store.getters['hostname'], 'familiar/v1/team'),
-        Axios.get(store.getters['hostname'], 'wp/v2/bd_job'),
-        Axios.get(store.getters['hostname'], 'wp/v2/bd_client'),
-        Axios.get(store.getters['hostname'], 'wp/v2/bd_event?event-category=26')
+      let page = await Axios.get(store.getters['hostname'] + 'wp/v2/pages?slug=about')
+      data['pageObject'] = page.data
+      let [team, jobs, clients, openHouse] = await Promise.all([
+        store.dispatch('fetch', 'familiar/v1/team'),
+        store.dispatch('fetch', 'wp/v2/bd_job'),
+        store.dispatch('fetch', 'wp/v2/bd_client'),
+        store.dispatch('fetch', 'wp/v2/bd_event?event-category=26')
       ])
       data['team'] = team.data
       data['jobs'] = jobs.data
-      data['clients'] = clients.data
+
+      // arrange clients into sectors:
+      const sectors = store.state.sectors.sort()
+      let clientsBySector = {}
+      sectors.forEach((sector) => {
+        clientsBySector[sector.id] = []
+      })
+      clients.data.forEach((client) => {
+        if (client.sector.length > 0) {
+          let clientSector = clientsBySector[client.sector[0]]
+          clientSector = clientSector.push(client)
+        }
+      })
+      // sectors.forEach((sector) => {
+      //   clientsBySector[sector] = clientsBySector[sector].sort((a, b) => {})
+      // })
+      data['clientsBySector'] = clientsBySector
       data['openHouse'] = openHouse.data
       return data
     },
-      // data.pageObject = await store.dispatch('fetch', 'wp/v2/pages?slug=about')
-      // data.team = await store.dispatch('fetch', 'familiar/v1/team')
-
     computed: {
       page () {
         return this.pageObject[0]
+      },
+      sectorsByIndex () {
+        return this.$store.getters['getSectorsIndexedById']
       }
     }
   }

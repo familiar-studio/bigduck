@@ -74,9 +74,8 @@ export const actions = {
   error (context, error) {
     console.warn(error)
   },
-  async fetch (context, path) {
-    let response = axios.get(this.$store.getters['hostname'] + path)
-    return response.data
+  fetch (context, path) {
+    return axios.get(context.getters['hostname'] + path)
   },
   fetchCallouts (context) {
     return axios.get(context.getters.hostname + 'wp/v2/bd_callout')
