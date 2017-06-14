@@ -25,7 +25,7 @@
       </article>
 
       <article>
-         Open House
+         <h1>Open House</h1>
          <!-- <Event></Event> -->
       </article>
 
