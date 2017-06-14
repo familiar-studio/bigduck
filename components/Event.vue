@@ -1,9 +1,7 @@
 <template>
   <div>
-    <!-- <div v-if="types && topics"> -->
-
-
-  <div class="block-insights" :class="blockClass" :type="types ? typesIndexedById[entry.type[0]].slug : ''">
+    <!-- <div> -->
+  <div class="block-insights" :class="blockClass" :type="eventCategories && entry['event-category'].length > 0 ? eventCategoriesByIndex[entry['event-category'][0]].slug : ''">
     <nuxt-link :to="{ name: 'events-id', params: { id: entry.id }}" :key="entry.id">
     <div class="col-image" v-if="entry.acf.featured_image">
       <div :style="{ 'background-image': 'url(' + entry.acf.featured_image.url + ')' }" class="featured-image"></div>
@@ -14,9 +12,9 @@
             <div class="badge badge-secondary badge-type">
               {{displayDate}}
             </div>
-            <div class="badge badge-default badge-type" v-if="types" v-for="type in entry.type" >
-                <div v-html="typesIndexedById[type].icon"></div>
-                <div v-html="typesIndexedById[type].name"></div>
+            <div class="badge badge-default badge-type" v-if="eventCategories && entry['event-category'].length > 0">
+                <div v-html="eventCategoriesByIndex[entry['event-category'][0]].icon"></div>
+                <div v-html="eventCategoriesByIndex[entry['event-category'][0]].name"></div>
             </div>
             <div class="badge badge-default"  v-if="topics" v-for="topic in entry.topic">
                 <div v-html="topicsIndexedById[topic].icon"></div>
@@ -30,11 +28,8 @@
           </div>
           <div class="card-footer">
             <div class="chat-bubble">
-              <span v-if="entry.type[0] && types">
-                {{ typesIndexedById[entry.type[0]].verb }} Now
-              </span>
-              <span v-else>
-                Read More
+              <span>
+                Learn More
               </span>
             </div>
             <div class="media" v-for="team_member in entry.related_team_members.data">
@@ -60,8 +55,8 @@
       topicsIndexedById () {
         return this.$store.getters['getTopicsIndexedById']
       },
-      typesIndexedById () {
-        return this.$store.getters['getTypesIndexedById']
+      eventCategoriesByIndex () {
+        return this.$store.getters['getEventCategoriesIndexedById']
       },
       months () {
         return this.$store.state.events.months
@@ -89,6 +84,9 @@
       },
       topics () {
         return this.$store.state.topics
+      },
+      eventCategories () {
+        return this.$store.state.eventCategories
       }
     }
   }

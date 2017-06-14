@@ -6,7 +6,7 @@
 
           <div class="label label-lg">Topics</div>
           <div class ="media-list">
-            <router-link v-for="topic in topics" key="topic.id" :to="{name: 'Events', query: {topic: topic.id}}">
+            <router-link v-for="topic in topics" key="topic.id" :to="{name: 'events', query: {topic: topic.id}}">
               <div class="media">
                 <div v-if="topic.icon" v-html="topic.icon.data"></div>
                 <div class="media-body">
@@ -19,7 +19,7 @@
 
           <div class="label label-lg">Event Type</div>
           <div class ="media-list">
-            <router-link v-for="type in types" key="type.id" :to="{name: 'Events', query: {type: type.id}}">
+            <router-link v-for="type in types" key="type.id" :to="{name: 'events', query: {type: type.id}}">
               <div class="media">
                 <div class="d-flex mr-3" v-if="type.icon" v-html="type.icon.data"></div>
                 <div class="media-body">
@@ -53,7 +53,7 @@
           </div>
     </div>
   </div>
- 
+
 </div>
 </div>
 </template>

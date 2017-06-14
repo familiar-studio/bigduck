@@ -17,7 +17,6 @@ export default {
     },
     nextPage () {
       let page = this.page + 1
-      console.log(page)
       return page
     },
     previousPage () {

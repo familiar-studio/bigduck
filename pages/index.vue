@@ -88,7 +88,6 @@
       typesIndexedById () { return this.$store.getters['getTypesIndexedById'] }
     },
     created () {
-      console.log('loaded')
       setInterval(this.nextWord, this.wordInterval)
       this.typeIntervalVar = setInterval(this.nextLetter, this.typeInterval)
     },

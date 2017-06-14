@@ -9,10 +9,12 @@ export const state = () => ({
   categories: null,
   previousQuery: '',
   categoriesPath: 'wp/v2/categories/',
+  eventCategories: null,
   sectors: null,
   topics: null,
   types: null,
   postsPerPage: 10,
+  eventCategoriesPath: 'wp/v2/event-category',
   sectorsPath: 'wp/v2/sector',
   topicsPath: 'wp/v2/topic',
   typesPath: 'wp/v2/type',
@@ -26,6 +28,9 @@ export const mutations = {
   },
   setFooter (state, data) {
     state.footer = data
+  },
+  setEventCategories (state, data) {
+    state.eventCategories = data
   },
   setSectors (state, data) {
     state.sectors = data
@@ -48,6 +53,21 @@ export const mutations = {
 }
 
 export const actions = {
+  async nuxtServerInit (context) {
+    console.log('nuxtServerInit dispatch')
+    const loaded = await context.dispatch('loadAppInitNeed')
+    // console.log('nuxtServerInit loaded', loaded)
+  },
+  loadAppInitNeed ({ dispatch }) {
+    return Promise.all([
+      dispatch('fetchCallouts'),
+      dispatch('fetchFooter'),
+      dispatch('fetchTopics'),
+      dispatch('fetchTypes'),
+      dispatch('fetchSectors'),
+      dispatch('fetchEventCategories')
+    ])
+  },
   formInjection (context, body) {
     return false
   },
@@ -58,36 +78,41 @@ export const actions = {
     let response = axios.get(this.$store.getters['hostname'] + path)
     return response.data
   },
-  async fetchCallouts (context) {
-    let response = await axios.get(context.getters.hostname + 'wp/v2/bd_callout')
-    context.commit('setCallouts', response.data)
-  },
-  async fetchFooter (context) {
-    let response = await axios.get(context.getters.bareHostname + '/wp-json/familiar/v1/sidebars/footer')
-    console.log(context.getters.bareHostname + '/wp-json/familiar/v1/sidebars/footer')
-    context.commit('setFooter', response.data)
-  },
-  async fetchTopics (context) {
-    let response = await axios.get(context.getters.hostname + context.state.topicsPath)
-    context.commit('setTopics', response.data)
-  },
-  async fetchSectors (context) {
-    let response = await axios.get(context.getters.hostname + context.state.sectorsPath)
-    context.commit('setSectors', reponse.data)
-  },
-  async fetchTypes (context) {
-    let response = await axios.get(context.getters.hostname + context.state.typesPath)
-    let types = response.data
-    types.forEach((type) => {
-      if (type.name === 'Podcasts') {
-        type.verb = 'Listen'
-      } else if (type.name === 'Webinars') {
-        type.verb = 'Watch'
-      } else {
-        type.verb = 'Read'
-      }
+  fetchCallouts (context) {
+    return axios.get(context.getters.hostname + 'wp/v2/bd_callout')
+    .then((response) => {
+      context.commit('setCallouts', response.data)
     })
-    context.commit('setTypes', types)
+  },
+  fetchFooter (context) {
+    return axios.get(context.getters.bareHostname + '/wp-json/familiar/v1/sidebars/footer')
+    .then((response) => {
+      context.commit('setFooter', response.data)
+    })
+  },
+  fetchTopics (context) {
+    return axios.get(context.getters.hostname + context.state.topicsPath)
+    .then((response) => {
+      context.commit('setTopics', response.data)
+    })
+  },
+  fetchSectors (context) {
+    return axios.get(context.getters.hostname + context.state.sectorsPath)
+    .then((response) => {
+      context.commit('setSectors', response.data)
+    })
+  },
+  fetchTypes (context) {
+    return axios.get(context.getters.hostname + context.state.typesPath)
+    .then((response) => {
+      context.commit('setTypes', response.data)
+    })
+  },
+  fetchEventCategories (context) {
+    return axios.get(context.getters.hostname + context.state.eventCategoriesPath)
+    .then((response) => {
+      context.commit('setEventCategories', response.data)
+    })
   },
   async fetchByQuery (context, args) {
     // if page has changed, make the query again as it was, only with page updated
@@ -168,6 +193,31 @@ export const getters = {
       })
       return sectorsByIndex
     }
+  },
+  getEventCategoriesIndexedById: (state) => {
+    if (state.eventCategories) {
+      let eventCategoriesByIndex = {}
+
+      state.eventCategories.forEach((eventCategory) => {
+        eventCategoriesByIndex[eventCategory.id] = eventCategory
+      })
+      return eventCategoriesByIndex
+    }
   }
 
+}
+
+export const methods = {
+  processTypeVerbs (types) {
+    types.forEach((type) => {
+      if (type.name === 'Podcasts') {
+        type.verb = 'Listen'
+      } else if (type.name === 'Webinars') {
+        type.verb = 'Watch'
+      } else {
+        type.verb = 'Read'
+      }
+    })
+    return types
+  }
 }

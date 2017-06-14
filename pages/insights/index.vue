@@ -121,7 +121,6 @@
         let categories = ['Type', 'Topic', 'Sector']
         categories.forEach((category) => {
           activeCategories[category] = this.$store.getters['get' + category + 'sIndexedById']
-          console.log('get' + category + 'sIndexedById')
           // debugger
           Object.keys(activeCategories[category]).forEach((term) => {
             term = false
