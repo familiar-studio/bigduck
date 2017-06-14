@@ -1,6 +1,6 @@
 <template>
-  <div :class="overflowX">
-   <div class="page-wrapper">
+  <div id="full-wrapper" :class="'color-'+currentColor" >
+   <div class="page-wrapper" :class="overflowX">
     <header id="header" :class="{ 'small-nav': haveScrolled, 'nav-open':showNav }">
       <div class="container-fluid">
         <nav class="navbar navbar-toggleable-md navbar-light">
@@ -13,7 +13,7 @@
             <div class="label tagline hidden-xs-down">Smart communications for nonprofits</div>
           </router-link>
 
-          <div class="collapse navbar-collapse" id="main-menu">
+          <div class="navbar-collapse" id="main-menu">
             <div class="label tagline hidden-sm-up">Smart communications for nonprofits</div>
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
@@ -52,11 +52,11 @@
         </nav>
       </div>
     </header>
-  
+
     <main id="main">
       <nuxt/>
     </main>
-        
+
     <footer id="footer">
         <div class="container-fluid">
           <router-link to="/" class="navbar-brand">
@@ -93,7 +93,7 @@
         </div>
       </footer>
 
-      
+
     </div>
     <section id="footer-callout" class="text-white my-0 py-5 fixed-bottom">
       <div>
@@ -117,7 +117,9 @@
     data () {
       return {
         showNav: false,
-        haveScrolled: false
+        haveScrolled: false,
+        totalColors: 7,
+        currentColor: 1
       }
     },
     computed: {
@@ -135,11 +137,20 @@
       },
       handleScroll () {
         this.haveScrolled = window.scrollY > 20
+      },
+      changeColor () {
+        console.log('changed')
+        if (this.currentColor < this.totalColors) {
+          this.currentColor ++
+        } else {
+          this.currentColor = 1
+        }
       }
 
     },
     created () {
       if (process.BROWSER_BUILD) {
+        setInterval(this.changeColor, 1000)
         window.addEventListener('scroll', this.handleScroll)
       }
     }

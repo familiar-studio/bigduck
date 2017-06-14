@@ -1,11 +1,12 @@
 body{
-  overflow-x: hidden;
+
 }
 .page-wrapper{
   position:relative;
   z-index:1;
   background-color: $gray-lightest;
   margin-bottom: 100vh;
+  overflow-x: hidden;
 }
 #main{
   padding-top: 175px;

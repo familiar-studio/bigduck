@@ -32,7 +32,7 @@
           </nuxt-link>
         </div>
       </div>
-      <div class="col-lg-8">
+      <div class="col-xl-8 col-lg-9">
         <div class="container">
           <div v-if="insights">
             <h1>Insights</h1>
@@ -58,9 +58,7 @@
 
         </div>
       </div>
-      <div class="col-lg-2">
 
-      </div>
     </div>
   </div>
   </div>

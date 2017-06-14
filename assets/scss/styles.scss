@@ -12,6 +12,8 @@
 @import './_components/filters.scss';
 @import './_components/img-hero.scss';
 @import './_components/share.scss';
+@import './_components/jumbotron.scss';
+@import './_components/block-work.scss';
 
 .sidebar {
   a {
@@ -50,7 +52,7 @@ html {
     font-size: 20px;
   }
   @media (min-width:1900px){
-    font-size: 22px;
+    font-size: 21px;
     .container{
       width: 1100px;
     }
@@ -58,6 +60,9 @@ html {
 }
 h1{
   margin-bottom: 1.5rem;
+  p{
+    font-size: inherit;
+  }
 }
 h5{
   font-family: $font-family-serif;
@@ -162,7 +167,7 @@ label, .label{
   width: 100%;
 }
 
-.overflow-x-visible {
+.overflow-x-visible .page-wrapper{
   overflow-x: visible;
 }
 
