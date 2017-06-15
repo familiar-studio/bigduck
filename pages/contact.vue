@@ -1,8 +1,9 @@
 <template>
-<div class="container  no-hero">
+<div class="container no-hero">
+  <h1>Contact Us</h1>
 
-  <article class="main">
-    <section  class="my-0 py-5 ">
+  <article>
+    <section>
 
       <div class="" v-if="gatedContent" v-html="gatedContent">
 
