@@ -95,7 +95,7 @@
         store.dispatch('fetch', 'familiar/v1/team'),
         store.dispatch('fetch', 'wp/v2/bd_job'),
         store.dispatch('fetch', 'wp/v2/bd_client'),
-        store.dispatch('fetch', 'wp/v2/bd_event?event-category=26')
+        store.dispatch('fetch', 'wp/v2/bd_event?event_category=26')
       ])
       data['team'] = team.data
       data['jobs'] = jobs.data

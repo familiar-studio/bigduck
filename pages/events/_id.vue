@@ -32,7 +32,7 @@
                     <img :src="getTopicsIndexedById[topic].acf.icon">
                     <div v-html="getTopicsIndexedById[topic].name"></div>
                   </div>
-                  <div class="badge badge-default" v-for="eventCategory in event['event-category']">
+                  <div class="badge badge-default" v-for="eventCategory in event['event_category']">
                     <img :src="getEventCategoriesIndexedById[eventCategory].acf.icon">
                     <div v-html="getEventCategoriesIndexedById[eventCategory].name"></div>
                   </div>
