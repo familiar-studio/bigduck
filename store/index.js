@@ -19,10 +19,14 @@ export const state = () => ({
   topicsPath: 'wp/v2/topic',
   typesPath: 'wp/v2/type',
   page: null,
-  footer: null
+  footer: null,
+  query: {}
 })
 
 export const mutations = {
+  setFilterQuery (state, data) {
+    state.query = data
+  },
   setCallouts (state, data) {
     state.callouts = data
   },
