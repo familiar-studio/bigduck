@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ul class="nav nav-pills">
+    <ul class="nav nav-pills" v-if="isListView">
       <li class="nav-item">
         <router-link :to="{ name: 'work'}" class="nav-link">Featured Work</router-link>
       </li>
@@ -11,3 +11,12 @@
     <nuxt-child/>
   </div>
 </template>
+<script>
+export default {
+  computed: {
+    isListView () {
+      return this.$route.name !== 'work-id'
+    }
+  }
+}
+</script>

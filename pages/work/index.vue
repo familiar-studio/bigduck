@@ -1,14 +1,6 @@
 <template>
   <div>
-    <ul class="nav nav-pills">
-      <li class="nav-item">
-        <router-link :to="{ name: 'work'}" class="nav-link">Featured Work</router-link>
-      </li>
-      <li class="nav-item">
-        <router-link :to="{ name: 'work-all'}" class="nav-link">All Projects</router-link>
-      </li>
-    </ul>
-    <div v-if="featured">
+    <div >
       <div v-for="work in featured">
         <div class="block-work-featured">
           <router-link :to="{ name : 'work-id', params : { id: work.id }}">
@@ -19,8 +11,8 @@
               <div class="badge-group">
 
                 <div class="badge badge-default" v-if="topics" v-for="topic in work.topic">
-                    <div v-html="topicsIndexedById[topic].icon"></div>
-                    <div v-html="topicsIndexedById[topic].name"></div>
+                    <div v-html="getTopicsIndexedById[topic].icon"></div>
+                    <div v-html="getTopicsIndexedById[topic].name"></div>
                 </div>
                 <div class="badge badge-default">
                   <div>{{ work.acf.client_name }}</div>
@@ -34,14 +26,12 @@
       </div>
       </div>
     </div>
-    <div v-else>
-      Loading featured work...
-    </div>
   </div>
 </template>
 
 <script>
   import axios from 'axios'
+  import { mapState, mapGetters } from 'vuex'
 
   export default {
     name: 'featured-work',
@@ -52,10 +42,7 @@
       return data
     },
     computed: {
-      topicsIndexedById () {
-        return this.$store.getters['getTopicsIndexedById']
-      }
-
+      ...mapGetters(['getTopicsIndexedById'])
     }
   }
 </script>

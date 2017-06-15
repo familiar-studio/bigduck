@@ -12,13 +12,13 @@
             <div class="badge badge-secondary badge-type">
               {{displayDate}}
             </div>
-            <!-- <div class="badge badge-default badge-type" v-if="eventCategories && entry['event-category'].length > 0">
-                <div v-html="eventCategoriesByIndex[entry['event-category'][0]].icon"></div>
-                <div v-html="eventCategoriesByIndex[entry['event-category'][0]].name"></div>
-            </div> -->
-            <div class="badge badge-default"  v-if="topics && topicsIndexedById" v-for="topic in entry.topic">
-                <div v-html="topicsIndexedById[topic].icon"></div>
-                <div v-html="topicsIndexedById[topic].name"></div>
+            <div class="badge badge-default badge-type" v-if="eventCategories && entry['event-category'].length > 0">
+                <div v-html="getEventCategoriesIndexedById[entry['event-category'][0]].icon"></div>
+                <div v-html="getEventCategoriesIndexedById[entry['event-category'][0]].name"></div>
+            </div>
+            <div class="badge badge-default"  v-if="topics && getTopicsIndexedById" v-for="topic in entry.topic">
+                <div v-html="getTopicsIndexedById[topic].icon"></div>
+                <div v-html="getTopicsIndexedById[topic].name"></div>
             </div>
           </div>
           <div class="card-block">

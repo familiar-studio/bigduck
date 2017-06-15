@@ -23,9 +23,7 @@ module.exports = {
   ** Customize the progress-bar color
   */
   loading: { color: '#3B8070' },
-  router: {
-    middleware: 'categories'
-  },
+  router: {},
   css: [
      { src: '~assets/scss/styles.scss', lang: 'scss' }
   ],
