@@ -3,33 +3,9 @@
     <div class="row">
       <div class="col-lg-2">
         <div v-if="types && topics" class="filter-bar">
-          <div class="label label-lg">Topics</div>
-          <div class="media-list">
-            <!-- <nuxt-link v-for="topic in topics" key="topic.id" :to="{name: 'Insights', query: {topic: topic.id}}" @click="flipCategory('topic', topic.id)" :class="activeCategories[topic][topic.id] == true ? 'active' : ''"> -->
-            <nuxt-link v-for="topic in topics" key="topic.id" :to="{to: '/insights', query: {topic: topic.id}}">
-              <div class="media">
-                <div v-if="topic.icon" v-html="topic.icon"></div>
-                <div class="media-body">
-                  <h6 v-html="topic.name"></h6>
-                </div>
-              </div>
-            </nuxt-link>
-          </div>
-          <div class="label label-lg">Types</div>
-          <div class="media-list">
-            <!-- <nuxt-link v-for="type in types" key="type.id" :to="{name: 'Insights', query: {type: type.id}}" @click="flipCategory('type', type.id)" :class="activeCategories[type][type.id] == true ? 'active' : ''"> -->
-            <nuxt-link v-for="type in types" key="type.id" :to="{to: '/insights', query: {type: type.id}}">
-              <div class="media">
-                <div v-if="type.icon" v-html="type.icon"></div>
-                <div class="media-body">
-                  <h6 v-html="type.name"></h6>
-                </div>
-              </div>
-            </nuxt-link>
-          </div>
-          <nuxt-link :to="{to: '/insights'}">
-            <button class="btn btn-info">Clear All</button>
-          </nuxt-link>
+          <FilterList label="Topics" taxonomy="topic" :terms="topics" :selected="selected.topic" v-on:clicked="setActiveTaxonomy($event)"></FilterList>
+          <FilterList label="Types" taxonomy="type" :terms="types" :selected="selected.type" v-on:clicked="setActiveTaxonomy($event)"></FilterList>
+          <a href="#" @click.prevent="resetFilters" class="btn btn-primary">Clear All</a>
         </div>
       </div>
       <div class="col-xl-8 col-lg-9">
@@ -37,7 +13,7 @@
           <div v-if="insights">
             <h1>Insights</h1>
             <Pager :totalPages="totalPages" path="/insights" ></Pager>
-            <div v-if="insights">
+            <div v-if="insights.length > 0">
               <div v-for="(insight, index) in insights">
 
                 <Post :entry="insight" :index="index"></Post>
@@ -70,12 +46,16 @@
   import { mapActions, mapState } from 'vuex'
   import Pager from '~components/Pager.vue'
   import axios from 'axios'
+  import FilterList from '~components/FilterList.vue'
 
   export default {
     name: 'insights',
     data () {
       return {
-        flipCategory: null
+        selected: {
+          type: null,
+          topic: null
+        }
       }
     },
     async asyncData ({state, query, store}) {
@@ -99,32 +79,35 @@
     components: {
       Post,
       Subscribe,
-      Pager
+      Pager,
+      FilterList
     },
     computed: {
-      ...mapState(['categories', 'callouts', 'types', 'topics']),
-      nextQuery () {
-        return Object.assign(this.$route.query, {page: this.nextPage})
-      },
-      previousQuery () {
-        return Object.assign(this.$route.query, {page: this.previousPage})
-      }
+      ...mapState(['callouts', 'types', 'topics'])
     },
     methods: {
-      flipCategory (type, id) {
-        this.activeCategories[type][id] !== this.activeCategories[type][id]
-      },
-      setActiveCategories () {
-        let activeCategories = {}
-        let categories = ['Type', 'Topic', 'Sector']
-        categories.forEach((category) => {
-          activeCategories[category] = this.$store.getters['get' + category + 'sIndexedById']
-          // debugger
-          Object.keys(activeCategories[category]).forEach((term) => {
-            term = false
-          })
+      // given a taxonomy type and id
+      async setActiveTaxonomy (event) {
+        const type = event.taxonomy
+        const id = event.id
+        // if the selected taxonomy is equal to the passed id, set it to null, otherwise set it
+        this.selected[type] = this.selected[type] === id.toString() ? null : id.toString()
+        let query = {}
+        // build a query to send to the store
+        Object.keys(this.selected).forEach((key) => {
+          // if a property is null, skip over it
+          if (this.selected[key]) {
+            query[key] = this.selected[key]
+          }
         })
-        this.activeCategories = activeCategories
+        this.$store.commit('setFilterQuery', query)
+        let response = await this.$store.dispatch('fetchByQuery', {path: 'wp/v2/bd_insight', query: this.$store.state.query})
+        this.insights = response.data
+      },
+      async resetFilters () {
+        this.$store.commit('setFilterQuery', {})
+        let response = await this.$store.dispatch('fetchByQuery', {path: 'wp/v2/bd_insight', query: this.$store.state.query})
+        this.insights = response.data
       }
     }
   }

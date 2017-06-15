@@ -15,7 +15,6 @@
           <div v-if="events" id="content">
             <h1>Upcoming Events</h1>
             <h3><img src="http://placehold.it/30x20" />  <router-link :to="{name: 'speakingEngagements'}">Interested in having Big Duck speak at your organization?Learn more about our talks...</router-link></h3>
-            <Pager :totalPages="totalPages" path="/events" ></Pager>
             <div v-if="events.length > 0">
               <div v-for="(event, index) in events">
                   <Event :entry="event" :categories="categories" :index="index"></Event>
