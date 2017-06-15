@@ -6,10 +6,11 @@
     <div class="overlay" :style="{ backgroundColor: work.acf.primary_color }"></div>
     <div class="container">
       <div class="badge-group">
-
-        <div class="badge badge-default" v-if="topics && topicsIndexedById" v-for="topic in work.topic">
-            <div v-html="topicsIndexedById[topic].icon"></div>
-            <div v-html="topicsIndexedById[topic].name"></div>
+        <div class="badge badge-default" v-if="topics && getTopicsIndexedById" v-for="topic in work.topic">
+          <template v-if="getTopicsIndexedById[topic]">
+            <div v-html="getTopicsIndexedById[topic].icon"></div>
+            <div v-html="getTopicsIndexedById[topic].name"></div>
+          </template>
         </div>
         <div class="badge badge-default">
           <div>{{ work.acf.client_name }}</div>
@@ -24,16 +25,14 @@
 </template>
 
 <script>
+  import { mapState, mapGetters } from 'vuex'
+
   export default {
     name: 'featured',
     props: ['work'],
     computed: {
-      topicsIndexedById () {
-        return this.$store.getters['getTopicsIndexedById']
-      },
-      typesIndexedById () {
-        return this.$store.getters['getTypesIndexedById']
-      },
+      ...mapState(['types', 'topics', 'eventCategories']),
+      ...mapGetters(['getTopicsIndexedById', 'getTypesIndexedById']),
       blockClass () {
         if (this.index === 0) {
           return 'first-block'
