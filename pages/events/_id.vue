@@ -24,7 +24,7 @@
             </a>
           </div>
           <transition name="slideUp" appear>
-            <div class="container bg-white overlap-300">
+            <div class="container bg-white overlap">
               <article class="main row mb-5">
                 <div class="col-md-10">
                 <div class="badge-group">

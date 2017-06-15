@@ -14,7 +14,7 @@
           <div class="col-md-8">
             <share></share>
             <transition name="slideUp" appear>
-              <div class="container bg-white overlap-300">
+              <div class="container bg-white overlap">
                 <article class="main">
                   <div class="badge-group">
                     <router-link class="badge badge-default underlineChange" :to="{name: 'insights'}">Insights</router-link>
@@ -68,7 +68,7 @@
 
         </div>
 
-        <div class="container overlap-300 mt-5" v-if="relatedCaseStudies">
+        <div class="container overlap mt-5" v-if="relatedCaseStudies">
           <h2>Related Case Studies</h2>
           <div class="row">
             <div v-for="case_study in relatedCaseStudies" class="col-md-6">
