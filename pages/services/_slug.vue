@@ -4,13 +4,13 @@
     <transition name="fade" appear>
       <div class="img-hero" :style=" { backgroundImage: 'url(' + service.acf.featured_image.url + ')' }"></div>
     </transition>
-    <div class="container bg-white overlap-300 mt-5">
+    <div class="container bg-white overlap mt-5">
       <article class="main">
       <h2>{{ service.title.rendered }}</h2>
       <div v-html="service.acf.introduction"></div>
       </article>
     </div>
-    <div class="container overlap-300 mt-5">
+    <div class="container overlap mt-5">
       <div v-for="block in service.acf.service_body">
         <div v-if="block.acf_fc_layout == 'text'" v-html="block.text"></div>
         <div v-if="block.acf_fc_layout == 'image'">
@@ -21,7 +21,7 @@
         <Subscribe v-if="callouts" :entry="callouts[0]"></Subscribe>
         <blockquote v-if="service.acf.testimonial" v-html="acf.testimonial.text"></blockquote>
     </div>
-    <div class="container overlap-300 mt-5" v-if="relatedCaseStudies && relatedCaseStudies.length > 0">
+    <div class="container overlap mt-5" v-if="relatedCaseStudies && relatedCaseStudies.length > 0">
       <h2>Related Case Studies</h2>
       <Work :work="relatedCaseStudies"></Work>
       <!-- <div class="row">
@@ -44,7 +44,7 @@
         </div>
       </div> -->
     </div>
-    <div class="container overlap-300 mt-5" v-if="relatedInsights && relatedInsights.length > 0">
+    <div class="container overlap mt-5" v-if="relatedInsights && relatedInsights.length > 0">
       <h2>Related Insights</h2>
       <div class="row">
         <div v-for="insight in relatedInsights" class="col-md-6">

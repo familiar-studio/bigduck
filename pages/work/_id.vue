@@ -11,7 +11,7 @@
         <div class="col-md-8">
           <share></share>
           <transition name="slideUp" appear>
-            <div class="container bg-white overlap-300">
+            <div class="container bg-white overlap">
               <article class="main">
 
 

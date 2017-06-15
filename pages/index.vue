@@ -9,7 +9,7 @@
     </div>
     <Featured v-for="(caseStudy, index) in relatedCaseStudies"  :work="caseStudy" :index="index" :key="index"></Featured>
     <div class="container">
-      <div v-if="upcomingEvents">
+      <div v-if="upcomingEvents" class="mt-5">
         <h2>Upcoming Events</h2>
         <div class="" v-for="(event, index) in upcomingEvents">
           <Event :entry="event" index="index"></Event>
@@ -17,11 +17,11 @@
         <nuxt-link class="btn btn-primary" to="/events">View All Events</nuxt-link>
       </div>
     </div>
-    <div class="testimonial">
+    <div class="testimonial my-5">
       <div class="container">
         <blockquote>
           <h3 v-html="page.acf.testimonial"></h3>
-          <footer class="label"><span v-html="page.acf.citation"></span></footer>
+          <footer class="label">&mdash;<span v-html="page.acf.citation"></span></footer>
         </blockquote>
       </div>
     </div>
