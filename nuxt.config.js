@@ -19,6 +19,9 @@ module.exports = {
     beforeEnter (el) {
     }
   },
+  plugins: [
+    { src: '~plugins/vue-flickity', ssr: false }
+  ],
   /*
   ** Customize the progress-bar color
   */
