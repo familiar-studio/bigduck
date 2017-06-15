@@ -14,15 +14,19 @@ export const state = () => ({
   topics: null,
   types: null,
   postsPerPage: 10,
-  eventCategoriesPath: 'wp/v2/event-category',
+  eventCategoriesPath: 'wp/v2/event_category',
   sectorsPath: 'wp/v2/sector',
   topicsPath: 'wp/v2/topic',
   typesPath: 'wp/v2/type',
   page: null,
-  footer: null
+  footer: null,
+  query: {}
 })
 
 export const mutations = {
+  setFilterQuery (state, data) {
+    state.query = data
+  },
   setCallouts (state, data) {
     state.callouts = data
   },
@@ -113,7 +117,7 @@ export const actions = {
       context.commit('setEventCategories', response.data)
     })
   },
-  async fetchByQuery (context, args) {
+  fetchByQuery (context, args) {
     // if page has changed, make the query again as it was, only with page updated
     // if the query has changed reset page to 1
     context.commit('resetPage')
@@ -129,8 +133,7 @@ export const actions = {
         queryString += '&page=' + args.page
       }
     }
-    var response = await axios.get(context.getters.hostname + args.path + queryString)
-    return { data: response.data, totalPages: response.headers['x-wp-totalpages'], totalRecords: response.headers['x-wp-total'] }
+    return axios.get(context.getters.hostname + args.path + queryString)
   },
   async fetchOne ({dispatch, commit, getters, rootGetters}, args) {
     let response = await axios.get(rootGetters.hostname + args.path + '/' + args.id)

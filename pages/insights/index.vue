@@ -43,7 +43,7 @@
                 <Post :entry="insight" :index="index"></Post>
 
 
-                <Subscribe v-if="callouts && callouts[0] && index % 5 == 1 && index < insights.length - 1" :entry="callouts[0]"></Subscribe>
+                <Subscribe v-if="callouts && callouts[0] && index % 5 == 1 && index < insights.length - 1" :entry="callouts[0]" class="mb-5"></Subscribe>
               </div>
             </div>
             <div v-else>

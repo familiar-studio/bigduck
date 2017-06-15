@@ -24,7 +24,7 @@
             </a>
           </div>
           <transition name="slideUp" appear>
-            <div class="container bg-white overlap-300">
+            <div class="container bg-white overlap">
               <article class="main row mb-5">
                 <div class="col-md-10">
                 <div class="badge-group">
@@ -32,7 +32,7 @@
                     <img :src="getTopicsIndexedById[topic].acf.icon">
                     <div v-html="getTopicsIndexedById[topic].name"></div>
                   </div>
-                  <div class="badge badge-default" v-for="eventCategory in event['event-category']">
+                  <div class="badge badge-default" v-for="eventCategory in event['event_category']">
                     <img :src="getEventCategoriesIndexedById[eventCategory].acf.icon">
                     <div v-html="getEventCategoriesIndexedById[eventCategory].name"></div>
                   </div>
@@ -80,7 +80,6 @@
                 </div>
               </div>
               <div v-if="relatedInsights">
-                {{ relatedInsights }}
                 <h2>Related Insights</h2>
                 <div class="" v-for="(insight, index) in relatedInsights">
                   <Post :entry="insight" :index="relatedEvents ? index + relatedEvents.length : index"></Post>

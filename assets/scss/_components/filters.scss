@@ -29,7 +29,7 @@
     margin-right: .75rem;
   }
 
-  a:hover, .nuxt-link-exact-active{
+  a:hover, .nuxt-link-exact-active, .activeFilter{
     @extend .fillChange;
     .media h6{
       background-size: 100% 1px !important;
@@ -38,7 +38,7 @@
       opacity: 1;
     }
   }
-  .nuxt-link-exact-active{
+  .nuxt-link-exact-active, .activeFilter{
     .media h6{
       @extend .colorChange;
     }
