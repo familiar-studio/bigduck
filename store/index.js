@@ -14,7 +14,7 @@ export const state = () => ({
   topics: null,
   types: null,
   postsPerPage: 10,
-  eventCategoriesPath: 'wp/v2/event-category',
+  eventCategoriesPath: 'wp/v2/event_category',
   sectorsPath: 'wp/v2/sector',
   topicsPath: 'wp/v2/topic',
   typesPath: 'wp/v2/type',
