@@ -5,7 +5,7 @@
     <div class="row">
       <div class="col-lg-2">
         <div v-if="topics && sectors" class="filter-bar">
-          <FilterList label="Topics" taxonomy="topic" :terms="topics" :selected="selected.topic" v-on:clicked="setActiveTaxonomy($event)"></FilterList>
+          <!-- <FilterList label="Topics" taxonomy="topic" :terms="topics" :selected="selected.topic" v-on:clicked="setActiveTaxonomy($event)"></FilterList> -->
           <FilterList label="Sectors" taxonomy="sector" :terms="sectors" :selected="selected.sector" v-on:clicked="setActiveTaxonomy($event)"></FilterList>
           <router-link :to="{name: 'work-all'}">
             <button class="btn btn-info">Clear All</button>
@@ -19,8 +19,8 @@
             <div v-if="work">
               <h1>Work</h1>
               <transition name="fade">
-              <Work :work="work" v-if="work.length > 0"></Work>
-              <div v-else>No results found</div>
+              <!-- <Work :work="work" v-if="work.length > 0"></Work> -->
+              <!-- <div v-else>No results found</div> -->
               </transition>
             </div>
           </div>

@@ -19,14 +19,14 @@
               <h4>{{ caseStudy.title.rendered }}</h4>
               <h2 v-html="caseStudy.acf.short_description"></h2>
               <div v-if="topics">
-                <div class="badge badge-default" v-for="topic in caseStudy.topic">
+                <!-- <div class="badge badge-default" v-for="topic in caseStudy.topic">
                     <div v-html="topicsIndexedById[topic].acf.data"></div>
                     <div v-html="topicsIndexedById[topic].name"></div>
                 </div>
                 <div class="badge badge-default" v-for="sector in caseStudy.sector">
                     <div v-html="sectorsIndexedById[sector].acf.data"></div>
                     <div v-html="sectorsIndexedById[sector].name"></div>
-                </div>
+                </div> -->
               </div>
               <h3 v-if="caseStudy.acf.body[0].acf_fc_layout == 'heading'" v-html="caseStudy.acf.body[0].heading"></h3>
               <!-- // Intro paragraph -->
