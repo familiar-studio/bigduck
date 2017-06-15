@@ -122,10 +122,10 @@
     },
     computed: {
       pageClass () {
-        if (this.$route.name === 'insights-id') {
-          return 'overflow-x-visible'
-        } else if (this.$route.name === 'index') {
+        if (this.$route.name === 'index') {
           return 'homepage'
+        } else if (this.$route.name) {
+          return this.$route.name
         } else {
           return ''
         }
