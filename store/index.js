@@ -113,7 +113,7 @@ export const actions = {
       context.commit('setEventCategories', response.data)
     })
   },
-  async fetchByQuery (context, args) {
+  fetchByQuery (context, args) {
     // if page has changed, make the query again as it was, only with page updated
     // if the query has changed reset page to 1
     context.commit('resetPage')
@@ -129,8 +129,7 @@ export const actions = {
         queryString += '&page=' + args.page
       }
     }
-    var response = await axios.get(context.getters.hostname + args.path + queryString)
-    return { data: response.data, totalPages: response.headers['x-wp-totalpages'], totalRecords: response.headers['x-wp-total'] }
+    return axios.get(context.getters.hostname + args.path + queryString)
   },
   async fetchOne ({dispatch, commit, getters, rootGetters}, args) {
     let response = await axios.get(rootGetters.hostname + args.path + '/' + args.id)

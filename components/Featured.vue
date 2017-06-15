@@ -7,9 +7,9 @@
     <div class="container">
       <div class="badge-group">
         <div class="badge badge-default" v-if="topics && getTopicsIndexedById" v-for="topic in work.topic">
-          <template v-if="getTopicsIndexedById[topic]">
-            <div v-html="getTopicsIndexedById[topic].icon"></div>
-            <div v-html="getTopicsIndexedById[topic].name"></div>
+          <template v-if="getTopicsIndexedById[topic.term_id]">
+            <div v-html="getTopicsIndexedById[topic.term_id].icon"></div>
+            <div v-html="getTopicsIndexedById[topic.term_id].name"></div>
           </template>
         </div>
         <div class="badge badge-default">
@@ -32,7 +32,7 @@
     props: ['work'],
     computed: {
       ...mapState(['types', 'topics', 'eventCategories']),
-      ...mapGetters(['getTopicsIndexedById', 'getTypesIndexedById']),
+      ...mapGetters(['getTopicsIndexedById']),
       blockClass () {
         if (this.index === 0) {
           return 'first-block'

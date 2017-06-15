@@ -9,7 +9,7 @@
           <div class="card-header" v-if="topics">
             <div class="badge badge-default" v-for="topic in case_study.topic">
 
-                <div v-html="topicsIndexedById[topic].icon.data" class="img-fluid"></div>
+                <div v-html="topicsIndexedById[topic].icon" class="img-fluid"></div>
                 <div v-html="topicsIndexedById[topic].name"></div>
             </div>
           </div>

@@ -80,7 +80,6 @@
                 </div>
               </div>
               <div v-if="relatedInsights">
-                {{ relatedInsights }}
                 <h2>Related Insights</h2>
                 <div class="" v-for="(insight, index) in relatedInsights">
                   <Post :entry="insight" :index="relatedEvents ? index + relatedEvents.length : index"></Post>
