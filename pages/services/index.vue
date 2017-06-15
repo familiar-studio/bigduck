@@ -1,40 +1,40 @@
 <template>
   <div>
     <div v-if="servicesPage">
-      <transition name="fade" appear>
         <div class="img-hero" :style=" { backgroundImage: 'url(' + servicesPage.acf.featured_image.url + ')' }">
 
         </div>
-      </transition>
 
-      <transition name="slideUp" appear>
-        <div class="container bg-white overlap">
-          <article class='main' v-html="servicesPage.acf.text">
-          </article>
-        </div>
-      </transition>
-      <div class="container">
-        <h2 v-html="servicesPage.acf.services_heading"></h2>
-        <div v-for="service in services" v-if="service.slug !== 'brandraising-benchmark'">
-          <Service :entry="service"></Service>
-        </div>
-        <h2 v-html="servicesPage.acf.brandraising_benchmark_heading" class="mt-5"></h2>
-        <div v-for="service in services" v-if="service.slug === 'brandraising-benchmark'">
-          <Service :entry="service"></Service>
-        </div>
-      </div>
-      <Subscribe v-if="callouts" :entry="callouts[0]" class="mt-5"></Subscribe>
-      <div class="testimonial">
+      <div id="content">
         <div class="container">
-          <div class="row">
-            <blockquote class="col-md-9">
-              <h3 v-html="servicesPage.acf.quote"></h3>
-              <footer class="label">&mdash;<span v-html="servicesPage.acf.credit"></span></footer>
-            </blockquote>
-            <img :src="servicesPage.acf.image.url" class="col-md-3 testimonialImage" v-if="servicesPage.acf.image"></img>
+          <article class='main bg-white overlap' v-html="servicesPage.acf.text">
+          </article>
+          <h2 v-html="servicesPage.acf.services_heading"></h2>
+          <div v-for="service in services" v-if="service.slug !== 'brandraising-benchmark'">
+            <Service :entry="service"></Service>
+          </div>
+          <h2 v-html="servicesPage.acf.brandraising_benchmark_heading" class="mt-5"></h2>
+          <div v-for="service in services" v-if="service.slug === 'brandraising-benchmark'">
+            <Service :entry="service"></Service>
           </div>
         </div>
-      </div>
+        <Subscribe v-if="callouts" :entry="callouts[0]" class="mt-5"></Subscribe>
+        <div class="testimonial">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-8">
+                <blockquote>
+                  <h3 v-html="servicesPage.acf.quote"></h3>
+                  <footer class="label">&mdash;<span v-html="servicesPage.acf.credit"></span></footer>
+                </blockquote>
+              </div>
+              <div v-if="servicesPage.acf.image" class="col-md-4">
+                <div class="bg-img" :style=" { backgroundImage: 'url(' + servicesPage.acf.image.url + ')' }">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -63,8 +63,3 @@
     }
   }
 </script>
-<style>
-  .testimonialImage {
-    height: 100%;
-  }
-</style>

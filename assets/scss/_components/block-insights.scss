@@ -22,7 +22,6 @@
     height: 150px;
     position: relative;
     background-color: $gray-light;
-    opacity: .9;
     transition: all .3s ease;
 
     @include media-breakpoint-up(sm){
@@ -173,7 +172,6 @@
       opacity: 0.85;
     }
     .col-image{
-      opacity: 1;
       transform: translateY(.5rem);
     }
     .col-text{
