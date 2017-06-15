@@ -169,7 +169,6 @@ export const getters = {
   getTopicsIndexedById: (state) => {
     if (state.topics) {
       let topicsByIndex = {}
-      console.log(state.topics)
       state.topics.forEach((topic) => {
         topicsByIndex[topic.id] = topic
       })

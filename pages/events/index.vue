@@ -4,8 +4,8 @@
       <div class="col-lg-2">
         <div v-if="topics && eventCategories" class="sticky-top filter-bar">
 
-          <!-- <FilterList label="Topics" taxonomy="topic" :terms="topics" :selected="selected.topic" v-on:clicked="setActiveTaxonomy($event)"></FilterList> -->
-          <!-- <FilterList label="Types" taxonomy="eventCategory" :terms="eventCategories" :selected="selected.eventCategory" v-on:clicked="setActiveTaxonomy($event)"></FilterList> -->
+          <FilterList label="Topics" taxonomy="topic" :terms="topics" :selected="selected.topic" v-on:clicked="setActiveTaxonomy($event)"></FilterList>
+          <FilterList label="Types" taxonomy="eventCategory" :terms="eventCategories" :selected="selected.eventCategory" v-on:clicked="setActiveTaxonomy($event)"></FilterList>
           <router-link :to="{name: 'work-all'}">
             <button class="btn btn-info">Clear All</button>
           </router-link>
@@ -20,7 +20,7 @@
             <Pager :totalPages="totalPages" path="/events" ></Pager>
             <div v-if="events">
               <div v-for="(event, index) in events">
-                  <!-- <Event :entry="event" :categories="categories" :index="index"></Event> -->
+                  <Event :entry="event" :categories="categories" :index="index"></Event>
 
                   <Subscribe v-if="callouts[0] && index % 5 == 1 && index < events.length - 1" :entry="callouts[0]"></Subscribe>
               </div>

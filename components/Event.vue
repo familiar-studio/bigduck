@@ -16,12 +16,9 @@
                 <div v-html="getEventCategoriesIndexedById[entry['event_category'][0]].icon"></div>
                 <div v-html="getEventCategoriesIndexedById[entry['event_category'][0]].name"></div>
             </div>
-            <!-- <div v-if="topics"> -->
-              <!-- There are topics -->
-              {{ entry.topic }}
             <div class="badge badge-default"  v-if="topics && entry['topic'].length > 0" v-for="topic in entry.topic">
-                <!-- <div v-html="getTopicsIndexedById[entry['topic']].icon"></div> -->
-                <!-- <div v-html="getTopicsIndexedById[entry['topic']].name"></div> -->
+                <div v-html="getTopicsIndexedById[entry['topic'][0]].icon"></div>
+                <div v-html="getTopicsIndexedById[entry['topic'][0]].name"></div>
             </div>
           </div>
           <div class="card-block">
