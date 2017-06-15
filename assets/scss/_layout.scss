@@ -1,15 +1,15 @@
 body{
-
+overflow-x: hidden;
 }
 .page-wrapper{
   position:relative;
   z-index:1;
   background-color: $gray-lightest;
   margin-bottom: 100vh;
-  overflow-x: hidden;
-  @include media-breakpoint-up(md){
-    overflow-x: visible;
-  }
+  overflow-x: visible;
+  // @include media-breakpoint-up(md){
+  //   overflow-x: visible;
+  // }
 }
 #main{
   padding-top: 175px;

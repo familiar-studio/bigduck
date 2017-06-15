@@ -1,60 +1,63 @@
 <template>
-  <div class="container-fluid">
+  <div>
     <div v-if="caseStudy">
-      <transition name="fade" appear>
-        <div class="img-hero" :style=" { backgroundImage: 'url(' + caseStudy.acf.hero_image.url + ')' }">
-        </div>
-      </transition>
-      <div class="row" :style="'background-image: ' + caseStudy.acf.hero_image.url">
-        <div class="col-md-2">
-        </div>
-        <div class="col-md-8">
+      <div class="img-hero" :style=" { backgroundImage: 'url(' + caseStudy.acf.hero_image.url + ')' }">
+      </div>
+      <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-1">
           <share></share>
+        </div>
+        <div class="col-lg-10">
           <transition name="slideUp" appear>
             <div class="container bg-white overlap">
+
               <article class="main">
-
-                <div class="badge badge-default">Work</div>
-                <div class="badge badge-default" v-html="caseStudy.acf.client_name"></div>
-              <h4>{{ caseStudy.title.rendered }}</h4>
-              <h2 v-html="caseStudy.acf.short_description"></h2>
-              <div v-if="topics">
-                <!-- <div class="badge badge-default" v-for="topic in caseStudy.topic">
-                    <div v-html="topicsIndexedById[topic].acf.data"></div>
-                    <div v-html="topicsIndexedById[topic].name"></div>
+                <div class="badge-group">
+                  <router-link class="badge badge-default underlineChange" :to="{name: 'insights'}">Work</router-link>
+                  <div class="badge badge-default" v-html="caseStudy.acf.client_name"></div>
                 </div>
-                <div class="badge badge-default" v-for="sector in caseStudy.sector">
-                    <div v-html="sectorsIndexedById[sector].acf.data"></div>
-                    <div v-html="sectorsIndexedById[sector].name"></div>
-                </div> -->
-              </div>
-              <h3 v-if="caseStudy.acf.body[0].acf_fc_layout == 'heading'" v-html="caseStudy.acf.body[0].heading"></h3>
-              <!-- // Intro paragraph -->
-              <p v-html="caseStudy.acf.introduction"></p>
 
-              <div class="row">
-                <div class="col-lg-9" v-html="caseStudy.acf.article_text">
+                <h1>{{ caseStudy.title.rendered }}</h1>
+                <div class="badge-group" v-if="topics">
+                  <div class="badge badge-default">Topic and Sector Badges TK</div>
+                  <!-- <div class="badge badge-default" v-for="topic in caseStudy.topic">
+                      <div v-html="topicsIndexedById[topic].acf.data"></div>
+                      <div v-html="topicsIndexedById[topic].name"></div>
+                  </div>
+                  <div class="badge badge-default" v-for="sector in caseStudy.sector">
+                      <div v-html="sectorsIndexedById[sector].acf.data"></div>
+                      <div v-html="sectorsIndexedById[sector].name"></div>
+                  </div> -->
+                </div>
 
+                <div class="row cs-intro">
+                  <div class="col-lg-9">
+                    <h5 v-html="caseStudy.acf.introduction"></h5>
+                    <div v-html="caseStudy.acf.article_text"></div>
+
+                  </div>
+                  <div class="col-lg-3">
+                    <aside>
+                      <h6>Services Provided</h6>
+                      <ul class="list-unstyled service-list">
+                        <li v-for="service in caseStudy.acf.services_provided" class="label">{{ service.service }}</li>
+                      </ul>
+                    </aside>
+                  </div>
                 </div>
-                <div class="col-md-3">
-                  <h5>Services Provided</h5>
-                  <ul class="list-unstyled">
-                    <li v-for="service in caseStudy.acf.services_provided">{{ service.service }}</li>
-                  </ul>
-                </div>
-              </div>
               </article>
               <div class="row">
                   <div v-for="(block, index) in caseStudy.acf.body">
 
                     <!-- TEXT  -->
-                      <div v-if="block.acf_fc_layout == 'text'">
+                      <div v-if="block.acf_fc_layout == 'text'" class="cs-block-text">
                         <h2 v-html="block.heading"></h2>
                         <p v-html="block.text"></p>
                       </div>
 
                       <!-- GALLERY  -->
-                      <div v-if="block.acf_fc_layout == 'gallery'">
+                      <div v-if="block.acf_fc_layout == 'gallery'" class="cs-block-gallery">
                         <!-- <flickity ref="flickity" :options="flickityOptions"> -->
                           <figure class="carousel-cell figure" v-for="image in block.gallery">
                             <img :src="image.sizes.large" class="figure-img img-fluid" :alt="image.title">
@@ -66,7 +69,7 @@
                       </div>
 
                       <!-- CALLOUT  -->
-                      <div v-if="block.acf_fc_layout == 'callout'">
+                      <div v-if="block.acf_fc_layout == 'callout'" class="cs-block-callout" :style="{ backgroundColor: caseStudy.acf.primary_color }">
                         <h2>{{ block.headline }}</h2>
                         <p v-html="block.text"></p>
                         <figure class="figure">
@@ -80,20 +83,14 @@
                       </div>
 
                       <!-- TESTIMONIAL -->
-                      <div v-if="block.acf_fc_layout == 'testimonial'">
-                        <div class="card">
-                          <div class="card-header">
-                            "
-                          </div>
-                          <div class="card-block">
-                            <blockquote class="card-blockquote">
-                              <blockquote v-html="block.quote"></blockquote>
-                              <footer>{{ block.credit }}</footer>
-                              <img src=""
-                            </blockquote>
-                            <img :src="block.image.sizes.medium" alt="block.image.name">
-                          </div>
-                        </div>
+                      <div v-if="block.acf_fc_layout == 'testimonial'" class="cs-block-testimonial testimonial">
+                        <blockquote>
+                          <h3 v-html="block.quote"></h3>
+                          <footer>{{ block.credit }}</footer>
+                          <img src=""/>
+                        </blockquote>
+                        <img :src="block.image.sizes.medium" alt="block.image.name">
+
                       </div>
 
                       <!-- FACTOID -->
@@ -114,10 +111,11 @@
           </transition>
 
           </div>
-          <div class="col-md-2">
+          <!-- <div class="col-lg-1">
             {{ caseStudy.acf.cta_text }}
-          </div>
+          </div> -->
         </div>
+      </div>
       </div>
       <div v-else>
         Loading case study...

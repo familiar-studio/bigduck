@@ -12,9 +12,6 @@
 
   #header{
     @extend .bgChange;
-    &.small-nav:not(.open-nav){
-      // background-color: $white;
-    }
   }
 
   svg path{
