@@ -7,7 +7,7 @@
     <div class="container">
       <div class="badge-group">
 
-        <div class="badge badge-default" v-if="topics" v-for="topic in work.topic">
+        <div class="badge badge-default" v-if="topics && topicsIndexedById" v-for="topic in work.topic">
             <div v-html="topicsIndexedById[topic].icon"></div>
             <div v-html="topicsIndexedById[topic].name"></div>
         </div>

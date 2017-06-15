@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- <div> -->
-  <div class="block-insights" :class="blockClass" :type="eventCategories && entry['event-category'].length > 0 ? eventCategoriesByIndex[entry['event-category'][0]].slug : ''">
+  <div class="block-insights" :class="blockClass" >
     <nuxt-link :to="{ name: 'events-id', params: { id: entry.id }}" :key="entry.id">
     <div class="col-image" v-if="entry.acf.featured_image">
       <div :style="{ 'background-image': 'url(' + entry.acf.featured_image.url + ')' }" class="featured-image"></div>
@@ -16,7 +16,7 @@
                 <div v-html="eventCategoriesByIndex[entry['event-category'][0]].icon"></div>
                 <div v-html="eventCategoriesByIndex[entry['event-category'][0]].name"></div>
             </div> -->
-            <div class="badge badge-default"  v-if="topics" v-for="topic in entry.topic">
+            <div class="badge badge-default"  v-if="topics && topicsIndexedById" v-for="topic in entry.topic">
                 <div v-html="topicsIndexedById[topic].icon"></div>
                 <div v-html="topicsIndexedById[topic].name"></div>
             </div>
@@ -47,20 +47,14 @@
 
 <script>
   import moment from 'moment'
+  import { mapState, mapGetters } from 'vuex'
 
   export default {
     name: 'featured',
     props: ['entry', 'categories', 'index'],
     computed: {
-      topicsIndexedById () {
-        return this.$store.getters['getTopicsIndexedById']
-      },
-      eventCategoriesByIndex () {
-        return this.$store.getters['getEventCategoriesIndexedById']
-      },
-      months () {
-        return this.$store.state.events.months
-      },
+      ...mapState(['types', 'topics', 'eventCategories']),
+      ...mapGetters(['getTopicsIndexedById', 'getEventCategoriesIndexedById']),
       blockClass () {
         if (this.index === 0) {
           return 'first-block'
@@ -78,12 +72,6 @@
       },
       displayDate () {
         return moment(this.entry.acf.start_time).format('MMM D, YYYY')
-      },
-      types () {
-        return this.$store.state.types
-      },
-      topics () {
-        return this.$store.state.topics
       },
       eventCategories () {
         return this.$store.state.eventCategories
