@@ -5,10 +5,8 @@
         <div v-if="topics && eventCategories" class="sticky-top filter-bar">
 
           <FilterList label="Topics" taxonomy="topic" :terms="topics" :selected="selected.topic" v-on:clicked="setActiveTaxonomy($event)"></FilterList>
-          <FilterList label="Types" taxonomy="eventCategory" :terms="eventCategories" :selected="selected.eventCategory" v-on:clicked="setActiveTaxonomy($event)"></FilterList>
-          <router-link :to="{name: 'work-all'}">
-            <button class="btn btn-info">Clear All</button>
-          </router-link>
+          <FilterList label="Types" taxonomy="event_category" :terms="eventCategories" :selected="selected.event_category" v-on:clicked="setActiveTaxonomy($event)"></FilterList>
+          <a href="#" @click.prevent="resetFilters" class="btn btn-primary">Clear All</a>
 
         </div>
       </div>
@@ -18,7 +16,7 @@
             <h1>Upcoming Events</h1>
             <h3><img src="http://placehold.it/30x20" />  <router-link :to="{name: 'speakingEngagements'}">Interested in having Big Duck speak at your organization?Learn more about our talks...</router-link></h3>
             <Pager :totalPages="totalPages" path="/events" ></Pager>
-            <div v-if="events">
+            <div v-if="events.length > 0">
               <div v-for="(event, index) in events">
                   <Event :entry="event" :categories="categories" :index="index"></Event>
 
@@ -56,8 +54,8 @@
     data () {
       return {
         selected: {
-          eventCategory: {},
-          topic: {}
+          event_category: null,
+          topic: null
         }
       }
     },
@@ -95,12 +93,12 @@
         })
         this.$store.commit('setFilterQuery', query)
         let response = await this.$store.dispatch('fetchByQuery', {path: 'wp/v2/bd_event', query: this.$store.state.query})
-        this.work = response.data
+        this.events = response.data
       },
       async resetFilters () {
         this.$store.commit('setFilterQuery', {})
         let response = await this.$store.dispatch('fetchByQuery', {path: 'wp/v2/bd_event', query: this.$store.state.query})
-        this.work = response.data
+        this.events = response.data
       }
     }
   }
