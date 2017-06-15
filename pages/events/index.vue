@@ -33,7 +33,7 @@
       </div>
       <div class="col-lg-8">
         <div class="container">
-          <div v-if="events" id="content" >
+          <div v-if="events" id="content">
             <h1>Upcoming Events</h1>
             <h3><img src="http://placehold.it/30x20" /> Interested in having Big Duck speak at your organization? <a href="#">Learn more about our talks...</a></h3>
             <Pager :totalPages="totalPages" path="/events" ></Pager>

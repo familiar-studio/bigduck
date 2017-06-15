@@ -107,11 +107,10 @@ p{
   }
 
   &.underlineChange{
-    background-position: center 92%;
+    background-position: center 100% !important;
     transition: all .3s ease;
     &:hover{
-      color: $white;
-      background-size: 100% 100%;
+      @extend .colorChange;
     }
   }
 }
@@ -172,6 +171,16 @@ label, .label{
 }
 
 
+//IMAGES
+
+.bg-img{
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+.img-multiply{
+  mix-blend-mode: multiply;
+}
 .desaturate {
   filter: saturate(0%);
 }
@@ -183,6 +192,8 @@ label, .label{
 .overflow-x-visible .page-wrapper{
   overflow-x: visible;
 }
+
+
 
 .card.event-date {
   color: #1E1E1E;
