@@ -7,7 +7,7 @@
         <div v-if="topics && sectors" class="filter-bar">
           <div class="label label-lg">Topics</div>
           <div class="media-list">
-            <router-link v-for="topic in topics" key="topic.id" :to="{name: 'work-all', query: {topic: topic.id}}" :class="{ active: topic.id == selectedTopic }">
+            <router-link v-for="topic in topics" key="topic.id" :to="{name: 'work-all', query: {topic: topic.id}}" :class="{ activeFilter: topic.id == selectedTopic }">
               <div class="media">
                 <img :src="topic.acf.icon">
                 <div class="media-body">
@@ -18,7 +18,7 @@
           </div>
           <div class="label label-lg">Sectors</div>
           <div class="media-list">
-            <router-link v-for="sector in sectors" key="sector.id" :to="{name: 'work-all', query: {sector: sector.id}}" :class="{ active: sector.id == selectedSector }">
+            <router-link v-for="sector in sectors" key="sector.id" :to="{name: 'work-all', query: {sector: sector.id}}" :class="{ activeFilter: sector.id == selectedSector }">
               <div class="media">
                 <img :src="sector.acf.icon">
                 <div class="media-body">
@@ -83,9 +83,7 @@ export default {
   },
   async asyncData ({state, store, route}) {
     let data = {}
-    console.log(route.query)
     let response = await store.dispatch('fetchByQuery', {path: 'wp/v2/bd_case_study', query: route.query})
-    console.log(response)
     data['work'] = response.data
     return data
   },
