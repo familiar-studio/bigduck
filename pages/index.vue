@@ -47,6 +47,10 @@
       Featured,
       Post
     },
+    head: {
+      title: 'Big Duck',
+      titleTemplate: null
+    },
     async asyncData ({store}) {
       let data = {}
       let response = await Axios.get(store.getters['hostname'] + 'wp/v2/pages/37')

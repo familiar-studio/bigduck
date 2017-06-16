@@ -50,6 +50,9 @@
       Pager,
       FilterList
     },
+    head: {
+      title: 'Events'
+    },
     data () {
       return {
         selected: {

@@ -2,15 +2,9 @@
 <div class="container no-hero">
   <h1>Contact Us</h1>
 
-  <article>
-    <section>
-
-      <div class="" v-if="gatedContent" v-html="gatedContent">
-
-      </div>
-    </section>
-  </article>
-
+  <div v-if="pageContent" v-html="pageContent">
+  </div>
+    
 </div>
 </template>
 <script>
@@ -18,11 +12,10 @@
   export default {
     name: 'contact',
     async asyncData ({store}) {
-      let gatedContent = await Axios.get(store.getters['hostname'] + 'wp/v2/pages?slug=newfangled-testing-gated-content')
-      let data = {
-        gatedContent: gatedContent.data[0].content.rendered
+      let response = await Axios.get(store.getters['hostname'] + 'wp/v2/pages?slug=newfangled-testing-gated-content')
+      return {
+        pageContent: response.data[0].content.rendered
       }
-      return data
     },
     async created () {
       let content = await Axios.get(this.$store.getters['hostname'] + 'wp/v2/pages?slug=newfangled-testing-gated-content')

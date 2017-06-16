@@ -33,4 +33,4 @@ echo '<div class="gated-content-form" id="gated-content-form" data-form="'.$gate
 // }
 
 //  End the form wrapper
-echo '</div>';
+//echo '</div>';
