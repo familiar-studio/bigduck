@@ -561,8 +561,9 @@ class StarterSite extends TimberSite {
 					$topicIds[] = $topic->term_id;
 				}
 				$acf = get_fields($case_study->ID);
+				$title = get_the_title($case_study->ID);
 				array_push($featured_work,
-					array('id' => $case_study->ID, 'acf' => $acf, 'topic' => $topicIds )
+					array('id' => $case_study->ID, 'acf' => $acf, 'topic' => $topicIds, 'title' => array('rendered' => $title) )
 				);
 			}
 		}
