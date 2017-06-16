@@ -476,12 +476,15 @@ class StarterSite extends TimberSite {
 				$team = $fields['related_team_members'];
 				foreach($team as $member) {
 					if ($member['ID'] == $user->ID){
+						// $meta = get_post_content($rawEvent->ID);
 						$topics = wp_get_post_terms($rawEvent->ID, 'topic');
 						$eventCategories = wp_get_post_terms($rawEvent->ID, 'event_category');
 						$data = get_post($rawEvent->ID);
+						$postContent = $data->post_content;
 						$data->acf = $fields;
 						$data->event_category = array($eventCategories[0]->term_id);
 						$data->topic = array($topics[0]->term_id);
+						$data->title = array('rendered' => get_the_title($rawEvent->ID));
 						$team_member['events'][] = $data;
 						continue;
 					}
