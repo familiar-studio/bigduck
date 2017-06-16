@@ -476,9 +476,12 @@ class StarterSite extends TimberSite {
 				$team = $fields['related_team_members'];
 				foreach($team as $member) {
 					if ($member['ID'] == $user->ID){
-						$data = $rawEvent;
-						// $data['data'] = $rawEvent;
+						$topics = wp_get_post_terms($rawEvent->ID, 'topic');
+						$eventCategories = wp_get_post_terms($rawEvent->ID, 'event_category');
+						$data = get_post($rawEvent->ID);
 						$data->acf = $fields;
+						$data->event_category = array($eventCategories[0]->term_id);
+						$data->topic = array($topics[0]->term_id);
 						$team_member['events'][] = $data;
 						continue;
 					}
@@ -495,7 +498,9 @@ class StarterSite extends TimberSite {
 			$fields = get_fields($rawInsight->ID);
 			if ($fields['author']['ID'] == $user->ID){
 				$insight = get_post($rawInsight->ID);
+				$topics = wp_get_post_terms($rawInsight->ID, 'topic');
 				$insight->acf = $fields;
+				$insight->topic = array($topics[0]->term_id);
 				$team_member['insights'][] = $insight;
 			}
 		}
