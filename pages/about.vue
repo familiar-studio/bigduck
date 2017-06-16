@@ -1,15 +1,30 @@
 <template>
-  <div class="container  no-hero">
+  <div>
+    <transition name="fade" appear>
+      <div class="img-hero" :style=" { backgroundImage: 'url(' + page.acf.featured_image.url + ')' }">
+      </div>
+    </transition>
+    <div class="menu">
+      <ul class="list-unstyled">
+        <li><a href="#we-believe">{{ page.acf.we_believe_headline}}</a></li>
+        <li><a href="#values">{{ page.acf.values_headline}}</a></li>
+        <li><a href="#our-clients">{{ page.acf.our_clients_headline}}</a></li>
+        <li><a href="#open-house">Open House</a></li>
+        <li><a href="#team">{{ page.acf.team_headline}}</a></li>
+        <li><a href="#jobs">{{ page.acf.jobs_headline}}</a></li>
+      </ul>
+    </div>
+  <div class="container">
     <div v-if="page" >
       <article class="main">
-      <h1>{{ page.acf.we_believe_headline }}</h1>
+      <h1 id="we-believe">{{ page.acf.we_believe_headline }}</h1>
       <div v-html="page.acf.we_believe_body"></div>
 
       <h1>{{ page.our_clients_headline }}</h1>
 
       </article>
       <article class="values mt-5">
-        <h1>{{ page.acf.values_headline }}</h1>
+        <h1 id="values">{{ page.acf.values_headline }}</h1>
         <div v-html="page.acf.values_body"></div>
         <ul v-for="value in page.acf.values_" class="list-unstyled">
           <li>
@@ -25,14 +40,14 @@
       </article>
 
       <article v-if="openHouse">
-         <h1>Open House</h1>
+         <h1 id="open-house">Open House</h1>
          <div class="" v-for="event in openHouse">
            <Event :entry="event"></Event>
          </div>
       </article>
 
       <article v-if="clientsBySector">
-        <h1 v-html="page.acf.our_clients_headline"></h1>
+        <h1 id="our-clients" v-html="page.acf.our_clients_headline"></h1>
         <p v-html="page.acf.clients_body"></p>
         <div class="" v-for="(sector, key) in clientsBySector">
           <div class="" v-if="clientsBySector[key].length > 0">
@@ -49,7 +64,7 @@
       </article>
 
       <article>
-        <h1>{{page.acf.team_headline}}</h1>
+        <h1 id="team">{{page.acf.team_headline}}</h1>
         <div v-html="page.acf.team_body"></div>
         <div class="row">
         <router-link :key="member.id" :to=" {name: 'team-slug', params: {slug: member.headshot.name}}" v-for="member in team" class="col-md-4 card">
@@ -65,7 +80,7 @@
       </article>
 
       <article>
-        <h1>{{ page.acf.jobs_headline }}</h1>
+        <h1 id="jobs">{{ page.acf.jobs_headline }}</h1>
         <div v-html="page.acf.jobs_body"></div>
         <div v-if="jobs" >
           <ul v-for="job in jobs" id="accordion">
@@ -77,6 +92,7 @@
       </article>
     </div>
   </div>
+</div>
 </template>
 <script>
   import Axios from 'axios'
@@ -95,7 +111,7 @@
         store.dispatch('fetch', 'familiar/v1/team'),
         store.dispatch('fetch', 'wp/v2/bd_job'),
         store.dispatch('fetch', 'wp/v2/bd_client'),
-        store.dispatch('fetch', 'wp/v2/bd_event?event_category=26')
+        store.dispatch('fetch', 'wp/v2/bd_event?event_category=31')
       ])
       data['team'] = team.data
       data['jobs'] = jobs.data
