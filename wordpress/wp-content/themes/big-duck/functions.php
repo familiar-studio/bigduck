@@ -476,7 +476,10 @@ class StarterSite extends TimberSite {
 				$team = $fields['related_team_members'];
 				foreach($team as $member) {
 					if ($member['ID'] == $user->ID){
-						$team_member['events'][] = $fields;
+						$data = $rawEvent;
+						// $data['data'] = $rawEvent;
+						$data->acf = $fields;
+						$team_member['events'][] = $data;
 						continue;
 					}
 				}
@@ -491,9 +494,8 @@ class StarterSite extends TimberSite {
 		foreach($rawInsights as $rawInsight){
 			$fields = get_fields($rawInsight->ID);
 			if ($fields['author']['ID'] == $user->ID){
-				$insight = array();
-				$insight['data'] = get_post($rawInsight->ID);
-				$insight['acf'] = $fields;
+				$insight = get_post($rawInsight->ID);
+				$insight->acf = $fields;
 				$team_member['insights'][] = $insight;
 			}
 		}
