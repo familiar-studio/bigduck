@@ -2,42 +2,20 @@
 <div class="container-fluid no-hero">
     <div class="row">
       <div class="col-lg-2">
-        <div v-if="topics && types" class="sticky-top filter-bar">
+        <div v-if="topics && eventCategories" class="sticky-top filter-bar">
 
-          <div class="label label-lg">Topics</div>
-          <div class ="media-list">
-            <router-link v-for="topic in topics" key="topic.id" :to="{name: 'events', query: {topic: topic.id}}">
-              <div class="media">
-                <div v-if="topic.icon" v-html="topic.icon.data"></div>
-                <div class="media-body">
-                  <h6 class="mt-0" v-html="topic.name"></h6>
-                </div>
-              </div>
-            </router-link>
-
-          </div>
-
-          <div class="label label-lg">Event Type</div>
-          <div class ="media-list">
-            <router-link v-for="type in types" key="type.id" :to="{name: 'events', query: {type: type.id}}">
-              <div class="media">
-                <div class="d-flex mr-3" v-if="type.icon" v-html="type.icon.data"></div>
-                <div class="media-body">
-                  <h6 class="mt-0" v-html="type.name"></h6>
-                </div>
-              </div>
-            </router-link>
-          </div>
+          <FilterList label="Topics" taxonomy="topic" :terms="topics" :selected="selected.topic" v-on:clicked="setActiveTaxonomy($event)"></FilterList>
+          <FilterList label="Types" taxonomy="event_category" :terms="eventCategories" :selected="selected.event_category" v-on:clicked="setActiveTaxonomy($event)"></FilterList>
+          <a href="#" @click.prevent="resetFilters" class="btn btn-primary">Clear All</a>
 
         </div>
       </div>
       <div class="col-lg-8">
         <div class="container">
-          <div v-if="events" id="content" >
+          <div v-if="events" id="content">
             <h1>Upcoming Events</h1>
-            <h3><img src="http://placehold.it/30x20" /> Interested in having Big Duck speak at your organization? <a href="#">Learn more about our talks...</a></h3>
-            <Pager :totalPages="totalPages" path="/events" ></Pager>
-            <div v-if="events">
+            <h3><img src="http://placehold.it/30x20" />  <router-link :to="{name: 'speakingEngagements'}">Interested in having Big Duck speak at your organization?Learn more about our talks...</router-link></h3>
+            <div v-if="events.length > 0">
               <div v-for="(event, index) in events">
                   <Event :entry="event" :categories="categories" :index="index"></Event>
 
@@ -61,14 +39,24 @@
   import Event from '~components/Event.vue'
   import Subscribe from '~components/subscribe/container.vue'
   import Pager from '~components/Pager.vue'
-  import { mapState } from 'vuex'
+  import FilterList from '~components/FilterList.vue'
+  import { mapState, mapGetters } from 'vuex'
 
   export default {
     name: 'events',
     components: {
       Event,
       Subscribe,
-      Pager
+      Pager,
+      FilterList
+    },
+    data () {
+      return {
+        selected: {
+          event_category: null,
+          topic: null
+        }
+      }
     },
     async asyncData ({store, query}) {
       const response = await store.dispatch('fetchByQuery', {query: query, path: 'wp/v2/bd_event'})
@@ -78,7 +66,8 @@
       }
     },
     computed: {
-      ...mapState(['categories', 'callouts', 'types', 'topics']),
+      ...mapState(['categories', 'callouts', 'eventCategories', 'topics']),
+      ...mapGetters(['getTopicsIndexedById', 'getEventCategoriesIndexedById']),
       nextPage () {
         return this.page + 1
       },
@@ -86,10 +75,30 @@
         return this.page - 1
       }
     },
-    watch: {
-      '$route.query': 'fetchByQuery'
-    },
     methods: {
+      // given a taxonomy type and id
+      async setActiveTaxonomy (event) {
+        const type = event.taxonomy
+        const id = event.id
+        // if the selected taxonomy is equal to the passed id, set it to null, otherwise set it
+        this.selected[type] = this.selected[type] === id.toString() ? null : id.toString()
+        let query = {}
+        // build a query to send to the store
+        Object.keys(this.selected).forEach((key) => {
+          // if a property is null, skip over it
+          if (this.selected[key]) {
+            query[key] = this.selected[key]
+          }
+        })
+        this.$store.commit('setFilterQuery', query)
+        let response = await this.$store.dispatch('fetchByQuery', {path: 'wp/v2/bd_event', query: this.$store.state.query})
+        this.events = response.data
+      },
+      async resetFilters () {
+        this.$store.commit('setFilterQuery', {})
+        let response = await this.$store.dispatch('fetchByQuery', {path: 'wp/v2/bd_event', query: this.$store.state.query})
+        this.events = response.data
+      }
     }
   }
 </script>

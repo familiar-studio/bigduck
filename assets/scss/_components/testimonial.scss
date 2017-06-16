@@ -1,9 +1,16 @@
 .testimonial{
   background-color: $white;
   padding: 3rem 0;
+  .row{
+    align-items: center;
+    justify-content: center;
+  }
+  .col-md-8{
+    flex: 1 1;
+    max-width: 100%;
+  }
   blockquote{
     position: relative;
-    max-width: 800px;
     margin: auto;
     &::before{
       content:'\201C';
@@ -16,6 +23,15 @@
     }
     h3{
       padding-top: 80px;
+    }
+  }
+  .bg-img{
+    display: none;
+    @include media-breakpoint-up(md){
+      display: block;
+      height: 0;
+      padding-bottom: 100%;
+      margin-left: .5rem;
     }
   }
 }

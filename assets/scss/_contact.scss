@@ -1,0 +1,40 @@
+.page-wrapper.contact{
+  margin-bottom: 0;
+  @extend .bgChange;
+  -webkit-font-smoothing: antialiased;
+
+  *{
+    color: $white;
+  }
+  input{
+    color: $gray-darker;
+  }
+
+  #header{
+    @extend .bgChange;
+  }
+
+  svg path{
+    fill: $white !important;
+  }
+  .tagline{
+    color: $white !important;
+  }
+  #main-menu{
+    .nav-link, .nav-text{
+      color: $white;
+      span{
+        background-image: linear-gradient($white, $white) !important;
+      }
+    }
+  }
+
+  .gated-content-form{
+    ul{
+      list-style: none;
+      padding-left: 0;
+    }
+  }
+
+
+}

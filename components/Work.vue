@@ -1,20 +1,22 @@
 <template id="">
   <div class="row">
-    <div class="col-md-6 mb-3" v-for="(case_study, index) in work" >
-      <router-link :to="{name: 'work-id', params: {id: case_study.id}}" :key="case_study.id">
-        <div v-if="case_study.acf.hero_image">
-          <img :src="case_study.acf.hero_image.url"  class="img-fluid" />
+    <div class="col-md-6 mb-3 d-flex" v-for="(case_study, index) in work" >
+      <router-link :to="{name: 'work-id', params: {id: case_study.id}}" :key="case_study.id" class="block-work-small">
+        <div v-if="case_study.acf.hero_image" class="img-wrapper">
+          <img :src="case_study.acf.hero_image.sizes.cropped_rectangle"  class="img-fluid" />
+          <!-- <div class="bg-img" :style=" { backgroundImage: 'url(' + case_study.acf.hero_image.url + ')' }">
+          </div> -->
         </div>
         <div class="card">
-          <div class="card-header" v-if="topics">
-            <div class="badge badge-default" v-for="topic in case_study.topic">
-
-                <div v-html="topicsIndexedById[topic].icon" class="img-fluid"></div>
-                <div v-html="topicsIndexedById[topic].name"></div>
-            </div>
-          </div>
           <div class="card-block">
-            <h3 class="card-title">{{ case_study.acf.client_name }}</h3>
+            <div class="badge-group" v-if="topics">
+              <div class="badge badge-default" v-for="topic in case_study.topic">
+
+                  <div v-html="topicsIndexedById[topic].icon" class="img-fluid"></div>
+                  <div v-html="topicsIndexedById[topic].name"></div>
+              </div>
+            </div>
+            <h3 class="card-title"><span class="underlineChange hoverColor">{{ case_study.acf.client_name }}</span></h3>
             <p class="card-text" v-html="case_study.acf.short_description"></p>
           </div>
         </div>

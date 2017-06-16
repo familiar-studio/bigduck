@@ -8,7 +8,7 @@
     </div>
     <div class="col-text">
         <div class="card" >
-          <div class="card-header badge-group">
+          <div class="card-header badge-group" v-if="topics && eventCategories">
             <div class="badge badge-secondary badge-type">
               {{displayDate}}
             </div>
@@ -16,9 +16,9 @@
                 <div v-html="getEventCategoriesIndexedById[entry['event_category'][0]].icon"></div>
                 <div v-html="getEventCategoriesIndexedById[entry['event_category'][0]].name"></div>
             </div>
-            <div class="badge badge-default"  v-if="topics && getTopicsIndexedById" v-for="topic in entry.topic">
-                <div v-html="getTopicsIndexedById[topic].icon"></div>
-                <div v-html="getTopicsIndexedById[topic].name"></div>
+            <div class="badge badge-default"  v-if="topics && entry['topic'].length > 0" v-for="topic in entry.topic">
+                <div v-html="getTopicsIndexedById[entry['topic'][0]].icon"></div>
+                <div v-html="getTopicsIndexedById[entry['topic'][0]].name"></div>
             </div>
           </div>
           <div class="card-block">
@@ -53,7 +53,7 @@
     name: 'featured',
     props: ['entry', 'categories', 'index'],
     computed: {
-      ...mapState(['types', 'topics', 'eventCategories']),
+      ...mapState(['topics', 'eventCategories']),
       ...mapGetters(['getTopicsIndexedById', 'getEventCategoriesIndexedById']),
       blockClass () {
         if (this.index === 0) {
@@ -72,9 +72,6 @@
       },
       displayDate () {
         return moment(this.entry.acf.start_time).format('MMM D, YYYY')
-      },
-      eventCategories () {
-        return this.$store.state.eventCategories
       }
     }
   }

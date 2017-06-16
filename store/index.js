@@ -133,6 +133,7 @@ export const actions = {
         queryString += '&page=' + args.page
       }
     }
+    console.log(context.getters.hostname + args.path + queryString)
     return axios.get(context.getters.hostname + args.path + queryString)
   },
   async fetchOne ({dispatch, commit, getters, rootGetters}, args) {
@@ -169,7 +170,6 @@ export const getters = {
   getTopicsIndexedById: (state) => {
     if (state.topics) {
       let topicsByIndex = {}
-
       state.topics.forEach((topic) => {
         topicsByIndex[topic.id] = topic
       })

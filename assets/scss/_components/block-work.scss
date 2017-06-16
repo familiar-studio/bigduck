@@ -17,9 +17,6 @@
     height: 100%;
     top: 0;
     left: 0;
-    background-size: cover;
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
     filter: grayscale(100%);
     transition: all .4s ease;
   }
@@ -36,8 +33,12 @@
   .badge-group{
     margin-bottom: 1.5rem;
   }
+
   h1, p, .badge{
     color: $white;
+  }
+  svg path{
+    fill: $white;
   }
 
   a:hover{
@@ -46,10 +47,58 @@
       filter: grayscale(0);
     }
     .overlay{
-      background-color: rgba($black, .4) !important;
+      background-color: rgba($black, .3) !important;
     }
   }
 }
+
+.block-work-small{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+
+  .card{
+    position: relative;
+    z-index: 3;
+    flex-grow: 1;
+    transition: all .3s ease;
+    @include media-breakpoint-up(sm){
+      margin: -1.75rem 1.5rem 0;
+    }
+  }
+  .badge-group{
+    margin-bottom: 1rem;
+  }
+  .card-title{
+    margin-bottom: .1rem;
+  }
+  .img-wrapper{
+    position: relative;
+    &::before{
+      @extend .bgChange;
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: background-color 1s ease, opacity .3s ease !important;
+      z-index: 3;
+    }
+  }
+
+  &:hover{
+    .card{
+      transform: translateY(-.5rem);
+    }
+    img{
+      filter: grayscale(90%);
+    }
+    .img-wrapper::before{
+      opacity: 0.85;
+    }
+  }
+}
+
 
 .nav-pills{
   margin-top: -45px;
