@@ -18,7 +18,7 @@
 
       </div>
 
-      <h1 class="display-2" v-html="work.acf.title.rendered"></h1>
+      <h1 v-if="work.acf.title" class="display-2" v-html="work.acf.title.rendered"></h1>
     </div>
   </router-link>
 </div>
