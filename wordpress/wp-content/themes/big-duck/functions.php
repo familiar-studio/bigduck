@@ -132,7 +132,7 @@ class StarterSite extends TimberSite {
 		add_action( 'rest_api_init', array( $this, 'add_rest_fields'));
 		add_action( 'rest_api_init', array( $this, 'register_routes') );
 		add_action( 'init', array( $this, 'add_rest_to_cpts'));
-		add_action( 'after_setup_theme', array( $this, 'add_image_sizes'));
+		add_action( 'init', array( $this, 'add_image_sizes'));
 		parent::__construct();
 		// add_filter( 'allowed_http_origin', '__return_true' );
 		add_action( 'init', array( $this, 'handle_preflight'));
@@ -484,7 +484,9 @@ class StarterSite extends TimberSite {
 
 	function add_image_sizes() {
 		add_image_size( 'cropped_400_square', 400, 400, TRUE);
+		add_image_size( 'cropped_rectangle', 700, 350, TRUE);
 	}
+
 
 
 	function add_rest_fields() {
@@ -610,7 +612,7 @@ class StarterSite extends TimberSite {
 	}
 
 	function get_event_category_icon($object) {
-		$icon = get_field('icon', 'event_category_'.$object['id']);
+		$icon = get_field('taxonomy-icon', 'event_category_'.$object['id']);
 		if (!empty($icon)){
 			$icon = file_get_contents($icon);
 		}
@@ -618,7 +620,7 @@ class StarterSite extends TimberSite {
 	}
 
 	function get_sector_icon($object) {
-		$icon = get_field('icon', 'sector_'.$object['id']);
+		$icon = get_field('taxonomy-icon', 'sector_'.$object['id']);
 		if (!empty($icon)){
 			$icon = file_get_contents($icon);
 		}
@@ -626,7 +628,7 @@ class StarterSite extends TimberSite {
 	}
 
 	function get_type_icon($object) {
-		$icon = get_field('icon', 'type_'.$object['id']);
+		$icon = get_field('taxonomy-icon', 'type_'.$object['id']);
 		if (!empty($icon)){
 			$icon = file_get_contents($icon);
 		}
@@ -634,7 +636,7 @@ class StarterSite extends TimberSite {
 	}
 
 	function get_topic_icon($object) {
-		$icon = get_field('icon', 'topic_'.$object['id']);
+		$icon = get_field('taxonomy-icon', 'topic_'.$object['id']);
 		if (!empty($icon)){
 			$icon = file_get_contents($icon);
 		}

@@ -10,6 +10,8 @@ npm-debug.log
 # Nuxt generate
 dist
 
+backups
+
 wordpress/license.txt
 wordpress/readme.md
 wordpress/wp-admin
