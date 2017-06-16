@@ -557,8 +557,8 @@ class StarterSite extends TimberSite {
 			foreach( $work as $case_study ){
 				$topics = wp_get_post_terms($case_study->ID, 'topic');
 				$topicIds = array();
-				foreach($topics as $topics){
-					$topicIds[] = $topic->term_id
+				foreach($topics as $topic){
+					$topicIds[] = $topic->term_id;
 				}
 				$acf = get_fields($case_study->ID);
 				array_push($featured_work,
