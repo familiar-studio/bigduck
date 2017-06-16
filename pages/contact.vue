@@ -2,31 +2,34 @@
 <div class="container no-hero">
   <h1>Contact Us</h1>
 
-  <article>
-    <section>
-
-      <div class="" v-if="gatedContent" v-html="gatedContent">
-
-      </div>
-    </section>
-  </article>
-
+  <div v-if="pageContent" v-html="pageContent">
+  </div>
+  <GravityForm :formId="formId"></GravityForm>
 </div>
 </template>
 <script>
   import Axios from 'axios'
+  import GravityForm from '~components/GravityForm'
+
   export default {
     name: 'contact',
     async asyncData ({store}) {
-      let gatedContent = await Axios.get(store.getters['hostname'] + 'wp/v2/pages?slug=newfangled-testing-gated-content')
-      let data = {
-        gatedContent: gatedContent.data[0].content.rendered
+      let response = await Axios.get(store.getters['hostname'] + 'wp/v2/pages?slug=newfangled-testing-gated-content')
+      var pageContent = response.data[0].content.rendered
+      // var el1 = document.createElement(pageContent)
+      // var formId = el1.getElementById('gated-content-form').data('form')
+      var pieces = pageContent.split('|')
+      return {
+        formId: pieces[1],
+        pageContent: pieces[0]
       }
-      return data
     },
     async created () {
-      let content = await Axios.get(this.$store.getters['hostname'] + 'wp/v2/pages?slug=newfangled-testing-gated-content')
-      console.log('content', content)
+      // let content = await Axios.get(this.$store.getters['hostname'] + 'wp/v2/pages?slug=newfangled-testing-gated-content')
+      // console.log('content', content)
+    },
+    components: {
+      GravityForm
     }
   }
 </script>
