@@ -55,7 +55,7 @@ export default {
       var signature = this.CalculateSig('entries', 'POST')
       this.formData['form_id'] = this.formId
 
-      axios.post(this.baseUrl + 'entries', [this.formData], { method: 'POST', params: { api_key: this.publicKey, signature: signature, expires: this.expires } })
+      axios.post(this.baseUrl + 'entries', [this.formData], { params: { api_key: this.publicKey, signature: signature, expires: this.expires } })
       this.submitted = true
     }
   },

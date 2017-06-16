@@ -15,7 +15,7 @@ $gated_content_form_id = get_post_meta( get_the_id(), 'gated_content_form_id', t
 echo $content;
 
 //  Wrap the form
-echo '<div class="gated-content-form" id="gated-content-form" data-form="'.$gated_content_form_id.'"></div>';
+echo '|'.$gated_content_form_id.'|';
 
 //  Include the form shortcode
 // if ($nfgated && 
