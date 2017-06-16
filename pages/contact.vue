@@ -4,10 +4,7 @@
 
   <div v-if="pageContent" v-html="pageContent">
   </div>
-
-
-  <h1>{{formId}}</h1>
-  <GravityForm :formId="7"></GravityForm>
+  <GravityForm :formId="formId"></GravityForm>
 </div>
 </template>
 <script>
@@ -21,11 +18,10 @@
       var pageContent = response.data[0].content.rendered
       // var el1 = document.createElement(pageContent)
       // var formId = el1.getElementById('gated-content-form').data('form')
-
-      console.log('formId', formId)
+      var pieces = pageContent.split('|')
       return {
-        formId: formId,
-        pageContent: pageContent
+        formId: pieces[1],
+        pageContent: pieces[0]
       }
     },
     async created () {
