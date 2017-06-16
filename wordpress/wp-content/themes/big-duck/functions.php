@@ -199,6 +199,10 @@ class StarterSite extends TimberSite {
 			'methods' => 'GET',
 			'callback' => array($this, 'team')
 		));
+		register_rest_route('familiar/v1', '/team/(?P<id>[\w-]+)', array(
+			'methods' => 'GET',
+			'callback' => array($this, 'get_team_member')
+		));
 		register_rest_route('familiar/v1', '/events', array(
 			'methods' => 'GET',
 			'callback' => array($this, 'get_events')
@@ -434,12 +438,32 @@ class StarterSite extends TimberSite {
 		$team = array();
 		foreach($users as $key => $user){
 				$fields = get_fields('user_' . $user->ID);
+
 				if ($fields['team_member'] == 'yes'){
+					$fields['slug'] = $user->user_nicename;
+					$fields['name'] = $user->display_name;
+					$fields['email'] = $user->user_email;
+					// add name, email, and slug to $fields
 					$team[] = $fields;
 				}
 			// }
 		}
 		return new WP_REST_Response($team);
+	}
+
+	function get_team_member($request) {
+		$nicename = $request->get_params('id')['id'];
+		// $user = get_user_by('nicename', $nicename->id);
+		$user = get_user_by('slug', $nicename);
+		$fields = get_fields('user_' . $user->ID);
+		if ($fields['team_member'] == 'yes'){
+			$fields['slug'] = $user->user_nicename;
+			$fields['name'] = $user->display_name;
+			$fields['email'] = $user->user_email;
+			// add name, email, and slug to $fields
+			$team_member = $fields;
+		}
+		return new WP_REST_Response($team_member);
 	}
 
 	function events_by_user($data) {
