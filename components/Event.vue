@@ -32,7 +32,7 @@
                 Learn More
               </span>
             </div>
-            <div class="media" v-for="team_member in entry.related_team_members.data">
+            <div class="media" v-for="team_member in relatedTeamMembers">
               <img v-if="team_member.headshot" :src="team_member.headshot.sizes.thumbnail" class="round author-img mr-2">
               <h6 class="align-self-center mb-0">{{ team_member.member.display_name}}</h6>
             </div>
@@ -51,7 +51,7 @@
 
   export default {
     name: 'featured',
-    props: ['entry', 'categories', 'index'],
+    props: ['entry', 'categories', 'index', 'relatedTeamMembers'],
     computed: {
       ...mapState(['topics', 'eventCategories']),
       ...mapGetters(['getTopicsIndexedById', 'getEventCategoriesIndexedById']),

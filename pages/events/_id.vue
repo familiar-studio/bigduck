@@ -76,7 +76,7 @@
               <div v-if="relatedEvents">
                 <h2>Related Events</h2>
                 <div class="" v-for="(event, index) in relatedEvents">
-                  <Event :entry="event" :index="index"></Event>
+                  <Event :entry="event" :index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
                 </div>
               </div>
               <div v-if="relatedInsights">

@@ -42,7 +42,7 @@
       <article v-if="openHouse">
          <h1 id="open-house">Open House</h1>
          <div class="" v-for="event in openHouse">
-           <Event :entry="event"></Event>
+           <Event :entry="event" :relatedTeamMembers="event.related_team_members.data"></Event>
          </div>
       </article>
 
@@ -67,7 +67,7 @@
         <h1 id="team">{{page.acf.team_headline}}</h1>
         <div v-html="page.acf.team_body"></div>
         <div class="row">
-        <router-link :key="member.id" :to=" {name: 'team-slug', params: {slug: member.headshot.name}}" v-for="member in team" class="col-md-4 card">
+        <router-link :key="member.id" :to=" {name: 'team-slug', params: {slug: member.slug}}" v-for="member in team" class="col-md-4 card">
             <img class="card-img-top" :src="member.headshot.url" :alt="member.headshot.name" />
             <div class="card-block">
               <h4 class="card-title">{{member.headshot.title}}</h4>

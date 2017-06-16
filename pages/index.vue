@@ -12,7 +12,7 @@
       <div v-if="upcomingEvents" class="mt-5">
         <h2>Upcoming Events</h2>
         <div class="" v-for="(event, index) in upcomingEvents">
-          <Event :entry="event" index="index"></Event>
+          <Event :entry="event" index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
         </div>
         <nuxt-link class="btn btn-primary" to="/events">View All Events</nuxt-link>
       </div>

@@ -17,7 +17,7 @@
             <h3><img src="http://placehold.it/30x20" />  <router-link :to="{name: 'speakingEngagements'}">Interested in having Big Duck speak at your organization?Learn more about our talks...</router-link></h3>
             <div v-if="events.length > 0">
               <div v-for="(event, index) in events">
-                  <Event :entry="event" :categories="categories" :index="index"></Event>
+                  <Event :entry="event" :categories="categories" :index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
 
                   <Subscribe v-if="callouts[0] && index % 5 == 1 && index < events.length - 1" :entry="callouts[0]"></Subscribe>
               </div>
