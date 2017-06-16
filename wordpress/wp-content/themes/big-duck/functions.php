@@ -463,25 +463,75 @@ class StarterSite extends TimberSite {
 			// add name, email, and slug to $fields
 			$team_member = $fields;
 		}
-		return new WP_REST_Response($team_member);
-	}
-
-	function events_by_user($data) {
-		$events = get_posts(array(
-				'post_type' => 'tribe_events'
+		$rawEvents = get_posts(array(
+				'post_type' => 'bd_event'
 		));
-		$related_events = array();
-		foreach($events as $event){
-			$field = get_field('related_team_members', $event->ID);
-			if (gettype($field) == "array"){
-				foreach($field as $member){
-					if($member['ID'] == $data['id']){
-						array_push($related_events, $event);
+
+		$team_member['events'] = array();
+		foreach($rawEvents as $rawEvent){
+			$fields = get_fields($rawEvent->ID);
+			// $events[] = $fields['start_time'];
+			// $events[] = strtotime($fields['start_time']);
+			if(strtotime($fields['start_time']) > strtotime('now')){
+				$team = $fields['related_team_members'];
+				foreach($team as $member) {
+					if ($member['ID'] == $user->ID){
+						$team_member['events'][] = $fields;
+						continue;
 					}
 				}
 			}
 		}
-		return new WP_REST_Response(array('events' => $related_events));
+
+		$rawInsights = get_posts(array(
+			'post_type' => 'bd_insight'
+		));
+
+		$team_member['insights'] = array();
+		foreach($rawInsights as $rawInsight){
+			$fields = get_fields($rawInsight->ID);
+			if ($fields['author']['ID'] == $user->ID){
+				$insight = array();
+				$insight['data'] = get_post($rawInsight->ID);
+				$insight['acf'] = $fields;
+				$team_member['insights'][] = $insight;
+			}
+		}
+
+		return new WP_REST_Response($team_member);
+	}
+
+	function events_by_user($data) {
+		$rawEvents = get_posts(array(
+				'post_type' => 'bd_event'
+		));
+		$events = array();
+		foreach($rawEvents as $rawEvent){
+			$fields = get_fields($rawEvent->ID);
+			// $events[] = $fields['start_time'];
+			// $events[] = strtotime($fields['start_time']);
+			if(strtotime($fields['start_time']) > strtotime('now')){
+				$team = $fields['related_team_members'];
+				foreach($team as $member) {
+					if ($member['ID'] == $data->get_params('id')['id']){
+						$events[] = $fields;
+						continue;
+					}
+				}
+			}
+		}
+		// $related_events = array();
+		// foreach($events as $event){
+		// 	$field = get_field('related_team_members', $event->ID);
+		// 	if (gettype($field) == "array"){
+		// 		foreach($field as $member){
+		// 			if($member['ID'] == $data['id']){
+		// 				array_push($related_events, $event);
+		// 			}
+		// 		}
+		// 	}
+		// }
+		return new WP_REST_Response(array('events' => $events));
 	}
 
 	function featured_work($data) {
