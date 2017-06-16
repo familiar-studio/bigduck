@@ -47,7 +47,7 @@
                   </div>
                 </div>
               </article>
-              <div class="row">
+              
                   <div v-for="(block, index) in caseStudy.acf.body">
 
                     <!-- TEXT  -->
@@ -58,14 +58,12 @@
 
                       <!-- GALLERY  -->
                       <div v-if="block.acf_fc_layout == 'gallery'" class="cs-block-gallery">
-                        <!-- <flickity ref="flickity" :options="flickityOptions"> -->
-                          <figure class="carousel-cell figure" v-for="image in block.gallery">
-                            <img :src="image.sizes.large" class="figure-img img-fluid" :alt="image.title">
+                        <flickity :options="flickityOptions" >
+                          <div class="carousel-cell" v-for="image in block.gallery">
+                            <img :src="image.sizes.large" :alt="image.title" class="img-fluid">
                             <figcaption class="figure-caption">{{image.caption}}</figcaption>
-                          </figure>
-                        <!-- </flickity> -->
-                        <button @click="previous()">Previous</button>
-                        <button @click="next()">Next</button>
+                          </div>
+                        </flickity> 
                       </div>
 
                       <!-- CALLOUT  -->
@@ -100,7 +98,7 @@
                       </div>
                   </div>
 
-              </div>
+              
               <Subscribe v-if="callouts" :entry="callouts[0]"></Subscribe>
               <div class="mt-5" v-if="relatedCaseStudies && relatedCaseStudies.length > 0">
                 <h2>Similar Case Studies</h2>
@@ -138,7 +136,7 @@
         caseStudy: null,
         relatedCaseStudies: null,
         flickityOptions: {
-          prevNextButtons: false,
+          prevNextButtons: true,
           pageDots: false
         }
       }
@@ -187,3 +185,4 @@
     }
   }
 </script>
+
