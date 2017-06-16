@@ -9,3 +9,22 @@ npm-debug.log
 
 # Nuxt generate
 dist
+
+wordpress/license.txt
+wordpress/readme.md
+wordpress/wp-admin
+wordpress/wp-includes
+wordpress/*.php
+wordpress/wp-content/*
+wordpress/wp-content/plugins
+wordpress/wp-content/uploads
+wordpress/wp-content/backups
+wordpress/wp-content/backup-db
+wordpress/wp-content/cache
+
+!wordpress/wp-content/themes
+wordpress/wp-config.php
+
+
+
+

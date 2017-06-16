@@ -22,6 +22,10 @@
         gatedContent: gatedContent.data[0].content.rendered
       }
       return data
+    },
+    async created () {
+      let content = await Axios.get(this.$store.getters['hostname'] + 'wp/v2/pages?slug=newfangled-testing-gated-content')
+      console.log('content', content)
     }
   }
 </script>

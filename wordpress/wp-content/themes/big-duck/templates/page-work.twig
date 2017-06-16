@@ -1,0 +1,9 @@
+{% extends "base.twig" %}
+
+{% block content %}
+	<div class="content-wrapper container">
+	{% include "_includes/post-list.twig" with { posts: case_studies, title: "Case Studies" } %}
+	{% include "_includes/post-list.twig" with { posts: clients, title: "Clients" } %}
+
+	</div><!-- /content-wrapper -->
+{% endblock %}
