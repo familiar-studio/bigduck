@@ -555,10 +555,14 @@ class StarterSite extends TimberSite {
 
 		if( $work ){
 			foreach( $work as $case_study ){
-				$topic = wp_get_post_terms($case_study->ID, 'topic');
+				$topics = wp_get_post_terms($case_study->ID, 'topic');
+				$topicIds = array();
+				foreach($topics as $topics){
+					$topicIds[] = $topic->term_id
+				}
 				$acf = get_fields($case_study->ID);
 				array_push($featured_work,
-					array('id' => $case_study->ID, 'acf' => $acf, 'topic' => $topic )
+					array('id' => $case_study->ID, 'acf' => $acf, 'topic' => $topicIds )
 				);
 			}
 		}
