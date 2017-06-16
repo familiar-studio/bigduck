@@ -68,7 +68,7 @@
 
         </div>
 
-        <div class="container overlap mt-5" v-if="relatedCaseStudies">
+        <div class="container mt-5" v-if="relatedCaseStudies">
           <h2>Related Case Studies</h2>
           <div class="row">
             <div v-for="case_study in relatedCaseStudies" class="col-md-6">

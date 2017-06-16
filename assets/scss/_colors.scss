@@ -24,5 +24,9 @@
       transition: fill 1s ease;
       fill: nth($duck-colors, $i);
     }
+    a:hover .hoverColor{
+      transition: color 1s ease;
+      color: nth($duck-colors, $i);
+    }
   }
 }

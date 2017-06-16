@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-6 mb-3 d-flex" v-for="(case_study, index) in work" >
       <router-link :to="{name: 'work-id', params: {id: case_study.id}}" :key="case_study.id" class="block-work-small">
-        <div v-if="case_study.acf.hero_image">
+        <div v-if="case_study.acf.hero_image" class="img-wrapper">
           <img :src="case_study.acf.hero_image.sizes.cropped_rectangle"  class="img-fluid" />
           <!-- <div class="bg-img" :style=" { backgroundImage: 'url(' + case_study.acf.hero_image.url + ')' }">
           </div> -->
@@ -16,7 +16,7 @@
                   <div v-html="topicsIndexedById[topic].name"></div>
               </div>
             </div>
-            <h3 class="card-title"><span class="underlineChange">{{ case_study.acf.client_name }}</span></h3>
+            <h3 class="card-title"><span class="underlineChange hoverColor">{{ case_study.acf.client_name }}</span></h3>
             <p class="card-text" v-html="case_study.acf.short_description"></p>
           </div>
         </div>
