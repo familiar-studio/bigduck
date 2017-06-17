@@ -16,7 +16,7 @@
           </div>
         </div>
         <div class="col-lg-8">
-          <div class="container">
+          <div class="container overlap">
             <div>
               <article class="main">
                 <h1 id="we-believe">{{ page.acf.we_believe_headline }}</h1>
