@@ -52,17 +52,6 @@ register_sidebar( array(
 	'description' => __( 'This is the Smart CTA for Insights' ),
 ));
 
-add_filter('tiny_mce_before_init', 'tiny_mce_remove_unused_formats' );
-
-
-
-
-function tiny_mce_remove_unused_formats($init) {
-	// Add block format elements you want to show in dropdown
-	$init['block_formats'] = 'Paragraph=p;Heading 3=h3;Heading 4=h4;';
-	return $init;
-}
-
 add_filter( 'acf/fields/wysiwyg/toolbars' , 'my_toolbars'  );
 
 function my_toolbars( $toolbars )

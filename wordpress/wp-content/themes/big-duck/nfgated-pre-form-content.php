@@ -12,10 +12,10 @@ global $nfgated;
 $gated_content_form_id = get_post_meta( get_the_id(), 'gated_content_form_id', true );
 
 //  Show the pre-form content
-echo $content;
+// echo $content;
 
 //  Wrap the form
-echo '|'.$gated_content_form_id;
+echo $gated_content_form_id;
 
 //  Include the form shortcode
 // if ($nfgated && 
