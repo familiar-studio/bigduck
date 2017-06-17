@@ -49,7 +49,6 @@
                         <h3>{{insight.acf.author.display_name}} {{insight.acf.author.user_lastname}} is
                             {{ prependIndefiniteArticle(author.acf.job_title) }}
                             {{  author.acf.job_title }} at Big Duck</h3>
-                          <p class="card-text" v-html="author.acf.bio"></p>
                         <router-link class="btn btn-primary" :to="{name: 'team-slug', params: { slug: insight.acf.author.user_nicename}}">More about {{insight.acf.author.user_firstname}}</router-link>
                       </div>
                     </div>
@@ -137,25 +136,20 @@
         return moment(this.insight.date).format('MMM Do YYYY')
       }
     },
-    async created () {
-      Axios.all(this.getRelatedWork(), this.getAuthor()).then(
-        Axios.spread(function (caseStudies, author) {
-          this.relatedCaseStudies = caseStudies
-          this.relatedCaseStudies = author
-        }))
+    created () {
+      // get related case studies
+      if (this.relatedWorkIds) {
+        Axios.get(this.hostname + 'wp/v2/bd_case_study', { params: { includes: this.relatedWorkIds } }).then((response) => {
+          this.relatedCaseStudies = response.data
+        })
+      }
+      // get author info
+      Axios.get(this.hostname + 'acf/v3/users/' + this.insight.acf.author.ID).then((response) => {
+        this.author = response.data
+      })
     },
     // mounted if form exists in dom mounted then change action
     methods: {
-      getRelatedWork () {
-        if (this.relatedWorkIds) {
-          return Axios.get(this.hostname + 'wp/v2/bd_case_study', { params: { includes: this.relatedWorkIds } })
-        } else {
-          return null
-        }
-      },
-      getAuthor () {
-        return Axios.get(this.hostname + 'acf/v3/users/' + this.insight.acf.author.ID)
-      },
       prependIndefiniteArticle (word) {
         if ('aeiou'.indexOf(word.split('')[0].toLowerCase()) > -1) {
           return 'an ' + word

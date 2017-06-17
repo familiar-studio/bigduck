@@ -128,26 +128,18 @@
       return data
     },
     created () {
-      Axios.all(this.getRelatedEvents(), this.getRelatedInsights()).then(
-        Axios.spread(function (events, insights) {
-          this.relatedEvents = events
-          this.relatedInsights = insights
-        }))
-    },
-    methods: {
-      getRelatedEvents () {
-        if (this.relatedEventsIds) {
-          return Axios.get(this.hostname + 'wp/v2/bd_event', { params: { includes: this.relatedEventsIds } })
-        } else {
-          return null
-        }
-      },
-      getRelatedInsights () {
-        if (this.relatedInsightsIds) {
-          return Axios.get(this.hostname + 'wp/v2/bd_event', { params: { includes: this.relatedInsightsIds } })
-        } else {
-          return null
-        }
+      // get related events
+      if (this.relatedEventsIds) {
+        Axios.get(this.hostname + 'wp/v2/bd_event', { params: { includes: this.relatedEventsIds } }).then((response) => {
+          this.relatedEvents = response.data
+        })
+      }
+
+      // get related insights
+      if (this.relatedInsightsIds) {
+        Axios.get(this.hostname + 'wp/v2/bd_event', { params: { includes: this.relatedInsightsIds } }).then((response) => {
+          this.relatedInsights = response.data
+        })
       }
     },
     computed: {
