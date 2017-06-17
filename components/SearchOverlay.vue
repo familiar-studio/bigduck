@@ -1,12 +1,19 @@
 <template>
   <section id="search-overlay"  >
-    <a href="#" class="close" @click.prevent="closeSearch()" >&times;</a>
-    <h1 class="display-1">Search</h1>
+   <a href="#" class="close" @click.prevent="closeSearch()" >&times;</a>
 
-    <form @submit.prevent="search()">
-      <input type="text" v-model="query" v-focus/>
-      <button type="submit">Search</button>
-    </form>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 offset-md-2">
+          <h1 class="display-1">Search</h1>
+
+          <form @submit.prevent="search()">
+            <input type="text" v-model="query" v-focus class="form-control"/>
+            <button type="submit" class="btn btn-primary">Search</button>
+          </form>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -30,7 +37,6 @@ export default {
       this.$emit('hide')
     },
     search () {
-      this.searchVisible = false
       this.$router.push({ name: 'search', query: { query: this.query } })
       this.$emit('hide')
     }

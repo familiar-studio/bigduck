@@ -1,16 +1,18 @@
 <template lang="html">
   <div class="container">
-    <form  @submit.prevent="search">
-      <input type="text" name="search" id="search" v-model="query" placeholder="search">
-      <button type="submit" name="button">search</button>
+    <form  @submit.prevent="search" class="form-inline">
+      <input type="text" name="search" id="search" v-model="query" placeholder="search" class="form-control">
+      <button type="submit" name="button" class="btn btn-primary">search</button>
     </form>
-      <div v-if="results">
-        <ul>
-          <li v-for="result in results">
-            {{result.title.rendered}}
-          </li>
-        </ul>
-      </div>
+    <div v-if="results">
+      <ul class="list-unstyled">
+        <li v-for="result in results">
+          <div class="card card-block mb-1">
+            <a href=""><h2>{{result.title.rendered}}</h2></a>
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -20,22 +22,22 @@ import Axios from 'axios'
 export default {
   data () {
     return {
-      results: null,
       totalPages: null
     }
   },
-  computed: {
-    query () {
-      return this.$route.query.query
+  async asyncData ({route, store}) {
+    let response = await Axios.get(store.getters.hostname + 'wp/v2/posts?search=' + route.query.query)
+    return {
+      results: response.data
     }
   },
   mounted () {
+    this.query = this.$route.query.query
     this.search()
   },
   methods: {
     async search () {
       let results = await Axios.get(this.$store.getters.hostname + 'wp/v2/posts?search=' + this.query)
-      console.log(results.data)
       this.results = results.data
     }
   }
