@@ -7,11 +7,7 @@
       </transition>
       <div class="container-fluid">
         <div class="row">
-          <div class="col-md-2">
-
-          </div>
-
-          <div class="col-md-8">
+          <div class="col-md-8 offset-md-2">
             <share></share>
             <transition name="slideUp" appear>
               <div class="container bg-white overlap">
@@ -19,11 +15,11 @@
                   <div class="badge-group">
                     <router-link class="badge badge-default underlineChange" :to="{name: 'insights'}">Insights</router-link>
                     <div class="badge badge-default" v-for="topic in insight.topic" v-if="topics">
-                      <img :src="topicsIndexedById[topic].acf.icon">
-                      <div v-html="topicsIndexedById[topic].name"></div>
+                      <img :src="getTopicsIndexedById[topic].acf.icon">
+                      <div v-html="getTopicsIndexedById[topic].name"></div>
                     </div>
                     <div class="badge badge-default" v-if="insight.acf.time && types">
-                      {{insight.acf.time}} {{insight.acf.time_interval}} {{ typesIndexedById[insight.type[0]].verb }}
+                      {{insight.acf.time}} {{insight.acf.time_interval}} {{ getTypesIndexedById[insight.type[0]].verb }}
                     </div>
                     <div class="badge badge-default" >
                       <!-- {{insight.date | formatDate('MMM Do YYYY')}} -->
@@ -80,8 +76,8 @@
                 <div class="card two-up-card mx-4">
                   <div class="card-header" v-if="topics && types">
                     <div class="badge badge-default" v-for="topic in case_study.topic">
-                        <div v-html="topicsIndexedById[topic].icon.data"></div>
-                        <div v-html="topicsIndexedById[topic].name"></div>
+                        <div v-html="getTopicsIndexedById[topic].icon.data"></div>
+                        <div v-html="getTopicsIndexedById[topic].name"></div>
                     </div>
                   </div>
                   <div class="card-block py-0">
@@ -115,55 +111,35 @@
     },
     data () {
       return {
-        form: null
+        form: null,
+        relatedCaseStudies: null,
+        author: null
       }
     },
     async asyncData ({state, params, store}) {
       let data = {}
-      let response = await store.dispatch('fetchOne', {path: 'wp/v2/bd_insight', id: params.id})
-      let insight = response
-      data['insight'] = insight
-      let body = insight.acf.body[0].text
-      let relatedWorkIds = insight.acf.related_case_studies
-      if (typeof relatedWorkIds !== 'undefined' && relatedWorkIds) {
-        response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_case_study?' + relatedWorkIds.map((obj) => 'include[]=' + obj.ID).join('&'))
-        data['relatedCaseStudies'] = response.data
-      }
-      if (insight.acf.author) {
-        response = await Axios.get(store.getters['hostname'] + 'acf/v3/users/' + insight.acf.author.ID)
-        data['author'] = response.data
+      let response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_insight/' + params.id)
+      data.insight = response.data
+      if (data.insight.acf) {
+        data.relatedWorkIds = data.insight.acf.related_case_studies
       }
       return data
     },
     head () {
       return {
-        title: this.insight.title.rendered + ' | Big Duck'
+        title: this.insight.title.rendered
       }
     },
     computed: {
       ...mapState(['types', 'topics']),
-      ...mapGetters(['bareHostname']),
-      topicsIndexedById () {
-        return this.$store.getters['getTopicsIndexedById']
-      },
-      typesIndexedById () {
-        return this.$store.getters['getTypesIndexedById']
-      },
+      ...mapGetters(['bareHostname', 'getTopicsIndexedById', 'getTypesIndexedById']),
       date () {
         return moment(this.insight.date).format('MMM Do YYYY')
-      },
-      id () {
-        return this.$route.params.id
       }
     },
     async created () {
-      // this.form = form
-      let response = await this.$store.dispatch('fetchOne', {path: 'wp/v2/bd_insight', id: this.id})
-      this.insight = response
-      let body = this.insight.acf.body[0].text
-      let relatedWorkIds = this.insight.acf.related_case_studies
-      if (typeof relatedWorkIds !== 'undefined' && relatedWorkIds) {
-        response = await Axios.get(this.$store.getters['hostname'] + 'wp/v2/bd_case_study?' + relatedWorkIds.map((obj) => 'include[]=' + obj.ID).join('&'))
+      if (this.relatedWorkIds) {
+        response = await Axios.get(this.$store.getters['hostname'] + 'wp/v2/bd_case_study', { params: { include: relatedWorkIds } })
         this.relatedCaseStudies = response.data
       }
       if (this.insight.acf.author) {
@@ -179,16 +155,6 @@
         } else {
           return 'a ' + word
         }
-      }
-    },
-    mounted () {
-      // $('form[id^="gform_"]').action(this.$store.getters['bareHostname'])
-      let form = document.querySelector('form[id^="gform_"]')
-      // let form = document.querySelector('form')
-      console.log(form)
-      if (form) {
-        form.action = this.$store.getters['bareHostname']
-        console.log(form)
       }
     }
   }

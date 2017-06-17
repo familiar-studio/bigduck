@@ -1,6 +1,6 @@
 <template>
 
-  <div class="block-insights" :class="blockClass" :type="types && entry.type[0] ? typesIndexedById[entry.type[0]].slug : ''" v-if="entry.type">
+  <div class="block-insights" :class="blockClass" :type="types && entry.type[0] ? getTypesIndexedById[entry.type[0]].slug : ''" v-if="entry.type">
     <router-link :to="{ name: 'insights-id', params: { id: entry.id }}" :key="entry.id">
     <div class="col-image">
       <div :style="{ 'background-image': 'url(' + entry.acf.featured_image+ ')' }" class="featured-image"></div>
@@ -13,25 +13,25 @@
                   <div>Badges TK</div>
               </div>
               <div class="badge badge-default badge-type" v-for="type in entry.type">
-                  <div v-html="typesIndexedById[type].icon"></div>
-                  <div v-html="typesIndexedById[type].name"></div>
+                  <div v-html="getTypesIndexedById[type].icon"></div>
+                  <div v-html="getTypesIndexedById[type].name"></div>
               </div>
               <div class="badge badge-default" v-for="topic in entry.topic">
-                  <div v-html="topicsIndexedById[topic].icon"></div>
-                  <div v-html="topicsIndexedById[topic].name"></div>
+                  <div v-html="getTopicsIndexedById[topic].icon"></div>
+                  <div v-html="getTopicsIndexedById[topic].name"></div>
               </div>
               <div class="badge badge-default">
 
 
                 <span v-if="types && entry.type[0]">
-                    <span v-if="typesIndexedById[entry.type[0]].verb == 'read'">
+                    <span v-if="getTypesIndexedById[entry.type[0]].verb == 'read'">
                       {{entry.acf.calculated_reading_time.data}}
                     </span>
                       <span v-else>
                         <span>{{ entry.acf.time }}
                          {{ entry.acf.time_interval }}</span>
                        </span>
-                    &nbsp;{{ typesIndexedById[entry.type[0]].verb }}
+                    &nbsp;{{ getTypesIndexedById[entry.type[0]].verb }}
                   </span>
               </div>
             </div>
@@ -41,7 +41,7 @@
             <div class="card-footer">
               <div class="chat-bubble">
                 <span v-if="types && entry.type[0]">
-                  {{ typesIndexedById[entry.type[0]].verb }} Now
+                  {{ getTypesIndexedById[entry.type[0]].verb }} Now
                 </span>
                 <span v-else>
                   Read More
@@ -60,14 +60,15 @@
 </template>
 
 <script>
+
+  import { mapState, mapGetters } from 'vuex'
+
   export default {
     name: 'post',
     props: ['entry', 'categories', 'index'],
     computed: {
-      topicsIndexedById () { return this.$store.getters['getTopicsIndexedById'] },
-      typesIndexedById () { return this.$store.getters['getTypesIndexedById'] },
-      types () { return this.$store.state.types },
-      topics () { return this.$store.state.topcis },
+      ...mapState(['types', 'topics']),
+      ...mapGetters(['getTopicsIndexedById', 'getTypesIndexedById']),
       blockClass () {
         if (this.index === 0) {
           return 'first-block'
