@@ -18,8 +18,7 @@ module.exports = {
   transition: {
     name: 'page',
     mode: 'out-in',
-    beforeEnter (el) {
-    }
+    appear: true
   },
   plugins: [
     { src: '~plugins/vue-flickity', ssr: false }

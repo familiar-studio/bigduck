@@ -1,20 +1,22 @@
 <template>
-  <section id="search-overlay"  >
-   <a href="#" class="close" @click.prevent="closeSearch()" >&times;</a>
+  <transition name="down" appear>
+    <section id="search-overlay"  >
+    <a href="#" class="close" @click.prevent="closeSearch()" >&times;</a>
 
-    <div class="container">
-      <div class="row">
-        <div class="col-md-8 offset-md-2">
-          <h1 class="display-1">Search</h1>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 offset-md-2">
+            <h1 class="display-1">Search</h1>
 
-          <form @submit.prevent="search()">
-            <input type="text" v-model="query" v-focus class="form-control"/>
-            <button type="submit" class="btn btn-primary">Search</button>
-          </form>
+            <form @submit.prevent="search()">
+              <input type="text" v-model="query" v-focus class="form-control"/>
+              <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </transition>
 </template>
 
 <script>
