@@ -1,7 +1,7 @@
 <template>
   <div id="full-wrapper" :class="'color-'+currentColor" >
    <div class="page-wrapper" :class="pageClass">
-    <header id="header" :class="{ 'small-nav': haveScrolled, 'nav-open':showNav }">
+    <header id="header" :class="{ 'small-nav': haveScrolled, 'nav-open':navVisible }">
       <div class="container-fluid">
         <nav class="navbar navbar-toggleable-md navbar-light">
           <button @click="toggleNav()" class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,7 +41,7 @@
                 <div class="nav-text">Reach out to us</div>
               </li>
               <li class="nav-item">
-                <a class="nav-link float-left" href="/search">
+                <a class="nav-link float-left" href="#" @click.prevent="showSearch()">
                   <svg width="26px" height="26px" viewBox="0 0 26 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="search-icon">
                     <path d="M25.5611068,23.4388932 C26.146029,24.0268104 26.146029,24.9731896 25.5574713,25.5647236 C25.2731412,25.8461524 24.8928615,26 24.5,26 C24.1053281,26 23.7235341,25.8447477 23.4388932,25.5601068 L15.0643004,17.185514 C13.4604395,18.3533221 11.5289078,19 9.5,19 C4.26071525,19 0,14.7392847 0,9.5 C0,4.26071525 4.26071525,0 9.5,0 C14.7392847,0 19,4.26071525 19,9.5 C19,11.528581 18.353522,13.4600566 17.1863031,15.0640896 L25.5611068,23.4388932 Z M3,9.5 C3,13.0837153 5.91628475,16 9.5,16 C13.0837153,16 16,13.0837153 16,9.5 C16,5.91628475 13.0837153,3 9.5,3 C5.91628475,3 3,5.91628475 3,9.5 Z" fill="#1E1E1E"></path>
                   </svg>
@@ -86,6 +86,8 @@
                 <address class="">
                   20 Jay Street, Suite 524<br>
                   Brooklyn, NY 11201
+
+                  
                 </address>
               </h4>
             </div>
@@ -93,31 +95,38 @@
         </div>
       </footer>
 
+      <SearchOverlay v-if="searchVisible" @hide="hideSearch()"></SearchOverlay>
 
     </div>
-    <section id="footer-callout" class="bgChange text-white my-0 py-5 fixed-bottom">
+    <section id="footer-callout" v-if="pageClass != 'contact'" class="bgChange text-white my-0 py-5 fixed-bottom">
       <div>
         <GravityForm :formId="5"></GravityForm>
       </div>
     </section>
+
+  
   </div>
 </template>
 
 <script>
   import Logo from '~components/Logo.vue'
   import GravityForm from '~components/GravityForm.vue'
+  import SearchOverlay from '~components/SearchOverlay.vue'
 
   export default {
     components: {
       Logo,
-      GravityForm
+      GravityForm,
+      SearchOverlay
     },
     data () {
       return {
-        showNav: false,
+        navVisible: false,
+        searchVisible: false,
         haveScrolled: false,
         totalColors: 7,
-        currentColor: 1
+        currentColor: 1,
+        query: null
       }
     },
     computed: {
@@ -133,7 +142,13 @@
     },
     methods: {
       toggleNav () {
-        this.showNav = !this.showNav
+        this.navVisible = !this.navVisible
+      },
+      showSearch () {
+        this.searchVisible = true
+      },
+      hideSearch () {
+        this.searchVisible = false
       },
       handleScroll () {
         this.haveScrolled = window.scrollY > 20

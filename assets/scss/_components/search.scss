@@ -1,0 +1,23 @@
+#search-overlay {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  width: 100%;
+  bottom: 0px;
+  z-index: 100;
+  background-color: $gray-light;
+  padding: 5rem;
+  text-align: center;
+
+
+  .close {
+
+    color: white;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 2rem;
+  }
+  
+}
