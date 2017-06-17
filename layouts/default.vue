@@ -139,7 +139,6 @@
         this.haveScrolled = window.scrollY > 20
       },
       changeColor () {
-        console.log('changed')
         if (this.currentColor < this.totalColors) {
           this.currentColor ++
         } else {

@@ -2,7 +2,7 @@
 <div>
   <div class="label label-lg">{{ label }}</div>
   <div class="media-list">
-  <a href="#" v-for="term in terms" :key="term.id" :class="{ activeFilter: term.id == selected }" @click.prevent="clicked(taxonomy, term.id)">
+  <a href="#" v-for="term in terms" :key="term.id" :class="{ active: term.id == selected }" @click.prevent="clicked(taxonomy, term.id)">
     <div class="media">
       <img :src="term.acf.icon">
       <div class="media-body">
