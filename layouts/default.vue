@@ -1,6 +1,6 @@
 <template>
   <div id="full-wrapper" :class="'color-'+currentColor" >
-   <div class="page-wrapper" :class="pageClass">
+   <div class="page-wrapper" :class="page">
     <header id="header" :class="{ 'small-nav': haveScrolled, 'nav-open':navVisible }">
       <div class="container-fluid">
         <nav class="navbar navbar-toggleable-md navbar-light">
@@ -56,6 +56,7 @@
     <main id="main">
       <nuxt/>
     </main>
+    <Chat v-if="page != 'contact' && page != 'work'" ></Chat>
 
     <footer id="footer">
         <div class="container-fluid">
@@ -98,9 +99,12 @@
       <SearchOverlay v-if="searchVisible" @hide="hideSearch()"></SearchOverlay>
 
     </div>
-    <section id="footer-callout" v-if="pageClass != 'contact'" class="bgChange text-white my-0 py-5 fixed-bottom">
+    <section id="footer-callout" v-if="page != 'contact'" class="bgChange text-white my-0 py-5 fixed-bottom">
       <div>
-        <GravityForm :formId="5"></GravityForm>
+        <h2>Want to stay in the loop?</h2>
+        <p>Subscribe to our newsletter and get the latest nonprofit communications tips and tools delivered monthly to your inbox.</p>
+
+        <GravityForm :formId="4"></GravityForm>
       </div>
     </section>
 
@@ -112,12 +116,14 @@
   import Logo from '~components/Logo.vue'
   import GravityForm from '~components/GravityForm.vue'
   import SearchOverlay from '~components/SearchOverlay.vue'
+  import Chat from '~components/Chat.vue'
 
   export default {
     components: {
       Logo,
       GravityForm,
-      SearchOverlay
+      SearchOverlay,
+      Chat
     },
     data () {
       return {
@@ -130,7 +136,7 @@
       }
     },
     computed: {
-      pageClass () {
+      page () {
         if (this.$route.name === 'index') {
           return 'homepage'
         } else if (this.$route.name) {

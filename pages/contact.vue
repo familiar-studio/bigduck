@@ -1,10 +1,10 @@
 <template>
 <div class="container no-hero">
-  <h1>Contact Us</h1>
+  <h1>{{title}}</h1>
 
   <div v-if="pageContent" v-html="pageContent">
   </div>
-  <GravityForm :formId="formId"></GravityForm>
+  <GravityForm v-if="formId" :formId="formId" :showAll="true"></GravityForm>
 </div>
 </template>
 <script>
@@ -14,15 +14,17 @@
   export default {
     name: 'contact',
     async asyncData ({store}) {
-      let response = await Axios.get(store.getters['hostname'] + 'wp/v2/pages?slug=newfangled-testing-gated-content')
-      var pageContent = response.data[0].content.rendered
-      // var el1 = document.createElement(pageContent)
-      // var formId = el1.getElementById('gated-content-form').data('form')
-      var pieces = pageContent.split('|')
+      let response = await Axios.get(store.getters['hostname'] + 'wp/v2/pages?slug=contact-us')
+      var data = response.data[0]
       return {
-        formId: pieces[1],
-        pageContent: pieces[0]
+        data: data,
+        formId: data.acf.form,
+        title: data.title.rendered,
+        pageContent: data.content.rendered
       }
+    },
+    head: {
+      title: 'Contact Us'
     },
     async created () {
       // let content = await Axios.get(this.$store.getters['hostname'] + 'wp/v2/pages?slug=newfangled-testing-gated-content')

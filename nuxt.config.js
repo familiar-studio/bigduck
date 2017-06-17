@@ -21,7 +21,7 @@ module.exports = {
     appear: true
   },
   plugins: [
-    { src: '~plugins/vue-flickity', ssr: false }
+    { src: '~plugins/vue-validate', ssr: false }
   ],
   /*
   ** Customize the progress-bar color
