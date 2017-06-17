@@ -54,10 +54,8 @@
         console.error(e)
       }
     },
-    head () {
-      return {
-        title: 'Insights'
-      }
+    head: {
+      title: 'Insights'
     },
     components: {
       Post,

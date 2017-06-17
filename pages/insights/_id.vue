@@ -116,10 +116,8 @@
       }
       return data
     },
-    head () {
-      return {
-        title: this.insight.title.rendered
-      }
+    head: {
+      title: this.insight ? this.insight.title.rendered : null
     },
     computed: {
       ...mapState(['types', 'topics']),

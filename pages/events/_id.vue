@@ -101,6 +101,9 @@
         relatedEvents: null
       }
     },
+    head: {
+      title: this.event ? this.event.title.rendered : null
+    },
     async asyncData ({store, query, params}) {
       let data = {}
       let response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_event/' + params.id)
