@@ -7,10 +7,7 @@
 </template>
 
 <script>
-// if (process.BROWSER_BUILD) {
-//   // import Flickity from 'vue-flickity'
-//   var Flickity = require('vue-flickity')
-// }
+
 import Vue from 'vue'
 if (process.BROWSER_BUILD) {
   var Flickity = require('flickity')

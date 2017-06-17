@@ -34,19 +34,19 @@
         </template>
 
         <template v-else-if="field.type == 'email'">
-          <input v-model="formData[field.id]" type="email" class="form-control" v-validate="{ rules: { required: field.isRequired, email: true } }" />
+          <input v-model="formData[field.id]" type="email" :name="field.id" class="form-control" v-validate="{ rules: { required: field.isRequired, email: true } }" />
         </template>
 
         <template v-else-if="field.type == 'number'">
-          <input v-model="formData[field.id]" type="number" class="form-control" v-validate="{ rules: { required: field.isRequired, numeric: true } }" />
+          <input v-model="formData[field.id]" type="number" :name="field.id" class="form-control" v-validate="{ rules: { required: field.isRequired, numeric: true } }" />
         </template>
 
         <template v-else-if="field.type == 'hidden'">
-          <input v-model="formData[field.id]" type="hidden"  />
+          <input v-model="formData[field.id]" :name="field.id" type="hidden"  />
         </template>
 
         <template v-else-if="field.type == 'textarea'">
-          <textarea v-model="formData[field.id]" class="form-control" v-validate="{ rules: { required: field.isRequired } }" />
+          <textarea v-model="formData[field.id]" class="form-control"  n:name="field.id" v-validate="{ rules: { required: field.isRequired } }" />
         </template>
 
         <template v-else>
@@ -61,8 +61,7 @@
       <button type="submit" @click.prevent="submitEntry()" class="btn btn-secondary">Submit</button>
     </form>
     <div v-else>
-      <h2>Thanks</h2>
-      <p>You are the greatest!</p>
+      <h1 class="display-3">{{confirmation}}</h1>
     </div>
   </div>
 </template>
@@ -80,7 +79,9 @@ export default {
       fields: [],
       formData: {},
       totalProfilingFields: 2,
-      submitted: false
+      submitted: false,
+      confirmation: 'Thanks, your the greatest!'
+
     }
   },
   props: {
@@ -132,6 +133,12 @@ export default {
       (response) => {
         if (response.status === 200) {
           var profilingFieldCount = 0
+
+          if (response.data.response.confirmations) {
+            var confirmations = response.data.response.confirmations
+            this.confirmation = confirmations[Object.keys(confirmations)[0]].message
+          }
+
           this.fields = response.data.response.fields.filter((field, index) => {
             // always include the first three
             if (index < 3) {
@@ -146,6 +153,8 @@ export default {
                 return field
               }
             }
+
+            return field
           })
         }
       }

@@ -172,9 +172,6 @@
       }
     },
     async created () {
-      if (process.BROWSER_BUILD) {
-        require('vue-flickity')
-      }
       let response = await this.$store.dispatch('fetchOne', {path: 'wp/v2/bd_case_study', id: this.id})
       this.caseStudy = response
       let relatedWorkIds = this.caseStudy.acf.related_case_studies

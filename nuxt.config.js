@@ -5,6 +5,9 @@ module.exports = {
   head: {
     title: 'PAGE ',
     titleTemplate: '%s | Big Duck',
+    script: [
+      { src: 'http://hi.bigducknyc.com/cdnr/30/acton/bn/tracker/4852' }
+    ],
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -21,7 +24,9 @@ module.exports = {
     appear: true
   },
   plugins: [
-    { src: '~plugins/vue-validate', ssr: false }
+    { src: '~plugins/vue-validate', ssr: false },
+    { src: '~plugins/newfangled.js', ssr: false },
+    { src: '~plugins/ga.js', ssr: false }
   ],
   /*
   ** Customize the progress-bar color

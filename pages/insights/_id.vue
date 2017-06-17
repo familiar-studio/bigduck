@@ -39,7 +39,7 @@
               </div>
               <div v-if="formId">
                 <hr/>
-                <GravityForm  :formId="formId"></GravityForm>
+                <GravityForm  :formId="formId" :viewAll="true"></GravityForm>
               </div>
             </article>
             <div v-if="author && author.acf">
