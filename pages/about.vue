@@ -1,98 +1,102 @@
 <template>
   <div>
-    <transition name="fade" appear>
-      <div class="img-hero" :style=" { backgroundImage: 'url(' + page.acf.featured_image.url + ')' }">
-      </div>
-    </transition>
-    <div class="menu">
-      <ul class="list-unstyled">
-        <li><a href="#we-believe">{{ page.acf.we_believe_headline}}</a></li>
-        <li><a href="#values">{{ page.acf.values_headline}}</a></li>
-        <li><a href="#our-clients">{{ page.acf.our_clients_headline}}</a></li>
-        <li><a href="#open-house">Open House</a></li>
-        <li><a href="#team">{{ page.acf.team_headline}}</a></li>
-        <li><a href="#jobs">{{ page.acf.jobs_headline}}</a></li>
-      </ul>
-    </div>
-  <div class="container">
-    <div v-if="page" >
-      <article class="main">
-      <h1 id="we-believe">{{ page.acf.we_believe_headline }}</h1>
-      <div v-html="page.acf.we_believe_body"></div>
-
-      <h1>{{ page.our_clients_headline }}</h1>
-
-      </article>
-      <article class="values mt-5">
-        <h1 id="values">{{ page.acf.values_headline }}</h1>
-        <div v-html="page.acf.values_body"></div>
-        <ul v-for="value in page.acf.values_" class="list-unstyled">
-          <li>
-            <div class="media">
-              <img :src="value.value_icon.url" class="d-flex mr-3">
-              <div class="media-body">
-                <h2>{{ value.value_name }}</h2>
-                <div v-html="value.value_description"></div>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </article>
-
-      <article v-if="openHouse">
-         <h1 id="open-house">Open House</h1>
-         <div class="" v-for="event in openHouse">
-           <Event :entry="event" :relatedTeamMembers="event.related_team_members.data"></Event>
-         </div>
-      </article>
-
-      <article v-if="clientsBySector">
-        <h1 id="our-clients" v-html="page.acf.our_clients_headline"></h1>
-        <p v-html="page.acf.clients_body"></p>
-        <div class="" v-for="(sector, key) in clientsBySector">
-          <div class="" v-if="clientsBySector[key].length > 0">
-
-          <img v-if="sectorsByIndex[key].acf.icon" :src="sectorsByIndex[key].acf.icon.url" />
-          <h2 v-html="sectorsByIndex[key].name"></h2>
-          <ul>
-            <li class="" v-for="client in clientsBySector[key]">
-              {{client.title.rendered}}
-            </li>
-          </ul>
+    <div class="img-hero" :style=" { backgroundImage: 'url(' + page.acf.featured_image.url + ')' }"></div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-2">
+          <div class="menu">
+            <ul class="nav flex-column">
+              <li class="nav-item"><a class="nav-link active" href="#we-believe">{{ page.acf.we_believe_headline}}</a></li>
+              <li class="nav-item"><a class="nav-link" href="#values">{{ page.acf.values_headline}}</a></li>
+              <li class="nav-item"><a class="nav-link" href="#our-clients">{{ page.acf.our_clients_headline}}</a></li>
+              <li class="nav-item"><a class="nav-link" href="#open-house">Open House</a></li>
+              <li class="nav-item"><a class="nav-link" href="#team">{{ page.acf.team_headline}}</a></li>
+              <li class="nav-item"><a class="nav-link" href="#jobs">{{ page.acf.jobs_headline}}</a></li>
+            </ul>
           </div>
         </div>
-      </article>
+        <div class="col-lg-8">
+          <div class="container">
+            <div>
+              <article class="main">
+                <h1 id="we-believe">{{ page.acf.we_believe_headline }}</h1>
+                <div v-html="page.acf.we_believe_body"></div>
+                <h1>{{ page.our_clients_headline }}</h1>
+              </article>
 
-      <article>
-        <h1 id="team">{{page.acf.team_headline}}</h1>
-        <div v-html="page.acf.team_body"></div>
-        <div class="row">
-        <router-link :key="member.id" :to=" {name: 'team-slug', params: {slug: member.slug}}" v-for="member in team" class="col-md-4 card">
-            <img class="card-img-top" :src="member.headshot.url" :alt="member.headshot.name" />
-            <div class="card-block">
-              <h4 class="card-title">{{member.headshot.title}}</h4>
-              <div class="card-text">
-                {{ member.job_title }}
-              </div>
+              <article class="values mt-5">
+                <h1 id="values">{{ page.acf.values_headline }}</h1>
+                <div v-html="page.acf.values_body"></div>
+                <ul v-for="value in page.acf.values_" class="list-unstyled">
+                  <li>
+                    <div class="media">
+                      <img :src="value.value_icon.url" class="d-flex mr-3">
+                      <div class="media-body">
+                        <h2>{{ value.value_name }}</h2>
+                        <div v-html="value.value_description"></div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </article>
+
+              <article v-if="openHouse">
+                <h1 id="open-house">Open House</h1>
+                <div class="" v-for="event in openHouse">
+                  <Event :entry="event" :relatedTeamMembers="event.related_team_members.data"></Event>
+                </div>
+              </article>
+
+              <article v-if="clientsBySector">
+                <h1 id="our-clients" v-html="page.acf.our_clients_headline"></h1>
+                <p v-html="page.acf.clients_body"></p>
+                <div class="" v-for="(sector, key) in clientsBySector">
+                  <div class="" v-if="clientsBySector[key].length > 0">
+
+                  <img v-if="sectorsByIndex[key].acf.icon" :src="sectorsByIndex[key].acf.icon.url" />
+                  <h2 v-html="sectorsByIndex[key].name"></h2>
+                  <ul>
+                    <li class="" v-for="client in clientsBySector[key]">
+                      {{client.title.rendered}}
+                    </li>
+                  </ul>
+                  </div>
+                </div>
+              </article>
+
+              <article>
+                <h1 id="team">{{page.acf.team_headline}}</h1>
+                <div v-html="page.acf.team_body"></div>
+                <div class="row">
+                <router-link :key="member.id" :to=" {name: 'team-slug', params: {slug: member.slug}}" v-for="member in team" class="col-md-4 card">
+                    <img class="card-img-top" :src="member.headshot.url" :alt="member.headshot.name" />
+                    <div class="card-block">
+                      <h4 class="card-title">{{member.headshot.title}}</h4>
+                      <div class="card-text">
+                        {{ member.job_title }}
+                      </div>
+                    </div>
+                  </router-link>
+                </div>
+              </article>
+
+              <article>
+                <h1 id="jobs">{{ page.acf.jobs_headline }}</h1>
+                <div v-html="page.acf.jobs_body"></div>
+                <div v-if="jobs" >
+                  <ul v-for="job in jobs" id="accordion">
+                    <h3>{{job.title.rendered}}</h3>
+                    <h4 v-html="job.acf.job_description_heading"></h4>
+                    <p v-html="job.acf.job_description"></p>
+                  </ul>
+                </div>
+              </article>
             </div>
-          </router-link>
+          </div>
         </div>
-      </article>
-
-      <article>
-        <h1 id="jobs">{{ page.acf.jobs_headline }}</h1>
-        <div v-html="page.acf.jobs_body"></div>
-        <div v-if="jobs" >
-          <ul v-for="job in jobs" id="accordion">
-            <h3>{{job.title.rendered}}</h3>
-            <h4 v-html="job.acf.job_description_heading"></h4>
-            <p v-html="job.acf.job_description"></p>
-          </ul>
-        </div>
-      </article>
+      </div>
     </div>
   </div>
-</div>
 </template>
 <script>
   import Axios from 'axios'

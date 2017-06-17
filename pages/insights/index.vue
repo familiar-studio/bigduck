@@ -2,7 +2,7 @@
   <div class="container-fluid no-hero">
     <div class="row">
       <div class="col-lg-2">
-        <div v-if="types && topics" class="filter-bar">
+        <div v-if="types && topics" class="filter-bar menu">
           <FilterList label="Topics" taxonomy="topic" :terms="topics" :selected="selected.topic" v-on:clicked="setActiveTaxonomy($event)"></FilterList>
           <FilterList label="Types" taxonomy="type" :terms="types" :selected="selected.type" v-on:clicked="setActiveTaxonomy($event)"></FilterList>
           <a href="#" @click.prevent="resetFilters" class="btn btn-primary">Clear All</a>

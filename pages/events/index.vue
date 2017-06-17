@@ -2,7 +2,7 @@
 <div class="container-fluid no-hero">
     <div class="row">
       <div class="col-lg-2">
-        <div v-if="topics && eventCategories" class="sticky-top filter-bar">
+        <div v-if="topics && eventCategories" class="filter-bar menu">
 
           <FilterList label="Topics" taxonomy="topic" :terms="topics" :selected="selected.topic" v-on:clicked="setActiveTaxonomy($event)"></FilterList>
           <FilterList label="Types" taxonomy="event_category" :terms="eventCategories" :selected="selected.event_category" v-on:clicked="setActiveTaxonomy($event)"></FilterList>
