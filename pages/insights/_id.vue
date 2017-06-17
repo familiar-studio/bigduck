@@ -132,23 +132,30 @@
     },
     computed: {
       ...mapState(['types', 'topics']),
-      ...mapGetters(['bareHostname', 'getTopicsIndexedById', 'getTypesIndexedById']),
+      ...mapGetters(['hostname', 'getTopicsIndexedById', 'getTypesIndexedById']),
       date () {
         return moment(this.insight.date).format('MMM Do YYYY')
       }
     },
     async created () {
-      if (this.relatedWorkIds) {
-        response = await Axios.get(this.$store.getters['hostname'] + 'wp/v2/bd_case_study', { params: { include: relatedWorkIds } })
-        this.relatedCaseStudies = response.data
-      }
-      if (this.insight.acf.author) {
-        response = await Axios.get(this.$store.getters['hostname'] + 'acf/v3/users/' + this.insight.acf.author.ID)
-        this.author = response.data
-      }
+      Axios.all(this.getRelatedWork(), this.getAuthor()).then(
+        Axios.spread(function (caseStudies, author) {
+          this.relatedCaseStudies = caseStudies
+          this.relatedCaseStudies = author
+        }))
     },
     // mounted if form exists in dom mounted then change action
     methods: {
+      getRelatedWork () {
+        if (this.relatedWorkIds) {
+          return Axios.get(this.hostname + 'wp/v2/bd_case_study', { params: { includes: this.relatedWorkIds } })
+        } else {
+          return null
+        }
+      },
+      getAuthor () {
+        return Axios.get(this.hostname + 'acf/v3/users/' + this.insight.acf.author.ID)
+      },
       prependIndefiniteArticle (word) {
         if ('aeiou'.indexOf(word.split('')[0].toLowerCase()) > -1) {
           return 'an ' + word

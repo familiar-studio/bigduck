@@ -111,26 +111,48 @@
       Event,
       Post
     },
+    data () {
+      return {
+        relatedEventsIds: null,
+        relatedInsightsIds: null,
+        relatedInsights: null,
+        relatedEvents: null
+      }
+    },
     async asyncData ({store, query, params}) {
       let data = {}
-      data.event = await store.dispatch('fetchOne', {path: 'wp/v2/bd_event', id: params.id})
-
-      const relatedEventsIds = data.event.acf.related_events
-      console.log(relatedEventsIds)
-      const relatedInsightsIds = data.event.acf.related_insights
-      if (typeof relatedEventsIds !== 'undefined' && relatedEventsIds) {
-        let events = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_event?' + relatedEventsIds.map((obj) => 'include[]=' + obj.ID).join('&'))
-        data['relatedEvents'] = events.data
-      } else { data['relatedEvents'] = null }
-      if (typeof relatedInsightsIds !== 'undefined' && relatedInsightsIds) {
-        let insights = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_event?' + relatedInsightsIds.map((obj) => 'include[]=' + obj.ID).join('&'))
-        data['relatedInsights'] = insights.data
-      } else { data['relatedInsights'] = null }
+      let response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_event/' + params.id)
+      data.event = response.data
+      data.relatedEventsIds = data.event.acf.related_events
+      data.relatedInsightsIds = data.event.acf.related_insights
       return data
+    },
+    created () {
+      Axios.all(this.getRelatedEvents(), this.getRelatedInsights()).then(
+        Axios.spread(function (events, insights) {
+          this.relatedEvents = events
+          this.relatedInsights = insights
+        }))
+    },
+    methods: {
+      getRelatedEvents () {
+        if (this.relatedEventsIds) {
+          return Axios.get(this.hostname + 'wp/v2/bd_event', { params: { includes: this.relatedEventsIds } })
+        } else {
+          return null
+        }
+      },
+      getRelatedInsights () {
+        if (this.relatedInsightsIds) {
+          return Axios.get(this.hostname + 'wp/v2/bd_event', { params: { includes: this.relatedInsightsIds } })
+        } else {
+          return null
+        }
+      }
     },
     computed: {
       ...mapState(['callouts', 'topics']),
-      ...mapGetters(['getTopicsIndexedById', 'getEventCategoriesIndexedById']),
+      ...mapGetters(['hostname', 'getTopicsIndexedById', 'getEventCategoriesIndexedById']),
       month () {
         return moment(this.event.acf.start_time).format('MMM')
       },
