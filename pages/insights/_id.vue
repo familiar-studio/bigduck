@@ -36,7 +36,11 @@
                   </div>
                   <img :src="block.image" alt="callout image" v-if="block.image" />
                 </template>
-            </div>
+              </div>
+              <div v-if="formId">
+                <hr/>
+                <GravityForm  :formId="formId"></GravityForm>
+              </div>
             </article>
             <div v-if="author && author.acf">
               <div class="author-bio">
@@ -50,7 +54,10 @@
                   </div>
                 </div>
               </div>
+              
             </div>
+
+            
           </div>
         </div>
 
@@ -94,15 +101,17 @@
   import moment from 'moment'
   import { mapState, mapGetters, mapActions } from 'vuex'
   import Axios from 'axios'
+  import cheerio from 'cheerio'
+  import GravityForm from '~components/GravityForm.vue'
 
   export default {
     name: 'insight',
     components: {
-      Share
+      Share,
+      GravityForm
     },
     data () {
       return {
-        form: null,
         relatedCaseStudies: null,
         author: null
       }
@@ -114,6 +123,10 @@
       if (data.insight.acf) {
         data.relatedWorkIds = data.insight.acf.related_case_studies
       }
+
+      const $ = cheerio.load(data.insight.content.rendered)
+      data.formId = $('#form-id').text()
+
       return data
     },
     head: {
@@ -141,11 +154,14 @@
     // mounted if form exists in dom mounted then change action
     methods: {
       prependIndefiniteArticle (word) {
-        if ('aeiou'.indexOf(word.split('')[0].toLowerCase()) > -1) {
-          return 'an ' + word
-        } else {
-          return 'a ' + word
+        if (word) {
+          if ('aeiou'.indexOf(word.split('')[0].toLowerCase()) > -1) {
+            return 'an ' + word
+          } else {
+            return 'a ' + word
+          }
         }
+        return null
       }
     }
   }

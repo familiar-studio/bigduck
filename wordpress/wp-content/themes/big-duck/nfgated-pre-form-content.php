@@ -12,25 +12,28 @@ global $nfgated;
 $gated_content_form_id = get_post_meta( get_the_id(), 'gated_content_form_id', true );
 
 //  Show the pre-form content
-// echo $content;
+echo $content;
 
 //  Wrap the form
-echo $gated_content_form_id;
+echo '<div id="form-id" style="display:none;">'.$gated_content_form_id.'</div>';
+
+//  Wrap the form
+echo '<div class="gated-content-form">';
 
 //  Include the form shortcode
-// if ($nfgated && 
-//     isset( $nfgated->settings) && 
-//     isset( $nfgated->settings) && 
-//     TRUE == $nfgated->settings->options['disable_gf_ajax']) {
+if ($nfgated && 
+    isset( $nfgated->settings) && 
+    isset( $nfgated->settings) && 
+    TRUE == $nfgated->settings->options['disable_gf_ajax']) {
 
-//     echo '[gravityform id="' . $gated_content_form_id . '" title="false" description="false" ajax="false"]';
+    echo '[gravityform id="' . $gated_content_form_id . '" title="false" description="false" ajax="false"]';
 
 
-// } else {
+} else {
 
-//     echo '[gravityform id="' . $gated_content_form_id . '" title="false" description="false" ajax="true"]';
+    echo '[gravityform id="' . $gated_content_form_id . '" title="false" description="false" ajax="true"]';
 
-// }
+}
 
 //  End the form wrapper
-//echo '</div>';
+echo '</div>';

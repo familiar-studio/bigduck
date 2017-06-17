@@ -4,7 +4,7 @@
  
       <div v-for="field in fields" class="form-group" :class="{'has-danger':errors.has(field.id.toString())}">
 
-        <label :for="field.id">{{field.label}}</label>
+        <label :for="field.id" v-if="field.type != 'hidden'">{{field.label}}</label>
 
         <template v-if="field.type == 'select'">
           <select v-model="formData[field.id]" class="custom-select form-control">
@@ -58,7 +58,7 @@
 
       </div>
 
-      <button type="submit" @click.prevent="submitEntry()" class="btn btn-secondary">Subscribe</button>
+      <button type="submit" @click.prevent="submitEntry()" class="btn btn-secondary">Submit</button>
     </form>
     <div v-else>
       <h2>Thanks</h2>
