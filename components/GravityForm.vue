@@ -2,7 +2,7 @@
   <div>
     <form v-if="!submitted">
  
-      <div v-for="field in fields" class="form-group" :class="{'has-danger':errors.has(field.id.toString())}">
+      <div v-for="field in visibleFields" class="form-group" :class="{'has-danger':errors.has(field.id.toString())}">
 
         <label :for="field.id" v-if="field.type != 'hidden'">{{field.label}}</label>
 
@@ -76,7 +76,7 @@ export default {
       publicKey: '30d2b543ba',
       privateKey: '6cb1fab7a60e11a',
       baseUrl: 'http://bigduck-wordpress.familiar.studio/gravityformsapi/',
-      fields: [],
+      allFields: [],
       formData: {},
       totalProfilingFields: 2,
       submitted: false,
@@ -104,6 +104,25 @@ export default {
       var expiration = 3600
       var unixtime = parseInt(d.getTime() / 1000)
       return unixtime + expiration
+    },
+    visibleFields () {
+      let fieldCount = 0
+
+      return this.allFields.filter((field, index) => {
+        // always include the first three
+        if (index < 3) {
+          return field
+        } else {
+          if ((!this.formData[field.id] && fieldCount < this.totalProfilingFields) || this.showAll) {
+            fieldCount++
+            // if checkboxes and not already has data initalize as array to make multi-select work properly
+            if (field.type === 'checkbox') {
+              this.formData[field.id] = []
+            }
+            return field
+          }
+        }
+      })
     }
   },
   methods: {
@@ -118,7 +137,8 @@ export default {
       localStorage.formData = JSON.stringify(this.formData)
       this.formData['form_id'] = this.formId
 
-      axios.post(this.baseUrl + 'entries', [this.formData], { withCredentials: true, params: { api_key: this.publicKey, signature: signature, expires: this.expires } })
+      axios.post(this.baseUrl + 'entries', [this.formData], { params: { api_key: this.publicKey, signature: signature, expires: this.expires } })
+      this.$emit('submitted')
       this.submitted = true
     }
   },
@@ -132,28 +152,12 @@ export default {
     axios.get(this.baseUrl + 'forms/' + this.formId + '/', { params: { api_key: this.publicKey, signature: signature, expires: this.expires } }).then(
       (response) => {
         if (response.status === 200) {
-          var profilingFieldCount = 0
-
           if (response.data.response.confirmations) {
             var confirmations = response.data.response.confirmations
             this.confirmation = confirmations[Object.keys(confirmations)[0]].message
           }
 
-          this.fields = response.data.response.fields.filter((field, index) => {
-            // always include the first three
-            if (index < 3) {
-              return field
-            } else {
-              if ((!this.formData[field.id] && profilingFieldCount < this.totalProfilingFields) || this.showAll) {
-                profilingFieldCount++
-                // if checkboxes and not already has data initalize as array to make multi-select work properly
-                if (field.type === 'checkbox') {
-                  this.formData[field.id] = []
-                }
-                return field
-              }
-            }
-          })
+          this.allFields = response.data.response.fields
         }
       }
     )

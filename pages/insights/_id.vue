@@ -39,7 +39,11 @@
               </div>
               <div v-if="formId">
                 <hr/>
-                <GravityForm  :formId="formId" :viewAll="true"></GravityForm>
+                <GravityForm  :formId="formId" :viewAll="true" @submitted="refreshContent()"></GravityForm>
+              </div>
+              <div v-if="formId === false && insight.content.rendered">
+                <h1>After Gated Content </h1>
+                <div v-html="insight.content.rendered"></div>
               </div>
             </article>
             <div v-if="author && author.acf">
@@ -101,7 +105,6 @@
   import dateFns from 'date-fns'
   import { mapState, mapGetters, mapActions } from 'vuex'
   import Axios from 'axios'
-  import cheerio from 'cheerio'
   import GravityForm from '~components/GravityForm.vue'
 
   export default {
@@ -123,10 +126,6 @@
       if (data.insight.acf) {
         data.relatedWorkIds = data.insight.acf.related_case_studies
       }
-
-      const $ = cheerio.load(data.insight.content.rendered)
-      data.formId = $('#form-id').text()
-
       return data
     },
     head: {
@@ -137,6 +136,19 @@
       ...mapGetters(['hostname', 'getTopicsIndexedById', 'getTypesIndexedById']),
       date () {
         return dateFns.format(this.insight.date, 'MMM Do YYYY')
+      },
+      formId () {
+        if (process.BROWSER_BUILD) {
+          var parser = new DOMParser()
+          var doc = parser.parseFromString(this.insight.content.rendered, 'text/html')
+          var formId = doc.getElementById('form-id')
+          if (formId) {
+            return Number(formId.innerHTML)
+          } else {
+            return false
+          }
+        }
+        return null
       }
     },
     created () {
@@ -162,7 +174,12 @@
           }
         }
         return null
+      },
+      async refreshContent () {
+        let response = await Axios.get(this.hostname + 'wp/v2/bd_insight/' + this.$route.params.id)
+        this.insight = response.data
       }
+
     }
   }
 </script>
