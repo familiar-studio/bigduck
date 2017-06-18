@@ -46,7 +46,7 @@
 </template>
 
 <script>
-  import moment from 'moment'
+  import dateFns from 'date-fns'
   import { mapState, mapGetters } from 'vuex'
 
   export default {
@@ -71,7 +71,7 @@
         }
       },
       displayDate () {
-        return moment(this.entry.acf.start_time).format('MMM D, YYYY')
+        return dateFns.format(this.entry.acf.start_time, 'MMM D, YYYY')
       }
     }
   }

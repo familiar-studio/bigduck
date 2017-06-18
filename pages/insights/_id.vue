@@ -98,7 +98,7 @@
 </template>
 <script>
   import Share from '~components/Share.vue'
-  import moment from 'moment'
+  import dateFns from 'date-fns'
   import { mapState, mapGetters, mapActions } from 'vuex'
   import Axios from 'axios'
   import cheerio from 'cheerio'
@@ -136,7 +136,7 @@
       ...mapState(['types', 'topics']),
       ...mapGetters(['hostname', 'getTopicsIndexedById', 'getTypesIndexedById']),
       date () {
-        return moment(this.insight.date).format('MMM Do YYYY')
+        return dateFns.format(this.insight.date, 'MMM Do YYYY')
       }
     },
     created () {

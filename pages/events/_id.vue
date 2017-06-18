@@ -81,7 +81,7 @@
   import Axios from 'axios'
   import Event from '~components/Event.vue'
   import Post from '~components/Post.vue'
-  import moment from 'moment'
+  import dateFns from 'date-fns'
   import Share from '~components/Share.vue'
 
   import { mapState, mapGetters } from 'vuex'
@@ -131,13 +131,13 @@
       ...mapState(['callouts', 'topics']),
       ...mapGetters(['hostname', 'getTopicsIndexedById', 'getEventCategoriesIndexedById']),
       month () {
-        return moment(this.event.acf.start_time).format('MMM')
+        return dateFns.format(this.event.acf.start_time, 'MMM')
       },
       date () {
-        return moment(this.event.acf.start_time).format('Do')
+        return dateFns.format(this.event.acf.start_time, 'Do')
       },
       start_time () {
-        return moment(this.event.acf.start_time).format('h:mm')
+        return dateFns.format(this.event.acf.start_time, 'h:mm')
       }
     }
   }
