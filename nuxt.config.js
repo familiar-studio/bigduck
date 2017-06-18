@@ -18,6 +18,7 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
+  cache: true,
   transition: {
     name: 'page',
     mode: 'out-in',
