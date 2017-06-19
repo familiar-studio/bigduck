@@ -43,10 +43,11 @@
   // filter: grayscale(0%);
 }
 
-.full-width--entry {
-  .featured-image {
-
-  }
+.break-container{
+  padding-left: 5000px;
+  padding-right: 5000px;
+  margin-left: -5000px;
+  margin-right: -5000px;
 }
 
 ::selection{

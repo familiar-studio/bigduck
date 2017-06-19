@@ -67,17 +67,20 @@
                       </div>
 
                       <!-- CALLOUT  -->
-                      <div v-if="block.acf_fc_layout == 'callout'" class="cs-block-callout" :style="{ backgroundColor: caseStudy.acf.primary_color }">
-                        <h2>{{ block.headline }}</h2>
-                        <p v-html="block.text"></p>
-                        <figure class="figure">
-                          <img :src="block.image.url" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
-                          <figcaption class="figure-caption" v-if="block.image_caption">{{ block.image_caption}}</figcaption>
-                        </figure>
-                        <div class="gallery" v-if="block.gallery">
-                          {{ block.gallery }}
+                      <div v-if="block.acf_fc_layout == 'callout'" class="cs-block-callout break-container" :style="{ backgroundColor: caseStudy.acf.primary_color }">
+                        <div class="row">
+                          <div class="col-md-6 push-md-6">
+                            <figure class="figure">
+                              <img :src="block.image.url" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
+                              <figcaption class="figure-caption" v-if="block.image_caption">{{ block.image_caption}}</figcaption>
+                            </figure>
+                          </div>
+                          <div class="col-md-6 pull-md-6">
+                            <h2>{{ block.headline }}</h2>
+                            <p v-html="block.text"></p>
+                            <a :href="block.website" v-if="block.website" class="btn btn-info">Visit Site</a>
+                          </div>
                         </div>
-                        <a :href="block.website" v-if="block.website">Link</a>
                       </div>
 
                       <!-- TESTIMONIAL -->
