@@ -47,7 +47,7 @@
                   </div>
                 </div>
               </article>
-              
+
                   <div v-for="(block, index) in caseStudy.acf.body">
 
                     <!-- TEXT  -->
@@ -63,7 +63,7 @@
                             <img :src="image.sizes.large" :alt="image.title" class="img-fluid">
                             <figcaption class="figure-caption">{{image.caption}}</figcaption>
                           </div>
-                        </flickity> 
+                        </flickity>
                       </div>
 
                       <!-- CALLOUT  -->
@@ -98,7 +98,7 @@
                       </div>
                   </div>
 
-              
+
               <Subscribe v-if="callouts" :entry="callouts[0]"></Subscribe>
               <div class="mt-5" v-if="relatedCaseStudies && relatedCaseStudies.length > 0">
                 <h2>Similar Case Studies</h2>
@@ -127,7 +127,7 @@
   import Subscribe from '~components/subscribe/container.vue'
   import Work from '~components/Work.vue'
   import { mapState } from 'vuex'
-  import Flickity from '~components/Flickity.vue'
+  import flickity from '~components/Flickity.vue'
 
   export default {
     name: 'case_study',
@@ -142,7 +142,7 @@
       }
     },
     components: {
-      Flickity,
+      flickity,
       share,
       Subscribe,
       Work
@@ -182,4 +182,3 @@
     }
   }
 </script>
-

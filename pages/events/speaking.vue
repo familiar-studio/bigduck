@@ -9,8 +9,7 @@
 </template>
 <script>
   import Axios from 'axios'
-  import GravityForm from '~components/GravityForm'
-
+  
   export default {
     name: 'speaking',
     async asyncData ({store}) {
@@ -25,13 +24,6 @@
     },
     head: {
       title: 'Speaking Engagements'
-    },
-    async created () {
-      // let content = await Axios.get(this.$store.getters['hostname'] + 'wp/v2/pages?slug=newfangled-testing-gated-content')
-      // console.log('content', content)
-    },
-    components: {
-      GravityForm
     }
   }
 </script>

@@ -5,12 +5,9 @@
     <div class="row">
       <div class="col-lg-2">
         <div v-if="topics && sectors" class="filter-bar">
-          <FilterList label="Topics" taxonomy="topic" :terms="topics" :selected="selected.topic" v-on:clicked="setActiveTaxonomy($event)"></FilterList>
-          <FilterList label="Sectors" taxonomy="sector" :terms="sectors" :selected="selected.sector" v-on:clicked="setActiveTaxonomy($event)"></FilterList>
-          <router-link :to="{name: 'work-all'}">
-            <button class="btn btn-info">Clear All</button>
-          </router-link>
-          <a href="#" @click.prevent="resetFilters" class="btn btn-primary">Clear All</a>
+          <FilterList label="Topics" taxonomy="topic" :terms="topics" :selected="selectedTopic" v-on:clicked="toggleTaxonomy($event)"></FilterList>
+          <FilterList label="Sectors" taxonomy="sector" :terms="sectors" :selected="selectedSector" v-on:clicked="toggleTaxonomy($event)"></FilterList>
+          <a v-if="selectedTopic || selectedSector" href="#" @click.prevent="resetFilters" class="btn btn-primary">Clear All</a>
         </div>
       </div>
       <div class='col-lg-8'>
@@ -20,7 +17,12 @@
               <h1>Work</h1>
               <transition name="fade">
               <Work :work="work" v-if="work.length > 0"></Work>
-              <div v-else>No results found</div>
+              <div v-else>
+                No case studies found in
+                <span v-if="selectedTopic">Topic {{getTopicsIndexedById[selectedTopic].name}}</span>
+                <span v-if="selectedTopic && selectedSector"> and </span>
+                <div v-if="selectedSector">Sector {{getSectorsIndexedById[selectedSector].name}}</div>
+              </div>
               </transition>
             </div>
           </div>
@@ -42,8 +44,6 @@ export default {
   data () {
     return {
       work: null,
-      totalPages: null,
-      page: null,
       selected: {
         topic: null,
         sector: null
@@ -54,52 +54,53 @@ export default {
     Work, FilterList
   },
   computed: {
-    ...mapState(['topics', 'sectors', 'getTopicsIndexedById', 'getSectorsIndexedById']),
-    nextPage () {
-      return this.page + 1
+    ...mapState(['topics', 'sectors']),
+    ...mapGetters(['getTopicsIndexedById', 'getSectorsIndexedById']),
+    selectedTopic () {
+      return this.$route.query.topic
     },
-    previousPage () {
-      return this.page - 1
-    },
-    query () {
-      let query = {}
-      Object.keys(this.selected).forEach((key) => {
-        if (this.selected[key]) {
-          query[key] = this.selected[key]
-        }
-      })
-      return query
+    selectedSector () {
+      return this.$route.query.sector
     }
   },
-  async asyncData ({store, route}) {
-    let data = {}
-    let response = await store.dispatch('fetchByQuery', {path: 'wp/v2/bd_case_study', query: store.query})
-    data['work'] = response.data
-    return data
+  watch: {
+    '$route.query': 'filterResults'
+  },
+  async asyncData ({store, query}) {
+    try {
+      store.commit('resetPage')
+      const response = await store.dispatch('fetchByQuery', {query: query, path: 'wp/v2/bd_case_study'})
+      return {
+        work: response.data
+      }
+    } catch (e) {
+      console.error(e)
+    }
+  },
+  head: {
+    title: Work
   },
   methods: {
-    // given a taxonomy type and id
-    async setActiveTaxonomy (event) {
-      const type = event.taxonomy
-      const id = event.id
-      // if the selected taxonomy is equal to the passed id, set it to null, otherwise set it
-      this.selected[type] = this.selected[type] === id.toString() ? null : id.toString()
-      let query = {}
-      // build a query to send to the store
-      Object.keys(this.selected).forEach((key) => {
-        // if a property is null, skip over it
-        if (this.selected[key]) {
-          query[key] = this.selected[key]
-        }
-      })
-      this.$store.commit('setFilterQuery', query)
-      let response = await this.$store.dispatch('fetchByQuery', {path: 'wp/v2/bd_case_study', query: this.$store.state.query})
-      this.work = response.data
+    toggleTaxonomy (event) {
+      // make a copy of the curren tquery string
+      let query = Object.assign({}, this.$route.query)
+
+      // toggle filters
+      if (parseInt(query[event.taxonomy]) === event.id) {
+        delete query[event.taxonomy]
+      } else {
+        query[event.taxonomy] = event.id
+      }
+      this.$router.push({ name: 'work-all', query: query })
     },
-    async resetFilters () {
-      this.$store.commit('setFilterQuery', {})
-      let response = await this.$store.dispatch('fetchByQuery', {path: 'wp/v2/bd_case_study', query: this.$store.state.query})
-      this.work = response.data
+    resetFilters () {
+      this.$router.push({ name: 'work-all', query: null })
+    },
+    async filterResults () {
+      this.$store.commit('resetPage')
+      const response = await this.$store.dispatch('fetchByQuery', { path: 'wp/v2/bd_case_study', query: this.$route.query })
+
+      this.insights = response.data
     }
   }
 }

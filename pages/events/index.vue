@@ -4,9 +4,9 @@
       <div class="col-lg-2">
         <div v-if="topics && eventCategories" class="filter-bar menu">
 
-          <FilterList label="Topics" taxonomy="topic" :terms="topics" :selected="selected.topic" v-on:clicked="setActiveTaxonomy($event)"></FilterList>
-          <FilterList label="Types" taxonomy="event_category" :terms="eventCategories" :selected="selected.event_category" v-on:clicked="setActiveTaxonomy($event)"></FilterList>
-          <a href="#" @click.prevent="resetFilters" class="btn btn-primary">Clear All</a>
+          <FilterList label="Topics" taxonomy="topic" :terms="topics" :selected="selectedTopic" v-on:clicked="toggleTaxonomy($event)"></FilterList>
+          <FilterList label="Types" taxonomy="event_category" :terms="eventCategories" :selected="selectedCategory" v-on:clicked="toggleTaxonomy($event)"></FilterList>
+          <a v-if="selectedCategory || selectedTopic" href="#" @click.prevent="resetFilters" class="btn btn-primary">Clear All</a>
 
         </div>
       </div>
@@ -21,9 +21,12 @@
 
                   <Subscribe v-if="callouts[0] && index % 5 == 1 && index < events.length - 1" :entry="callouts[0]"></Subscribe>
               </div>
+              <div class="pager" v-if="events.length < totalRecords">
+                <a href="#" @click.prevent="nextPage">Next Page</a>
+              </div>
             </div>
             <div v-else>
-              No events found.
+              No events found in <span v-if="selectedTopic">Topic {{getTopicsIndexedById[selectedTopic].name}}</span><span v-if="selectedTopic && selectedCategory"> and </span><div v-if="selectedCategory">Type {{getEventCategoriesIndexedById[selectedCategory].name}}</div>
             </div>
           </div>
           <div v-else>
@@ -38,7 +41,6 @@
 <script>
   import Event from '~components/Event.vue'
   import Subscribe from '~components/subscribe/container.vue'
-  import Pager from '~components/Pager.vue'
   import FilterList from '~components/FilterList.vue'
   import { mapState, mapGetters } from 'vuex'
 
@@ -47,60 +49,63 @@
     components: {
       Event,
       Subscribe,
-      Pager,
       FilterList
     },
     head: {
       title: 'Events'
     },
-    data () {
-      return {
-        selected: {
-          event_category: null,
-          topic: null
-        }
-      }
-    },
     async asyncData ({store, query}) {
-      const response = await store.dispatch('fetchByQuery', {query: query, path: 'wp/v2/bd_event'})
+      store.commit('resetPage')
+      const response = await store.dispatch('fetchByQuery', {isPaged: true, query: query, path: 'wp/v2/bd_event'})
       return {
         events: response.data,
-        totalPages: response.totalPages
+        totalPages: response.headers['x-wp-totalpages'],
+        totalRecords: response.headers['x-wp-total']
       }
     },
     computed: {
       ...mapState(['categories', 'callouts', 'eventCategories', 'topics']),
       ...mapGetters(['getTopicsIndexedById', 'getEventCategoriesIndexedById']),
-      nextPage () {
-        return this.page + 1
+      selectedCategory () {
+        return this.$route.query.event_category
       },
-      previousPage () {
-        return this.page - 1
+      selectedTopic () {
+        return this.$route.query.topic
       }
     },
+    watch: {
+      '$route.query': 'filterResults'
+    },
     methods: {
-      // given a taxonomy type and id
-      async setActiveTaxonomy (event) {
-        const type = event.taxonomy
-        const id = event.id
-        // if the selected taxonomy is equal to the passed id, set it to null, otherwise set it
-        this.selected[type] = this.selected[type] === id.toString() ? null : id.toString()
-        let query = {}
-        // build a query to send to the store
-        Object.keys(this.selected).forEach((key) => {
-          // if a property is null, skip over it
-          if (this.selected[key]) {
-            query[key] = this.selected[key]
-          }
-        })
-        this.$store.commit('setFilterQuery', query)
-        let response = await this.$store.dispatch('fetchByQuery', {path: 'wp/v2/bd_event', query: this.$store.state.query})
-        this.events = response.data
+      toggleTaxonomy (event) {
+        debugger
+        // make a copy of the curren tquery string
+        let query = Object.assign({}, this.$route.query)
+
+        // toggle filters
+        if (parseInt(query[event.taxonomy]) === event.id) {
+          delete query[event.taxonomy]
+        } else {
+          query[event.taxonomy] = event.id
+        }
+        this.$router.push({ name: 'events', query: query })
       },
-      async resetFilters () {
-        this.$store.commit('setFilterQuery', {})
-        let response = await this.$store.dispatch('fetchByQuery', {path: 'wp/v2/bd_event', query: this.$store.state.query})
+      resetFilters () {
+        this.$router.push({ name: 'events', query: null })
+      },
+      async filterResults () {
+        this.$store.commit('resetPage')
+        const response = await this.$store.dispatch('fetchByQuery', { isPaged: true, path: 'wp/v2/bd_event', query: this.$route.query })
+
         this.events = response.data
+        this.totalPages = response.headers['x-wp-totalpages']
+        this.totalRecords = response.headers['x-wp-total']
+      },
+      async nextPage () {
+        this.$store.commit('nextPage')
+        let query = Object.assign({}, this.$route.query)
+        const response = await this.$store.dispatch('fetchByQuery', {isPaged: true, query: query, path: 'wp/v2/bd_event'})
+        this.events = this.events.concat(response.data)
       }
     }
   }

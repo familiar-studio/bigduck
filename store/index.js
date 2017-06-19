@@ -13,17 +13,23 @@ export const state = () => ({
   sectors: null,
   topics: null,
   types: null,
-  postsPerPage: 10,
+  postsPerPage: 2,
   eventCategoriesPath: 'wp/v2/event_category',
   sectorsPath: 'wp/v2/sector',
   topicsPath: 'wp/v2/topic',
   typesPath: 'wp/v2/type',
-  page: null,
+  page: 1,
   footer: null,
   query: {}
 })
 
 export const mutations = {
+  nextPage (state) {
+    state.page += 1
+  },
+  resetPage (state) {
+    state.page = 1
+  },
   setFilterQuery (state, data) {
     state.query = data
   },
@@ -47,9 +53,6 @@ export const mutations = {
   },
   setQueryString (state, data) {
     state.queryString = data
-  },
-  resetPage (state) {
-    state.page = 0
   },
   setEvents (state, data) {
     state.events = data
@@ -120,18 +123,18 @@ export const actions = {
   fetchByQuery (context, args) {
     // if page has changed, make the query again as it was, only with page updated
     // if the query has changed reset page to 1
-    context.commit('resetPage')
     let queryString = ''
     const query = args.query
+    if (args.isPaged) {
+      query['page'] = context.state.page
+      query['per_page'] = context.state.postsPerPage
+    }
     if (typeof query !== 'undefined') {
       let queryArray = []
       Object.keys(query).forEach((key) => {
         queryArray.push(key + '=' + query[key])
       })
       queryString += '?' + queryArray.join('&')
-      if (typeof args.page !== 'undefined') {
-        queryString += '&page=' + args.page
-      }
     }
     console.log(context.getters.hostname + args.path + queryString)
     return axios.get(context.getters.hostname + args.path + queryString)
