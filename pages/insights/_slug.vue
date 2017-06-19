@@ -75,7 +75,7 @@
         <h2>Related Case Studies</h2>
         <div class="row">
           <div v-for="case_study in relatedCaseStudies" class="col-md-6">
-            <router-link :to="{name: 'work-id', params: {id: case_study.ID}}" :key="case_study.ID">
+            <router-link :to="{name: 'work-slug', params: {slug: case_study.slug}}" :key="case_study.ID">
               <!-- {{caseStudiesById[case_study.ID].acf.hero_image.sizes.large}} -->
               <img :src="case_study.acf.hero_image.sizes.large" style="width:100%">
               <!-- <div v-if="caseStudiesById[case_study.ID].acf.hero_image">
@@ -122,8 +122,8 @@
     },
     async asyncData ({state, params, store}) {
       let data = {}
-      let response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_insight/' + params.id)
-      data.insight = response.data
+      let response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_insight?slug=' + params.slug)
+      data.insight = response.data[0]
       if (data.insight.acf) {
         data.relatedWorkIds = data.insight.acf.related_case_studies
       }
@@ -160,6 +160,7 @@
         })
       }
       // get author info
+      console.log(this.insight)
       Axios.get(this.hostname + 'acf/v3/users/' + this.insight.acf.author.ID).then((response) => {
         this.author = response.data
       })
@@ -177,7 +178,7 @@
         return null
       },
       async refreshContent () {
-        let response = await Axios.get(this.hostname + 'wp/v2/bd_insight/' + this.$route.params.id)
+        let response = await Axios.get(this.hostname + 'wp/v2/bd_insight/', { query: {slug: this.$route.params.slug} })
         this.insight = response.data
       }
 

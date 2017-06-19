@@ -2,7 +2,7 @@
   <div>
     <!-- <div> -->
   <div class="block-insights" :class="blockClass" >
-    <nuxt-link :to="{ name: 'events-id', params: { id: entry.id }}" :key="entry.id">
+    <nuxt-link :to="{ name: 'events-slug', params: { slug: entry.slug }}" :key="entry.id">
     <div class="col-image" v-if="entry.acf.featured_image">
       <div :style="{ 'background-image': 'url(' + entry.acf.featured_image.url + ')' }" class="featured-image"></div>
     </div>

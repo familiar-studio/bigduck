@@ -140,7 +140,7 @@ export const actions = {
     return axios.get(context.getters.hostname + args.path + queryString)
   },
   async fetchOne ({dispatch, commit, getters, rootGetters}, args) {
-    let response = await axios.get(rootGetters.hostname + args.path + '/' + args.id)
+    let response = await axios.get(rootGetters.hostname + args.path + '/' + args.slug)
     return response.data
   }
 }

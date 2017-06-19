@@ -172,12 +172,17 @@
         this.$refs.flickity.previous()
       }
     },
+    async asyncData ({params, store}) {
+      let data = {}
+      let response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_case_study?slug=' + params.slug)
+      data['caseStudy'] = response.data[0]
+      console.log(data['caseStudy'])
+      return data
+    },
     async created () {
-      let response = await this.$store.dispatch('fetchOne', {path: 'wp/v2/bd_case_study', id: this.id})
-      this.caseStudy = response
       let relatedWorkIds = this.caseStudy.acf.related_case_studies
       if (typeof relatedWorkIds !== 'undefined' && relatedWorkIds) {
-        response = await Axios.get(this.$store.getters['hostname'] + 'wp/v2/bd_case_study?' + relatedWorkIds.map((obj) => 'include[]=' + obj.ID).join('&'))
+        let response = await Axios.get(this.$store.getters['hostname'] + 'wp/v2/bd_case_study?' + relatedWorkIds.map((obj) => 'include[]=' + obj.ID).join('&'))
         this.relatedCaseStudies = response.data
       }
     }

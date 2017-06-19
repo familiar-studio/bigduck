@@ -1,7 +1,7 @@
 <template id="">
   <div class="row">
     <div class="col-md-6 mb-3 d-flex" v-for="(case_study, index) in work" >
-      <router-link :to="{name: 'work-id', params: {id: case_study.id}}" :key="case_study.id" class="block-work-small">
+      <router-link :to="{name: 'work-slug', params: {slug: case_study.slug}}" :key="case_study.id" class="block-work-small">
         <div v-if="case_study.acf.hero_image" class="img-wrapper">
           <img :src="case_study.acf.hero_image.sizes.cropped_rectangle"  class="img-fluid" />
           <!-- <div class="bg-img" :style=" { backgroundImage: 'url(' + case_study.acf.hero_image.url + ')' }">

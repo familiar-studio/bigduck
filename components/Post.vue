@@ -1,7 +1,7 @@
 <template>
 
   <div class="block-insights" :class="blockClass" :type="types && entry.type[0] ? getTypesIndexedById[entry.type[0]].slug : ''" v-if="entry.type">
-    <router-link :to="{ name: 'insights-id', params: { id: entry.id }}" :key="entry.id">
+    <router-link :to="{ name: 'insights-slug', params: { slug: entry.slug }}" :key="entry.id">
     <div class="col-image">
       <div :style="{ 'background-image': 'url(' + entry.acf.featured_image+ ')' }" class="featured-image"></div>
     </div>

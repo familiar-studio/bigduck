@@ -107,8 +107,8 @@
     },
     async asyncData ({store, query, params}) {
       let data = {}
-      let response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_event/' + params.id)
-      data.event = response.data
+      let response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_event?slug=' + params.slug)
+      data.event = response.data[0]
       data.relatedEventsIds = data.event.acf.related_events
       data.relatedInsightsIds = data.event.acf.related_insights
       return data
