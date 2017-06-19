@@ -20,7 +20,7 @@
     height: 0;
     border-style: solid;
     border-width: 0 0 .75rem .75rem;
-    border-color: transparent transparent transparent $inverse-bg ;
+    border-color: transparent transparent transparent $inverse-bg;
   }
 }
 
@@ -50,19 +50,19 @@
     }
   }
   .chat-response{
-    background-color: transparent;
     align-self: flex-end;
     margin-left: 1rem;
     margin-right: 0;
     margin-top: 1rem;
     padding: 0;
+    border-radius: 1rem;
+    border: 1px solid $gray-lightest;
     &::before{
       border-width: 0;
     }
     span{
       display: inline-block;
       padding: .5rem .75rem;
-      border-radius: 1rem;
     }
   }
 }
