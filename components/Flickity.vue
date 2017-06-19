@@ -25,7 +25,9 @@ export default {
         prevNextButtons: true,
         pageDots: false,
         percentPosition: false,
-        imagesLoaded: true
+        imagesLoaded: true,
+        selectedAttraction: 0.01,
+        friction: 0.15
       }
     }
   },

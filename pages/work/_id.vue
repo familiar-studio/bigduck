@@ -5,7 +5,7 @@
       </div>
       <div class="container-fluid">
       <div class="row">
-        <div class="col-lg-1">
+        <div class="col-lg-1 hidden-md-down">
           <share></share>
         </div>
         <div class="col-lg-10">
@@ -44,6 +44,9 @@
                         <li v-for="service in caseStudy.acf.services_provided" class="label">{{ service.service }}</li>
                       </ul>
                     </aside>
+                    <div class="hidden-lg-up mt-4">
+                      <share></share>
+                    </div>
                   </div>
                 </div>
               </article>
@@ -70,7 +73,7 @@
                           <div class="col-md-6 pull-md-6 col-text">
                             <h2>{{ block.headline }}</h2>
                             <p v-html="block.text"></p>
-                            <a :href="block.website" v-if="block.website" class="btn btn-info">Visit Site</a>
+                            <a :href="block.website" v-if="block.website" class="btn btn-info" target="_blank">Visit Site</a>
                           </div>
                         </div>
                       </div>

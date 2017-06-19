@@ -1,20 +1,25 @@
 #share {
-  position: sticky;
-  top: 65px;
   font-weight: 600;
   text-transform: uppercase;
-  // letter-spacing:
   display: inline-flex;
   flex-direction: column;
-  align-items: center;
-  // margin-left: -100px;
-  padding-top: 2rem;
   @include media-breakpoint-up(lg){
-    float: right;
+    align-items: center;
+    // float: right;
+    margin-left: .5rem;
+    position: sticky;
+    top: 65px;
+    padding-top: 2rem;
+
   }
   a{
-    display: block;
-    margin: .3rem 0;
+    display: inline-block;
+    margin-top: .5rem;
+    margin-right: 1rem;
+    @include media-breakpoint-up(lg){
+      display: block;
+      margin: .3rem 0;
+    }
   }
   svg{
     transition: all .3s ease;
