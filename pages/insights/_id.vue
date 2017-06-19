@@ -2,6 +2,7 @@
   <div>
     <div class="img-hero" :style=" { backgroundImage: 'url(' + insight.acf.featured_image + ')' }">
     </div>
+    <figcaption class="caption">{{insight.acf.featured_image.caption}}</figcaption>
     <div class="container-fluid">
       <div class="row">
         <div class="col-xl-8 col-lg-9 offset-lg-2">
@@ -58,10 +59,10 @@
                   </div>
                 </div>
               </div>
-              
+
             </div>
 
-            
+
           </div>
         </div>
 

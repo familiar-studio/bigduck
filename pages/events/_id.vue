@@ -2,6 +2,7 @@
   <div>
     <div class="img-hero" :style="{ backgroundImage: 'url(' + event.acf.featured_image.url + ')' }">
     </div>
+    <figcaption class="caption">{{event.acf.featured_image.caption}}</figcaption>
     <div class="container-fluid">
       <div class="row">
         <div class="col-xl-8 col-lg-9 offset-lg-2">
@@ -54,7 +55,7 @@
             </div>
 
             </article>
-            
+
 
 
             <div v-if="relatedEvents">
@@ -69,7 +70,7 @@
                 <Post :entry="insight" :index="relatedEvents ? index + relatedEvents.length : index"></Post>
               </div>
             </div>
-  
+
           </div>
         </div>
       </div>

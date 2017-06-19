@@ -51,7 +51,7 @@
 
   export default {
     name: 'featured',
-    props: ['entry', 'categories', 'index', 'relatedTeamMembers'],
+    props: ['entry', 'index', 'relatedTeamMembers'],
     computed: {
       ...mapState(['topics', 'eventCategories']),
       ...mapGetters(['getTopicsIndexedById', 'getEventCategoriesIndexedById']),

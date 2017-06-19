@@ -1,24 +1,27 @@
 <template>
   <div>
-    <div class="img-hero" :style=" { backgroundImage: 'url(' + page.acf.featured_image.url + ')' }"></div>
+    <div class="img-hero" :style=" { backgroundImage: 'url(' + page.acf.featured_image.url + ')' }">
+
+    </div>
+    <figcaption class="caption">{{page.acf.featured_image.caption}}</figcaption>
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-2">
           <div class="menu">
             <ul class="nav flex-column">
-              <li class="nav-item"><a class="nav-link active" href="#we-believe">{{ page.acf.we_believe_headline}}</a></li>
-              <li class="nav-item"><a class="nav-link" href="#values">{{ page.acf.values_headline}}</a></li>
-              <li class="nav-item"><a class="nav-link" href="#our-clients">{{ page.acf.our_clients_headline}}</a></li>
-              <li class="nav-item"><a class="nav-link" href="#open-house">Open House</a></li>
-              <li class="nav-item"><a class="nav-link" href="#team">{{ page.acf.team_headline}}</a></li>
-              <li class="nav-item"><a class="nav-link" href="#jobs">{{ page.acf.jobs_headline}}</a></li>
+              <li class="nav-item"><a class="nav-link" :class="{active:scrollPos == 0}" href="#" @click.prevent="$scrollTo(0)" >{{ page.acf.we_believe_headline}}</a></li>
+              <li class="nav-item"><a class="nav-link" :class="{active:scrollPos == 1}" href="#" @click.prevent="$scrollTo(1)" >{{ page.acf.values_headline}}</a></li>
+              <li class="nav-item"><a class="nav-link" :class="{active:scrollPos == 2}" href="#" @click.prevent="$scrollTo(2)" >Open House</a></li>
+              <li class="nav-item"><a class="nav-link" :class="{active:scrollPos == 3}" href="#" @click.prevent="$scrollTo(3)" >{{ page.acf.our_clients_headline}}</a></li>
+              <li class="nav-item"><a class="nav-link" :class="{active:scrollPos == 4}" href="#" @click.prevent="$scrollTo(4)" >{{ page.acf.team_headline}}</a></li>
+              <li class="nav-item"><a class="nav-link" :class="{active:scrollPos == 5}" href="#" @click.prevent="$scrollTo(5)" >{{ page.acf.jobs_headline}}</a></li>
+              <li>scrollPos: {{scrollPos}}</li>
             </ul>
           </div>
         </div>
         <div class="col-lg-8">
           <div class="container overlap">
-            <div>
-              <article class="main">
+            <div v-scroll-spy="scrollPos" :steps="30" :time="200"> <article class="main">
                 <h1 id="we-believe">{{ page.acf.we_believe_headline }}</h1>
                 <div v-html="page.acf.we_believe_body"></div>
                 <h1>{{ page.our_clients_headline }}</h1>
@@ -42,8 +45,8 @@
 
               <article v-if="openHouse">
                 <h1 id="open-house">Open House</h1>
-                <div class="" v-for="event in openHouse">
-                  <Event :entry="event" :relatedTeamMembers="event.related_team_members.data"></Event>
+                <div class="" v-for="(event, index) in openHouse">
+                  <Event :entry="event" :index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
                 </div>
               </article>
 
@@ -101,11 +104,20 @@
 <script>
   import Axios from 'axios'
   import Event from '../components/Event.vue'
+  import Vue from 'vue'
 
   export default {
     name: 'about',
     components: {
       Event
+    },
+    data () {
+      return {
+        scrollPos: 0
+      }
+    },
+    ready: function () {
+      this.$scrollSet()
     },
     async asyncData ({store, query, dispatch}) {
       let data = {}
