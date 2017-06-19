@@ -8,7 +8,10 @@
       <ul class="list-unstyled">
         <li v-for="result in results">
           <div class="card card-block mb-1">
-            <a href=""><h2>{{result.title.rendered}}</h2></a>
+            <router-link v-if="result.type == 'bd_insight'" :to="{name: 'insights-id', params: {id: result.id}}" href=""><h2>{{result.title.rendered}}</h2></router-link>
+            <router-link v-if="result.type == 'bd_case_study'" :to="{name: 'work-id', params: {id: result.id}}" href=""><h2>{{result.title.rendered}}</h2></router-link>
+            <router-link v-if="result.type == 'bd_event'" :to="{name: 'events-id', params: {id: result.id}}" href=""><h2>{{result.title.rendered}}</h2></router-link>
+            <router-link v-if="result.type == 'bd_service'" :to="{name: 'services-slug', params: {slug: result.slug}}" href=""><h2>{{result.title.rendered}}</h2></router-link>
           </div>
         </li>
       </ul>
@@ -22,7 +25,8 @@ import Axios from 'axios'
 export default {
   data () {
     return {
-      totalPages: null
+      totalPages: null,
+      query: null
     }
   },
   async asyncData ({route, store}) {
@@ -43,4 +47,3 @@ export default {
   }
 }
 </script>
-

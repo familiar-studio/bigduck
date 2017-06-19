@@ -3,7 +3,7 @@
     <div v-if="caseStudy">
       <div class="img-hero" :style=" { backgroundImage: 'url(' + caseStudy.acf.hero_image.url + ')' }">
       </div>
-      <figcaption class="caption">{{caseStudy.acf.featured_image.caption}}</figcaption>
+      <figcaption class="caption">{{caseStudy.acf.hero_image.caption}}</figcaption>
       <div class="container-fluid">
       <div class="row">
         <div class="col-lg-1 hidden-md-down">
