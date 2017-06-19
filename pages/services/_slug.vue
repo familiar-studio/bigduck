@@ -1,8 +1,9 @@
 <template>
   <div>
     <div v-if="service">
-      <div class="img-hero" :style=" { backgroundImage: 'url(' + service.acf.featured_image.url + ')' }"></div>
-      <figcaption class="caption">{{service.acf.featured_image.caption}}</figcaption>
+      <div class="img-hero" :style=" { backgroundImage: 'url(' + service.acf.featured_image.url + ')' }">
+        <figcaption class="figure-caption">{{service.acf.featured_image.caption}}</figcaption>
+      </div>
       <div id="content">
         <div class="container">
           <article class="main bg-white overlap mb-5">

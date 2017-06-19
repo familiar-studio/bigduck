@@ -2,8 +2,8 @@
   <div>
     <transition name="fade" appear>
       <div class="img-hero" :style=" { backgroundImage: 'url(' + member.headshot.url + ')' }">
+        <figcaption class="figure-caption">{{member.headshot.caption}}</figcaption>
       </div>
-      <figcaption class="caption">{{member.headshot.caption}}</figcaption>
     </transition>
     <div class="container">
       <div class="" v-if="member">

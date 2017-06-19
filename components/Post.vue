@@ -47,7 +47,7 @@
                   Read More
                 </span>
               </div>
-              <div class="media">
+              <div class="media" v-if="entry.acf.author">
                 <img v-if="entry.author_headshot" :src="entry.author_headshot.sizes.thumbnail" class="round author-img mr-2">
                 <h6 class="align-self-center mb-0">{{ entry.acf.author.display_name }}</h6>
               </div>

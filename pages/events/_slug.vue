@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="img-hero" :style="{ backgroundImage: 'url(' + event.acf.featured_image.url + ')' }">
+      <figcaption class="figure-caption">{{event.acf.featured_image.caption}}</figcaption>
     </div>
-    <figcaption class="caption">{{event.acf.featured_image.caption}}</figcaption>
     <div class="container-fluid">
       <div class="row">
         <div class="col-xl-8 col-lg-9 offset-lg-2">

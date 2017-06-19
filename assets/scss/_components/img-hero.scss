@@ -17,4 +17,16 @@
     position: absolute;
     background-color: rgba($black, .1);
   }
+
+  figcaption{
+    position: absolute;
+    bottom: 15px;
+    right: 20px;
+    color: $white;
+    font-size: 13px;
+    -webkit-font-smoothing: antialiased;
+    text-shadow: 2px 2px 2px rgba($black, .2);
+    transform: rotate(90deg);
+    transform-origin: bottom right;
+  }
 }

@@ -61,15 +61,5 @@ export default {
 }
 </script>
 <style>
-/*.carousel.is-expanded { height: 100vh; width: 100vh; position: fixed; top: 0; left: 0;}
-.carousel.is-expanded img {max-width: 100%; height: auto;}*/
-/*.carousel .carousel-cell {width: auto; height: auto;}*/
-/*.carousel.is-expanded .carousel-cell {
-  width: 100%;
-  height: 100%;
-  margin: auto;*/
-  /*padding: 0;*/
-
-/*}*/
 
 </style>
