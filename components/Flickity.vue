@@ -1,8 +1,6 @@
 <template>
     <div :class="{'open':open}" @click="toggleSize()">
-        <Flickity ref="flickity" :options="options" >
-          <slot ></slot>
-        </Flickity>
+        <slot ></slot>
     </div>
 </template>
 
@@ -37,7 +35,7 @@ export default {
 
 .carousel-cell {
   width: 100%;
-  height: 500px; 
+  height: 500px;
   margin-right: 10px;
   img {
     margin: 0 auto;
