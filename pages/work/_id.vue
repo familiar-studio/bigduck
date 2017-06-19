@@ -58,12 +58,7 @@
 
                       <!-- GALLERY  -->
                       <div v-if="block.acf_fc_layout == 'gallery'" class="cs-block-gallery break-container">
-                        <flickity>
-                          <div class="carousel-cell" v-for="image in block.gallery">
-                            <img :src="image.sizes.large" :alt="image.title" class="img-fluid">
-                            <figcaption class="figure-caption">{{image.caption}}</figcaption>
-                          </div>
-                        </flickity>
+                        <flickity :images="block.gallery"></flickity>
                       </div>
 
                       <!-- CALLOUT  -->
