@@ -7,12 +7,15 @@ overflow-x: hidden;
   background-color: $gray-lightest;
   margin-bottom: 100vh;
   overflow-x: visible;
-  // @include media-breakpoint-up(md){
-  //   overflow-x: visible;
-  // }
 }
 #main{
   padding-top: 175px;
+}
+
+.container{
+  @include media-breakpoint-down(sm){
+    width: calc(100vw - 2rem);
+  }
 }
 
 #footer-callout{

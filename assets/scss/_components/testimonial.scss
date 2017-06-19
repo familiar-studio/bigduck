@@ -23,15 +23,15 @@
     }
     h3{
       padding-top: 80px;
+      p{
+        font-size: inherit;
+      }
     }
   }
-  .bg-img{
+  img{
     display: none;
     @include media-breakpoint-up(md){
       display: block;
-      height: 0;
-      padding-bottom: 100%;
-      margin-left: .5rem;
     }
   }
 }

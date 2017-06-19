@@ -282,7 +282,7 @@ $headings-font-weight:   700 !default;
 $headings-line-height:   1.03 !default;
 $headings-color:         inherit !default;
 
-$display1-size: 6rem !default;
+$display1-size: 6.5rem !default;
 $display2-size: 4.9rem !default;
 $display3-size: 4.0rem !default;
 $display4-size: 3.5rem !default;
@@ -907,8 +907,8 @@ $thumbnail-transition:        all .2s ease-in-out !default;
 
 // Figures
 
-$figure-caption-font-size: 90% !default;
-$figure-caption-color:     $gray-light !default;
+$figure-caption-font-size: .9rem !default;
+$figure-caption-color:     $gray-darker !default;
 
 
 // Breadcrumbs

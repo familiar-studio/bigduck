@@ -1,6 +1,6 @@
 <template>
-    <div :class="{'open':open}" @click="toggleSize()">
-        <slot ></slot>
+    <div :class="{'open':open}" @click="toggleSize()" class="gallery-wrapper">
+      <slot ></slot>
     </div>
 </template>
 
@@ -13,11 +13,17 @@ if (process.BROWSER_BUILD) {
 
 export default {
   created () {},
-  props: ['options', 'reference'],
   data () {
     return {
       open: false,
-      flickity: null
+      flickity: null,
+      options: {
+        cellAlign: 'left',
+        prevNextButtons: true,
+        pageDots: false,
+        percentPosition: false,
+        imagesLoaded: true
+      }
     }
   },
   mounted () {
@@ -32,19 +38,6 @@ export default {
 }
 </script>
 <style>
-
-.carousel-cell {
-  width: 100%;
-  height: 500px;
-  margin-right: 10px;
-  img {
-    margin: 0 auto;
-  }
-}
-
-.open .carousel-cell {
-  height: 100vh;
-}
 
 
 </style>

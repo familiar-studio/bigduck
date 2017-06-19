@@ -31,4 +31,63 @@
 .cs-block-callout{
   margin-top: 3rem;
   margin-bottom: 3rem;
+  align-items: center;
+  h2, p{
+    color: $white;
+    -webkit-font-smoothing: antialiased;
+  }
+  .col-img{
+    min-height: 400px;
+    @include media-breakpoint-up(lg){
+      min-height: 700px;
+    }
+  }
+  .col-text{
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .bg-img{
+    height: 100%;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    margin-right: -2rem;
+    margin-left: -2rem;
+    @include media-breakpoint-up(md){
+      padding-right: 250px;
+      margin-right: -250px;
+      padding-left: 0;
+      margin-left: 0;
+    }
+    @include media-breakpoint-up(xl){
+      margin-left: 2rem;
+      padding-right: 350px;
+      margin-right: -350px;
+    }
+    @media (min-width:1600px){
+      padding-right: 500px;
+      margin-right: -500px;
+    }
+  }
+}
+.cs-block-factoid{
+  margin: 2rem 0;
+  border-left: .5rem solid nth($duck-colors, 1);
+  @extend .borderChange;
+  padding: .5rem 1.5rem .25rem;
+  display: inline-block;
+  h1{
+    margin-bottom: -.75rem;
+    padding-right: 1rem;
+  }
+  h6{
+    width: min-content; //this is what's used for getting the h6 to be as wide as the h1
+    min-width: 100%;
+    p{
+      font-size: inherit;
+      margin-bottom: 0;
+    }
+  }
 }

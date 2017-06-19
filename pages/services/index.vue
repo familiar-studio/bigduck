@@ -29,8 +29,7 @@
                 </blockquote>
               </div>
               <div v-if="servicesPage.acf.image" class="col-md-4">
-                <div class="bg-img" :style=" { backgroundImage: 'url(' + servicesPage.acf.image.url + ')' }">
-                </div>
+                <img :src="servicesPage.acf.image.sizes.cropped_400_square" alt="block.image.name" class="img-fluid">
               </div>
             </div>
           </div>

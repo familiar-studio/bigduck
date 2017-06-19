@@ -57,8 +57,8 @@
                       </div>
 
                       <!-- GALLERY  -->
-                      <div v-if="block.acf_fc_layout == 'gallery'" class="cs-block-gallery">
-                        <flickity :options="flickityOptions" >
+                      <div v-if="block.acf_fc_layout == 'gallery'" class="cs-block-gallery break-container">
+                        <flickity>
                           <div class="carousel-cell" v-for="image in block.gallery">
                             <img :src="image.sizes.large" :alt="image.title" class="img-fluid">
                             <figcaption class="figure-caption">{{image.caption}}</figcaption>
@@ -69,13 +69,10 @@
                       <!-- CALLOUT  -->
                       <div v-if="block.acf_fc_layout == 'callout'" class="cs-block-callout break-container" :style="{ backgroundColor: caseStudy.acf.primary_color }">
                         <div class="row">
-                          <div class="col-md-6 push-md-6">
-                            <figure class="figure">
-                              <img :src="block.image.url" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
-                              <figcaption class="figure-caption" v-if="block.image_caption">{{ block.image_caption}}</figcaption>
-                            </figure>
+                          <div class="col-md-6 push-md-6 col-img">
+                            <div :style=" { backgroundImage: 'url(' + block.image.url + ')' }" class="bg-img"></div>
                           </div>
-                          <div class="col-md-6 pull-md-6">
+                          <div class="col-md-6 pull-md-6 col-text">
                             <h2>{{ block.headline }}</h2>
                             <p v-html="block.text"></p>
                             <a :href="block.website" v-if="block.website" class="btn btn-info">Visit Site</a>
@@ -84,20 +81,24 @@
                       </div>
 
                       <!-- TESTIMONIAL -->
-                      <div v-if="block.acf_fc_layout == 'testimonial'" class="cs-block-testimonial testimonial">
-                        <blockquote>
-                          <h3 v-html="block.quote"></h3>
-                          <footer>{{ block.credit }}</footer>
-                          <img src=""/>
-                        </blockquote>
-                        <img :src="block.image.sizes.medium" alt="block.image.name">
-
+                      <div v-if="block.acf_fc_layout == 'testimonial'" class="cs-block-testimonial testimonial break-container">
+                        <div class="row">
+                          <div class="col-md-8">
+                            <blockquote>
+                              <h3 v-html="block.quote"></h3>
+                              <footer class="label">&mdash; {{ block.credit }}</footer>
+                            </blockquote>
+                          </div>
+                          <div v-if="block.image" class="col-md-4">
+                            <img :src="block.image.sizes.cropped_400_square" alt="block.image.name" class="img-fluid">
+                          </div>
+                        </div>
                       </div>
 
                       <!-- FACTOID -->
-                      <div v-if="block.acf_fc_layout == 'factoid'" class="factoid">
-                        <h3>{{block.number}}</h3>
-                        <p v-html="block.description"></p>
+                      <div v-if="block.acf_fc_layout == 'factoid'" class="cs-block-factoid">
+                        <h1 class="display-1">{{block.number}}</h1>
+                        <h6 v-html="block.description"></h6>
                       </div>
                   </div>
 
@@ -137,11 +138,7 @@
     data () {
       return {
         caseStudy: null,
-        relatedCaseStudies: null,
-        flickityOptions: {
-          prevNextButtons: true,
-          pageDots: false
-        }
+        relatedCaseStudies: null
       }
     },
     components: {
