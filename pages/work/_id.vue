@@ -62,7 +62,9 @@
 
                       <!-- GALLERY  -->
                       <div v-if="block.acf_fc_layout == 'gallery'" class="cs-block-gallery break-container">
-                        <flickity :images="block.gallery"></flickity>
+                        <div class="container">
+                          <flickity :images="block.gallery"></flickity>
+                        </div>
                       </div>
 
                       <!-- CALLOUT  -->
