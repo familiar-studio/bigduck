@@ -57,6 +57,15 @@ export default {
       query: null
     }
   },
+  head () {
+    return {
+      title: 'Search',
+      meta: [
+        { description: '' },
+        { 'og:image': '' }
+      ]
+    }
+  },
   async asyncData ({route, store}) {
     let response = await Axios.get(store.getters.hostname + 'wp/v2/posts?search=' + route.query.query)
     return {

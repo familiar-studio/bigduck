@@ -54,8 +54,14 @@
       Subscribe,
       FilterList
     },
-    head: {
-      title: 'Events'
+    head () {
+      return {
+        title: 'Events',
+        meta: [
+          { description: 'Overview' },
+          { 'og:image': 'Events images' }
+        ]
+      }
     },
     async asyncData ({store, query}) {
       store.commit('resetPage')

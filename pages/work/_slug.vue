@@ -21,15 +21,15 @@
 
                 <h1>{{ caseStudy.title.rendered }}</h1>
                 <div class="badge-group" v-if="topics">
-                  <div class="badge badge-default">Topic and Sector Badges TK</div>
-                  <!-- <div class="badge badge-default" v-for="topic in caseStudy.topic">
+                  <!-- <div class="badge badge-default">Topic and Sector Badges TK</div> -->
+                  <div class="badge badge-default" v-for="topic in caseStudy.topic">
                       <div v-html="topicsIndexedById[topic].acf.data"></div>
                       <div v-html="topicsIndexedById[topic].name"></div>
                   </div>
                   <div class="badge badge-default" v-for="sector in caseStudy.sector">
                       <div v-html="sectorsIndexedById[sector].acf.data"></div>
                       <div v-html="sectorsIndexedById[sector].name"></div>
-                  </div> -->
+                  </div>
                 </div>
 
                 <div class="row cs-intro">
@@ -136,6 +136,15 @@
 
   export default {
     name: 'case_study',
+    head () {
+      return {
+        title: this.caseStudy.title.rendered,
+        meta: [
+          { description: this.caseStudy.client_name },
+          { 'og:image': this.caseStudy.acf.hero_image.url }
+        ]
+      }
+    },
     data () {
       return {
         caseStudy: null,
@@ -176,7 +185,6 @@
       let data = {}
       let response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_case_study?slug=' + params.slug)
       data['caseStudy'] = response.data[0]
-      console.log(data['caseStudy'])
       return data
     },
     async created () {

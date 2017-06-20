@@ -50,8 +50,14 @@
         console.error(e)
       }
     },
-    head: {
-      title: 'Insights'
+    head () {
+      return {
+        title: 'Insights',
+        meta: [
+          { description: '' },
+          { 'og:image': '' }
+        ]
+      }
     },
     components: {
       Post,

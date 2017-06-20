@@ -3,7 +3,7 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: 'PAGE ',
+    title: ' ',
     titleTemplate: '%s | Big Duck',
     script: [
       { src: 'http://hi.bigducknyc.com/cdnr/30/acton/bn/tracker/4852' }

@@ -13,6 +13,15 @@
 
   export default {
     name: 'contact',
+    head () {
+      return {
+        title: 'Contact Us',
+        meta: [
+          { description: '' },
+          { 'og:image': '' }
+        ]
+      }
+    },
     async asyncData ({store}) {
       let response = await Axios.get(store.getters['hostname'] + 'wp/v2/pages?slug=contact-us')
       var data = response.data[0]
@@ -22,9 +31,6 @@
         title: data.title.rendered,
         pageContent: data.content.rendered
       }
-    },
-    head: {
-      title: 'Contact Us'
     },
     async created () {
       // let content = await Axios.get(this.$store.getters['hostname'] + 'wp/v2/pages?slug=newfangled-testing-gated-content')

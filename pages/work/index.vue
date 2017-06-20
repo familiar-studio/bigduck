@@ -10,6 +10,15 @@
 
   export default {
     name: 'featured-work',
+    head () {
+      return {
+        title: 'Featured Work',
+        meta: [
+          { description: '' },
+          { 'og:image': '' }
+        ]
+      }
+    },
     async asyncData ({state, store}) {
       let data = {}
       let response = await axios.get(store.getters.hostname + 'familiar/v1/featured-work')

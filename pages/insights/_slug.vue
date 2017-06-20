@@ -129,8 +129,14 @@
       }
       return data
     },
-    head: {
-      title: this.insight ? this.insight.title.rendered : null
+    head () {
+      return {
+        title: this.insight.title.rendered ? this.insight.title.rendered : null,
+        meta: [
+          { description: 'Overview' },
+          { 'og:image': this.insight.acf.featured_image }
+        ]
+      }
     },
     computed: {
       ...mapState(['types', 'topics']),

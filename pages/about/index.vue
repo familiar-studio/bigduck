@@ -180,6 +180,15 @@
         console.log(jobId, this.openJob)
         this.openJob = this.openJob === jobId ? null : jobId
       }
+    },
+    head () {
+      return {
+        title: 'About',
+        meta: [
+          { description: this.page.acf.we_believe_body },
+          { 'og:image': this.page.acf.featured_image.url }
+        ]
+      }
     }
   }
 </script>

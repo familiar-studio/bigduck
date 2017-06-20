@@ -45,6 +45,15 @@
 
   export default {
     name: 'service',
+    head () {
+      return {
+        title: this.service.title.rendered,
+        meta: [
+          { description: this.service.acf.introduction },
+          { 'og:image': this.service.acf.featured_image.url }
+        ]
+      }
+    },
     data () {
       return {
         service: null,
@@ -76,13 +85,15 @@
       Subscribe, Work, Post
     },
     async created () {
-      let response = await this.$store.dispatch('fetchByQuery', {path: 'wp/v2/bd_service', query: {slug: this.slug}})
-      this.service = response.data[0]
       let relatedWorkIds = this.service.acf.related_case_studies
       if (relatedWorkIds && typeof relatedWorkIds !== 'undefined') {
         response = await Axios.get(this.$store.getters['hostname'] + 'wp/v2/bd_case_study?' + relatedWorkIds.map((obj) => 'include[]=' + obj.ID).join('&'))
         this.relatedCaseStudies = response.data
       }
+    },
+    async asyncData ({store, route}) {
+      let response = await store.dispatch('fetchByQuery', {path: 'wp/v2/bd_service', query: {slug: route.params.slug}})
+      return {service: response.data[0]}
     }
   }
 </script>

@@ -47,9 +47,15 @@
       Featured,
       Post
     },
-    head: {
-      title: 'Big Duck',
-      titleTemplate: null
+    head () {
+      return {
+        title: 'Big Duck',
+        titleTemplate: null,
+        meta: [
+          { description: 'Developing the voices of determined nonprofits.' },
+          { 'og:image': '' }
+        ]
+      }
     },
     async asyncData ({store}) {
       let data = {}

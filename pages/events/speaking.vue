@@ -9,7 +9,7 @@
 </template>
 <script>
   import Axios from 'axios'
-  
+
   export default {
     name: 'speaking',
     async asyncData ({store}) {
@@ -22,8 +22,14 @@
         }
       }
     },
-    head: {
-      title: 'Speaking Engagements'
+    head () {
+      return {
+        title: 'Speaking Engagements',
+        meta: [
+          { description: 'Overview' },
+          { 'og:image': 'Events images' }
+        ]
+      }
     }
   }
 </script>

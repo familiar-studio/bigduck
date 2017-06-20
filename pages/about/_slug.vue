@@ -104,6 +104,15 @@ export default {
     data['member'] = member
 
     return data
+  },
+  head () {
+    return {
+      title: this.member.name,
+      meta: [
+        { description: this.member.job_title },
+        { 'og:image': this.member.headshot.url }
+      ]
+    }
   }
 }
 </script>

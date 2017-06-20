@@ -44,6 +44,15 @@
 
   export default {
     name: 'services',
+    head () {
+      return {
+        title: 'Services',
+        meta: [
+          { description: this.servicesPage.acf.services_heading },
+          { 'og:image': this.servicesPage.acf.featured_image.url }
+        ]
+      }
+    },
     async asyncData ({store, query, state}) {
       const [page, services] = await Promise.all([
         store.dispatch('fetchByQuery', {query: query, path: 'wp/v2/pages?slug=services'}),

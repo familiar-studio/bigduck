@@ -77,8 +77,14 @@ export default {
       console.error(e)
     }
   },
-  head: {
-    title: Work
+  head () {
+    return {
+      title: 'Work - All Projects',
+      meta: [
+        { description: '' },
+        { 'og:image': '' }
+      ]
+    }
   },
   methods: {
     toggleTaxonomy (event) {

@@ -102,8 +102,14 @@
         relatedEvents: null
       }
     },
-    head: {
-      title: this.event ? this.event.title.rendered : null
+    head () {
+      return {
+        title: this.event.title.rendered,
+        meta: [
+          { description: this.event.acf.subtitle },
+          { 'og:image': this.event.acf.featured_image.url }
+        ]
+      }
     },
     async asyncData ({store, query, params}) {
       let data = {}
