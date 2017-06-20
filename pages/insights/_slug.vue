@@ -5,10 +5,11 @@
     </div>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-xl-8 col-lg-9 offset-lg-2">
+        <div class="col-lg-1 hidden-md-down">
           <share></share>
-
-          <div class="container bg-white overlap">
+        </div>
+        <div class="col-lg-10">
+          <div class="container overlap">
             <article class="main">
               <div class="badge-group">
                 <router-link class="badge badge-default underlineChange" :to="{name: 'insights'}">Insights</router-link>
@@ -47,8 +48,12 @@
                 <h1>After Gated Content </h1>
                 <div v-html="insight.content.rendered"></div>
               </div>
+              <div class="hidden-lg-up mt-4">
+                <share></share>
+              </div>
             </article>
-            <div v-if="author && author.acf ">
+
+            <div class="mb-5" v-if="author && author.acf ">
               <div class="author-bio">
                 <div class="media">
                   <img class="round" :src="insight.author_headshot.sizes.thumbnail" alt="" />
@@ -62,41 +67,38 @@
 
             </div>
 
+            <div class="mb-5" v-if="relatedCaseStudies">
+              <h2>Related Case Studies</h2>
+              <div class="row">
+                <div v-for="case_study in relatedCaseStudies" class="col-md-6">
+                  <router-link :to="{name: 'work-slug', params: {slug: case_study.slug}}" :key="case_study.ID">
+                    <!-- {{caseStudiesById[case_study.ID].acf.hero_image.sizes.large}} -->
+                    <img :src="case_study.acf.hero_image.sizes.large" style="width:100%">
+                    <!-- <div v-if="caseStudiesById[case_study.ID].acf.hero_image">
+                    </div> -->
+                    <div class="card two-up-card mx-4">
+                      <div class="card-header" v-if="topics && types">
+                        <div class="badge badge-default" v-for="topic in case_study.topic">
+                            <div v-html="getTopicsIndexedById[topic].icon.data"></div>
+                            <div v-html="getTopicsIndexedById[topic].name"></div>
+                        </div>
+                      </div>
+                      <div class="card-block py-0">
+                        <h3 class="card-title">{{ case_study.title.rendered }}</h3>
+                        <p class="card-text" v-html="case_study.acf.short_description"></p>
+                      </div>
+                    </div>
+                  </router-link>
 
-          </div>
-        </div>
-
-        <div class="col-md-2">
-        </div>
-
-      </div>
-
-      <div class="container mt-5" v-if="relatedCaseStudies">
-        <h2>Related Case Studies</h2>
-        <div class="row">
-          <div v-for="case_study in relatedCaseStudies" class="col-md-6">
-            <router-link :to="{name: 'work-slug', params: {slug: case_study.slug}}" :key="case_study.ID">
-              <!-- {{caseStudiesById[case_study.ID].acf.hero_image.sizes.large}} -->
-              <img :src="case_study.acf.hero_image.sizes.large" style="width:100%">
-              <!-- <div v-if="caseStudiesById[case_study.ID].acf.hero_image">
-              </div> -->
-              <div class="card two-up-card mx-4">
-                <div class="card-header" v-if="topics && types">
-                  <div class="badge badge-default" v-for="topic in case_study.topic">
-                      <div v-html="getTopicsIndexedById[topic].icon.data"></div>
-                      <div v-html="getTopicsIndexedById[topic].name"></div>
-                  </div>
-                </div>
-                <div class="card-block py-0">
-                  <h3 class="card-title">{{ case_study.title.rendered }}</h3>
-                  <p class="card-text" v-html="case_study.acf.short_description"></p>
                 </div>
               </div>
-            </router-link>
+            </div>
+
 
           </div>
         </div>
       </div>
+
     </div>
   </div>
 
