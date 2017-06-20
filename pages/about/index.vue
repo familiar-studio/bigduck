@@ -6,7 +6,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-2">
-          <div class="menu">
+          <div class="menu subnav">
             <ul class="nav flex-column">
               <li class="nav-item">
                 <a class="nav-link" :class="{active:scrollPos == 0}" href="#" @click.prevent="$scrollTo(0)" ><span>{{ page.acf.we_believe_headline}}</span></a>
