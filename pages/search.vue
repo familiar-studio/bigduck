@@ -12,8 +12,8 @@
         </form>
       </div>
     </div>
-    <div v-if="results" class="container">
-      <ul class="list-unstyled">
+    <div class="container">
+      <ul v-if="results && results.length > 0" class="list-unstyled">
         <li v-for="result in results">
           <div class="search-result">
             <router-link v-if="result.type == 'bd_insight'" :to="{name: 'insights-slug', params: {slug: result.slug}}" href="">
@@ -40,9 +40,9 @@
           </div>
         </li>
       </ul>
-    </div>
-    <div v-else class="container">
-      <h3 class="mt-5">We couldn’t find anything that matches your search.</h3>
+
+      <h3 v-else class="mt-5">We couldn’t find anything that matches your search.</h3>
+
     </div>
   </div>
 </template>
