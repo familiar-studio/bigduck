@@ -41,7 +41,7 @@
         </li>
       </ul>
 
-      <h3 v-else class="mt-5">We couldn’t find anything that matches your search.</h3>
+      <h3 v-else class="mt-5">We couldn’t find any search results for &ldquo;{{query}}&rdquo;.</h3>
 
     </div>
   </div>
