@@ -4,9 +4,7 @@
   <div class="media-list">
   <a href="#" v-for="term in terms" :key="term.id" :class="{ active: term.id == selected }" @click.prevent="clicked(taxonomy, term.id)">
     <div class="media">
-      <img :src="term.acf.icon">
-      <!-- <div v-html="getTopicsIndexedById[term.id].icon"></div> -->
-
+      <div v-html="term.icon"></div>
       <div class="media-body">
         <h6 v-html="term.name"></h6>
       </div>
