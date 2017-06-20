@@ -56,7 +56,7 @@
     <main id="main">
       <nuxt/>
     </main>
-    <Chat v-if="page != 'contact' && page != 'work'" ></Chat>
+    <Chat v-if="showChat" ></Chat>
 
     <footer id="footer">
         <div class="container-fluid">
@@ -147,6 +147,12 @@
         } else {
           return ''
         }
+      },
+      showChat () {
+        if (this.page === 'contact' || this.page === 'work' || this.page === 'work-slug') {
+          return false
+        }
+        return true
       }
     },
     methods: {
