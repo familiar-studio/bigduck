@@ -126,7 +126,6 @@
 <script>
   import Axios from 'axios'
   import Event from '~components/Event.vue'
-  import Vue from 'vue'
 
   export default {
     name: 'about',
