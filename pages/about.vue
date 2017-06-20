@@ -6,14 +6,26 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-2">
-          <div class="menu">
+          <div class="subnav">
             <ul class="nav flex-column">
-              <li class="nav-item"><a class="nav-link" :class="{active:scrollPos == 0}" href="#" @click.prevent="$scrollTo(0)" >{{ page.acf.we_believe_headline}}</a></li>
-              <li class="nav-item"><a class="nav-link" :class="{active:scrollPos == 1}" href="#" @click.prevent="$scrollTo(1)" >{{ page.acf.values_headline}}</a></li>
-              <li class="nav-item"><a class="nav-link" :class="{active:scrollPos == 2}" href="#" @click.prevent="$scrollTo(2)" >Open House</a></li>
-              <li class="nav-item"><a class="nav-link" :class="{active:scrollPos == 3}" href="#" @click.prevent="$scrollTo(3)" >{{ page.acf.our_clients_headline}}</a></li>
-              <li class="nav-item"><a class="nav-link" :class="{active:scrollPos == 4}" href="#" @click.prevent="$scrollTo(4)" >{{ page.acf.team_headline}}</a></li>
-              <li class="nav-item"><a class="nav-link" :class="{active:scrollPos == 5}" href="#" @click.prevent="$scrollTo(5)" >{{ page.acf.jobs_headline}}</a></li>
+              <li class="nav-item">
+                <a class="nav-link" :class="{active:scrollPos == 0}" href="#" @click.prevent="$scrollTo(0)" ><span>{{ page.acf.we_believe_headline}}</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" :class="{active:scrollPos == 1}" href="#" @click.prevent="$scrollTo(1)" ><span>{{ page.acf.values_headline}}</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" :class="{active:scrollPos == 2}" href="#" @click.prevent="$scrollTo(2)" ><span>Open House</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" :class="{active:scrollPos == 3}" href="#" @click.prevent="$scrollTo(3)" ><span>{{ page.acf.our_clients_headline}}</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" :class="{active:scrollPos == 4}" href="#" @click.prevent="$scrollTo(4)" ><span>{{ page.acf.team_headline}}</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" :class="{active:scrollPos == 5}" href="#" @click.prevent="$scrollTo(5)" ><span>{{ page.acf.jobs_headline}}</span></a>
+              </li>
               <li>scrollPos: {{scrollPos}}</li>
             </ul>
           </div>

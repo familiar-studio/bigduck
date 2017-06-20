@@ -18,6 +18,28 @@ overflow-x: hidden;
   }
 }
 
+.subnav {
+  position: sticky;
+  top: 85px;
+  .nav-link{
+    text-transform: inherit;
+    letter-spacing: initial;
+    font-size: 1.2rem;
+    padding-bottom: 0.25rem;
+    span{
+      @extend .underlineChange;
+      background-size: 0% 1px !important;
+      background-position: center 90% !important;
+      transition: background-size .3s !important;
+    }
+    &:hover, &.active{
+      span{
+        background-size: 100% 1px !important;
+      }
+    }
+  }
+}
+
 #footer-callout{
   z-index:0;
   min-height:100vh;
@@ -98,11 +120,6 @@ overflow-x: hidden;
   top: -50px;
 }
 
-.menu {
-  position: sticky;
-  top: 85px;
-}
-
 .round {
   border-radius: 50%;
 }
@@ -114,6 +131,8 @@ overflow-x: hidden;
 .no-border {
   border: none;
 }
+
+//SHARED Page classes
 
 .overlap {
   position: relative;
