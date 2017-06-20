@@ -105,7 +105,10 @@
         <p>Subscribe to our newsletter and get the latest nonprofit communications tips and tools delivered monthly to your inbox.</p>
 
         <GravityForm :formId="4"></GravityForm>
+        <nuxt-link to="/privacy" class="link-privacy">Privacy Policy</nuxt-link>
+
       </div>
+
     </section>
 
 

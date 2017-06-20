@@ -43,6 +43,7 @@ overflow-x: hidden;
 #footer-callout{
   z-index:0;
   min-height:100vh;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -51,6 +52,14 @@ overflow-x: hidden;
     max-width: $centered-content-width;
     padding: 5rem 0;
     overflow-y: scroll;
+  }
+
+  .link-privacy {
+    color:white;
+    font-size: 0.8rem;
+    position: absolute;
+    bottom: 20px;
+    right:20px;
   }
 }
 

@@ -13,7 +13,7 @@
   export default {
     name: 'speaking',
     async asyncData ({store}) {
-      let response = await Axios.get(store.getters['hostname'] + 'wp/v2/pages?slug=interested-in-having-big-duck-speak-at-your-organization')
+      let response = await Axios.get(store.getters['hostname'] + 'wp/v2/pages?slug=privacy-policy')
 
       if (response.data) {
         return {
@@ -25,7 +25,7 @@
     head () {
       return {
         title: this.title,
-        meta: []
+        meta: [ ]
       }
     }
   }
