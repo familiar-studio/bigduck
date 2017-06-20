@@ -26,9 +26,9 @@
 
               <h1 v-html="insight.title.rendered"></h1>
               <div class="badge badge-default mb-3">
-                  <img v-if="entry.author_headshot" :src="entry.author_headshot.sizes.thumbnail" class="round author-img mr-2">
-                  <div v-if="!entry.acf.is_guest_author" v-html="insight.acf.author.display_name"></div>
-                  <div v-if="entry.acf.is_guest_author && entry.acf.author" v-html="entry.acf.author.display_name"></div>
+                  <img v-if="insight.author_headshot" :src="insight.author_headshot.sizes.thumbnail" class="round author-img mr-2">
+                  <div v-if="!insight.acf.is_guest_author" v-html="insight.acf.author.display_name"></div>
+                  <div v-if="insight.acf.is_guest_author && insight.acf.author" v-html="entry.acf.author.display_name"></div>
               </div>
 
               <div v-for="block in insight.acf.body" :class="['block-' + block.acf_fc_layout]">
@@ -51,7 +51,7 @@
             <div v-if="author && author.acf ">
               <div class="author-bio">
                 <div class="media">
-                  <img class="round" :src="author.acf.headshot.sizes.thumbnail" alt="" />
+                  <img class="round" :src="insight.author_headshot.sizes.thumbnail" alt="" />
                   <div class="media-body">
                     <h3>{{insight.acf.author.display_name}} {{insight.acf.author.user_lastname}} is
                         {{ prependIndefiniteArticle(author.acf.job_title) }}
