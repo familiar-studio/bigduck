@@ -3098,10 +3098,6 @@ jschardet@^1.4.2:
   version "1.4.2"
   resolved "https://registry.yarnpkg.com/jschardet/-/jschardet-1.4.2.tgz#2aa107f142af4121d145659d44f50830961e699a"
 
-jscookie@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/jscookie/-/jscookie-1.1.0.tgz#4b871dc8245f834a3775e1829e5064be979f4e15"
-
 jsesc@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/jsesc/-/jsesc-1.3.0.tgz#46c3fec8c1892b12b0833db9bc7622176dbab34b"
@@ -3588,10 +3584,6 @@ mkdirp@0.5.1, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkd
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
   dependencies:
     minimist "0.0.8"
-
-moment@^2.18.1:
-  version "2.18.1"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.18.1.tgz#c36193dd3ce1c2eed2adb7c802dbbc77a81b1c0f"
 
 ms@0.7.1:
   version "0.7.1"
@@ -5603,6 +5595,10 @@ vue-template-compiler@~2.3.3:
 vue-template-es2015-compiler@^1.2.2:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.5.2.tgz#a0a6c50c941d2a4abda963f2f42c337ac450ee95"
+
+vue2-scrollspy@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/vue2-scrollspy/-/vue2-scrollspy-1.1.2.tgz#35c98f5e2976415edcea204e08653a9a59bdd003"
 
 vue@~2.3.3:
   version "2.3.4"

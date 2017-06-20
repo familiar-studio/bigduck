@@ -40,7 +40,7 @@
               </div>
               <div v-if="formId">
                 <hr/>
-                <GravityForm  :formId="formId" :viewAll="true" @submitted="refreshContent()"></GravityForm>
+                <GravityForm  :formId="formId" :viewAll="true" :gatedContent="true" @submitted="refreshContent()"></GravityForm>
               </div>
               <div v-if="formId === false && insight.content.rendered">
                 <h1>After Gated Content </h1>
