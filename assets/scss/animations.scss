@@ -13,7 +13,7 @@
   #content, article.main {
     transform: translateY(100px);
   }
-  
+
 }
 .page-leave-to {
   opacity: 0;
@@ -30,7 +30,7 @@
 }
 
 .down-enter-active, .down-leave-active {
-  transition: opacity .3s, transform .3s ease-in-out;
+  transition: opacity .3s ease, transform .3s ease-in-out;
 }
 .down-enter, .down-leave-to {
   opacity: 0;
