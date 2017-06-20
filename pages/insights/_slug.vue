@@ -25,9 +25,10 @@
               </div>
 
               <h1 v-html="insight.title.rendered"></h1>
-              <div class="badge badge-default mb-3" v-for="type in insight.type" v-if="types">
-                  <img :src="insight.author_headshot.sizes.thumbnail" class="round author-img">
-                  <div v-html="insight.acf.author.display_name"></div>
+              <div class="badge badge-default mb-3">
+                  <img v-if="entry.author_headshot" :src="entry.author_headshot.sizes.thumbnail" class="round author-img mr-2">
+                  <div v-if="!entry.acf.is_guest_author" v-html="insight.acf.author.display_name"></div>
+                  <div v-if="entry.acf.is_guest_author && entry.acf.author" v-html="entry.acf.author.display_name"></div>
               </div>
 
               <div v-for="block in insight.acf.body" :class="['block-' + block.acf_fc_layout]">
@@ -47,7 +48,7 @@
                 <div v-html="insight.content.rendered"></div>
               </div>
             </article>
-            <div v-if="author && author.acf">
+            <div v-if="author && author.acf ">
               <div class="author-bio">
                 <div class="media">
                   <img class="round" :src="author.acf.headshot.sizes.thumbnail" alt="" />
@@ -159,11 +160,11 @@
           this.relatedCaseStudies = response.data
         })
       }
-      // get author info
-      console.log(this.insight)
-      Axios.get(this.hostname + 'acf/v3/users/' + this.insight.acf.author.ID).then((response) => {
-        this.author = response.data
-      })
+      if (!this.insight.is_guest_author) {
+        Axios.get(this.hostname + 'acf/v3/users/' + this.insight.acf.author.ID).then((response) => {
+          this.author = response.data
+        })
+      }
     },
     // mounted if form exists in dom mounted then change action
     methods: {
