@@ -13,9 +13,12 @@
       <div class="col-lg-8">
         <div class="container">
           <div v-if="events" id="content">
-            <h1>Upcoming Events</h1>
-            <h3><img src="http://placehold.it/30x20" />  <router-link :to="{name: 'events-speaking'}">Interested in having Big Duck speak at your organization?Learn more about our talks...</router-link></h3>
+            <div class="page-title">
+              <h1>Upcoming Events</h1>
+              <h4><router-link :to="{name: 'events-speaking'}"><img src="/svgs/speaking-icon.svg" class="mr-2"/>Interested in having Big Duck speak at your organization? <span class="label colorChange">Learn more about our talks…</span></router-link></h4>
+            </div>
             <div v-if="events.length > 0">
+
               <div v-for="(event, index) in events">
                   <Event :entry="event" :categories="categories" :index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
 
