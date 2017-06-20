@@ -144,7 +144,6 @@ overflow-x: hidden;
 article.main {
   background-color: white;
   padding: 2.5rem;
-  margin-bottom: 3rem;
   @include media-breakpoint-up(md){
     padding: 3rem 3.75rem;
   }

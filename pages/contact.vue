@@ -1,10 +1,19 @@
 <template>
-<div class="container no-hero">
-  <h1>{{title}}</h1>
-
-  <div v-if="pageContent" v-html="pageContent">
+<div>
+  <div class="img-hero" :style=" { backgroundImage: 'url(' + data.acf.featured_image  + ')' }">
+    <figcaption class="figure-caption">{{data.acf.featured_image.caption}}</figcaption>
   </div>
-  <GravityForm v-if="formId" :formId="formId" :showAll="true"></GravityForm>
+  <div class="container" id="content">
+    <article class="main overlap">
+      <h1>{{title}}</h1>
+      <div v-if="pageContent" v-html="pageContent">
+      </div>
+    </article>
+    <div class="form-light mb-5">
+      <GravityForm v-if="formId" :formId="formId" :showAll="true"></GravityForm>
+    </div>
+  </div>
+
 </div>
 </template>
 <script>
