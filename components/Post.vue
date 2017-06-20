@@ -9,9 +9,9 @@
         <div class="card">
           <div class="card-block">
             <div class="badge-group">
-              <div class="badge badge-default">
+              <!-- <div class="badge badge-default">
                   <div>Badges TK</div>
-              </div>
+              </div> -->
               <div class="badge badge-default badge-type" v-for="type in entry.type">
                   <div v-html="getTypesIndexedById[type].icon"></div>
                   <div v-html="getTypesIndexedById[type].name"></div>

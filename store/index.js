@@ -24,6 +24,17 @@ export const state = () => ({
 })
 
 export const mutations = {
+  processTypeVerbs (state) {
+    state.types.forEach((type) => {
+      if (type.name === 'Podcasts') {
+        type.verb = 'Listen'
+      } else if (type.name === 'Webinars') {
+        type.verb = 'Watch'
+      } else {
+        type.verb = 'Read'
+      }
+    })
+  },
   nextPage (state) {
     state.page += 1
   },
@@ -63,6 +74,7 @@ export const actions = {
   async nuxtServerInit (context) {
     console.log('nuxtServerInit dispatch')
     const loaded = await context.dispatch('loadAppInitNeed')
+    context.commit('processTypeVerbs')
     // console.log('nuxtServerInit loaded', loaded)
   },
   loadAppInitNeed ({ dispatch }) {
@@ -210,19 +222,4 @@ export const getters = {
     }
   }
 
-}
-
-export const methods = {
-  processTypeVerbs (types) {
-    types.forEach((type) => {
-      if (type.name === 'Podcasts') {
-        type.verb = 'Listen'
-      } else if (type.name === 'Webinars') {
-        type.verb = 'Watch'
-      } else {
-        type.verb = 'Read'
-      }
-    })
-    return types
-  }
 }

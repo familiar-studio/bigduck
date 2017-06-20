@@ -17,7 +17,7 @@
             <Subscribe v-if="callouts && callouts[0] && index % 5 == 1 && index < insights.length - 1" :entry="callouts[0]" class="mb-5"></Subscribe>
           </div>
           <div class="pager" v-if="insights.length < totalRecords">
-            <a href="#" @click.prevent="nextPage">Next Page</a>
+            <a class="btn btn-primary" href="#" @click.prevent="nextPage">Load more</a>
           </div>
         </div>
         <div v-else>
