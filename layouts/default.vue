@@ -99,7 +99,7 @@
       <SearchOverlay v-if="searchVisible" @hide="hideSearch()"></SearchOverlay>
 
     </div>
-    <section id="footer-callout" v-if="page != 'contact'" class="bgChange text-white my-0 py-5 fixed-bottom">
+    <section id="footer-callout" v-if="page != 'contact'" class="bgChange text-white my-0 py-5">
       <div class="footer-content">
         <h2>Want to stay in the loop?</h2>
         <p>Subscribe to our newsletter and get the latest nonprofit communications tips and tools delivered monthly to your inbox.</p>

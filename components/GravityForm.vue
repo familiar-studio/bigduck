@@ -1,7 +1,7 @@
 <template>
   <div>
     <form v-if="!submitted">
- 
+
       <div v-for="field in visibleFields" class="form-group" :class="{'has-danger':errors.has(field.id.toString())}">
 
         <label :for="field.id" v-if="field.type != 'hidden'">{{field.label}}</label>
@@ -61,7 +61,7 @@
       <button type="submit" @click.prevent="submitEntry()" class="btn btn-secondary">Submit</button>
     </form>
     <div v-else>
-      <h2>{{confirmation}}</h1>
+      <h2>{{confirmation}}</h2>
 
       <div v-if="gatedContent">
         <p>This is where the gated content would go this is all hard coded for now but should give you an idea of what will look like</p>
@@ -168,4 +168,3 @@ export default {
   }
 }
 </script>
-
