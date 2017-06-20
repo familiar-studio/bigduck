@@ -40,17 +40,17 @@
                   <img :src="block.image" alt="callout image" v-if="block.image" />
                 </template>
               </div>
-              <div v-if="formId">
-                <hr/>
-                <GravityForm  :formId="formId" :viewAll="true" :gatedContent="true" @submitted="refreshContent()"></GravityForm>
-              </div>
-              <div v-if="formId === false && insight.content.rendered">
-                <h1>After Gated Content </h1>
-                <div v-html="insight.content.rendered"></div>
-              </div>
               <div class="hidden-lg-up mt-4">
                 <share></share>
               </div>
+            </article>
+
+            <div v-if="formId" class="form-light">
+              <GravityForm  :formId="formId" :viewAll="true" :gatedContent="true" @submitted="refreshContent()"></GravityForm>
+            </div>
+            <article class="main" v-if="formId === false && insight.content.rendered">
+              <h1>After Gated Content </h1>
+              <div v-html="insight.content.rendered"></div>
             </article>
 
             <div class="mb-5" v-if="author && author.acf ">
