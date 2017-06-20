@@ -2,9 +2,8 @@
   <div>
     <div v-if="servicesPage">
         <div class="img-hero" :style=" { backgroundImage: 'url(' + servicesPage.acf.featured_image.url + ')' }">
-
+          <figcaption class="figure-caption">{{servicesPage.acf.featured_image.caption}}</figcaption>
         </div>
-        <figcaption class="caption">{{servicesPage.acf.featured_image.caption}}</figcaption>
 
       <div id="content">
         <div class="container">

@@ -9,6 +9,7 @@
 }
 .carousel{
   position: relative;
+  z-index: 50;
 }
 
 .flickity-viewport{
@@ -84,7 +85,6 @@
 
 
 .is-expanded{
-  z-index: 50;
   .flickity-viewport{
     @include media-breakpoint-up(lg){
       padding-bottom: 73%;

@@ -15,8 +15,12 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   export default {
     props: ['taxonomy', 'terms', 'selected', 'label'],
+    computed: {
+      ...mapGetters(['getTopicsIndexedById'])
+    },
     methods: {
       clicked (taxonomy, id) {
         this.$emit('clicked', {taxonomy, id})

@@ -1,9 +1,8 @@
 <template>
   <div>
     <div class="img-hero" :style=" { backgroundImage: 'url(' + page.acf.featured_image.url + ')' }">
-
+      <figcaption class="figure-caption">{{page.acf.featured_image.caption}}</figcaption>
     </div>
-    <figcaption class="caption">{{page.acf.featured_image.caption}}</figcaption>
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-2">
@@ -20,27 +19,30 @@
           </div>
         </div>
         <div class="col-lg-8">
-          <div class="container overlap">
-            <div v-scroll-spy="scrollPos" :steps="30" :time="200"> <article class="main">
+          <div class="container">
+            <div v-scroll-spy="scrollPos" :steps="30" :time="200">
+              <article class="main overlap">
                 <h1 id="we-believe">{{ page.acf.we_believe_headline }}</h1>
                 <div v-html="page.acf.we_believe_body"></div>
                 <h1>{{ page.our_clients_headline }}</h1>
               </article>
 
-              <article class="values mt-5">
-                <h1 id="values">{{ page.acf.values_headline }}</h1>
-                <div v-html="page.acf.values_body"></div>
-                <ul v-for="value in page.acf.values_" class="list-unstyled">
-                  <li>
-                    <div class="media">
-                      <img :src="value.value_icon.url" class="d-flex mr-3">
-                      <div class="media-body">
-                        <h2>{{ value.value_name }}</h2>
-                        <div v-html="value.value_description"></div>
+              <article class="values bgChange break-container mt-5">
+                <div>
+                  <h1 id="values">{{ page.acf.values_headline }}</h1>
+                  <div v-html="page.acf.values_body"></div>
+                  <ul class="list-unstyled">
+                    <li v-for="value in page.acf.values_">
+                      <div class="media">
+                        <img :src="value.value_icon.url" class="d-flex mr-3">
+                        <div class="media-body">
+                          <h3>{{ value.value_name }}</h3>
+                          <div v-html="value.value_description"></div>
+                        </div>
                       </div>
-                    </div>
-                  </li>
-                </ul>
+                    </li>
+                  </ul>
+                </div>
               </article>
 
               <article v-if="openHouse">
@@ -71,13 +73,13 @@
                 <h1 id="team">{{page.acf.team_headline}}</h1>
                 <div v-html="page.acf.team_body"></div>
                 <div class="row">
-                <router-link :key="member.id" :to=" {name: 'team-slug', params: {slug: member.slug}}" v-for="member in team" class="col-md-4 card">
-                    <img class="card-img-top" :src="member.headshot.url" :alt="member.headshot.name" />
-                    <div class="card-block">
-                      <h4 class="card-title">{{member.headshot.title}}</h4>
-                      <div class="card-text">
+                <router-link :key="member.id" :to=" {name: 'team-slug', params: {slug: member.slug}}" v-for="member in team" class="col-md-4">
+                    <img class="img-fluid" :src="member.headshot.url" :alt="member.headshot.name" />
+                    <div>
+                      <h4>{{member.headshot.title}}</h4>
+                      <h6>
                         {{ member.job_title }}
-                      </div>
+                      </h6>
                     </div>
                   </router-link>
                 </div>
