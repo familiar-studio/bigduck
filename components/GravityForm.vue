@@ -61,7 +61,11 @@
       <button type="submit" @click.prevent="submitEntry()" class="btn btn-secondary">Submit</button>
     </form>
     <div v-else>
-      <h1 class="display-3">{{confirmation}}</h1>
+      <h2>{{confirmation}}</h1>
+
+      <div v-if="gatedContent">
+        <p>This is where the gated content would go this is all hard coded for now but should give you an idea of what will look like</p>
+      </div>
     </div>
   </div>
 </template>
