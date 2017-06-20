@@ -8,6 +8,7 @@
 @import './header.scss';
 @import './flickity.css';
 @import './insights-detail.scss';
+@import './events.scss';
 @import './work-detail.scss';
 @import './about.scss';
 @import './_components/block-insights.scss';
@@ -200,38 +201,4 @@ label, .label, .figure-caption{
 
 .overflow-x-visible .page-wrapper{
   overflow-x: visible;
-}
-
-
-
-.card.event-date {
-  color: #1E1E1E;
-  font-family: Calibre;
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 18px;
-  text-align: center;
-  background-color: $gray-lighter;
-  .card-header {
-    background-color: transparent;
-    border: none;
-    padding-bottom: 0.25rem;
-  }
-  .card-text {
-    text-align: center;
-    font-size: 70px;
-    background-color: transparent;
-  }
-}
-
-.event-time, .event-registration {
-  font-family: Calibre;
-  font-size: 15px;
-  font-weight: 600;
-  line-height: 18px;
-  text-align: center;
-}
-
-.event-time {
-  color: #1E1E1E;
 }
