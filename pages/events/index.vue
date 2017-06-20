@@ -15,7 +15,7 @@
           <div v-if="events" id="content">
             <div class="page-title">
               <h1>Upcoming Events</h1>
-              <h4><router-link :to="{name: 'events-speaking'}"><img src="/svgs/speaking-icon.svg" class="mr-2"/>Interested in having Big Duck speak at your organization? <span class="label colorChange">Learn more about our talks…</span></router-link></h4>
+              <h4><router-link :to="{name: 'events-speaking'}"><img src="/svgs/speaking-icon.svg" class="mr-2"/>Interested in having Big Duck speak at your organization? <span class="label colorChange"> Learn more about our talks…</span></router-link></h4>
             </div>
             <div v-if="events.length > 0">
 
