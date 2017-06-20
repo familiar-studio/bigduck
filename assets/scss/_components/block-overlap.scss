@@ -1,11 +1,6 @@
-.author-img{
-  width: 45px;
-  height: 45px;
-}
-
-.block-insights{
+.block-overlap{
   margin-bottom: 2rem;
-  min-height: 350px;
+  min-height: 310px;
   @include media-breakpoint-up(sm){
     margin-bottom: 6rem;
   }
@@ -49,7 +44,7 @@
       position: relative;
     }
     @include media-breakpoint-up(md){
-      min-height: 350px;
+      min-height: 310px;
     }
   }
 
@@ -186,4 +181,22 @@
 .card-block p{
   margin-bottom: 0;
   font-size: .9rem;
+}
+
+.block-overlap.block-event{
+  .card{
+    flex-direction: row;
+  }
+  .card-block{
+    align-self: center;
+  }
+  .event-date{
+    margin: 1.5rem;
+    min-width: 4.5rem;
+  }
+  a:hover{
+    .event-date{
+      @extend .bgChange;
+    }
+  }
 }

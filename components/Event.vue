@@ -1,28 +1,24 @@
 <template>
   <div>
     <!-- <div> -->
-  <div class="block-insights" :class="blockClass" >
+  <div class="block-overlap block-event" :class="blockClass" >
     <nuxt-link :to="{ name: 'events-slug', params: { slug: entry.slug }}" :key="entry.id">
-    <div class="col-image" v-if="entry.acf.featured_image">
-      <div :style="{ 'background-image': 'url(' + entry.acf.featured_image.url + ')' }" class="featured-image"></div>
-    </div>
-    <div class="col-text">
+      <div class="col-image" v-if="entry.acf.featured_image">
+        <div :style="{ 'background-image': 'url(' + entry.acf.featured_image.url + ')' }" class="featured-image"></div>
+      </div>
+      <div class="col-text">
         <div class="card" >
-          <div class="card-header badge-group" v-if="topics && eventCategories">
-            <div class="badge badge-secondary badge-type">
-              {{displayDate}}
-            </div>
-            <div class="badge badge-default badge-type" v-if="eventCategories && entry['event_category'].length > 0">
-                <div v-html="getEventCategoriesIndexedById[entry['event_category'][0]].icon"></div>
-                <div v-html="getEventCategoriesIndexedById[entry['event_category'][0]].name"></div>
-            </div>
-            <div class="badge badge-default"  v-if="topics && entry['topic'].length > 0" v-for="topic in entry.topic">
-                <div v-html="getTopicsIndexedById[entry['topic'][0]].icon"></div>
-                <div v-html="getTopicsIndexedById[entry['topic'][0]].name"></div>
-            </div>
-          </div>
           <div class="card-block">
-
+            <div class="badge-group" v-if="topics && eventCategories">
+              <div class="badge badge-default badge-type" v-if="eventCategories && entry['event_category'].length > 0">
+                  <div v-html="getEventCategoriesIndexedById[entry['event_category'][0]].icon"></div>
+                  <div v-html="getEventCategoriesIndexedById[entry['event_category'][0]].name"></div>
+              </div>
+              <div class="badge badge-default"  v-if="topics && entry['topic'].length > 0" v-for="topic in entry.topic">
+                  <div v-html="getTopicsIndexedById[entry['topic'][0]].icon"></div>
+                  <div v-html="getTopicsIndexedById[entry['topic'][0]].name"></div>
+              </div>
+            </div>
             <h3 class="card-title"><span class="underlineChange" v-html="entry.title.rendered"></span></h3>
             <div class="card-text" v-html="entry.acf.subtitle"></div>
             <div class="card-footer">
@@ -37,7 +33,12 @@
               </div>
             </div>
           </div>
-
+          <div>
+            <div class="event-date">
+              <h6>{{month}}</h6>
+              <h2>{{date}}</h2>
+            </div>
+          </div>
         </div>
       </div>
     </nuxt-link>
@@ -73,6 +74,12 @@
       },
       displayDate () {
         return dateFns.format(this.entry.acf.start_time, 'MMM D, YYYY')
+      },
+      month () {
+        return dateFns.format(this.entry.acf.start_time, 'MMM')
+      },
+      date () {
+        return dateFns.format(this.entry.acf.start_time, 'D')
       }
     }
   }

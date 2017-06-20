@@ -10,7 +10,7 @@
 
         </div>
       </div>
-      <div class="col-lg-8">
+      <div class="col-lg-9 col-xl-8">
         <div class="container">
           <div v-if="events" id="content">
             <div class="page-title">
@@ -25,7 +25,7 @@
                   <Subscribe v-if="callouts[0] && index % 5 == 1 && index < events.length - 1" :entry="callouts[0]"></Subscribe>
               </div>
               <div class="pager" v-if="events.length < totalRecords">
-                <a href="#" @click.prevent="nextPage">Next Page</a>
+                <a class="btn btn-primary my-4" href="#" @click.prevent="nextPage">Load more</a>
               </div>
             </div>
             <div v-else>

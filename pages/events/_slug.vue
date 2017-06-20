@@ -35,18 +35,12 @@
                 <h6 class="align-self-center mt-2">{{ event.acf.location.address }}</h6>
               </div>
               <div class="col-md-2">
-                <div class="card event-date">
-                  <div class="card-block">
-                    <div class="card-title">
-                      {{month}}
-                    </div>
-                    <div class="card-text text-align-center">
-                      {{date}}
-                    </div>
-                  </div>
+                <div class="event-date">
+                  <h6>{{month}}</h6>
+                  <h2>{{date}}</h2>
                 </div>
                 <div class="event-time mt-1">
-                  {{ start_time }}
+                  <h6>{{ start_time }}</h6>
                 </div>
                 <a :href="event.acf.registration_url" class="btn btn-primary mt-3 event-registration">
                   Register
@@ -141,7 +135,7 @@
         return dateFns.format(this.event.acf.start_time, 'MMM')
       },
       date () {
-        return dateFns.format(this.event.acf.start_time, 'Do')
+        return dateFns.format(this.event.acf.start_time, 'D')
       },
       start_time () {
         return dateFns.format(this.event.acf.start_time, 'h:mm')

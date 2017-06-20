@@ -11,7 +11,7 @@
 @import './events.scss';
 @import './work-detail.scss';
 @import './about.scss';
-@import './_components/block-insights.scss';
+@import './_components/block-overlap.scss';
 @import './_components/block-service.scss';
 @import './_components/callouts.scss';
 @import './_components/chat-bubbles.scss';
@@ -221,14 +221,14 @@ label, .label, .figure-caption{
 .img-multiply{
   mix-blend-mode: multiply;
 }
+.author-img{
+  width: 45px;
+  height: 45px;
+}
 .desaturate {
   filter: saturate(0%);
 }
 
 .full-width {
   width: 100%;
-}
-
-.overflow-x-visible .page-wrapper{
-  overflow-x: visible;
 }
