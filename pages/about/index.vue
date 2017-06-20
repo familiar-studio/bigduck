@@ -14,7 +14,6 @@
               <li class="nav-item"><a class="nav-link" :class="{active:scrollPos == 3}" href="#" @click.prevent="$scrollTo(3)" >{{ page.acf.our_clients_headline}}</a></li>
               <li class="nav-item"><a class="nav-link" :class="{active:scrollPos == 4}" href="#" @click.prevent="$scrollTo(4)" >{{ page.acf.team_headline}}</a></li>
               <li class="nav-item"><a class="nav-link" :class="{active:scrollPos == 5}" href="#" @click.prevent="$scrollTo(5)" >{{ page.acf.jobs_headline}}</a></li>
-              <li>scrollPos: {{scrollPos}}</li>
             </ul>
           </div>
         </div>
