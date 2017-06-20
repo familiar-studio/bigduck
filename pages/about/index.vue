@@ -80,7 +80,7 @@
                 <h1 id="team">{{page.acf.team_headline}}</h1>
                 <div v-html="page.acf.team_body"></div>
                 <div class="row">
-                <router-link :key="member.id" :to=" {name: 'team-slug', params: {slug: member.slug}}" v-for="member in team" class="col-md-4">
+                <router-link :key="member.id" :to=" {name: 'about-slug', params: {slug: member.slug}}" v-for="member in team" class="col-md-4">
                     <img class="img-fluid" :src="member.headshot.url" :alt="member.headshot.name" />
                     <div>
                       <h4>{{member.headshot.title}}</h4>
@@ -114,7 +114,7 @@
 </template>
 <script>
   import Axios from 'axios'
-  import Event from '../components/Event.vue'
+  import Event from '~components/Event.vue'
   import Vue from 'vue'
 
   export default {

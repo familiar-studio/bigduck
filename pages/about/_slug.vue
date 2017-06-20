@@ -34,11 +34,11 @@
       </div>
     </div>
     <div class="container">
-          <div v-if="relatedEvents.length > 0">
+          <div v-if="relatedEvents && relatedEvents.length > 0">
             <h2>Events with {{member.name.split(" ")[0]}}</h2>
             <Event v-for="(event, index) in relatedEvents" :entry="event" :key="event.id" :relatedTeamMembers="event.related_team_members.data" :index="index"></Event>
           </div>
-          <div class="" v-if="relatedInsights.length > 0">
+          <div class="" v-if="relatedInsights && relatedInsights.length > 0">
             <h2>Insights by {{ member.name.split(" ")[0]}}</h2>
             <Post v-for="(insight, index) in relatedInsights" :key="insight.id" :entry="insight" :index="index"></Post>
           </div>
@@ -79,21 +79,30 @@ export default {
   components: {
     Event, Post
   },
+  data () {
+    return {
+      relatedEvents: null,
+      relatedInsights: null
+    }
+  },
+  async created () {
+    let relatedEventIds = this.member.events
+    if (typeof relatedEventIds !== 'undefined' && relatedEventIds) {
+      let response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_event?' + relatedEventIds.map((obj) => 'include[]=' + obj.ID).join('&'))
+      this.relatedEvents = response.data
+    }
+    let relatedInsightIds = this.member.insights
+    if (typeof relatedInsightIds !== 'undefined' && relatedInsightIds) {
+      response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_insight?' + relatedInsightIds.map((obj) => 'include[]=' + obj.ID).join('&'))
+      this.relatedInsights = response.data
+    }
+  },
   async asyncData ({store, params}) {
     let data = {}
     let response = await Axios.get(store.getters['hostname'] + 'familiar/v1/team/' + params.slug)
     let member = response.data
     data['member'] = member
-    let relatedEventIds = member.events
-    if (typeof relatedEventIds !== 'undefined' && relatedEventIds) {
-      response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_event?' + relatedEventIds.map((obj) => 'include[]=' + obj.ID).join('&'))
-      data['relatedEvents'] = response.data
-    }
-    let relatedInsightIds = member.insights
-    if (typeof relatedInsightIds !== 'undefined' && relatedInsightIds) {
-      response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_insight?' + relatedInsightIds.map((obj) => 'include[]=' + obj.ID).join('&'))
-      data['relatedInsights'] = response.data
-    }
+
     return data
   }
 }
