@@ -4,15 +4,13 @@
       <div class="img-hero" :style=" { backgroundImage: 'url(' + caseStudy.acf.hero_image.url + ')' }">
         <figcaption class="figure-caption">{{caseStudy.acf.hero_image.caption}}</figcaption>
       </div>
-      <div class="container-fluid">
-      <div class="row">
-        <div class="col-lg-1 hidden-md-down">
-          <share></share>
-        </div>
-        <div class="col-lg-10">
-          <transition name="slideUp" appear>
-            <div class="container bg-white overlap">
-
+      <div class="container-fluid" id="content">
+        <div class="row">
+          <div class="col-lg-1 hidden-md-down">
+            <share></share>
+          </div>
+          <div class="col-lg-10">
+            <div class="container overlap">
               <article class="main">
                 <div class="badge-group">
                   <router-link class="badge badge-default underlineChange" :to="{name: 'insights'}">Work</router-link>
@@ -52,77 +50,73 @@
                 </div>
               </article>
 
-                  <div v-for="(block, index) in caseStudy.acf.body">
+              <div v-for="(block, index) in caseStudy.acf.body">
 
-                    <!-- TEXT  -->
-                      <div v-if="block.acf_fc_layout == 'text'" class="cs-block-text">
-                        <h2 v-html="block.heading"></h2>
-                        <p v-html="block.text"></p>
-                      </div>
-
-                      <!-- GALLERY  -->
-                      <div v-if="block.acf_fc_layout == 'gallery'" class="cs-block-gallery break-container">
-                        <div class="container">
-                          <flickity :images="block.gallery"></flickity>
-                        </div>
-                      </div>
-
-                      <!-- CALLOUT  -->
-                      <div v-if="block.acf_fc_layout == 'callout'" class="cs-block-callout break-container" :style="{ backgroundColor: caseStudy.acf.primary_color }">
-                        <div class="row">
-                          <div class="col-md-6 push-md-6 col-img">
-                            <div :style=" { backgroundImage: 'url(' + block.image.url + ')' }" class="bg-img"></div>
-                          </div>
-                          <div class="col-md-6 pull-md-6 col-text">
-                            <h2>{{ block.headline }}</h2>
-                            <p v-html="block.text"></p>
-                            <a :href="block.website" v-if="block.website" class="btn btn-info" target="_blank">Visit Site</a>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- TESTIMONIAL -->
-                      <div v-if="block.acf_fc_layout == 'testimonial'" class="cs-block-testimonial testimonial break-container">
-                        <div class="row">
-                          <div class="col-md-8">
-                            <blockquote>
-                              <h3 v-html="block.quote"></h3>
-                              <footer class="label">&mdash; {{ block.credit }}</footer>
-                            </blockquote>
-                          </div>
-                          <div v-if="block.image" class="col-md-4">
-                            <img :src="block.image.sizes.cropped_400_square" alt="block.image.name" class="img-fluid">
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- FACTOID -->
-                      <div v-if="block.acf_fc_layout == 'factoid'" class="cs-block-factoid">
-                        <h1 class="display-1">{{block.number}}</h1>
-                        <h6 v-html="block.description"></h6>
-                      </div>
+                <!-- TEXT  -->
+                  <div v-if="block.acf_fc_layout == 'text'" class="cs-block-text">
+                    <h2 v-html="block.heading"></h2>
+                    <p v-html="block.text"></p>
                   </div>
 
+                  <!-- GALLERY  -->
+                  <div v-if="block.acf_fc_layout == 'gallery'" class="cs-block-gallery break-container">
+                    <div class="container">
+                      <flickity :images="block.gallery"></flickity>
+                    </div>
+                  </div>
+
+                  <!-- CALLOUT  -->
+                  <div v-if="block.acf_fc_layout == 'callout'" class="cs-block-callout break-container" :style="{ backgroundColor: caseStudy.acf.primary_color }">
+                    <div class="row">
+                      <div class="col-md-6 push-md-6 col-img">
+                        <div :style=" { backgroundImage: 'url(' + block.image.url + ')' }" class="bg-img"></div>
+                      </div>
+                      <div class="col-md-6 pull-md-6 col-text">
+                        <h2>{{ block.headline }}</h2>
+                        <p v-html="block.text"></p>
+                        <a :href="block.website" v-if="block.website" class="btn btn-info" target="_blank">Visit Site</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- TESTIMONIAL -->
+                  <div v-if="block.acf_fc_layout == 'testimonial'" class="cs-block-testimonial testimonial break-container">
+                    <div class="row">
+                      <div class="col-md-8">
+                        <blockquote>
+                          <h3 v-html="block.quote"></h3>
+                          <footer class="label">&mdash; {{ block.credit }}</footer>
+                        </blockquote>
+                      </div>
+                      <div v-if="block.image" class="col-md-4">
+                        <img :src="block.image.sizes.cropped_400_square" alt="block.image.name" class="img-fluid">
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- FACTOID -->
+                  <div v-if="block.acf_fc_layout == 'factoid'" class="cs-block-factoid">
+                    <h1 class="display-1">{{block.number}}</h1>
+                    <h6 v-html="block.description"></h6>
+                  </div>
+              </div>
 
               <Subscribe v-if="callouts" :entry="callouts[0]"></Subscribe>
+
               <div class="mt-5" v-if="relatedCaseStudies && relatedCaseStudies.length > 0">
                 <h2>Similar Case Studies</h2>
                 <Work :work="relatedCaseStudies"></Work>
               </div>
+
             </div>
 
-          </transition>
-
           </div>
-          <!-- <div class="col-lg-1">
-            {{ caseStudy.acf.cta_text }}
-          </div> -->
         </div>
       </div>
-      </div>
-      <div v-else>
-        Loading case study...
-      </div>
+    </div>
+    <div v-else>
+      Loading case study...
+    </div>
     </div>
   </div>
 </template>

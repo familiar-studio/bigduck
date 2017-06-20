@@ -13,6 +13,8 @@
   }
 }
 .event-date {
+  display: inline-block;
+  min-width: 4.5rem;
   text-align: center;
   background-color: $gray-darker;
   -webkit-font-smoothing: antialiased;
@@ -24,5 +26,23 @@
     font-size: 3rem;
     line-height: .9;
     margin-bottom: 0 !important;
+  }
+}
+
+.events-slug{
+  .event-title{
+    margin-bottom: 2rem;
+    h1{
+      margin-bottom: 0;
+    }
+  }
+  aside{
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    @include media-breakpoint-up(lg){
+      margin-right: 0;
+      margin-left: auto;
+    }
   }
 }
