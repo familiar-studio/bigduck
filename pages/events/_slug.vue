@@ -3,15 +3,18 @@
     <div class="img-hero" :style="{ backgroundImage: 'url(' + event.acf.featured_image.url + ')' }">
       <figcaption class="figure-caption">{{event.acf.featured_image.caption}}</figcaption>
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid" id="content">
       <div class="row">
-        <div class="col-xl-8 col-lg-9 offset-lg-2">
+        <div class="col-lg-1 hidden-md-down">
           <share></share>
-          <div class="container bg-white overlap">
+        </div>
+        <div class="col-lg-10">
+          <div class="container overlap">
             <article class="main">
               <div class="row">
-              <div class="col-md-10">
+              <div class="col-lg-9">
                 <div class="badge-group">
+                  <router-link class="badge badge-default underlineChange" :to="{name: 'events'}">Event</router-link>
                   <div class="badge badge-default" v-for="topic in event.topic">
                     <img :src="getTopicsIndexedById[topic].acf.icon">
                     <div v-html="getTopicsIndexedById[topic].name"></div>
@@ -20,11 +23,11 @@
                     <img :src="getEventCategoriesIndexedById[eventCategory].acf.icon">
                     <div v-html="getEventCategoriesIndexedById[eventCategory].name"></div>
                   </div>
-
                 </div>
-
-                <h1 v-html="event.title.rendered"></h1>
-                <h2 v-html="event.acf.subtitle"></h2>
+                <div class="event-title">
+                  <h1 v-html="event.title.rendered"></h1>
+                  <h4 v-html="event.acf.subtitle"></h4>
+                </div>
                 <p v-html="event.acf.text"></p>
                 <div v-if="event.related_team_members.data">
                   <div class="media" v-for="team_member in event.related_team_members.data">
@@ -34,32 +37,36 @@
                 </div>
                 <h6 class="align-self-center mt-2">{{ event.acf.location.address }}</h6>
               </div>
-              <div class="col-md-2">
-                <div class="event-date">
-                  <h6>{{month}}</h6>
-                  <h2>{{date}}</h2>
-                </div>
-                <div class="event-time mt-1">
-                  <h6>{{ start_time }}</h6>
-                </div>
-                <a :href="event.acf.registration_url" class="btn btn-primary mt-3 event-registration">
-                  Register
-                </a>
+              <div class="col-lg-3 d-flex">
+                <aside>
+                  <div class="event-date">
+                    <h6>{{month}}</h6>
+                    <h2>{{date}}</h2>
+                  </div>
+                  <div class="event-time mt-2">
+                    <h6>{{ start_time }}&ndash;{{ end_time }}</h6>
+                  </div>
+                  <a :href="event.acf.registration_url" class="btn btn-primary mt-3 event-registration">
+                    Register
+                  </a>
+                  <div class="hidden-lg-up">
+                    <share></share>
+                  </div>
+                </aside>
               </div>
             </div>
 
             </article>
 
 
-
+            <h2 class="mb-3 mt-5">Related Events &amp; Insights</h2>
             <div v-if="relatedEvents">
-              <h2>Related Events</h2>
               <div class="" v-for="(event, index) in relatedEvents">
                 <Event :entry="event" :index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
               </div>
             </div>
             <div v-if="relatedInsights">
-              <h2>Related Insights</h2>
+              <!-- <h2>Related Insights</h2> -->
               <div class="" v-for="(insight, index) in relatedInsights">
                 <Post :entry="insight" :index="relatedEvents ? index + relatedEvents.length : index"></Post>
               </div>
@@ -138,7 +145,10 @@
         return dateFns.format(this.event.acf.start_time, 'D')
       },
       start_time () {
-        return dateFns.format(this.event.acf.start_time, 'h:mm')
+        return dateFns.format(this.event.acf.start_time, 'h:mma')
+      },
+      end_time () {
+        return dateFns.format(this.event.acf.end_time, 'h:mma')
       }
     }
   }
