@@ -25,18 +25,19 @@
 
             <h3 class="card-title"><span class="underlineChange" v-html="entry.title.rendered"></span></h3>
             <div class="card-text" v-html="entry.acf.subtitle"></div>
-          </div>
-          <div class="card-footer">
-            <div class="chat-bubble">
-              <span>
-                Learn More
-              </span>
+            <div class="card-footer">
+              <div class="chat-bubble">
+                <span>
+                  Learn More
+                </span>
+              </div>
+              <div class="media" v-for="team_member in relatedTeamMembers">
+                <img v-if="team_member.headshot" :src="team_member.headshot.sizes.thumbnail" class="round author-img mr-2">
+                <h6 class="align-self-center mb-0">{{ team_member.member.display_name}}</h6>
+              </div>
             </div>
-            <div class="media" v-for="team_member in relatedTeamMembers">
-              <img v-if="team_member.headshot" :src="team_member.headshot.sizes.thumbnail" class="round author-img mr-2">
-              <h6 class="align-self-center mb-0">{{ team_member.member.display_name}}</h6>
-            </div>
           </div>
+          
         </div>
       </div>
     </nuxt-link>
