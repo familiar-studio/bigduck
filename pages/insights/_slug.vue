@@ -54,8 +54,7 @@
                   <img class="round" :src="insight.author_headshot.sizes.thumbnail" alt="" />
                   <div class="media-body">
                     <h3>{{insight.acf.author.display_name}} {{insight.acf.author.user_lastname}} is
-                        {{ prependIndefiniteArticle(author.acf.job_title) }}
-                        {{  author.acf.job_title }} at Big Duck</h3>
+                        {{ prependIndefiniteArticle(author.acf.job_title) }} at Big Duck</h3>
                     <router-link class="btn btn-primary" :to="{name: 'team-slug', params: { slug: insight.acf.author.user_nicename}}">More about {{insight.acf.author.user_firstname}}</router-link>
                   </div>
                 </div>

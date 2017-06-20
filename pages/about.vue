@@ -6,26 +6,14 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-2">
-          <div class="subnav">
+          <div class="menu">
             <ul class="nav flex-column">
-              <li class="nav-item">
-                <a class="nav-link" :class="{active:scrollPos == 0}" href="#" @click.prevent="$scrollTo(0)" ><span>{{ page.acf.we_believe_headline}}</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" :class="{active:scrollPos == 1}" href="#" @click.prevent="$scrollTo(1)" ><span>{{ page.acf.values_headline}}</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" :class="{active:scrollPos == 2}" href="#" @click.prevent="$scrollTo(2)" ><span>Open House</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" :class="{active:scrollPos == 3}" href="#" @click.prevent="$scrollTo(3)" ><span>{{ page.acf.our_clients_headline}}</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" :class="{active:scrollPos == 4}" href="#" @click.prevent="$scrollTo(4)" ><span>{{ page.acf.team_headline}}</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" :class="{active:scrollPos == 5}" href="#" @click.prevent="$scrollTo(5)" ><span>{{ page.acf.jobs_headline}}</span></a>
-              </li>
+              <li class="nav-item"><a class="nav-link" :class="{active:scrollPos == 0}" href="#" @click.prevent="$scrollTo(0)" >{{ page.acf.we_believe_headline}}</a></li>
+              <li class="nav-item"><a class="nav-link" :class="{active:scrollPos == 1}" href="#" @click.prevent="$scrollTo(1)" >{{ page.acf.values_headline}}</a></li>
+              <li class="nav-item"><a class="nav-link" :class="{active:scrollPos == 2}" href="#" @click.prevent="$scrollTo(2)" >Open House</a></li>
+              <li class="nav-item"><a class="nav-link" :class="{active:scrollPos == 3}" href="#" @click.prevent="$scrollTo(3)" >{{ page.acf.our_clients_headline}}</a></li>
+              <li class="nav-item"><a class="nav-link" :class="{active:scrollPos == 4}" href="#" @click.prevent="$scrollTo(4)" >{{ page.acf.team_headline}}</a></li>
+              <li class="nav-item"><a class="nav-link" :class="{active:scrollPos == 5}" href="#" @click.prevent="$scrollTo(5)" >{{ page.acf.jobs_headline}}</a></li>
               <li>scrollPos: {{scrollPos}}</li>
             </ul>
           </div>
@@ -64,19 +52,26 @@
                 </div>
               </article>
 
-              <article v-if="clientsBySector">
+              <article>
                 <h1 id="our-clients" v-html="page.acf.our_clients_headline"></h1>
                 <p v-html="page.acf.clients_body"></p>
-                <div class="" v-for="(sector, key) in clientsBySector">
-                  <div class="" v-if="clientsBySector[key].length > 0">
+                <div class="" v-for="client in page.acf.clients">
+                  <div class="" v-if="client.client_category">
 
-                  <img v-if="sectorsByIndex[key].acf.icon" :src="sectorsByIndex[key].acf.icon.url" />
-                  <h2 v-html="sectorsByIndex[key].name"></h2>
-                  <ul>
-                    <li class="" v-for="client in clientsBySector[key]">
-                      {{client.title.rendered}}
+                  <!-- {{client.client_category[0]}}
+                  {{sectorsByIndex[30].icon}} -->
+                  <!-- <div class="" v-if="clientsBySector[key].length > 0"> -->
+
+                  <div class="media" @click.prevent="toggleClient(client.client_category[0])">
+                    <img v-if="client.client_category" :src="sectorsByIndex[client.client_category[0]].acf['taxonomy-icon']" /></img>
+                    <h2><a href="#" >{{sectorsByIndex[client.client_category[0]].name}}</a></h2>
+                  </div>
+                  <ul class="list-unstyled collapse" :class="{'show': openCategory === client.client_category[0]}">
+                    <li class="" v-for="client_list in client.c">
+                      <a :href="client_list.website">{{client_list.name}}</a>
                     </li>
                   </ul>
+                  <!-- </div> -->
                   </div>
                 </div>
               </article>
@@ -101,10 +96,12 @@
                 <h1 id="jobs">{{ page.acf.jobs_headline }}</h1>
                 <div v-html="page.acf.jobs_body"></div>
                 <div v-if="jobs" >
-                  <ul v-for="job in jobs" id="accordion">
-                    <h3>{{job.title.rendered}}</h3>
-                    <h4 v-html="job.acf.job_description_heading"></h4>
-                    <p v-html="job.acf.job_description"></p>
+                  <ul v-for="job in jobs">
+                    <h3><a href="#" @click.prevent="toggleJob(job.id)">{{job.title.rendered}}</a></h3>
+                    <div class="collapse" :class="{'show': job.id === openJob}">
+                      <h4 v-html="job.acf.job_description_heading"></h4>
+                      <p v-html="job.acf.job_description"></p>
+                    </div>
                   </ul>
                 </div>
               </article>
@@ -127,7 +124,9 @@
     },
     data () {
       return {
-        scrollPos: 0
+        scrollPos: 0,
+        openCategory: null,
+        openJob: null
       }
     },
     ready: function () {
@@ -171,6 +170,15 @@
       },
       sectorsByIndex () {
         return this.$store.getters['getSectorsIndexedById']
+      }
+    },
+    methods: {
+      toggleClient (categoryId) {
+        this.openCategory = this.openCategory === categoryId ? null : categoryId
+      },
+      toggleJob (jobId) {
+        console.log(jobId, this.openJob)
+        this.openJob = this.openJob === jobId ? null : jobId
       }
     }
   }
