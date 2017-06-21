@@ -775,7 +775,7 @@ class StarterSite extends TimberSite {
 		$id = $author['ID'];
 		$headshot = get_field('headshot', 'user_' . $id);
 
-		return $headshot;
+		return new WP_REST_Response($headshot);
 	}
 
 	function get_event_team_members($object) {
