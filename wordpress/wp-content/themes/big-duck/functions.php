@@ -772,10 +772,16 @@ class StarterSite extends TimberSite {
 
 	function get_author_headshot($object) {
 		$author = get_field('author');
-		$id = $author['ID'];
-		$headshot = get_field('headshot', 'user_' . $id);
-
-		return new WP_REST_Response($headshot);
+		if ($author['ID']) {
+			$headshot = get_field('headshot', 'user_' . $author['ID']);
+			return new WP_REST_Response($headshot);
+		} else {
+			return null;
+		}
+		// $id = $author['ID'];
+		// $headshot = get_field('headshot', 'user_' . $id);
+		//
+		// return new WP_REST_Response($headshot);
 	}
 
 	function get_event_team_members($object) {
