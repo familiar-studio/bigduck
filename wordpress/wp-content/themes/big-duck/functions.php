@@ -692,7 +692,7 @@ class StarterSite extends TimberSite {
 		}
 		$wordCount = str_word_count(strip_tags($content));
 		$minutes = floor($wordCount / 200);
-		$minutes = $minutes . ' min' . ($minutes == 1 ? '' : 's');
+		$minutes = $minutes . ' min';
 		return new WP_REST_Response($minutes);
 	}
 
