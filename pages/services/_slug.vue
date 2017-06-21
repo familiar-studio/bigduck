@@ -21,27 +21,23 @@
                 </div>
                 <h2 v-if="block.acf_fc_layout == 'heading'" class="mt-5" v-html="block.heading"></h2>
               </div>
+              <div class="container mt-5" v-if="relatedCaseStudies && relatedCaseStudies.length > 0">
+                <h2>Related Case Studies</h2>
+                <Work :work="relatedCaseStudies"></Work>
+              </div>
+              <ColorCallout class="bgChange text-white my-0 py-5">
+                <GravityForm :formId="5" :showAll="true"></GravityForm>
+              </ColorCallout>
             </div>
           </div>
-        <div class="callout-fullwidth bg-inverse text-white">
-          <div class="callout-content">
-              <h2>{{ service.acf.cta_text }}</h2>
-          </div>
         </div>
-        </div>
-        <div class="container mt-5" v-if="relatedCaseStudies && relatedCaseStudies.length > 0">
-          <h2>Related Case Studies</h2>
-          <Work :work="relatedCaseStudies"></Work>
-        </div>
-        <ColorCallout class="bgChange text-white my-0 py-5">
-          <!-- <h2>{{ caseStudy.acf.cta_text }}</h2> -->
-          <GravityForm :formId=5 :showAll="true"></GravityForm>
-        </ColorCallout>
       </div>
   </div>
 </template>
 <script>
   import Axios from 'axios'
+  import ColorCallout from '~components/ColorCallout.vue'
+  import GravityForm from '~components/GravityForm.vue'
   import Subscribe from '~components/subscribe/container.vue'
   import Work from '~components/Work.vue'
   import Post from '~components/Post.vue'
@@ -85,7 +81,7 @@
       }
     },
     components: {
-      Subscribe, Work, Post
+      Subscribe, Work, Post, ColorCallout, GravityForm
     },
     async created () {
       let relatedWorkIds = this.service.acf.related_case_studies
