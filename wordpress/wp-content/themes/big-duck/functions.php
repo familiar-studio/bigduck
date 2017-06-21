@@ -771,6 +771,7 @@ class StarterSite extends TimberSite {
 	}
 
 	function get_author_headshot($object) {
+		$fakeline = 'fake';
 		$author = get_field('author');
 		if (isset($author['ID'])) {
 			$headshot = get_field('headshot', 'user_' . $author['ID']);
