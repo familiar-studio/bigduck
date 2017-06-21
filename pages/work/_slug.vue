@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div v-if="caseStudy">
       <div class="img-hero" :style=" { backgroundImage: 'url(' + caseStudy.acf.hero_image.url + ')' }">
         <figcaption class="figure-caption">{{caseStudy.acf.hero_image.caption}}</figcaption>
       </div>
@@ -101,22 +100,11 @@
                   </div>
               </div>
 
-              <Subscribe v-if="callouts" :entry="callouts[0]"></Subscribe>
-
-              <div class="mt-5" v-if="relatedCaseStudies && relatedCaseStudies.length > 0">
-                <h2>Similar Case Studies</h2>
-                <Work :work="relatedCaseStudies"></Work>
-              </div>
-
             </div>
 
           </div>
         </div>
       </div>
-    </div>
-    <div v-else>
-      Loading case study...
-    </div>
     </div>
   </div>
 </template>

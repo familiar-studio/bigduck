@@ -107,13 +107,13 @@
                 <h1 id="jobs">{{ page.acf.jobs_headline }}</h1>
                 <div v-html="page.acf.jobs_body"></div>
                 <div v-if="jobs" >
-                  <ul v-for="job in jobs">
+                  <div v-for="job in jobs">
                     <h3><a href="#" @click.prevent="toggleJob(job.id)">{{job.title.rendered}}</a></h3>
                     <div class="collapse" :class="{'show': job.id === openJob}">
                       <h4 v-html="job.acf.job_description_heading"></h4>
                       <p v-html="job.acf.job_description"></p>
                     </div>
-                  </ul>
+                  </div>
                 </div>
               </article>
             </div>

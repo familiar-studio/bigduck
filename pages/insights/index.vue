@@ -13,7 +13,7 @@
           <h1>Insights</h1>
 
           <div v-for="(insight, index) in insights">
-            <Post :entry="insight" :index="index"></Post>
+            <Post :entry="insight" :firstBlock="true" :index="index"></Post>
             <Subscribe v-if="callouts && callouts[0] && index % 5 == 1 && index < insights.length - 1" :entry="callouts[0]" class="mb-5"></Subscribe>
           </div>
           <div class="pager" v-if="insights.length < totalRecords">

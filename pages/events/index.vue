@@ -20,7 +20,7 @@
             <div v-if="events.length > 0">
 
               <div v-for="(event, index) in events">
-                  <Event :entry="event" :categories="categories" :index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
+                  <Event :entry="event" :firstBlock="true" :categories="categories" :index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
 
                   <Subscribe v-if="callouts[0] && index % 5 == 1 && index < events.length - 1" :entry="callouts[0]"></Subscribe>
               </div>

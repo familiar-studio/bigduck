@@ -1,7 +1,11 @@
 .block-overlap{
   margin-bottom: 2rem;
   min-height: 310px;
+
+  margin-left: -($grid-gutter-width-base/2);
+  margin-right: -($grid-gutter-width-base/2);
   @include media-breakpoint-up(sm){
+    margin:0;
     margin-bottom: 6rem;
   }
 
@@ -99,13 +103,6 @@
       }
     }
   }
-
-  &[type=articles]{
-    .badge-type{
-      display: none;
-    }
-  }
-
 
   .featured-image{
     height: 100%;

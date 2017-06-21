@@ -8,36 +8,36 @@
             <span class="navbar-toggler-icon"></span>
           </button>
 
-          <router-link class="navbar-brand" to="/">
+          <nuxt-link class="navbar-brand" to="/">
             <Logo></Logo>
             <div class="label tagline hidden-xs-down">Smart communications for nonprofits</div>
-          </router-link>
+          </nuxt-link>
 
           <div class="navbar-collapse" id="main-menu">
             <div class="label tagline hidden-sm-up">Smart communications for nonprofits</div>
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-                <router-link class="nav-link" to="/services"><span>Services</span></router-link>
+                <nuxt-link class="nav-link" to="/services"><span>Services</span></nuxt-link>
                 <div class="nav-text">What we can do for you and your project</div>
               </li>
               <li class="nav-item">
-                <router-link class="nav-link" to="/work"><span>Work</span></router-link>
+                <nuxt-link class="nav-link" to="/work"><span>Work</span></nuxt-link>
                 <div class="nav-text">Examples of what we've done and for whom</div>
               </li>
               <li class="nav-item">
-                <router-link class="nav-link" to="/events"><span>Events</span></router-link>
+                <nuxt-link class="nav-link" to="/events"><span>Events</span></nuxt-link>
                 <div class="nav-text">Join us online and in-person</div>
               </li>
               <li class="nav-item">
-                <router-link class="nav-link" to="/insights"><span>Insights</span></router-link>
+                <nuxt-link class="nav-link" to="/insights"><span>Insights</span></nuxt-link>
                 <div class="nav-text">Thoughts and resources from our team</div>
               </li>
               <li class="nav-item">
-                <router-link class="nav-link" to="/about"><span>About</span></router-link>
+                <nuxt-link class="nav-link" to="/about"><span>About</span></nuxt-link>
                 <div class="nav-text">Learn more about us</div>
               </li>
               <li class="nav-item">
-                <router-link class="nav-link" to="/contact"><span>Contact</span></router-link>
+                <nuxt-link class="nav-link" to="/contact"><span>Contact</span></nuxt-link>
                 <div class="nav-text">Reach out to us</div>
               </li>
               <li class="nav-item">
@@ -59,11 +59,11 @@
     <Chat v-if="showChat" ></Chat>
 
     <footer id="footer">
-        <div class="container-fluid">
-          <router-link to="/" class="navbar-brand">
+        <div >
+          <nuxt-link to="/" class="navbar-brand">
             <Logo></Logo>
             <div class="label tagline">Smart communications for nonprofits</div>
-          </router-link>
+          </nuxt-link>
           <div class="contact-info">
             <ul class="list-unstyled social-media">
               <a href="https://www.facebook.com/bigduck" target="_blank">

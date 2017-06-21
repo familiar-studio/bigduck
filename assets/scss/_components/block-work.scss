@@ -101,7 +101,7 @@
 
 
 .nav-pills{
-  margin-top: -45px;
+  margin-top: -50px;
   background-color: rgba($white, .5);
     .nav-item{
     font-size: .9rem;
@@ -111,4 +111,8 @@
     color: $white;
     -webkit-font-smoothing: antialiased;
   }
+}
+
+.work-all .nav-pills {
+  margin-bottom: 50px;
 }

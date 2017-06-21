@@ -12,14 +12,15 @@
               <!-- <div class="badge badge-default">
                   <div>Badges TK</div>
               </div> -->
+              <div class="badge badge-default" v-for="topic in entry.topic">
+                <div v-html="getTopicsIndexedById[topic].icon"></div>
+                <div v-html="getTopicsIndexedById[topic].name"></div>
+              </div>
               <div class="badge badge-default badge-type" v-for="type in entry.type">
                   <div v-html="getTypesIndexedById[type].icon"></div>
                   <div v-html="getTypesIndexedById[type].name"></div>
               </div>
-              <div class="badge badge-default" v-for="topic in entry.topic">
-                  <div v-html="getTopicsIndexedById[topic].icon"></div>
-                  <div v-html="getTopicsIndexedById[topic].name"></div>
-              </div>
+            
               <div class="badge badge-default">
 
 
@@ -65,12 +66,12 @@
 
   export default {
     name: 'post',
-    props: ['entry', 'categories', 'index'],
+    props: ['entry', 'categories', 'index', 'firstBlock'],
     computed: {
       ...mapState(['types', 'topics']),
       ...mapGetters(['getTopicsIndexedById', 'getTypesIndexedById']),
       blockClass () {
-        if (this.index === 0) {
+        if (this.index === 0 && this.firstBlock) {
           return 'first-block'
         } else if (this.index % 2 === 0) {
           return 'odd-block'

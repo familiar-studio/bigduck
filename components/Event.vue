@@ -10,13 +10,13 @@
         <div class="card" >
           <div class="card-block">
             <div class="badge-group" v-if="topics && eventCategories">
-              <div class="badge badge-default badge-type" v-if="eventCategories && entry['event_category'].length > 0">
-                  <div v-html="getEventCategoriesIndexedById[entry['event_category'][0]].icon"></div>
-                  <div v-html="getEventCategoriesIndexedById[entry['event_category'][0]].name"></div>
-              </div>
               <div class="badge badge-default"  v-if="topics && entry['topic'].length > 0" v-for="topic in entry.topic">
                   <div v-html="getTopicsIndexedById[entry['topic'][0]].icon"></div>
                   <div v-html="getTopicsIndexedById[entry['topic'][0]].name"></div>
+              </div>
+              <div class="badge badge-default badge-type" v-if="eventCategories && entry['event_category'].length > 0">
+                  <div v-html="getEventCategoriesIndexedById[entry['event_category'][0]].icon"></div>
+                  <div v-html="getEventCategoriesIndexedById[entry['event_category'][0]].name"></div>
               </div>
             </div>
             <h3 class="card-title"><span class="underlineChange" v-html="entry.title.rendered"></span></h3>
@@ -53,12 +53,12 @@
 
   export default {
     name: 'featured',
-    props: ['entry', 'index', 'relatedTeamMembers'],
+    props: ['entry', 'index', 'relatedTeamMembers', 'firstBlock'],
     computed: {
       ...mapState(['topics', 'eventCategories']),
       ...mapGetters(['getTopicsIndexedById', 'getEventCategoriesIndexedById']),
       blockClass () {
-        if (this.index === 0) {
+        if (this.index === 0 && this.firstBlock) {
           return 'first-block'
         } else if (this.index % 2 === 0) {
           return 'odd-block'

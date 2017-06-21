@@ -8,7 +8,7 @@ overflow-x: hidden;
   overflow-x: visible;
 }
 #main{
-  padding-top: 175px;
+  padding-top: 50px;
   min-height: calc(100vh - 196px);
 }
 
@@ -17,6 +17,11 @@ overflow-x: hidden;
     //width: calc(100vw - 2rem);
   }
 }
+.menu {
+  position: sticky;
+  top: 85px;
+}
+
 
 .subnav {
   position: sticky;
@@ -69,12 +74,13 @@ overflow-x: hidden;
   color: $white;
   padding: 2rem 1rem;
   -webkit-font-smoothing: antialiased;
-  .container-fluid{
+  & > div {
     @include media-breakpoint-up(md){
       display: flex;
       justify-content: space-between;
       align-content: flex-end;
     }
+ 
   }
   .navbar-brand{
     margin: 0;

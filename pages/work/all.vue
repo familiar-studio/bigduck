@@ -15,15 +15,14 @@
           <div class="container" id="content">
             <div v-if="work">
               <h1>Work</h1>
-              <transition name="fade">
               <Work :work="work" v-if="work.length > 0"></Work>
               <div v-else>
-                No case studies found in
-                <span v-if="selectedTopic">Topic {{getTopicsIndexedById[selectedTopic].name}}</span>
+                <h3>No case studies found in
+                <span v-if="selectedTopic">{{getTopicsIndexedById[selectedTopic].name}}</span>
                 <span v-if="selectedTopic && selectedSector"> and </span>
-                <div v-if="selectedSector">Sector {{getSectorsIndexedById[selectedSector].name}}</div>
+                <span v-if="selectedSector">{{getSectorsIndexedById[selectedSector].name}}</span>
+                </h3>
               </div>
-              </transition>
             </div>
           </div>
 
