@@ -20,13 +20,14 @@
                   <div v-html="getTypesIndexedById[type].icon"></div>
                   <div v-html="getTypesIndexedById[type].name"></div>
               </div>
-            
+
               <div class="badge badge-default">
 
 
                 <span v-if="types && entry.type[0]">
-                    <span v-if="getTypesIndexedById[entry.type[0]].verb == 'read'">
-                      {{entry.acf.calculated_reading_time.data}}
+                    <span v-if="getTypesIndexedById[entry.type[0]].verb == 'Read' && entry.calculated_reading_time">
+                      <!-- {{ entry }} -->
+                      {{entry.calculated_reading_time.data}}
                     </span>
                       <span v-else>
                         <span>{{ entry.acf.time }}
