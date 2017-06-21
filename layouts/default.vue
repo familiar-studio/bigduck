@@ -159,7 +159,7 @@
         return true
       },
       showFooter () {
-        if (this.page === 'work-slug' || this.page === 'contact') {
+        if (this.page === 'work-slug' || this.page === 'contact' || this.page === 'services-slug') {
           return false
         }
         return true

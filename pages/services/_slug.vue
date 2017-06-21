@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="overflow-x-hidden">
       <div class="img-hero" :style=" { backgroundImage: 'url(' + service.acf.featured_image.url + ')' }">
         <figcaption class="figure-caption">{{service.acf.featured_image.caption}}</figcaption>
       </div>
@@ -33,6 +33,10 @@
           <h2>Related Case Studies</h2>
           <Work :work="relatedCaseStudies"></Work>
         </div>
+        <ColorCallout class="bgChange text-white my-0 py-5">
+          <!-- <h2>{{ caseStudy.acf.cta_text }}</h2> -->
+          <GravityForm :formId=5 :showAll="true"></GravityForm>
+        </ColorCallout>
       </div>
   </div>
 </template>

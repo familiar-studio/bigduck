@@ -3,7 +3,7 @@
       <div class="img-hero" :style=" { backgroundImage: 'url(' + caseStudy.acf.hero_image.url + ')' }">
         <figcaption class="figure-caption">{{caseStudy.acf.hero_image.caption}}</figcaption>
       </div>
-      <div class="container-fluid" id="content">
+      <div class="container-fluid overflow-x-hidden" id="content">
         <div class="row">
           <div class="col-lg-1 hidden-md-down">
             <share></share>
@@ -106,8 +106,8 @@
               </div>
 
               <ColorCallout class="bgChange text-white my-0 py-5">
-                <h2>{{ caseStudy.acf.cta_text }}</h2>
-                <GravityForm v-if="caseStudy.acf.form" :formId="caseStudy.acf.form" :showAll="true"></GravityForm>
+                <!-- <h2>{{ caseStudy.acf.cta_text }}</h2> -->
+                <GravityForm :formId=5 :showAll="true"></GravityForm>
               </ColorCallout>
 
             </div>
