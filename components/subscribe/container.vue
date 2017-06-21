@@ -1,10 +1,12 @@
 <template>
   <div class="callout-fullwidth bg-inverse text-white">
     <div class="callout-content">
-      <h2>{{ entry.title.rendered }}</h2>
-      <div v-html="entry.content.rendered"></div>
+      <slot>
+        <h2>{{ entry.title.rendered }}</h2>
+        <div v-html="entry.content.rendered"></div>
 
-      <SubscribeForm placeholder="" button="subscribe" :id="entry.id"></SubscribeForm>
+        <SubscribeForm placeholder="" button="subscribe" :id="entry.id"></SubscribeForm>
+      </slot>
     </div>
   </div>
 </template>

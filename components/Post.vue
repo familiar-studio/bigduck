@@ -50,7 +50,7 @@
                 </span>
               </div>
               <div class="media">
-                <img v-if="entry.author_headshot" :src="entry.author_headshot.sizes.thumbnail" class="round author-img mr-2">
+                <img v-if="entry.author_headshot && entry.author_headshot.sizes" :src="entry.author_headshot.sizes.thumbnail" class="round author-img mr-2">
                 <h6 class="align-self-center mb-0"><span v-if="entry.acf.is_guest_author">{{entry.acf.guest_author_name}}</span><span v-if="!entry.acf.is_guest_author && entry.acf.author">{{ entry.acf.author.display_name }}</span></h6>
               </div>
             </div>

@@ -58,20 +58,19 @@
 
             </article>
 
-
-            <h2 class="mb-3 mt-5">Related Events &amp; Insights</h2>
-            <div v-if="relatedEvents">
-              <div class="" v-for="(event, index) in relatedEvents">
-                <Event :entry="event" :index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
+            <div v-if="relatedEvents && relatedInsights">
+              <h2 class="mb-3 mt-5">Related Events &amp; Insights</h2>
+              <div v-if="relatedEvents">
+                <div class="" v-for="(event, index) in relatedEvents">
+                  <Event :entry="event" :index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
+                </div>
+              </div>
+              <div v-if="relatedInsights">
+                <div class="" v-for="(insight, index) in relatedInsights">
+                  <Post :entry="insight" :index="relatedEvents ? index + relatedEvents.length : index"></Post>
+                </div>
               </div>
             </div>
-            <div v-if="relatedInsights">
-              <!-- <h2>Related Insights</h2> -->
-              <div class="" v-for="(insight, index) in relatedInsights">
-                <Post :entry="insight" :index="relatedEvents ? index + relatedEvents.length : index"></Post>
-              </div>
-            </div>
-
           </div>
         </div>
       </div>
@@ -116,21 +115,25 @@
       let data = {}
       let response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_event?slug=' + params.slug)
       data.event = response.data[0]
-      data.relatedEventsIds = data.event.acf.related_events
-      data.relatedInsightsIds = data.event.acf.related_insights
+      console.log(data.event.acf.related_events.map((e) => { return e.ID }))
+      console.log(data.event.acf.related_insights.map((e) => { return e.ID }))
+      data.relatedEventsIds = data.event.acf.related_events.map((e) => { return e.ID })
+      data.relatedInsightsIds = data.event.acf.related_insights.map((e) => { return e.ID })
       return data
     },
     created () {
       // get related events
       if (this.relatedEventsIds) {
-        Axios.get(this.hostname + 'wp/v2/bd_event', { params: { includes: this.relatedEventsIds } }).then((response) => {
+        Axios.get(this.hostname + 'wp/v2/bd_event', { params: { include: this.relatedEventsIds } }).then((response) => {
+          console.log(response)
           this.relatedEvents = response.data
         })
       }
 
       // get related insights
       if (this.relatedInsightsIds) {
-        Axios.get(this.hostname + 'wp/v2/bd_event', { params: { includes: this.relatedInsightsIds } }).then((response) => {
+        Axios.get(this.hostname + 'wp/v2/bd_insight', { params: { include: this.relatedInsightsIds } }).then((response) => {
+          console.log('insights', response)
           this.relatedInsights = response.data
         })
       }

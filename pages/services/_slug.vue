@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div v-if="service">
       <div class="img-hero" :style=" { backgroundImage: 'url(' + service.acf.featured_image.url + ')' }">
         <figcaption class="figure-caption">{{service.acf.featured_image.caption}}</figcaption>
       </div>
@@ -24,17 +23,17 @@
               </div>
             </div>
           </div>
+        <div class="callout-fullwidth bg-inverse text-white">
+          <div class="callout-content">
+              <h2>{{ service.acf.cta_text }}</h2>
+          </div>
         </div>
-        <Subscribe v-if="callouts" :entry="callouts[0]"></Subscribe>
+        </div>
         <div class="container mt-5" v-if="relatedCaseStudies && relatedCaseStudies.length > 0">
           <h2>Related Case Studies</h2>
           <Work :work="relatedCaseStudies"></Work>
         </div>
       </div>
-    </div>
-    <div v-else>
-      Loading the service...
-    </div>
   </div>
 </template>
 <script>

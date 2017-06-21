@@ -17,8 +17,8 @@
           <div v-for="service in services" v-if="service.slug === 'brandraising-benchmark'">
             <Service :entry="service"></Service>
           </div>
-        </div>
         <Subscribe v-if="callouts" :entry="callouts[0]" class="mt-5"></Subscribe>
+        </div>
         <div class="testimonial">
           <div class="container">
             <div class="row">
