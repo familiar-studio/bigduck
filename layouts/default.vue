@@ -100,13 +100,15 @@
 
     </div>
     <section id="footer-callout" v-if="page != 'contact'" class="bgChange text-white my-0 py-5">
-      <div class="footer-content">
-        <h2>Want to stay in the loop?</h2>
-        <p>Subscribe to our newsletter and get the latest nonprofit communications tips and tools delivered monthly to your inbox.</p>
+      <div class="container">
+        <div class="footer-content">
+          <h2>Want to stay in the loop?</h2>
+          <p>Subscribe to our newsletter and get the latest nonprofit communications tips and tools delivered monthly to your inbox.</p>
 
-        <GravityForm :formId="4"></GravityForm>
-        <nuxt-link to="/privacy" class="link-privacy">Privacy Policy</nuxt-link>
+          <GravityForm :formId="4"></GravityForm>
+          <nuxt-link to="/privacy" class="link-privacy">Privacy Policy</nuxt-link>
 
+        </div>
       </div>
 
     </section>

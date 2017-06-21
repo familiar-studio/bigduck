@@ -11,6 +11,11 @@
   -webkit-font-smoothing: antialiased;
   transition: all .3s ease;
 
+  display: none;
+  @include media-breakpoint-up(md) {
+    display: block;
+  }
+
   &::before{
     content:'';
     position: absolute;

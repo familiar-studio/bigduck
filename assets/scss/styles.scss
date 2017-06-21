@@ -96,6 +96,12 @@ p{
   font-size: 1.1rem;
 }
 
+.display-2 {
+  @include media-breakpoint-down(sm) {
+    font-size: 3.5rem;
+  }
+}
+
 //BUTTONS AND BADGES
 
 .badge{

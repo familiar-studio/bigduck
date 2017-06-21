@@ -14,7 +14,7 @@ overflow-x: hidden;
 
 .container{
   @include media-breakpoint-down(md){
-    width: calc(100vw - 2rem);
+    //width: calc(100vw - 2rem);
   }
 }
 
