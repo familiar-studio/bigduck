@@ -1,7 +1,7 @@
 <template>
   <div id="full-wrapper" :class="'color-'+currentColor" >
    <div class="page-wrapper" :class="page">
-    <header id="header" :class="{ 'small-nav': haveScrolled, 'nav-open':navVisible }">
+    <header id="header" :class="{ 'small-nav': haveScrolled, 'nav-open':navVisible, 'hovering':hovering }">
       <div class="container-fluid">
         <nav class="navbar navbar-toggleable-md navbar-light">
           <button @click="toggleNav()" class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,30 +16,30 @@
           <div class="navbar-collapse" id="main-menu">
             <div class="label tagline hidden-sm-up">Smart communications for nonprofits</div>
             <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                <nuxt-link class="nav-link" to="/services"><span>Services</span></nuxt-link>
-                <div class="nav-text">What we can do for you and your project</div>
-              </li>
-              <li class="nav-item">
-                <nuxt-link class="nav-link" to="/work"><span>Work</span></nuxt-link>
-                <div class="nav-text">Examples of what we've done and for whom</div>
-              </li>
-              <li class="nav-item">
-                <nuxt-link class="nav-link" to="/events"><span>Events</span></nuxt-link>
-                <div class="nav-text">Join us online and in-person</div>
-              </li>
-              <li class="nav-item">
-                <nuxt-link class="nav-link" to="/insights"><span>Insights</span></nuxt-link>
-                <div class="nav-text">Thoughts and resources from our team</div>
-              </li>
-              <li class="nav-item">
-                <nuxt-link class="nav-link" to="/about"><span>About</span></nuxt-link>
-                <div class="nav-text">Learn more about us</div>
-              </li>
-              <li class="nav-item">
-                <nuxt-link class="nav-link" to="/contact"><span>Contact</span></nuxt-link>
-                <div class="nav-text">Reach out to us</div>
-              </li>
+                <li class="nav-item" @mouseover="hover('services')" @mouseleave="hovering = false">
+                  <nuxt-link  class="nav-link" to="/services"><span>Services</span></nuxt-link>
+                  <div class="nav-text" :class="{ 'show': currentText === 'services'}">What we can do for you and your project</div>
+                </li>
+                <li class="nav-item" @mouseover="hover('work')" @mouseleave="hovering = false">
+                  <nuxt-link  class="nav-link" to="/work"><span>Work</span></nuxt-link>
+                  <div class="nav-text" :class="{ 'show': currentText === 'work'}">Examples of what we've done and for whom</div>
+                </li>
+                <li class="nav-item" @mouseover="hover('events')" @mouseleave="hovering = false">
+                  <nuxt-link  class="nav-link" to="/events"><span>Events</span></nuxt-link>
+                  <div class="nav-text" :class="{ 'show': currentText === 'events'}">Join us online and in-person</div>
+                </li>
+                <li class="nav-item" @mouseover="hover('insights')" @mouseleave="hovering = false">
+                  <nuxt-link  class="nav-link" to="/insights"><span>Insights</span></nuxt-link>
+                  <div class="nav-text" :class="{ 'show': currentText === 'insights'}">Thoughts and resources from our team</div>
+                </li>
+                <li class="nav-item" @mouseover="hover('about')" @mouseleave="hovering = false">
+                  <nuxt-link  class="nav-link" to="/about"><span>About</span></nuxt-link>
+                  <div class="nav-text" :class="{ 'show': currentText === 'about'}">Learn more about us</div>
+                </li>
+                <li class="nav-item" @mouseover="hover('contact')" @mouseleave="hovering = false">
+                  <nuxt-link  class="nav-link" to="/contact"><span>Contact</span></nuxt-link>
+                  <div class="nav-text" :class="{ 'show': currentText === 'contact'}">Reach out to us</div>
+                </li>
               <li class="nav-item">
                 <a class="nav-link float-left" href="#" @click.prevent="showSearch()">
                   <svg width="26px" height="26px" viewBox="0 0 26 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="search-icon">
@@ -137,7 +137,9 @@
         haveScrolled: false,
         totalColors: 7,
         currentColor: 1,
-        query: null
+        query: null,
+        currentText: null,
+        hovering: false
       }
     },
     computed: {
@@ -182,6 +184,11 @@
         } else {
           this.currentColor = 1
         }
+      },
+      hover (id) {
+        console.log(id)
+        this.hovering = true
+        this.currentText = id
       }
 
     },
@@ -193,7 +200,3 @@
     }
   }
 </script>
-
-<style lang="scss">
-
-</style>

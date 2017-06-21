@@ -112,6 +112,23 @@
 
   .nav-item{
     position: relative;
+    & > .nuxt-link-active, &:hover{
+      opacity: 1;
+       + .nav-text {
+        opacity: 1;
+      }
+    }
+    &.nuxt-link-active span{
+      background-size: 100% 1px !important;
+    }
+    &:hover {
+      & > a {
+        opacity: 1;
+        + .nav-text {
+          opacity: 1;
+        }
+      }
+    }
   }
   .nav-link{
     color: $gray-darker;
@@ -128,15 +145,7 @@
       display: inline-block;
       background-size: 0% 1px !important;
     }
-    &.nuxt-link-active, &:hover{
-      opacity: 1;
-       + .nav-text {
-        opacity: 1;
-      }
-    }
-    &.nuxt-link-active span{
-      background-size: 100% 1px !important;
-    }
+
   }
   .nav-text{
     @extend .label;
@@ -216,5 +225,12 @@
 
   #main-menu .nav-text{
     opacity: 0;
+  }
+}
+
+header.hovering #main-menu .nuxt-link-active + .nav-text {
+  opacity: 0;
+  &.show {
+    opacity: 1;
   }
 }
