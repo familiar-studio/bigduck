@@ -4,10 +4,9 @@
   <div class="container-fluid no-hero">
     <div class="row">
       <div class="col-lg-2">
-        <div v-if="topics && sectors" class="filter-bar">
+        <div v-if="topics" class="filter-bar">
           <FilterList label="Topics" taxonomy="topic" :terms="topics" :selected="selectedTopic" v-on:clicked="toggleTaxonomy($event)"></FilterList>
-          <FilterList label="Sectors" taxonomy="sector" :terms="sectors" :selected="selectedSector" v-on:clicked="toggleTaxonomy($event)"></FilterList>
-          <a v-if="selectedTopic || selectedSector" href="#" @click.prevent="resetFilters" class="btn btn-primary">Clear All</a>
+          <a v-if="selectedTopic" href="#" @click.prevent="resetFilters" class="btn btn-primary">Clear All</a>
         </div>
       </div>
       <div class='col-lg-8'>
@@ -18,9 +17,7 @@
               <Work :work="work" v-if="work.length > 0"></Work>
               <div v-else>
                 <h3>No case studies found in
-                <span v-if="selectedTopic">{{getTopicsIndexedById[selectedTopic].name}}</span>
-                <span v-if="selectedTopic && selectedSector"> and </span>
-                <span v-if="selectedSector">{{getSectorsIndexedById[selectedSector].name}}</span>
+                  <span v-if="selectedTopic">{{getTopicsIndexedById[selectedTopic].name}}</span>
                 </h3>
               </div>
             </div>
@@ -54,12 +51,9 @@ export default {
   },
   computed: {
     ...mapState(['topics', 'sectors']),
-    ...mapGetters(['getTopicsIndexedById', 'getSectorsIndexedById']),
+    ...mapGetters(['getTopicsIndexedById']),
     selectedTopic () {
       return this.$route.query.topic
-    },
-    selectedSector () {
-      return this.$route.query.sector
     }
   },
   watch: {
