@@ -99,7 +99,7 @@
       <SearchOverlay v-if="searchVisible" @hide="hideSearch()"></SearchOverlay>
 
     </div>
-    <section id="footer-callout" v-if="page != 'contact'" class="bgChange text-white my-0 py-5">
+    <section id="footer-callout" v-if="showFooter" class="bgChange text-white my-0 py-5">
       <div class="container">
         <div class="footer-content">
           <h2>Want to stay in the loop?</h2>
@@ -152,6 +152,12 @@
       },
       showChat () {
         if (this.page === 'contact' || this.page === 'work' || this.page === 'work-slug') {
+          return false
+        }
+        return true
+      },
+      showFooter () {
+        if (this.page === 'work-slug' || this.page === 'contact') {
           return false
         }
         return true

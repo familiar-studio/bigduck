@@ -20,11 +20,11 @@
                 <div class="badge-group" v-if="topics">
                   <!-- <div class="badge badge-default">Topic and Sector Badges TK</div> -->
                   <div class="badge badge-default" v-for="topic in caseStudy.topic">
-                      <div v-html="topicsIndexedById[topic].acf.data"></div>
+                      <div v-html="topicsIndexedById[topic].icon"></div>
                       <div v-html="topicsIndexedById[topic].name"></div>
                   </div>
                   <div class="badge badge-default" v-for="sector in caseStudy.sector">
-                      <div v-html="sectorsIndexedById[sector].acf.data"></div>
+                      <div v-html="sectorsIndexedById[sector].icon"></div>
                       <div v-html="sectorsIndexedById[sector].name"></div>
                   </div>
                 </div>
@@ -100,6 +100,16 @@
                   </div>
               </div>
 
+              <h2 class="mb-3 mt-5">Related Service</h2>
+              <div v-if="relatedService">
+                <Service :entry="relatedService"></Service>
+              </div>
+
+              <ColorCallout class="bgChange text-white my-0 py-5">
+                <h2>{{ caseStudy.acf.cta_text }}</h2>
+                <GravityForm v-if="caseStudy.acf.form" :formId="caseStudy.acf.form" :showAll="true"></GravityForm>
+              </ColorCallout>
+
             </div>
 
           </div>
@@ -110,10 +120,13 @@
 </template>
 <script>
   import Axios from 'axios'
+  import ColorCallout from '~components/ColorCallout.vue'
+  import GravityForm from '~components/GravityForm.vue'
+  import Service from '~components/Service.vue'
   import share from '~components/Share.vue'
   import Subscribe from '~components/subscribe/container.vue'
   import Work from '~components/Work.vue'
-  import { mapState } from 'vuex'
+  import { mapState, mapGetters } from 'vuex'
   import flickity from '~components/Flickity.vue'
 
   export default {
@@ -130,11 +143,14 @@
     data () {
       return {
         caseStudy: null,
-        relatedCaseStudies: null
+        relatedService: null
       }
     },
     components: {
+      ColorCallout,
+      GravityForm,
       flickity,
+      Service,
       share,
       Subscribe,
       Work
@@ -145,6 +161,7 @@
         'topics',
         'types'
       ]),
+      ...mapGetters(['hostname']),
       id () {
         return this.$route.params.id
       },
@@ -170,11 +187,14 @@
       return data
     },
     async created () {
-      let relatedWorkIds = this.caseStudy.acf.related_case_studies
-      if (typeof relatedWorkIds !== 'undefined' && relatedWorkIds) {
-        let response = await Axios.get(this.$store.getters['hostname'] + 'wp/v2/bd_case_study?' + relatedWorkIds.map((obj) => 'include[]=' + obj.ID).join('&'))
-        this.relatedCaseStudies = response.data
-      }
+      let topics = this.caseStudy.topic
+      let response = await Axios.get(this.hostname + 'wp/v2/bd_service?topic=' + topics[0])
+      this.relatedService = response.data[0]
+      // let relatedWorkIds = this.caseStudy.acf.related_case_studies
+      // if (typeof relatedWorkIds !== 'undefined' && relatedWorkIds) {
+      //   let response = await Axios.get(this.$store.getters['hostname'] + 'wp/v2/bd_case_study?' + relatedWorkIds.map((obj) => 'include[]=' + obj.ID).join('&'))
+      //   this.relatedCaseStudies = response.data
+      // }
     }
   }
 </script>
