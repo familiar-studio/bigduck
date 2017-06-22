@@ -2,7 +2,7 @@
   <div>
     <div class="jumbotron">
       <div class="container">
-        <h1 class="display-2">Developing the <span class="color">{{magicWord}}</span><span class="cursor bgChange"></span><br class="hidden-lg-down"/>
+        <h1 class="display-2">Developing the <span class="color">{{wordString}}</span><span class="cursor bgChange"></span><br class="hidden-lg-down"/>
         of determined nonprofits.</h1>
         <router-link class="btn btn-primary" to="/services">See how we do it &rarr;</router-link>
       </div>
@@ -19,17 +19,17 @@
     <div class="container">
       <h2>New and Upcoming</h2>
       <div v-if="upcomingEvents" class="mt-5">
-        
+
         <div class="" v-for="(event, index) in upcomingEvents">
           <Event :entry="event" index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
         </div>
         <nuxt-link class="btn btn-primary" to="/events">View All Events</nuxt-link>
       </div>
     </div>
-  
+
     <div class="container">
       <div v-if="latestInsights" class="mt-5">
-  
+
         <div class="" v-for="(insight, index) in latestInsights">
           <Post :entry="insight" :index="index + latestInsights.length"></Post>
         </div>
@@ -85,65 +85,71 @@
     },
     data () {
       return {
-        magicWord: 'voices',
-        magicIndex: 0,
-        typeIndex: 0,
-        typeInterval: 100,
-        typeIntervalVar: {},
-        wordInterval: 5000,
-        magicWords: [
+        wordString: 'voices',
+        words: [
           'voices',
           'brands',
           'campaigns',
           'teams'
-        ]
+        ],
+        wordIndex: 0,
+        letterIndex: 6,
+        framesWaited: 0,
+        interval: null,
+        typingStatus: 'waiting',
+        looped: false,
+
+        // ANIMATION OPTIONS:
+        // how many milliseconds a 'frame' lasts. a letter is typed or deleted in 1 frame
+        frameInterval: 90,
+        // how many frames to wait after a word has been typed before starting to delete it
+        waitingIntervalFrames: 10,
+        // setting loop to false will stop typing after word returns to 'voices'
+        loop: true
       }
     },
     computed: {
       topics () { return this.$store.state.topics },
       types () { return this.$store.state.types },
       topicsIndexedById () { return this.$store.getters['getTopicsIndexedById'] },
-      typesIndexedById () { return this.$store.getters['getTypesIndexedById'] }
+      typesIndexedById () { return this.$store.getters['getTypesIndexedById'] },
+      word () { return this.words[this.wordIndex] }
     },
     created () {
-      setInterval(this.nextWord, this.wordInterval)
-      this.typeIntervalVar = setInterval(this.nextLetter, this.typeInterval)
+      this.interval = setInterval(this.nextFrame, this.frameInterval)
     },
     methods: {
-      nextWord: function () {
-        this.typeIndex = 0
-        this.magicWord = null
-        clearInterval(this.typeIntervalVar)
-        this.typeIntervalVar = setInterval(this.nextLetter, this.typeInterval)
-        if (this.magicIndex === this.magicWords.length - 1) {
-          this.magicIndex = 0
-        } else {
-          this.magicIndex++
+      nextFrame () {
+        switch (this.typingStatus) {
+          case 'typing':
+            if (this.letterIndex < this.words[this.wordIndex].length) {
+              this.letterIndex++
+            } else {
+              this.typingStatus = 'waiting'
+              this.framesWaited = 0
+            }
+            break
+          case 'waiting':
+            if (this.framesWaited < this.waitingIntervalFrames) {
+              this.framesWaited++
+            } else if (this.loop || !this.looped) {
+              this.typingStatus = 'deleting'
+            }
+            break
+          case 'deleting':
+            if (this.letterIndex > 0) {
+              this.letterIndex--
+            } else {
+              this.typingStatus = 'changingWord'
+            }
+            break
+          default:
+            this.wordIndex = (this.wordIndex + 1) % (this.words.length)
+            this.looped = this.wordIndex === 0
+            this.typingStatus = 'typing'
+            break
         }
-      },
-      nextLetter: function () {
-        if (this.typeIndex < this.magicWords[this.magicIndex].length) {
-          this.typeIndex++
-          this.magicWord = this.magicWords[this.magicIndex].substring(0, this.typeIndex)
-        } else {
-          clearInterval(this.typeIntervalVar)
-          this.typeIntervalVar = null
-
-          setTimeout(() => {
-            this.typeIntervalVar = setInterval(this.removeLetter, this.typeInterval)
-          }, 3000)
-          // pause
-          // start removing letters
-        }
-      },
-      removeLetter: function () {
-        if (this.typeIndex > 0) {
-          this.typeIndex--
-          this.magicWord = this.magicWords[this.magicIndex].substring(0, this.typeIndex)
-        } else {
-          clearInterval(this.typeIntervalVar)
-          this.typeIntervalVar = null
-        }
+        this.wordString = this.word.substring(0, this.letterIndex)
       }
     }
   }
