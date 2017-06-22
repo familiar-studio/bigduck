@@ -115,8 +115,6 @@
       let data = {}
       let response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_event?slug=' + params.slug)
       data.event = response.data[0]
-      console.log(data.event.acf.related_events.map((e) => { return e.ID }))
-      console.log(data.event.acf.related_insights.map((e) => { return e.ID }))
       data.relatedEventsIds = data.event.acf.related_events.map((e) => { return e.ID })
       data.relatedInsightsIds = data.event.acf.related_insights.map((e) => { return e.ID })
       return data
@@ -125,7 +123,6 @@
       // get related events
       if (this.relatedEventsIds) {
         Axios.get(this.hostname + 'wp/v2/bd_event', { params: { include: this.relatedEventsIds } }).then((response) => {
-          console.log(response)
           this.relatedEvents = response.data
         })
       }

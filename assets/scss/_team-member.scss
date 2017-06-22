@@ -1,0 +1,21 @@
+aside {
+  h4, em {
+    font-family: $font-family-sans-serif;
+  }
+  p {
+    line-height: 1;
+  }
+  em {
+    font-style: normal;
+    font-size: $font-size-sm;
+  }
+  h4 {
+    font-size: $font-size-xs;
+    line-height: 1.25;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  div {
+
+  }
+}

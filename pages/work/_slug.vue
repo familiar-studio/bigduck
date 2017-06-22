@@ -3,22 +3,21 @@
       <div class="img-hero" :style=" { backgroundImage: 'url(' + caseStudy.acf.hero_image.url + ')' }">
         <figcaption class="figure-caption">{{caseStudy.acf.hero_image.caption}}</figcaption>
       </div>
-      <div class="container-fluid overflow-x-hidden" id="content">
+      <div class="container-fluid" id="content">
         <div class="row">
           <div class="col-lg-1 hidden-md-down">
             <share></share>
           </div>
           <div class="col-lg-10">
-            <div class="container overlap">
-              <article class="main">
+            <div class="container overlap ">
+              <article class="main overflow-x-hidden">
                 <div class="badge-group">
-                  <router-link class="badge badge-default underlineChange" :to="{name: 'insights'}">Work</router-link>
+                  <nuxt-link class="badge badge-default underlineChange" :to="{name: 'work'}">Work</nuxt-link>
                   <div class="badge badge-default" v-html="caseStudy.acf.client_name"></div>
                 </div>
 
                 <h1>{{ caseStudy.title.rendered }}</h1>
                 <div class="badge-group" v-if="topics">
-                  <!-- <div class="badge badge-default">Topic and Sector Badges TK</div> -->
                   <div class="badge badge-default" v-for="topic in caseStudy.topic">
                       <div v-html="topicsIndexedById[topic].icon"></div>
                       <div v-html="topicsIndexedById[topic].name"></div>
@@ -53,7 +52,7 @@
 
                 <!-- TEXT  -->
                   <div v-if="block.acf_fc_layout == 'text'" class="cs-block-text">
-                    <h2 v-html="block.heading"></h2>
+                    <h2 class="mb-3 mt-5" v-html="block.heading"></h2>
                     <p v-html="block.text"></p>
                   </div>
 
@@ -106,8 +105,7 @@
               </div>
 
               <ColorCallout class="bgChange text-white my-0 py-5">
-                <!-- <h2>{{ caseStudy.acf.cta_text }}</h2> -->
-                <GravityForm formId="5" :showAll="true"></GravityForm>
+                <!-- <GravityForm formId=5 :showAll="true"></GravityForm> -->
               </ColorCallout>
 
             </div>
@@ -183,13 +181,14 @@
     async asyncData ({params, store}) {
       let data = {}
       let response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_case_study?slug=' + params.slug)
+      console.log(store.getters['hostname'] + 'wp/v2/bd_case_study?slug=' + params.slug)
       data['caseStudy'] = response.data[0]
       return data
     },
     async created () {
       let topics = this.caseStudy.topic
-      let response = await Axios.get(this.hostname + 'wp/v2/bd_service?topic=' + topics[0])
-      this.relatedService = response.data[0]
+      let related = await Axios.get(this.hostname + 'wp/v2/bd_service?topic=' + topics[0])
+      this.relatedService = related.data[0]
       // let relatedWorkIds = this.caseStudy.acf.related_case_studies
       // if (typeof relatedWorkIds !== 'undefined' && relatedWorkIds) {
       //   let response = await Axios.get(this.$store.getters['hostname'] + 'wp/v2/bd_case_study?' + relatedWorkIds.map((obj) => 'include[]=' + obj.ID).join('&'))

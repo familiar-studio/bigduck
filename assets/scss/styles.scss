@@ -12,6 +12,7 @@
 @import './work-detail.scss';
 @import './about.scss';
 @import './services-index.scss';
+@import './team-member.scss';
 @import './_components/block-overlap.scss';
 @import './_components/block-service.scss';
 @import './_components/callouts.scss';
@@ -133,7 +134,7 @@ p{
   display: flex;
 }
 
-label, .label, .figure-caption{
+label, .label, .figure-caption, .social-handle a {
   font-family: $font-family-sans-serif;
   font-size: .9rem;
   font-weight: 600;
@@ -242,4 +243,8 @@ label, .label, .figure-caption{
 
 .overflow-x-hidden {
   overflow-x: hidden;
+}
+
+.bg-white {
+  background: $white;
 }
