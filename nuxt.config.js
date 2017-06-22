@@ -45,7 +45,7 @@ module.exports = {
     /*
     ** Run ESLINT on save
     */
-    vendor: ['axios', 'date-fns'],
+    vendor: ['axios', 'date-fns', 'velocity-animate'],
     extend (config, ctx) {
       if (ctx.isClient) {
         config.module.rules.push({
