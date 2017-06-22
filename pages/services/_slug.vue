@@ -1,5 +1,5 @@
 <template>
-  <div class="overflow-x-hidden">
+  <div class="overflow-x-hidden services-index">
       <div class="img-hero" :style=" { backgroundImage: 'url(' + service.acf.featured_image.url + ')' }">
         <figcaption class="figure-caption">{{service.acf.featured_image.caption}}</figcaption>
       </div>

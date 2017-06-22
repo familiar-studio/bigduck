@@ -18,12 +18,14 @@
               <h4><router-link :to="{name: 'events-speaking'}"><img src="/svgs/speaking-icon.svg" class="mr-2"/>Interested in having Big Duck speak at your organization? <span class="label colorChange"> Learn more about our talks…</span></router-link></h4>
             </div>
             <div v-if="events.length > 0">
-
-              <div v-for="(event, index) in events">
-                  <Event :entry="event" :firstBlock="true" :categories="categories" :index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
-
-                  <Subscribe v-if="callouts[0] && index % 5 == 1 && index < events.length - 1" :entry="callouts[0]"></Subscribe>
-              </div>
+              <ListTransition :previous="previouslyLoadedEvents" :current="events.length">
+              <div v-for="(event, index) in events" :key="index">
+                    <Event :entry="event" :firstBlock="true" :categories="categories" :index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
+                    <transition name="list" appear>
+                      <Subscribe v-if="callouts[0] && index % 5 == 1 && index < events.length - 1" :entry="callouts[0]"></Subscribe>
+                    </transition>
+                </div>
+              </ListTransition>
               <div class="pager" v-if="events.length < totalRecords">
                 <a class="btn btn-primary my-4" href="#" @click.prevent="nextPage">Load more</a>
               </div>
@@ -43,16 +45,18 @@
 </template>
 <script>
   import Event from '~components/Event.vue'
-  import Subscribe from '~components/subscribe/container.vue'
   import FilterList from '~components/FilterList.vue'
+  import ListTransition from '~components/ListTransition.vue'
   import { mapState, mapGetters } from 'vuex'
+  import Subscribe from '~components/subscribe/container.vue'
 
   export default {
     name: 'events',
     components: {
       Event,
-      Subscribe,
-      FilterList
+      FilterList,
+      ListTransition,
+      Subscribe
     },
     head () {
       return {
@@ -61,6 +65,11 @@
           { description: 'Overview' },
           { 'og:image': 'Events images' }
         ]
+      }
+    },
+    data () {
+      return {
+        previouslyLoadedEvents: 0
       }
     },
     async asyncData ({store, query}) {
@@ -112,6 +121,7 @@
       },
       async nextPage () {
         this.$store.commit('nextPage')
+        this.previouslyLoadedEvents = this.events.length
         let query = Object.assign({}, this.$route.query)
         const response = await this.$store.dispatch('fetchByQuery', {isPaged: true, query: query, path: 'wp/v2/bd_event'})
         this.events = this.events.concat(response.data)

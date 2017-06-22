@@ -94,16 +94,17 @@
         ],
         wordIndex: 0,
         letterIndex: 6,
-        framesWaited: 0,
+        timeWaited: 0,
         interval: null,
         typingStatus: 'waiting',
         looped: false,
+        // same as color animation
+        totalWordTypeTime: 5000,
 
         // ANIMATION OPTIONS:
         // how many milliseconds a 'frame' lasts. a letter is typed or deleted in 1 frame
-        frameInterval: 90,
+        frameInterval: 100,
         // how many frames to wait after a word has been typed before starting to delete it
-        waitingIntervalFrames: 10,
         // setting loop to false will stop typing after word returns to 'voices'
         loop: true
       }
@@ -113,7 +114,11 @@
       types () { return this.$store.state.types },
       topicsIndexedById () { return this.$store.getters['getTopicsIndexedById'] },
       typesIndexedById () { return this.$store.getters['getTypesIndexedById'] },
-      word () { return this.words[this.wordIndex] }
+      word () { return this.words[this.wordIndex] },
+      waitingIntervalFrames () {
+        // the number of letters to typed and deleted, one frame to change word, times the let of a frame
+        return this.totalWordTypeTime - this.frameInterval * ((2 * this.word.length) + 1)
+      }
     },
     created () {
       this.interval = setInterval(this.nextFrame, this.frameInterval)
@@ -126,12 +131,12 @@
               this.letterIndex++
             } else {
               this.typingStatus = 'waiting'
-              this.framesWaited = 0
+              this.timeWaited = 0
             }
             break
           case 'waiting':
-            if (this.framesWaited < this.waitingIntervalFrames) {
-              this.framesWaited++
+            if (this.timeWaited < this.waitingIntervalFrames) {
+              this.timeWaited += this.frameInterval
             } else if (this.loop || !this.looped) {
               this.typingStatus = 'deleting'
             }

@@ -11,18 +11,14 @@
       <div class="col-xl-8 col-lg-9">
         <div class="container" id="content" v-if="insights.length > 0">
           <h1>Insights</h1>
-          <transition-group
-            name="staggered-fade"
-            @before-enter="beforeEnter"
-            @enter="enter"
-            appear>
-          <div v-for="(insight, index) in insights" :key="insight" :data-index="index">
-            <Post :entry="insight" :firstBlock="true" :index="index"></Post>
-            <transition name="list" appear>
-              <Subscribe v-if="callouts && callouts[0] && index % 5 == 1 && index < insights.length - 1" :entry="callouts[0]" class="mb-5"></Subscribe>
-            </transition>
-          </div>
-        </transition-group>
+          <ListTransition :previous="previouslyLoadedInsights" :current="insights.length">
+            <div v-for="(insight, index) in insights" :key="insight" :data-index="index">
+              <Post :entry="insight" :firstBlock="true" :index="index"></Post>
+              <transition name="list" appear>
+                <Subscribe v-if="callouts && callouts[0] && index % 5 == 1 && index < insights.length - 1" :entry="callouts[0]" class="mb-5"></Subscribe>
+              </transition>
+            </div>
+          </ListTransition>
           <div class="pager" v-if="insights.length < totalRecords">
             <a class="btn btn-primary my-4" href="#" @click.prevent="nextPage">Load more</a>
           </div>
@@ -41,6 +37,7 @@
   import { mapState, mapGetters } from 'vuex'
   import axios from 'axios'
   import FilterList from '~components/FilterList.vue'
+  import ListTransition from '~components/ListTransition.vue'
   if (process.BROWSER_BUILD) {
     require('velocity-animate')
   }
@@ -75,9 +72,10 @@
       }
     },
     components: {
+      FilterList,
+      ListTransition,
       Post,
-      Subscribe,
-      FilterList
+      Subscribe
     },
     computed: {
       ...mapState(['callouts', 'types', 'topics']),
@@ -122,19 +120,6 @@
         let query = Object.assign({}, this.$route.query)
         const response = await this.$store.dispatch('fetchByQuery', { isPaged: true, query: query, path: 'wp/v2/bd_insight' })
         this.insights = this.insights.concat(response.data)
-      },
-      beforeEnter (el) {
-        el.style.opacity = 0
-      },
-      enter (el, done) {
-        const delay = (el.dataset.index - this.previouslyLoadedInsights) * 150
-        setTimeout(function () {
-          Velocity(
-            el,
-            { opacity: 1 },
-            { complete: done }
-          )
-        }, delay)
       }
     }
   }
