@@ -22,11 +22,11 @@
 /** The name of the database for WordPress */
 
 
-// if (strpos($_SERVER['SERVER_NAME'], '.dev') !== false) {
-// 	define('SERVER_NAME', $_SERVER['SERVER_NAME']);
-// } else {
-//  	define('SERVER_NAME', 'bigduck.familiar.studio/wordpress');
-// }
+if (strpos($_SERVER['SERVER_NAME'], '.dev') !== false) {
+	define('SERVER_NAME', $_SERVER['SERVER_NAME']);
+} else {
+ 	define('SERVER_NAME', 'bigduck.familiar.studio/wordpress');
+}
 
 if (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != "on") {
 		define('SITE_URL', "http://".SERVER_NAME);
