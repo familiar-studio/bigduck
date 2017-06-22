@@ -53,7 +53,7 @@
       </div>
     </header>
 
-    <main id="main">
+    <main id="main" :class="{ 'no-top-padding': noTopPadding }">
       <nuxt/>
     </main>
     <Chat v-if="showChat" ></Chat>
@@ -163,6 +163,12 @@
           return false
         }
         return true
+      },
+      noTopPadding () {
+        if (this.page === 'services-slug') {
+          return true
+        }
+        return false
       }
     },
     methods: {
