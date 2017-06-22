@@ -29,3 +29,22 @@
 .subnav {
   z-index: 10;
 }
+
+.active h2 {
+  @extend .underlineChange;
+}
+
+.team h1, #jobs {
+  padding-top: 5rem !important;
+}
+
+#jobs {
+  padding-bottom: 5rem !important;
+}
+
+#jobs .active {
+ h2 {
+  @extend .colorChange;
+  @extend .underlineChange;
+ }
+}

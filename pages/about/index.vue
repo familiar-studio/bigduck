@@ -57,10 +57,10 @@
               </article>
 
               <article v-if="openHouse">
-                <h1 id="open-house">Open House</h1>
+                <h1 class="mt-5" id="open-house">Open House</h1>
                 <div v-html="page.acf.open_house_body"></div>
                 <div class="" v-for="(event, index) in openHouse">
-                  {{event}}
+                  <!-- {{event}} -->
                   <Event :entry="event" :index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
                 </div>
               </article>
@@ -68,53 +68,61 @@
               <article>
                 <h1 id="our-clients" v-html="page.acf.our_clients_headline"></h1>
                 <p v-html="page.acf.clients_body"></p>
-                <div class="" v-for="client in page.acf.clients">
+                <div class="" v-for="(client, index) in page.acf.clients">
                   <div class="" v-if="client.client_category">
-
-                  <!-- {{client.client_category[0]}}
-                  {{sectorsByIndex[30].icon}} -->
-                  <!-- <div class="" v-if="clientsBySector[key].length > 0"> -->
-
-                  <div class="media" @click.prevent="toggleClient(client.client_category[0])">
-                    <img v-if="client.client_category" :src="sectorsByIndex[client.client_category[0]].acf['taxonomy-icon']" /></img>
-                    <h2><a href="#" >{{sectorsByIndex[client.client_category[0]].name}}</a></h2>
+                  <div class="media" @click.prevent="toggleClient(client.client_category[0])" :class="{ 'active': openCategory === client.client_category[0] }">
+                    <img class="mr-3" v-if="client.client_category"
+                    :src="sectorsByIndex[client.client_category[0]].acf['taxonomy-icon']" /></img>
+                    <div>
+                      <h2><a href="#" ><span v-html="sectorsByIndex[client.client_category[0]].name"></span></a></h2>
+                      <ul class="list-unstyled collapse" :class="{'show': openCategory === client.client_category[0]}">
+                        <li class="" v-for="client_list in client.c">
+                          <a :href="client_list.website">{{client_list.name}}</a>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
-                  <ul class="list-unstyled collapse" :class="{'show': openCategory === client.client_category[0]}">
-                    <li class="" v-for="client_list in client.c">
-                      <a :href="client_list.website">{{client_list.name}}</a>
-                    </li>
-                  </ul>
                   <!-- </div> -->
                   </div>
+                  <hr v-if="index < page.acf.clients.length - 1"></hr>
                 </div>
               </article>
 
-              <article>
-                <h1 id="team">{{page.acf.team_headline}}</h1>
-                <div v-html="page.acf.team_body"></div>
+              <article class="break-container bg-white team">
+                <div class="row mb-5">
+                  <div class="col-lg-1">
+
+                  </div>
+                  <div class="col-lg-10">
+                    <h1 class="pt-5" id="team">{{page.acf.team_headline}}</h1>
+                    <div v-html="page.acf.team_body"></div>
+                  </div>
+                  <div class="col-lg-1">
+                  </div>
+                </div>
                 <div class="row">
-                <router-link :key="member.id" :to=" {name: 'about-slug', params: {slug: member.slug}}" v-for="member in team" class="col-md-4">
+                <router-link :key="member.id" :to=" {name: 'about-slug', params: {slug: member.slug}}" v-for="member in team" class="col-md-4 mb-4">
                     <img class="img-fluid" :src="member.headshot.url" :alt="member.headshot.name" />
                     <div>
-                      <h4>{{member.headshot.title}}</h4>
-                      <h6>
-                        {{ member.job_title }}
-                      </h6>
+                      <h4 class="mt-3 mb-1">{{member.headshot.title}}</h4>
+                      <h6>{{ member.job_title }}</h6>
                     </div>
                   </router-link>
                 </div>
               </article>
 
-              <article>
-                <h1 id="jobs">{{ page.acf.jobs_headline }}</h1>
-                <div v-html="page.acf.jobs_body"></div>
-                <div v-if="jobs" >
-                  <div v-for="job in jobs">
-                    <h3><a href="#" @click.prevent="toggleJob(job.id)">{{job.title.rendered}}</a></h3>
+              <article id="jobs">
+                <h1>{{ page.acf.jobs_headline }}</h1>
+                <div v-html="page.acf.jobs_body" class="mb-5"></div>
+                <div v-if="jobs">
+                  <div v-for="(job, index) in jobs" :class="{'active': job.id === openJob}">
+                    <h2 class="mt-4" ><a href="#" @click.prevent="toggleJob(job.id)">{{job.title.rendered}}</a></h2>
                     <div class="collapse" :class="{'show': job.id === openJob}">
                       <h4 v-html="job.acf.job_description_heading"></h4>
                       <p v-html="job.acf.job_description"></p>
+                      <a class="btn btn-primary" :href="applyUrl">Apply</a>
                     </div>
+                    <hr></hr>
                   </div>
                 </div>
               </article>
@@ -136,6 +144,7 @@
     },
     data () {
       return {
+        applyUrl: 'http://bigduck.nyc',
         scrollPos: 0,
         openCategory: null,
         openJob: null
@@ -189,7 +198,6 @@
         this.openCategory = this.openCategory === categoryId ? null : categoryId
       },
       toggleJob (jobId) {
-        console.log(jobId, this.openJob)
         this.openJob = this.openJob === jobId ? null : jobId
       }
     },
