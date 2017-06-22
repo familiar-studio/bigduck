@@ -25,7 +25,7 @@ wordpress/wp-content/backup-db
 wordpress/wp-content/cache
 
 !wordpress/wp-content/themes
-wordpress/wp-config.php
+!wordpress/wp-config.php
 
 
 
