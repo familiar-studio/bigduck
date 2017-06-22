@@ -21,12 +21,7 @@
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
 
-
-if (strpos($_SERVER['SERVER_NAME'], '.dev') !== false) {
-	define('SERVER_NAME', $_SERVER['SERVER_NAME']);
-} else {
- 	define('SERVER_NAME', 'bigduck.familiar.studio/wordpress');
-}
+define('SERVER_NAME', $_SERVER['SERVER_NAME']);
 
 if (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != "on") {
 		define('SITE_URL', "http://".SERVER_NAME);
@@ -38,7 +33,7 @@ if (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != "on") {
 }
 
 define('WP_HOME',SITE_URL);
-define('WP_SITEURL',SITE_URL);
+define('WP_SITEURL',SITE_URL.'/wordpress');
 
 
 define('DB_NAME', 'bigduck_wordpress');
