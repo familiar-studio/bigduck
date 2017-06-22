@@ -27,7 +27,7 @@
 
               <h1 v-html="insight.title.rendered"></h1>
               <div class="badge badge-default mb-3">
-                  <img v-if="insight.author_headshot.data" :src="insight.author_headshot.data.sizes.thumbnail" class="round author-img mr-2">
+                  <img v-if="insight.author_headshot.data.sizes" :src="insight.author_headshot.data.sizes.thumbnail" class="round author-img mr-2">
                   <div v-if="!insight.acf.is_guest_author" v-html="insight.acf.author.display_name"></div>
                   <div v-if="insight.acf.is_guest_author && insight.acf.author" v-html="entry.acf.author.display_name"></div>
               </div>
@@ -56,9 +56,9 @@
             <div class="mb-5" v-if="author && author.acf ">
               <div class="author-bio">
                 <div class="media">
-                  <img class="round" if="insight.author_headshot.data" :src="insight.author_headshot.data.sizes.thumbnail" alt="" />
+                  <img class="round" v-if="insight.author_headshot.data.sizes" :src="insight.author_headshot.data.sizes.thumbnail" alt="" />
                   <div class="media-body">
-                    <h3>{{insight.acf.author.display_name}} {{insight.acf.author.user_lastname}} is
+                    <h3>{{insight.acf.author.display_name}} is
                         {{ prependIndefiniteArticle(author.acf.job_title) }} at Big Duck</h3>
                     <router-link class="btn btn-primary" :to="{name: 'about-slug', params: { slug: insight.acf.author.user_nicename}}">More about {{insight.acf.author.user_firstname}}</router-link>
                   </div>
@@ -123,7 +123,7 @@
       let data = {}
       let response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_insight?slug=' + params.slug)
       data.insight = response.data[0]
-      if (data.insight.acf) {
+      if (data.insight.acf.related_case_studies) {
         data.relatedWorkIds = data.insight.acf.related_case_studies.map((caseStudy) => { return caseStudy.ID })
       }
       return data
