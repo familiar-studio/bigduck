@@ -58,7 +58,9 @@
 
               <article v-if="openHouse">
                 <h1 id="open-house">Open House</h1>
+                <div v-html="page.acf.open_house_body"></div>
                 <div class="" v-for="(event, index) in openHouse">
+                  {{event}}
                   <Event :entry="event" :index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
                 </div>
               </article>
