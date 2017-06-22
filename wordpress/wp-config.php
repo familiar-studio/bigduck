@@ -33,7 +33,7 @@ if (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != "on") {
 }
 
 define('WP_HOME',SITE_URL);
-define('WP_SITEURL',SITE_URL.'/wordpress');
+define('WP_SITEURL',SITE_URL);
 
 
 define('DB_NAME', 'bigduck_wordpress');
