@@ -70,12 +70,14 @@
                 <p v-html="page.acf.clients_body"></p>
                 <div class="" v-for="(client, index) in page.acf.clients">
                   <div class="" v-if="client.client_category">
-                  <div class="media" @click.prevent="toggleClient(client.client_category[0])" :class="{ 'active': openCategory === client.client_category[0] }">
-                    <img class="mr-3" v-if="client.client_category"
-                    :src="sectorsByIndex[client.client_category[0]].acf['taxonomy-icon']" /></img>
+                  <div class="media" @click.prevent="toggleClient(client.client_category[0])">
+                    <!-- <img class="mr-3" v-if="client.client_category"
+                    :src="sectorsByIndex[client.client_category[0]].acf['taxonomy-icon']" /></img> -->
                     <div>
-                      <h2><a href="#" ><span v-html="sectorsByIndex[client.client_category[0]].name"></span></a></h2>
-                      <ul class="list-unstyled collapse" :class="{'show': openCategory === client.client_category[0]}">
+                  <h2>  <span :class="{ 'active': openCategory === client.client_category[0] }" v-html="sectorsByIndex[client.client_category[0]].icon"></span>
+                    <a href="#"  :class="{ 'active': openCategory === client.client_category[0] }" class="ml-3" v-html="sectorsByIndex[client.client_category[0]].name"></a>
+                  </h2>
+                      <ul class="list-unstyled collapse ml-5" :class="{'show': openCategory === client.client_category[0]}" >
                         <li class="" v-for="client_list in client.c">
                           <a :href="client_list.website">{{client_list.name}}</a>
                         </li>
@@ -93,13 +95,13 @@
                 <div v-html="page.acf.team_body" class="mb-5"></div>
 
                 <div class="row">
-                <router-link :key="member.id" :to=" {name: 'about-slug', params: {slug: member.slug}}" v-for="member in team" class="col-md-4 mb-4">
-                    <img class="img-fluid" :src="member.headshot.url" :alt="member.headshot.name" />
+                <nuxt-link :key="member.id" :to=" {name: 'about-slug', params: {slug: member.team_member.user_nicename}}" v-for="member in page.acf.team" class="col-md-4 mb-4">
+                    <img class="img-fluid" :src="teamMemberBySlug(member.team_member.user_nicename).headshot.url" :alt="teamMemberBySlug(member.team_member.user_nicename).headshot.name" />
                     <div>
-                      <h4 class="mt-3 mb-1">{{member.headshot.title}}</h4>
-                      <h6>{{ member.job_title }}</h6>
+                      <h4 class="mt-3 mb-1">{{teamMemberBySlug(member.team_member.user_nicename).headshot.title}}</h4>
+                      <h6>{{ teamMemberBySlug(member.team_member.user_nicename).job_title }}</h6>
                     </div>
-                  </router-link>
+                  </nuxt-link>
                 </div>
               </article>
 
@@ -107,8 +109,8 @@
                 <h1>{{ page.acf.jobs_headline }}</h1>
                 <div v-html="page.acf.jobs_body" class="mb-5"></div>
                 <div v-if="jobs">
-                  <div v-for="(job, index) in jobs" :class="{'active': job.id === openJob}">
-                    <h2 class="mt-4" ><a href="#" @click.prevent="toggleJob(job.id)">{{job.title.rendered}}</a></h2>
+                  <div v-for="(job, index) in jobs">
+                    <h2 class="mt-4" ><a href="#" :class="{'active': job.id === openJob}" @click.prevent="toggleJob(job.id)">{{job.title.rendered}}</a></h2>
                     <div class="collapse" :class="{'show': job.id === openJob}">
                       <h4 v-html="job.acf.job_description_heading"></h4>
                       <p v-html="job.acf.job_description"></p>
@@ -191,6 +193,11 @@
       },
       toggleJob (jobId) {
         this.openJob = this.openJob === jobId ? null : jobId
+      },
+      teamMemberBySlug (slug) {
+        return this.team.filter((teamMember) => {
+          return teamMember.slug === slug
+        })[0]
       }
     },
     head () {

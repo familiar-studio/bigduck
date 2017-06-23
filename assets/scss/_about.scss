@@ -44,3 +44,10 @@
   @extend .underlineChange;
  }
 }
+
+span.active svg {
+  @extend .fillChange;
+}
+a.active {
+  @extend .underlineChange;
+}
