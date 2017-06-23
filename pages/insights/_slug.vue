@@ -12,7 +12,7 @@
           <div class="container overlap">
             <article class="main">
               <div class="badge-group">
-                <router-link class="badge badge-default underlineChange" :to="{name: 'insights'}">Insights</router-link>
+                <nuxt-link class="badge badge-default underlineChange" :to="{name: 'insights'}">Insights</nuxt-link>
                 <div class="badge badge-default" v-for="topic in insight.topic" v-if="topics">
                   <img :src="getTopicsIndexedById[topic].acf.icon">
                   <div v-html="getTopicsIndexedById[topic].name"></div>
@@ -53,25 +53,27 @@
               <div v-html="insight.content.rendered"></div>
             </article>
 
-            <div class="mb-5" v-if="author && author.acf ">
+            <article class="mb-5 container" v-if="author && author.acf ">
               <div class="author-bio">
-                <div class="media">
-                  <img class="round" v-if="insight.author_headshot.data.sizes" :src="insight.author_headshot.data.sizes.thumbnail" alt="" />
-                  <div class="media-body">
+                <div class="row">
+                  <div class="col-md-2 author-bio-pic">
+                    <img class="round" v-if="insight.author_headshot.data.sizes" :src="insight.author_headshot.data.sizes.thumbnail" alt="" />
+                  </div>
+                  <div class="col-md-10 author-bio-text">
                     <h3>{{insight.acf.author.display_name}} is
                         {{ prependIndefiniteArticle(author.acf.job_title) }} at Big Duck</h3>
-                    <router-link class="btn btn-primary" :to="{name: 'about-slug', params: { slug: insight.acf.author.user_nicename}}">More about {{insight.acf.author.user_firstname}}</router-link>
+                    <nuxt-link class="btn btn-primary" :to="{name: 'about-slug', params: { slug: insight.acf.author.user_nicename}}">More about {{insight.acf.author.user_firstname}}</nuxt-link>
                   </div>
                 </div>
               </div>
 
-            </div>
+            </article>
 
             <div class="mb-5" v-if="relatedCaseStudies">
               <h2>Related Case Studies</h2>
               <div class="row">
                 <div v-for="case_study in relatedCaseStudies" class="col-md-6">
-                  <router-link :to="{name: 'work-slug', params: {slug: case_study.slug}}" :key="case_study.ID">
+                  <nuxt-link :to="{name: 'work-slug', params: {slug: case_study.slug}}" :key="case_study.ID">
                     <img v-if="case_study.acf.hero_image" :src="case_study.acf.hero_image.sizes.large" style="width:100%">
                     <div class="card two-up-card mx-4">
                       <div class="card-header" v-if="topics && types">
@@ -85,9 +87,23 @@
                         <p class="card-text" v-html="case_study.acf.short_description"></p>
                       </div>
                     </div>
-                  </router-link>
+                  </nuxt-link>
 
                 </div>
+              </div>
+            </div>
+
+            <div class="mb-5" v-if="relatedInsights">
+              <h2>Related Insights</h2>
+                    <div v-if="relatedInsights">
+                      <div class="" v-for="(insight, index) in relatedInsights">
+                        <Post :entry="insight" :index="index"></Post>
+                      </div>
+                    </div>
+
+                  <!-- </nuxt-link> -->
+
+                <!-- </div> -->
               </div>
             </div>
 
@@ -101,21 +117,24 @@
 
 </template>
 <script>
-  import Share from '~components/Share.vue'
-  import dateFns from 'date-fns'
-  import { mapState, mapGetters, mapActions } from 'vuex'
   import Axios from 'axios'
+  import dateFns from 'date-fns'
   import GravityForm from '~components/GravityForm.vue'
+  import { mapState, mapGetters, mapActions } from 'vuex'
+  import Post from '~components/Post.vue'
+  import Share from '~components/Share.vue'
 
   export default {
     name: 'insight',
     components: {
       Share,
-      GravityForm
+      GravityForm,
+      Post
     },
     data () {
       return {
         relatedCaseStudies: null,
+        relatedInsights: null,
         author: null
       }
     },
@@ -125,6 +144,9 @@
       data.insight = response.data[0]
       if (data.insight.acf.related_case_studies) {
         data.relatedWorkIds = data.insight.acf.related_case_studies.map((caseStudy) => { return caseStudy.ID })
+      }
+      if (data.insight.acf.related_insights) {
+        data.relatedInsightIds = data.insight.acf.related_insights.map((insight) => { return insight.ID })
       }
       return data
     },
@@ -162,6 +184,11 @@
       if (this.relatedWorkIds) {
         Axios.get(this.hostname + 'wp/v2/bd_case_study', { params: { include: this.relatedWorkIds } }).then((response) => {
           this.relatedCaseStudies = response.data
+        })
+      }
+      if (this.relatedInsightIds) {
+        Axios.get(this.hostname + 'wp/v2/bd_insight', { params: { include: this.relatedInsightIds } }).then((response) => {
+          this.relatedInsights = response.data
         })
       }
       if (!this.insight.is_guest_author) {
