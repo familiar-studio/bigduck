@@ -9,13 +9,15 @@
         <div class="container">
           <article class='main bg-white overlap' v-html="servicesPage.acf.text">
           </article>
-          <h2 v-html="servicesPage.acf.services_heading"></h2>
-          <div v-for="service in services" v-if="service.slug !== 'brandraising-benchmark'">
-            <Service :entry="service"></Service>
-          </div>
-          <h2 v-html="servicesPage.acf.brandraising_benchmark_heading" class="mt-5"></h2>
-          <div v-for="service in services" v-if="service.slug === 'brandraising-benchmark'">
-            <Service :entry="service"></Service>
+          <div class="pt-5">
+            <h2 v-html="servicesPage.acf.services_heading"></h2>
+            <div v-for="service in services" v-if="service.slug !== 'brandraising-benchmark'">
+              <Service :entry="service"></Service>
+            </div>
+            <h2 v-html="servicesPage.acf.brandraising_benchmark_heading" class="mt-5"></h2>
+            <div v-for="service in services" v-if="service.slug === 'brandraising-benchmark'">
+              <Service :entry="service"></Service>
+            </div>
           </div>
         <Subscribe v-if="callouts" :entry="callouts[0]" class="mt-5"></Subscribe>
         </div>
@@ -60,7 +62,7 @@
       ])
       let data = {}
       data['servicesPage'] = page.data[0]
-      data['services'] = services.data
+      data['services'] = services.data.reverse()
       return data
     },
     components: {Service, Subscribe},
