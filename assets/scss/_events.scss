@@ -46,3 +46,17 @@
     }
   }
 }
+
+.location-name {
+  span {
+    font-family: $font-family-sans-serif;
+    @extend .underlineChange;
+    padding-bottom: 0.375rem;
+  }
+}
+
+h6.mobile-event-date {
+  @include media-breakpoint-up(lg){
+    display: none;
+  }
+}

@@ -27,6 +27,7 @@
                 <div class="event-title">
                   <h1 v-html="event.title.rendered"></h1>
                   <h4 v-html="event.acf.subtitle"></h4>
+                  <h6 class="mobile-event-date">{{month}} {{date}} {{start_time}}&ndash;{{end_time}}</h6>
                 </div>
                 <p v-html="event.acf.text"></p>
                 <div v-if="event.related_team_members.data">
@@ -35,20 +36,39 @@
                     <h6 class="align-self-center mb-0">{{ team_member.member.display_name}}</h6>
                   </div>
                 </div>
-                <h6 class="align-self-center mt-2">{{ event.acf.location.address }}</h6>
+                <h5 class="mt-3 location-name">
+                  <span v-if="event.acf.external_location">
+                    <a :href="event.acf.location_url">{{ event.acf.location_name }}</a>
+                  </span>
+                  <span v-else>
+                    Big Duck
+                  </span>
+                </h5>
+                <h6 class="align-self-center mt-2">
+                  <span v-if="event.acf.external_location">
+                    {{ event.acf.location_address }}
+                  </span>
+                  <span v-else>
+                    20 Jay Street, Suite 524 Brooklyn, NY 11201
+                  </span>
+                </h6>
               </div>
               <div class="col-lg-3 d-flex">
                 <aside>
-                  <div class="event-date">
-                    <h6>{{month}}</h6>
-                    <h2>{{date}}</h2>
+                  <div class="date-block hidden-md-down">
+                    <div class="event-date">
+                      <h6>{{month}}</h6>
+                      <h2>{{date}}</h2>
+                    </div>
+                    <div class="event-time mt-2">
+                      <h6>{{ start_time }}&ndash;{{ end_time }}</h6>
+                    </div>
                   </div>
-                  <div class="event-time mt-2">
-                    <h6>{{ start_time }}&ndash;{{ end_time }}</h6>
+                  <div class="">
+                    <a :href="event.acf.registration_url" class="btn btn-primary my-3 event-registration">
+                      Register
+                    </a>
                   </div>
-                  <a :href="event.acf.registration_url" class="btn btn-primary mt-3 event-registration">
-                    Register
-                  </a>
                   <div class="hidden-lg-up">
                     <share></share>
                   </div>
