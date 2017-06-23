@@ -99,7 +99,7 @@ p{
 }
 
 .display-2 {
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(lg) {
     font-size: 3.5rem;
   }
 }

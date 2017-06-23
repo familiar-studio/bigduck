@@ -17,8 +17,8 @@
       </div>
     </div>
     <div class="container">
-      <h2>New and Upcoming</h2>
       <div v-if="upcomingEvents" class="mt-5">
+        <h2>Featured Events</h2>
 
         <div class="" v-for="(event, index) in upcomingEvents">
           <Event :entry="event" index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
@@ -28,11 +28,13 @@
     </div>
 
     <div class="container">
-      <div v-if="latestInsights" class="mt-5">
+      <div v-if="latestInsights" class="my-5">
+      <h2>Latest Insights</h2>
 
         <div class="" v-for="(insight, index) in latestInsights">
           <Post :entry="insight" :index="index + latestInsights.length"></Post>
         </div>
+        <nuxt-link class="btn btn-primary" to="/insights">View All Insights</nuxt-link>
       </div>
     </div>
   </div>

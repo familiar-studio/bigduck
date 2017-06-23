@@ -141,10 +141,23 @@
       font-size: 1rem;
     }
     span{
-      @extend .underlineChange;
+      // @extend .underlineChange;
+      transition: background-size .4s ease;
+      background-size: 0%;
       display: inline-block;
     }
-
+    &.nuxt-link-active {
+      span {
+        @extend .underlineChange;
+      }
+    }
+    &:hover {
+      span {
+        @extend .underlineChange;
+        background-size: 100% 1px;
+        transition: all .3s ease;
+      }
+    }
   }
   .nav-text{
     @extend .label;
@@ -232,4 +245,8 @@ header.hovering #main-menu .nuxt-link-active + .nav-text {
   &.show {
     opacity: 1;
   }
+}
+
+button.navbar-toggler:focus {
+  outline: none;
 }
