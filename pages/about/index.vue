@@ -56,7 +56,7 @@
                 </div>
               </article>
 
-              <article v-if="openHouse">
+              <article v-if="openHouse" class="openHouse">
                 <h1 class="mt-5" id="open-house">Open House</h1>
                 <div v-html="page.acf.open_house_body"></div>
                 <div class="" v-for="(event, index) in openHouse">

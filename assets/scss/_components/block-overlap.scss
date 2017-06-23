@@ -201,3 +201,9 @@
     }
   }
 }
+
+.openHouse .block-overlap .col-text {
+  @include media-breakpoint-only(lg) {
+    width: 70%;
+  }
+}
