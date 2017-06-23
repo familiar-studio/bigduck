@@ -105,7 +105,8 @@
               </div>
 
               <ColorCallout class="bgChange text-white my-0 py-5">
-                <!-- <GravityForm formId=5 :showAll="true"></GravityForm> -->
+                <h3>{{ caseStudy.acf.cta_text }}</h3>
+                <GravityForm formId=5 :showAll="true"></GravityForm>
               </ColorCallout>
 
             </div>

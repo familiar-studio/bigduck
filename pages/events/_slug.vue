@@ -65,6 +65,7 @@
                     </div>
                   </div>
                   <div class="">
+
                     <a :href="event.acf.registration_url" class="btn btn-primary my-3 event-registration">
                       Register
                     </a>

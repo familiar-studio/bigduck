@@ -10,6 +10,9 @@ overflow-x: hidden;
 #main{
   padding-top: 50px;
   min-height: calc(100vh - 196px);
+  @include media-breakpoint-down(md){
+    overflow-x: hidden;
+  }
 }
 
 .container{
@@ -80,7 +83,7 @@ overflow-x: hidden;
       justify-content: space-between;
       align-content: flex-end;
     }
- 
+
   }
   .navbar-brand{
     margin: 0;
