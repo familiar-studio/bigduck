@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="about">
     <div class="img-hero" :style=" { backgroundImage: 'url(' + page.acf.featured_image.url + ')' }">
       <figcaption class="figure-caption">{{page.acf.featured_image.caption}}</figcaption>
     </div>
@@ -65,9 +65,9 @@
                 </div>
               </article>
 
-              <article>
+              <article class="pb-5">
                 <h1 id="our-clients" v-html="page.acf.our_clients_headline"></h1>
-                <p v-html="page.acf.clients_body"></p>
+                <div v-html="page.acf.clients_body"></div>
                 <div class="" v-for="(client, index) in page.acf.clients">
                   <div class="" v-if="client.client_category">
                   <div class="media" @click.prevent="toggleClient(client.client_category[0])">
@@ -86,26 +86,32 @@
                   </div>
                   <!-- </div> -->
                   </div>
-                  <hr v-if="index < page.acf.clients.length - 1"></hr>
+                  <hr class="mt-0"></hr>
                 </div>
               </article>
 
-              <article class="break-container bg-white team pt-4">
+              <article class="break-container bg-white team pt-5 pb-5">
                 <h1 id="team">{{page.acf.team_headline}}</h1>
                 <div v-html="page.acf.team_body" class="mb-5"></div>
 
                 <div class="row">
-                <nuxt-link :key="member.id" :to=" {name: 'about-slug', params: {slug: member.team_member.user_nicename}}" v-for="member in page.acf.team" class="col-md-4 mb-4">
-                    <img class="img-fluid" :src="teamMemberBySlug(member.team_member.user_nicename).headshot.url" :alt="teamMemberBySlug(member.team_member.user_nicename).headshot.name" />
-                    <div>
-                      <h4 class="mt-3 mb-1">{{teamMemberBySlug(member.team_member.user_nicename).headshot.title}}</h4>
-                      <h6>{{ teamMemberBySlug(member.team_member.user_nicename).job_title }}</h6>
+                  <div v-for="member in page.acf.team" class="col-md-4 mb-4 team-member">
+                      <nuxt-link :key="member.id" :to=" {name: 'about-slug', params: {slug: member.team_member.user_nicename}}">
+                    <div class="col-image">
+
+                        <div :style="{ 'background-image': 'url(' + teamMemberBySlug(member.team_member.user_nicename).headshot.url + ')' }" class="featured-image"></div>
+                        <!-- <img class="img-fluid" :src="teamMemberBySlug(member.team_member.user_nicename).headshot.url" :alt="teamMemberBySlug(member.team_member.user_nicename).headshot.name" /> -->
                     </div>
-                  </nuxt-link>
+                        <div>
+                          <h4 class="mt-3 mb-1">{{teamMemberBySlug(member.team_member.user_nicename).headshot.title}}</h4>
+                          <h6>{{ teamMemberBySlug(member.team_member.user_nicename).job_title }}</h6>
+                        </div>
+                      </nuxt-link>
+                  </div>
                 </div>
               </article>
 
-              <article id="jobs">
+              <article id="jobs" class="pt-5 pb-5">
                 <h1>{{ page.acf.jobs_headline }}</h1>
                 <div v-html="page.acf.jobs_body" class="mb-5"></div>
                 <div v-if="jobs">
@@ -113,7 +119,7 @@
                     <h2 class="mt-4" ><a href="#" :class="{'active': job.id === openJob}" @click.prevent="toggleJob(job.id)">{{job.title.rendered}}</a></h2>
                     <div class="collapse" :class="{'show': job.id === openJob}">
                       <h4 v-html="job.acf.job_description_heading"></h4>
-                      <p v-html="job.acf.job_description"></p>
+                      <div v-html="job.acf.job_description"></div>
                       <a class="btn btn-primary" :href="applyUrl">Apply</a>
                     </div>
                     <hr></hr>

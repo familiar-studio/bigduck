@@ -33,7 +33,7 @@
               </div>
             </div>
           </div>
-          <div>
+          <div class="">
             <div class="event-date">
               <h6>{{month}}</h6>
               <h2>{{date}}</h2>
