@@ -31,7 +31,7 @@
 }
 
 .active h2 {
-  @extend .underlineChange;
+  // @extend .underlineChange;
 }
 
 
@@ -48,9 +48,9 @@
 span.active svg {
   @extend .fillChange;
 }
-a.active {
-  @extend .underlineChange;
-}
+// a.active {
+//   @extend .underlineChange;
+// }
 
 .team-member {
     display: block;
@@ -71,6 +71,7 @@ a.active {
         transition: background-color 1s ease, opacity .3s ease !important;
       }
     }
+
     .featured-image{
       opacity: .8;
       transition: all .3s ease;
@@ -92,6 +93,16 @@ a.active {
 
 }
 
-.about hr {
-  border-color: black;
+.about {
+  .menu.subnav {
+    @include media-breakpoint-down(lg) {
+      display: none;
+    }
+  }
+    hr {
+    border-color: black;
+    .block-overlap .col-text {
+      width: 70%;
+    }
+  }
 }

@@ -77,13 +77,14 @@
                   <h2>  <span :class="{ 'active': openCategory === client.client_category[0] }" v-html="sectorsByIndex[client.client_category[0]].icon"></span>
                     <a href="#"  :class="{ 'active': openCategory === client.client_category[0] }" class="ml-3" v-html="sectorsByIndex[client.client_category[0]].name"></a>
                   </h2>
-                      <ul class="list-unstyled collapse ml-5" :class="{'show': openCategory === client.client_category[0]}" >
-                        <li class="" v-for="client_list in client.c">
-                          <a :href="client_list.website">{{client_list.name}}</a>
-                        </li>
-                      </ul>
+
                     </div>
                   </div>
+                  <ul class="list-unstyled collapse ml-5 row pl-1" :class="{'show': openCategory === client.client_category[0]}" >
+                    <li class="" v-for="client_list in client.c">
+                      <a :href="client_list.website">{{client_list.name}}</a>
+                    </li>
+                  </ul>
                   <!-- </div> -->
                   </div>
                   <hr class="mt-0"></hr>
