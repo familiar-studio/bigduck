@@ -216,6 +216,10 @@ class StarterSite extends TimberSite {
 			'methods' => 'GET',
 			'callback' => array($this, 'featured_work')
 		));
+		register_rest_route('familiar/v1', '/insights/user/(?P<id>\d+)', array(
+			'methods' => 'GET',
+			'callback' => array($this, 'insights_by_user')
+		));
 		register_rest_route('familiar/v1', '/events/user/(?P<id>\d+)', array(
 			'methods' => 'GET',
 			'callback' => array($this, 'events_by_user')
@@ -540,6 +544,22 @@ class StarterSite extends TimberSite {
 		return new WP_REST_Response($team_member);
 	}
 
+	function insights_by_user($data) {
+		$rawInsights = get_posts(array(
+			'post_type' => 'bd_insight'
+		));
+		$insights = array();
+		foreach($rawInsights as $rawInsight){
+			$fields = get_fields($rawInsight->ID);
+			$insightUser = $data->get_params('id')['id'];
+			// $insights[] = $fields['author']['ID'];
+			if(isset($fields['author']) && $fields['author']['ID'] == intval($insightUser)) {
+				$insights[] = $fields;
+			}
+		}
+		return new WP_REST_Response($insights);
+	}
+
 	function events_by_user($data) {
 		$rawEvents = get_posts(array(
 				'post_type' => 'bd_event'
@@ -547,8 +567,6 @@ class StarterSite extends TimberSite {
 		$events = array();
 		foreach($rawEvents as $rawEvent){
 			$fields = get_fields($rawEvent->ID);
-			// $events[] = $fields['start_time'];
-			// $events[] = strtotime($fields['start_time']);
 			if(strtotime($fields['start_time']) > strtotime('now')){
 				$team = $fields['related_team_members'];
 				foreach($team as $member) {
@@ -559,17 +577,7 @@ class StarterSite extends TimberSite {
 				}
 			}
 		}
-		// $related_events = array();
-		// foreach($events as $event){
-		// 	$field = get_field('related_team_members', $event->ID);
-		// 	if (gettype($field) == "array"){
-		// 		foreach($field as $member){
-		// 			if($member['ID'] == $data['id']){
-		// 				array_push($related_events, $event);
-		// 			}
-		// 		}
-		// 	}
-		// }
+
 		return new WP_REST_Response(array('events' => $events));
 	}
 

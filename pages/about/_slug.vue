@@ -12,7 +12,7 @@
           <div class="col-md-9">
             <h1 class="mt-4 mb-1">{{member.name}}</h1>
             <h4>{{member.job_title}}</h4>
-            <p class="mt-3" v-html="member.bio"></p>
+            <div class="mt-3" v-html="member.bio"></div>
           </div>
           <div class="col-md-3">
             <div class="mt-5 social-handle">
@@ -43,13 +43,13 @@
         </div>
       </article>
 
-      <div v-if="relatedEvents && relatedEvents.length > 0">
+      <div v-if="this.relatedEvents && this.relatedEvents.length > 0">
         <h2>Events with {{member.name.split(" ")[0]}}</h2>
-        <Event v-for="(event, index) in relatedEvents" :entry="event" :key="event.id" :relatedTeamMembers="event.related_team_members.data" :index="index"></Event>
+        <Event v-for="(event, index) in this.relatedEvents" :entry="event" :key="event.id" :index="index"></Event>
       </div>
-      <div class="" v-if="relatedInsights && relatedInsights.length > 0">
+      <div class="" v-if="this.relatedInsights && this.relatedInsights.length > 0">
         <h2>Insights by {{ member.name.split(" ")[0]}}</h2>
-        <Post v-for="(insight, index) in relatedInsights" :key="insight.id" :entry="insight" :index="index"></Post>
+        <Post v-for="(insight, index) in this.relatedInsights" :key="insight.id" :entry="insight" :index="index"></Post>
       </div>
     </div>
   </div>
@@ -76,14 +76,14 @@ export default {
     ...mapGetters(['hostname'])
   },
   async created () {
-    let relatedEventIds = this.member.events
+    let relatedEventIds = this.member.events.map((event) => { return event.ID })
     if (typeof relatedEventIds !== 'undefined' && relatedEventIds) {
       let response = await Axios.get(this.hostname + 'wp/v2/bd_event', { params: { include: relatedEventIds } })
       this.relatedEvents = response.data
     }
-    let relatedInsightIds = this.member.insights
+    let relatedInsightIds = this.member.insights.map((insight) => { return insight.ID })
     if (typeof relatedInsightIds !== 'undefined' && relatedInsightIds) {
-      let response = await Axios.get(this.hostname + 'wp/v2/bd_insight', { params: { include: relatedEventIds } })
+      let response = await Axios.get(this.hostname + 'wp/v2/bd_insight', { params: { include: relatedInsightIds } })
       this.relatedInsights = response.data
     }
   },
