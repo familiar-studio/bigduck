@@ -12,26 +12,24 @@
             <h1>{{ service.title.rendered }}</h1>
             <div v-html="service.acf.introduction"></div>
           </article>
-          <div class="row">
-            <div class="col-xl-10 offset-xl-1">
-              <div v-for="block in service.acf.service_body">
-                <div v-if="block.acf_fc_layout == 'text'" v-html="block.text" class="mb-5 block-text"></div>
-                <div v-if="block.acf_fc_layout == 'image'" class="mb-5">
-                  <img class="img-fluid img-multiply" :src="block.image.url" />
-                </div>
-                <h2 v-if="block.acf_fc_layout == 'heading'" class="mt-5" v-html="block.heading"></h2>
-              </div>
-              <div class="container mt-5" v-if="relatedCaseStudies && relatedCaseStudies.length > 0">
-                <h2>Related Case Studies</h2>
-                <Work :work="relatedCaseStudies"></Work>
-              </div>
-              <ColorCallout class="bgChange text-white my-0 py-5">
-                <GravityForm :formId="5" :showAll="true"></GravityForm>
-              </ColorCallout>
+         
+          <div v-for="block in service.acf.service_body">
+            <div v-if="block.acf_fc_layout == 'text'" v-html="block.text" class="mb-5 block-text"></div>
+            <div v-if="block.acf_fc_layout == 'image'" class="mb-5">
+              <img class="img-fluid img-multiply" :src="block.image.url" />
             </div>
+            <h2 v-if="block.acf_fc_layout == 'heading'" class="mt-5" v-html="block.heading"></h2>
           </div>
+          <div class="container mt-5" v-if="relatedCaseStudies && relatedCaseStudies.length > 0">
+            <h2>Related Case Studies</h2>
+            <Work :work="relatedCaseStudies"></Work>
+          </div>
+          <ColorCallout class="bgChange text-white my-0 py-5">
+            <GravityForm :formId="5" :showAll="true"></GravityForm>
+          </ColorCallout>
         </div>
       </div>
+     
   </div>
 </template>
 <script>

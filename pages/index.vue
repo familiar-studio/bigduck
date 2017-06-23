@@ -8,7 +8,7 @@
       </div>
     </div>
     <Featured v-for="(caseStudy, index) in relatedCaseStudies"  :work="caseStudy" :index="index" :key="index"></Featured>
-    <div class="testimonial my-5">
+    <div class="testimonial mb-5">
       <div class="container">
         <blockquote>
           <h3 v-html="page.acf.testimonial"></h3>

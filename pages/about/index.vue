@@ -88,18 +88,10 @@
                 </div>
               </article>
 
-              <article class="break-container bg-white team">
-                <div class="row mb-5">
-                  <div class="col-lg-1">
+              <article class="break-container bg-white team pt-4">
+                <h1 id="team">{{page.acf.team_headline}}</h1>
+                <div v-html="page.acf.team_body" class="mb-5"></div>
 
-                  </div>
-                  <div class="col-lg-10">
-                    <h1 class="pt-5" id="team">{{page.acf.team_headline}}</h1>
-                    <div v-html="page.acf.team_body"></div>
-                  </div>
-                  <div class="col-lg-1">
-                  </div>
-                </div>
                 <div class="row">
                 <router-link :key="member.id" :to=" {name: 'about-slug', params: {slug: member.slug}}" v-for="member in team" class="col-md-4 mb-4">
                     <img class="img-fluid" :src="member.headshot.url" :alt="member.headshot.name" />

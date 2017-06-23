@@ -1,10 +1,10 @@
 <template>
   <div>
 
-  <div class="container-fluid no-hero">
+  <div class="">
     <div class="row">
       <div class="col-lg-2">
-        <div v-if="topics" class="filter-bar">
+        <div v-if="topics" class="filter-bar menu">
           <FilterList label="Topics" taxonomy="topic" :terms="topics" :selected="selectedTopic" v-on:clicked="toggleTaxonomy($event)"></FilterList>
           <a v-if="selectedTopic" href="#" @click.prevent="resetFilters" class="btn btn-primary">Clear All</a>
         </div>

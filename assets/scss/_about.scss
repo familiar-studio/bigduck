@@ -3,7 +3,7 @@
   -webkit-font-smoothing: antialiased;
   & > div{
     @include media-breakpoint-up(md){
-      padding: 3rem 3.75rem;
+      padding: 3rem 0rem;
     }
   }
   h1{
@@ -34,13 +34,9 @@
   @extend .underlineChange;
 }
 
-.team h1, #jobs {
-  padding-top: 5rem !important;
-}
 
-#jobs {
-  padding-bottom: 5rem !important;
-}
+
+
 
 #jobs .active {
  h2 {
