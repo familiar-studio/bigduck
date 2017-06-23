@@ -74,7 +74,7 @@
 }
 
 .chat-group {
-  @include media-breakpoint-only(lg) {
+  @include media-breakpoint-down(lg) {
     display: none;
   }
 }

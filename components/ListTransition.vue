@@ -11,12 +11,17 @@
 <script>
   export default {
     props: ['previous', 'current'],
+    data () {
+      return {
+        delay: 300
+      }
+    },
     methods: {
       beforeEnter (el) {
         el.style.opacity = 0
       },
       enter (el, done) {
-        const delay = (el.dataset.index - this.previous) * 150
+        const delay = (el.dataset.index - this.previous) * this.delay
         setTimeout(function () {
           Velocity(
             el,
