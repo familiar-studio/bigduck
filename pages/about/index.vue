@@ -60,7 +60,6 @@
                 <h1 class="mt-5" id="open-house">Open House</h1>
                 <div v-html="page.acf.open_house_body"></div>
                 <div class="" v-for="(event, index) in openHouse">
-                  <!-- {{event}} -->
                   <Event :entry="event" :index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
                 </div>
               </article>
@@ -70,17 +69,18 @@
                 <div v-html="page.acf.clients_body"></div>
                 <div class="" v-for="(client, index) in page.acf.clients">
                   <div class="" v-if="client.client_category">
-                  <div class="media" @click.prevent="toggleClient(client.client_category[0])">
+                  <div class="media" @click.prevent="toggleClient(client.client_category)">
                     <!-- <img class="mr-3" v-if="client.client_category"
                     :src="sectorsByIndex[client.client_category[0]].acf['taxonomy-icon']" /></img> -->
-                    <div>
-                  <h2>  <span :class="{ 'active': openCategory === client.client_category[0] }" v-html="sectorsByIndex[client.client_category[0]].icon"></span>
-                    <a href="#"  :class="{ 'active': openCategory === client.client_category[0] }" class="ml-3" v-html="sectorsByIndex[client.client_category[0]].name"></a>
+                  <div>
+                  <h2>  
+                    <span :class="{ 'active': openCategory === client.client_category }" v-html="sectorsByIndex[client.client_category].icon"></span>
+                    <a href="#"  :class="{ 'active': openCategory === client.client_category }" class="ml-3" v-html="sectorsByIndex[client.client_category].name"></a>
                   </h2>
 
                     </div>
                   </div>
-                  <ul class="list-unstyled collapse ml-5 row pl-1" :class="{'show': openCategory === client.client_category[0]}" >
+                  <ul class="list-unstyled collapse ml-5 row pl-1" :class="{'show': openCategory === client.client_category}" >
                     <li class="" v-for="client_list in client.c">
                       <a :href="client_list.website">{{client_list.name}}</a>
                     </li>
@@ -97,17 +97,16 @@
 
                 <div class="row">
                   <div v-for="member in page.acf.team" class="col-md-4 mb-4 team-member">
-                      <nuxt-link :key="member.id" :to=" {name: 'about-slug', params: {slug: member.team_member.user_nicename}}">
-                    <div class="col-image">
+                    <nuxt-link :key="member.id" :to=" {name: 'about-slug', params: {slug: member.team_member.user_nicename}}">
+                      <div class="col-image">
 
                         <div :style="{ 'background-image': 'url(' + teamMemberBySlug(member.team_member.user_nicename).headshot.url + ')' }" class="featured-image"></div>
-                        <!-- <img class="img-fluid" :src="teamMemberBySlug(member.team_member.user_nicename).headshot.url" :alt="teamMemberBySlug(member.team_member.user_nicename).headshot.name" /> -->
-                    </div>
-                        <div>
-                          <h4 class="mt-3 mb-1">{{teamMemberBySlug(member.team_member.user_nicename).headshot.title}}</h4>
-                          <h6>{{ teamMemberBySlug(member.team_member.user_nicename).job_title }}</h6>
-                        </div>
-                      </nuxt-link>
+                      </div>
+                      <div>
+                        <h4 class="mt-3 mb-1">{{teamMemberBySlug(member.team_member.user_nicename).headshot.title}}</h4>
+                        <h6>{{ teamMemberBySlug(member.team_member.user_nicename).job_title }}</h6>
+                      </div>
+                    </nuxt-link>
                   </div>
                 </div>
               </article>

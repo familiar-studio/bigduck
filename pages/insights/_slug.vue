@@ -1,120 +1,124 @@
 <template>
-  <div>
-    <div class="img-hero" :style=" { backgroundImage: 'url(' + insight.acf.featured_image + ')' }">
-      <figcaption class="figure-caption">{{insight.acf.featured_image.caption}}</figcaption>
-    </div>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-lg-1 hidden-md-down">
-          <Share></Share>
-        </div>
-        <div class="col-lg-10">
-          <div class="container overlap">
-            <article class="main">
-              <div class="badge-group">
-                <nuxt-link class="badge badge-default underlineChange" :to="{name: 'insights'}">Insights</nuxt-link>
-                <div class="badge badge-default" v-for="topic in insight.topic" v-if="topics">
-                  <img :src="getTopicsIndexedById[topic].acf.icon">
-                  <div v-html="getTopicsIndexedById[topic].name"></div>
-                </div>
-                <div class="badge badge-default" v-if="insight.acf.time && types">
-                  {{insight.acf.time}} {{insight.acf.time_interval}} {{ getTypesIndexedById[insight.type[0]].verb }}
-                </div>
-                <div class="badge badge-default" >
-                  <!-- {{insight.date | formatDate('MMM Do YYYY')}} -->
-                </div>
+<div>
+  <div class="img-hero" v-if="insight.acf.featured_image" :style=" { backgroundImage: 'url(' + insight.acf.featured_image + ')' }">
+    <figcaption class="figure-caption">{{insight.acf.featured_image.caption}}</figcaption>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-1 hidden-md-down">
+        <Share></Share>
+      </div>
+      <div class="col-lg-10">
+        <div class="container" :class="{'overlap':insight.acf.featured_image}">
+          <article class="main">
+            <div class="badge-group">
+              <nuxt-link class="badge badge-default underlineChange" :to="{name: 'insights'}">
+                Insights
+              </nuxt-link>
+              <div class="badge badge-default" v-for="topic in insight.topic" v-if="topics">
+                <img :src="getTopicsIndexedById[topic].acf.icon">
+                <div v-html="getTopicsIndexedById[topic].name"></div>
               </div>
-
-              <h1 v-html="insight.title.rendered"></h1>
-              <div class="badge badge-default mb-3">
-                  <img v-if="insight.author_headshot.data.sizes" :src="insight.author_headshot.data.sizes.thumbnail" class="round author-img mr-2">
-                  <div v-if="!insight.acf.is_guest_author" v-html="insight.acf.author.display_name"></div>
-                  <div v-if="insight.acf.is_guest_author && insight.acf.author" v-html="entry.acf.author.display_name"></div>
+              <div class="badge badge-default">
+                <span v-if="types && insight.type[0]">
+                  <span v-if="getTypesIndexedById[insight.type[0]].verb == 'Read' && insight.calculated_reading_time">
+                    {{insight.calculated_reading_time.data}}
+                  </span>
+                  <span v-else>
+                    {{ insight.acf.time }} {{ insight.acf.time_interval }}
+                  </span>
+                  {{ getTypesIndexedById[insight.type[0]].verb }}
+                </span>
               </div>
-
-              <div v-for="block in insight.acf.body" :class="['block-' + block.acf_fc_layout]">
-                <div v-if="block.acf_fc_layout == 'text'" v-html="block.text"></div>
-                <template v-if="block.acf_fc_layout == 'callout'">
-                  <div v-html="block.text">
-                  </div>
-                  <img :src="block.image" alt="callout image" v-if="block.image" />
-                </template>
+              <div class="badge badge-default">
+                {{ date }}
               </div>
-              <div class="hidden-lg-up mt-4">
-                <Share></Share>
-              </div>
-            </article>
-
-            <div v-if="formId" class="form-light">
-              <GravityForm  :formId="formId" :viewAll="true" :gatedContent="true" @submitted="refreshContent()"></GravityForm>
             </div>
-            <article class="main" v-if="formId === false && insight.content.rendered">
-              <h1>After Gated Content </h1>
-              <div v-html="insight.content.rendered"></div>
-            </article>
 
-            <article class="mb-5 container" v-if="author && author.acf ">
-              <div class="author-bio">
-                <div class="row">
-                  <div class="col-md-2 author-bio-pic">
-                    <img class="round" v-if="insight.author_headshot.data.sizes" :src="insight.author_headshot.data.sizes.thumbnail" alt="" />
-                  </div>
-                  <div class="col-md-10 author-bio-text">
-                    <h3>{{insight.acf.author.display_name}} is
-                        {{ prependIndefiniteArticle(author.acf.job_title) }} at Big Duck</h3>
-                    <nuxt-link class="btn btn-primary" :to="{name: 'about-slug', params: { slug: insight.acf.author.user_nicename}}">More about {{insight.acf.author.user_firstname}}</nuxt-link>
-                  </div>
+            <h1 v-html="insight.title.rendered"></h1>
+            <div class="badge badge-default mb-3" v-if="insight.author">
+              <img v-if="insight.author_headshot.data.sizes" :src="insight.author_headshot.data.sizes.thumbnail" class="round author-img mr-2">
+              <div v-if="!insight.acf.is_guest_author" v-html="insight.acf.author.display_name"></div>
+              <div v-if="insight.acf.is_guest_author && insight.acf.author" v-html="entry.acf.author.display_name"></div>
+            </div>
+
+            <div v-for="block in insight.acf.body" :class="['block-' + block.acf_fc_layout]">
+              <div v-if="block.acf_fc_layout == 'text'" v-html="block.text"></div>
+              <template v-if="block.acf_fc_layout == 'callout'">
+                <div v-html="block.text">
                 </div>
-              </div>
+                <img :src="block.image" alt="callout image" v-if="block.image" />
+              </template>
+            </div>
+            <div class="hidden-lg-up mt-4">
+              <Share></Share>
+            </div>
+          </article>
 
-            </article>
+          <div v-if="formId" class="form-light">
+            <GravityForm :formId="formId" :viewAll="true" :gatedContent="true" @submitted="refreshContent()"></GravityForm>
+          </div>
+          
+          <article class="main" v-if="formId === false && insight.content.rendered">
+            <div v-html="insight.content.rendered"></div>
+          </article>
 
-            <div class="mb-5" v-if="relatedCaseStudies">
-              <h2>Related Case Studies</h2>
+          <article class="mb-5 container" v-if="author && insight.author.acf ">
+            <div class="author-bio" >
               <div class="row">
-                <div v-for="case_study in relatedCaseStudies" class="col-md-6">
-                  <nuxt-link :to="{name: 'work-slug', params: {slug: case_study.slug}}" :key="case_study.ID">
-                    <img v-if="case_study.acf.hero_image" :src="case_study.acf.hero_image.sizes.large" style="width:100%">
-                    <div class="card two-up-card mx-4">
-                      <div class="card-header" v-if="topics && types">
-                        <div class="badge badge-default" v-for="topic in case_study.topic">
-                            <div v-html="getTopicsIndexedById[topic].icon.data"></div>
-                            <div v-html="getTopicsIndexedById[topic].name"></div>
-                        </div>
-                      </div>
-                      <div class="card-block py-0">
-                        <h3 class="card-title">{{ case_study.title.rendered }}</h3>
-                        <p class="card-text" v-html="case_study.acf.short_description"></p>
-                      </div>
-                    </div>
+                <div class="col-md-2 author-bio-pic">
+                  <img class="round" v-if="insight.author_headshot.data.sizes" :src="insight.author_headshot.data.sizes.thumbnail" alt="" />
+                </div>
+                <div class="col-md-10 author-bio-text">
+                  <h3>
+                    {{insight.acf.author.display_name}} is {{ prependIndefiniteArticle(author.acf.job_title) }} at Big Duck
+                  </h3>
+                  <nuxt-link class="btn btn-primary" :to="{name: 'about-slug', params: { slug: insight.acf.author.user_nicename}}">
+                    More about {{insight.acf.author.user_firstname}}
                   </nuxt-link>
-
                 </div>
               </div>
             </div>
 
-            <div class="mb-5" v-if="relatedInsights">
-              <h2>Related Insights</h2>
-                    <div v-if="relatedInsights">
-                      <div class="" v-for="(insight, index) in relatedInsights">
-                        <Post :entry="insight" :index="index"></Post>
+          </article>
+
+          <div class="mb-5" v-if="relatedCaseStudies">
+            <h2>Related Case Studies</h2>
+            <div class="row">
+              <div v-for="case_study in relatedCaseStudies" class="col-md-6">
+                <nuxt-link :to="{name: 'work-slug', params: {slug: case_study.slug}}" :key="case_study.ID">
+                  <img v-if="case_study.acf.hero_image" :src="case_study.acf.hero_image.sizes.large" style="width:100%">
+                  <div class="card two-up-card mx-4">
+                    <div class="card-header" v-if="topics && types">
+                      <div class="badge badge-default" v-for="topic in case_study.topic">
+                        <div v-html="getTopicsIndexedById[topic].icon.data"></div>
+                        <div v-html="getTopicsIndexedById[topic].name"></div>
                       </div>
                     </div>
+                    <div class="card-block py-0">
+                      <h3 class="card-title">{{ case_study.title.rendered }}</h3>
+                      <p class="card-text" v-html="case_study.acf.short_description"></p>
+                    </div>
+                  </div>
+                </nuxt-link>
 
-                  <!-- </nuxt-link> -->
-
-                <!-- </div> -->
               </div>
             </div>
+          </div>
 
-
+          <div class="mb-5" v-if="relatedInsights">
+            <h2>Related Insights</h2>
+            <div v-if="relatedInsights">
+              <div v-for="(insight, index) in relatedInsights">
+                <Post :entry="insight" :index="index"></Post>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
     </div>
   </div>
-
+</div>
 </template>
 <script>
   import Axios from 'axios'
@@ -163,7 +167,7 @@
       ...mapState(['types', 'topics']),
       ...mapGetters(['hostname', 'getTopicsIndexedById', 'getTypesIndexedById']),
       date () {
-        return dateFns.format(this.insight.date, 'MMM Do YYYY')
+        return dateFns.format(this.insight.date, 'MMM D, YYYY')
       },
       formId () {
         if (process.BROWSER_BUILD) {

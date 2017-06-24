@@ -19,6 +19,9 @@ module.exports = {
     // 'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
     'no-debugger': 0,
     'no-unused-vars': 0,
-    'no-undef': 0},
+    'no-undef': 0,
+    'vue/html-no-self-closing': 0,
+    'require-v-for-key': 0
+  },
   globals: {}
 }
