@@ -1,16 +1,16 @@
 <template>
   <div>
-
-  <div class="">
-    <div class="row">
-      <div class="col-lg-2">
-        <div v-if="topics" class="filter-bar menu">
-          <FilterList label="Topics" taxonomy="topic" :terms="topics" :selected="selectedTopic" v-on:clicked="toggleTaxonomy($event)"></FilterList>
-          <a v-if="selectedTopic" href="#" @click.prevent="resetFilters" class="btn btn-primary">Clear All</a>
+  
+    <div class="">
+      <div class="row">
+        <div class="col-lg-2">
+          <div v-if="topics" class="filter-bar menu">
+            <FilterList label="Topics" taxonomy="topic" :terms="topics" :selected="selectedTopic" v-on:clicked="toggleTaxonomy($event)"></FilterList>
+            <a v-if="selectedTopic" href="#" @click.prevent="resetFilters" class="btn btn-primary">Clear All</a>
+          </div>
         </div>
-      </div>
-      <div class='col-lg-8'>
-
+        <div class='col-lg-8'>
+  
           <div class="container" id="content">
             <div v-if="work">
               <h1>Work</h1>
@@ -22,11 +22,11 @@
               </div>
             </div>
           </div>
-
+  
+        </div>
       </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -37,7 +37,7 @@ import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'work',
-  data () {
+  data() {
     return {
       work: null,
       selected: {
@@ -52,17 +52,17 @@ export default {
   computed: {
     ...mapState(['topics', 'sectors']),
     ...mapGetters(['getTopicsIndexedById']),
-    selectedTopic () {
+    selectedTopic() {
       return this.$route.query.topic
     }
   },
   watch: {
     '$route.query': 'filterResults'
   },
-  async asyncData ({store, query}) {
+  async asyncData({ store, query }) {
     try {
       store.commit('resetPage')
-      const response = await store.dispatch('fetchByQuery', {query: query, path: 'wp/v2/bd_case_study'})
+      const response = await store.dispatch('fetchByQuery', { query: query, path: 'wp/v2/bd_case_study' })
       return {
         work: response.data
       }
@@ -70,7 +70,7 @@ export default {
       console.error(e)
     }
   },
-  head () {
+  head() {
     return {
       title: 'Work - All Projects',
       meta: [
@@ -80,7 +80,7 @@ export default {
     }
   },
   methods: {
-    toggleTaxonomy (event) {
+    toggleTaxonomy(event) {
       // make a copy of the curren tquery string
       let query = Object.assign({}, this.$route.query)
 
@@ -92,10 +92,10 @@ export default {
       }
       this.$router.push({ name: 'work-all', query: query })
     },
-    resetFilters () {
+    resetFilters() {
       this.$router.push({ name: 'work-all', query: null })
     },
-    async filterResults () {
+    async filterResults() {
       this.$store.commit('resetPage')
       const response = await this.$store.dispatch('fetchByQuery', { path: 'wp/v2/bd_case_study', query: this.$route.query })
 

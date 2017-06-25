@@ -18,7 +18,7 @@ if (process.BROWSER_BUILD) {
 
 export default {
   props: ['images'],
-  data () {
+  data() {
     return {
       open: false,
       flickity: null,
@@ -35,14 +35,14 @@ export default {
       }
     }
   },
-  mounted () {
+  mounted() {
     this.flickity = new Flickity(this.$el, this.options)
     this.flickity.on('staticClick', () => {
       this.toggleSize()
     })
   },
   methods: {
-    toggleSize () {
+    toggleSize() {
       console.log('toggle size')
       this.open = !this.open
       setTimeout(() => {
@@ -53,11 +53,11 @@ export default {
     }
   },
   computed: {
-    isFirstSlide () {
+    isFirstSlide() {
       return this.index === 1
     },
 
-    length () {
+    length() {
       if (this.flickity) {
         return this.flickity.slides.length
       }

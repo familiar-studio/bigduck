@@ -16,7 +16,7 @@
                 <div v-html="getTypesIndexedById[type].icon"></div>
                 <div v-html="getTypesIndexedById[type].name"></div>
               </div>
-
+  
               <div class="badge badge-default">
                 <span v-if="types && entry.type[0]">
                   <span v-if="getTypesIndexedById[entry.type[0]].verb == 'Read' && entry.calculated_reading_time">
@@ -29,7 +29,7 @@
                 </span>
               </div>
             </div>
-
+  
             <h3 class="card-title">
               <span class="underlineChange" v-html="entry.title.rendered"></span>
             </h3>
@@ -47,7 +47,6 @@
                 <img v-if="entry.author_headshot && entry.author_headshot.sizes" :src="entry.author_headshot.sizes.thumbnail" class="round author-img mr-2">
                 <h6 class="align-self-center mb-0">
                   <span v-if="entry.acf.guest_author_name">{{entry.acf.guest_author_name}}</span>
-                  <span v-else-if="entry.acf.author">{{ entry.acf.author[0].display_name }}</span>
                 </h6>
               </div>
             </div>
@@ -60,23 +59,23 @@
 
 <script>
 
-  import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
-  export default {
-    name: 'post',
-    props: ['entry', 'categories', 'index', 'firstBlock'],
-    computed: {
-      ...mapState(['types', 'topics']),
-      ...mapGetters(['getTopicsIndexedById', 'getTypesIndexedById']),
-      blockClass () {
-        if (this.index === 0 && this.firstBlock) {
-          return 'first-block'
-        } else if (this.index % 2 === 0) {
-          return 'odd-block'
-        } else {
-          return 'even-block'
-        }
+export default {
+  name: 'post',
+  props: ['entry', 'categories', 'index', 'firstBlock'],
+  computed: {
+    ...mapState(['types', 'topics']),
+    ...mapGetters(['getTopicsIndexedById', 'getTypesIndexedById']),
+    blockClass() {
+      if (this.index === 0 && this.firstBlock) {
+        return 'first-block'
+      } else if (this.index % 2 === 0) {
+        return 'odd-block'
+      } else {
+        return 'even-block'
       }
     }
   }
+}
 </script>

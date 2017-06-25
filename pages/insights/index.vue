@@ -24,7 +24,10 @@
           </div>
         </div>
         <div v-else>
-          No insights found in <span v-if="selectedTopic">Topic {{getTopicsIndexedById[selectedTopic].name}}</span><span v-if="selectedTopic && selectedType"> and </span><div v-if="selectedType">Type {{getTypesIndexedById[selectedType].name}}</div>
+          No insights found in
+          <span v-if="selectedTopic">Topic {{getTopicsIndexedById[selectedTopic].name}}</span>
+          <span v-if="selectedTopic && selectedType"> and </span>
+          <div v-if="selectedType">Type {{getTypesIndexedById[selectedType].name}}</div>
         </div>
       </div>
     </div>
@@ -32,95 +35,95 @@
 </template>
 <script>
 
-  import Post from '~components/Post.vue'
-  import Subscribe from '~components/subscribe/container.vue'
-  import { mapState, mapGetters } from 'vuex'
-  import axios from 'axios'
-  import FilterList from '~components/FilterList.vue'
-  import ListTransition from '~components/ListTransition.vue'
-  if (process.BROWSER_BUILD) {
-    require('velocity-animate')
-  }
+import Post from '~components/Post.vue'
+import Subscribe from '~components/subscribe/container.vue'
+import { mapState, mapGetters } from 'vuex'
+import axios from 'axios'
+import FilterList from '~components/FilterList.vue'
+import ListTransition from '~components/ListTransition.vue'
+if (process.BROWSER_BUILD) {
+  require('velocity-animate')
+}
 
-  export default {
-    name: 'insights',
-    async asyncData ({store, query}) {
-      try {
-        store.commit('resetPage')
-        const response = await store.dispatch('fetchByQuery', {isPaged: true, query: query, path: 'wp/v2/bd_insight'})
-        return {
-          insights: response.data,
-          totalPages: response.headers['x-wp-totalpages'],
-          totalRecords: response.headers['x-wp-total']
-        }
-      } catch (e) {
-        console.error(e)
-      }
-    },
-    data () {
+export default {
+  name: 'insights',
+  async asyncData({ store, query }) {
+    try {
+      store.commit('resetPage')
+      const response = await store.dispatch('fetchByQuery', { isPaged: true, query: query, path: 'wp/v2/bd_insight' })
       return {
-        previouslyLoadedInsights: 0
+        insights: response.data,
+        totalPages: response.headers['x-wp-totalpages'],
+        totalRecords: response.headers['x-wp-total']
       }
+    } catch (e) {
+      console.error(e)
+    }
+  },
+  data() {
+    return {
+      previouslyLoadedInsights: 0
+    }
+  },
+  head() {
+    return {
+      title: 'Insights',
+      meta: [
+        { description: '' },
+        { 'og:image': '' }
+      ]
+    }
+  },
+  components: {
+    FilterList,
+    ListTransition,
+    Post,
+    Subscribe
+  },
+  computed: {
+    ...mapState(['callouts', 'types', 'topics']),
+    ...mapGetters(['getTopicsIndexedById', 'getTypesIndexedById']),
+    selectedType() {
+      return this.$route.query.type
     },
-    head () {
-      return {
-        title: 'Insights',
-        meta: [
-          { description: '' },
-          { 'og:image': '' }
-        ]
-      }
-    },
-    components: {
-      FilterList,
-      ListTransition,
-      Post,
-      Subscribe
-    },
-    computed: {
-      ...mapState(['callouts', 'types', 'topics']),
-      ...mapGetters(['getTopicsIndexedById', 'getTypesIndexedById']),
-      selectedType () {
-        return this.$route.query.type
-      },
-      selectedTopic () {
-        return this.$route.query.topic
-      }
-    },
-    watch: {
-      '$route.query': 'filterResults'
-    },
-    methods: {
-      toggleTaxonomy (event) {
-        // make a copy of the current query string
-        let query = Object.assign({}, this.$route.query)
+    selectedTopic() {
+      return this.$route.query.topic
+    }
+  },
+  watch: {
+    '$route.query': 'filterResults'
+  },
+  methods: {
+    toggleTaxonomy(event) {
+      // make a copy of the current query string
+      let query = Object.assign({}, this.$route.query)
 
-        // toggle filters
-        if (parseInt(query[event.taxonomy]) === event.id) {
-          delete query[event.taxonomy]
-        } else {
-          query[event.taxonomy] = event.id
-        }
-        this.$router.push({ name: 'insights', query: query })
-      },
-      resetFilters () {
-        this.$router.push({ name: 'insights', query: null })
-      },
-      async filterResults () {
-        this.$store.commit('resetPage')
-        const response = await this.$store.dispatch('fetchByQuery', { isPaged: true, path: 'wp/v2/bd_insight', query: this.$route.query })
-
-        this.insights = response.data
-        this.totalPages = response.headers['x-wp-totalpages']
-        this.totalRecords = response.headers['x-wp-total']
-      },
-      async nextPage () {
-        this.$store.commit('nextPage')
-        this.previouslyLoadedInsights = this.insights.length
-        let query = Object.assign({}, this.$route.query)
-        const response = await this.$store.dispatch('fetchByQuery', { isPaged: true, query: query, path: 'wp/v2/bd_insight' })
-        this.insights = this.insights.concat(response.data)
+      // toggle filters
+      if (parseInt(query[event.taxonomy]) === event.id) {
+        delete query[event.taxonomy]
+      } else {
+        query[event.taxonomy] = event.id
       }
+      this.$router.push({ name: 'insights', query: query })
+    },
+    resetFilters() {
+      this.$router.push({ name: 'insights', query: null })
+    },
+    async filterResults() {
+      this.$store.commit('resetPage')
+      const response = await this.$store.dispatch('fetchByQuery', { isPaged: true, path: 'wp/v2/bd_insight', query: this.$route.query })
+
+      this.insights = response.data
+      this.totalPages = response.headers['x-wp-totalpages']
+      this.totalRecords = response.headers['x-wp-total']
+    },
+    async nextPage() {
+      this.$store.commit('nextPage')
+      this.previouslyLoadedInsights = this.insights.length
+      let query = Object.assign({}, this.$route.query)
+      const response = await this.$store.dispatch('fetchByQuery', { isPaged: true, query: query, path: 'wp/v2/bd_insight' })
+      this.insights = this.insights.concat(response.data)
     }
   }
+}
 </script>
