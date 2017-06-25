@@ -83,7 +83,7 @@
                   <div class="" v-if="client.client_category">
                     <div class="media" @click.prevent="toggleClient(client.client_category)">
                       <!-- <img class="mr-3" v-if="client.client_category"
-                      :src="sectorsByIndex[client.client_category[0]].acf['taxonomy-icon']" /></img> -->
+                        :src="sectorsByIndex[client.client_category[0]].acf['taxonomy-icon']" /></img> -->
                       <div>
                         <h2>
                           <span :class="{ 'active': openCategory === client.client_category }" v-html="sectorsByIndex[client.client_category].icon"></span>

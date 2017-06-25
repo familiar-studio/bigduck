@@ -66,7 +66,7 @@ export default {
   components: {
     Event, Post
   },
-  data () {
+  data() {
     return {
       relatedEvents: null,
       relatedInsights: null
@@ -75,7 +75,7 @@ export default {
   computed: {
     ...mapGetters(['hostname'])
   },
-  async created () {
+  async created() {
     let relatedEventIds = this.member.events.map((event) => { return event.ID })
     if (typeof relatedEventIds !== 'undefined' && relatedEventIds) {
       let response = await Axios.get(this.hostname + 'wp/v2/bd_event', { params: { include: relatedEventIds } })
@@ -87,13 +87,13 @@ export default {
       this.relatedInsights = response.data
     }
   },
-  async asyncData ({store, params}) {
+  async asyncData({ store, params }) {
     let response = await Axios.get(store.getters['hostname'] + 'familiar/v1/team/' + params.slug)
     return {
       member: response.data
     }
   },
-  head () {
+  head() {
     return {
       title: this.member.name,
       meta: [
@@ -106,4 +106,5 @@ export default {
 </script>
 
 <style lang="css">
+
 </style>

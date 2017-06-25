@@ -6,11 +6,11 @@
   </div>
 </template>
 <script>
-  import SubscribeForm from '~components/subscribe/form.vue'
-  export default {
-    props: ['entry'],
-    components: {
-      SubscribeForm
-    }
+import SubscribeForm from '~components/subscribe/form.vue'
+export default {
+  props: ['entry'],
+  components: {
+    SubscribeForm
   }
+}
 </script>

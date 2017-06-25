@@ -1,11 +1,11 @@
 <template>
   <div>
     <form v-if="!submitted">
-
+  
       <div v-for="field in visibleFields" class="form-group" :class="{'has-danger':errors.has(field.id.toString())}">
-
+  
         <label :for="field.id" v-if="field.type != 'hidden'">{{field.label}}</label>
-
+  
         <template v-if="field.type == 'select'">
           <select v-model="formData[field.id]" class="custom-select form-control">
             <option v-for="choice in field.choices" :value="choice.value">
@@ -13,7 +13,7 @@
             </option>
           </select>
         </template>
-
+  
         <template v-else-if="field.type == 'checkbox'">
           <div class="custom-controls-stacked">
             <label class="custom-control custom-checkbox" v-for="choice in field.choices">
@@ -32,37 +32,36 @@
             </label>
           </div>
         </template>
-
+  
         <template v-else-if="field.type == 'email'">
           <input v-model="formData[field.id]" type="email" :name="field.id" class="form-control" v-validate="{ rules: { required: field.isRequired, email: true } }" />
         </template>
-
+  
         <template v-else-if="field.type == 'number'">
           <input v-model="formData[field.id]" type="number" :name="field.id" class="form-control" v-validate="{ rules: { required: field.isRequired, numeric: true } }" />
         </template>
-
+  
         <template v-else-if="field.type == 'hidden'">
-          <input v-model="formData[field.id]" :name="field.id" type="hidden"  />
+          <input v-model="formData[field.id]" :name="field.id" type="hidden" />
         </template>
-
+  
         <template v-else-if="field.type == 'textarea'">
-          <textarea v-model="formData[field.id]" class="form-control"  :name="field.id" v-validate="{ rules: { required: field.isRequired } }" />
+          <textarea v-model="formData[field.id]" class="form-control" :name="field.id" v-validate="{ rules: { required: field.isRequired } }" />
         </template>
-
+  
         <template v-else>
           <input v-model="formData[field.id]" type="text" class="form-control" :name="field.id" v-validate="{ rules: { required: field.isRequired } }" />
         </template>
-
+  
         <div class="form-control-feedback" v-show="errors.has(field.id.toString())">{{ errors.first(field.id.toString()) }}</div>
-
-
+  
       </div>
-
+  
       <button type="submit" @click.prevent="submitEntry()" class="btn btn-secondary">Submit</button>
     </form>
     <div v-else>
       <h2>{{confirmation}}</h2>
-
+  
       <div v-if="gatedContent">
         <p>This is where the gated content would go this is all hard coded for now but should give you an idea of what will look like</p>
       </div>
@@ -75,7 +74,7 @@ import CryptoJS from 'crypto-js'
 import axios from 'axios'
 
 export default {
-  data () {
+  data() {
     return {
       publicKey: '30d2b543ba',
       privateKey: '6cb1fab7a60e11a',
@@ -103,13 +102,13 @@ export default {
     }
   },
   computed: {
-    expires () {
+    expires() {
       var d = new Date()
       var expiration = 3600
       var unixtime = parseInt(d.getTime() / 1000)
       return unixtime + expiration
     },
-    visibleFields () {
+    visibleFields() {
       let fieldCount = 0
 
       return this.allFields.filter((field, index) => {
@@ -130,13 +129,13 @@ export default {
     }
   },
   methods: {
-    CalculateSig (route, method) {
+    CalculateSig(route, method) {
       var stringToSign = this.publicKey + ':' + method + ':' + route + ':' + this.expires
       var hash = CryptoJS.HmacSHA1(stringToSign, this.privateKey)
       var base64 = hash.toString(CryptoJS.enc.Base64)
       return encodeURIComponent(base64)
     },
-    submitEntry () {
+    submitEntry() {
       var signature = this.CalculateSig('entries', 'POST')
       localStorage.formData = JSON.stringify(this.formData)
       this.formData['form_id'] = this.formId
@@ -146,7 +145,7 @@ export default {
       this.submitted = true
     }
   },
-  created () {
+  created() {
     var signature = this.CalculateSig('forms/' + this.formId, 'GET')
 
     if (process.BROWSER_BUILD && localStorage.formData) {

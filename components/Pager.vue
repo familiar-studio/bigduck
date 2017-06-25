@@ -12,19 +12,19 @@
 export default {
   props: ['totalPages', 'path'],
   computed: {
-    page () {
+    page() {
       return this.$route.query.page ? parseInt(this.$route.query.page) : 1
     },
-    nextPage () {
+    nextPage() {
       let page = this.page + 1
       return page
     },
-    previousPage () {
+    previousPage() {
       return this.page - 1
     }
   },
   methods: {
-    changePage (page) {
+    changePage(page) {
       let data = Object.assign({}, this.$route.query)
       data['page'] = page
       this.$router.push({ path: this.path, query: data })
@@ -34,4 +34,5 @@ export default {
 </script>
 
 <style lang="css">
+
 </style>
