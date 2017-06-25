@@ -26,9 +26,8 @@
 .chat-group {
   width: 200px;
 
-  position: fixed;
-  bottom: 3rem;
-  right: 10px;
+  position: sticky;
+  top: 60vh;
   z-index: 10;
 
   display: none;

@@ -19,7 +19,8 @@
               <Service :entry="service"></Service>
             </div>
           </div>
-          <Subscribe v-if="callouts" :entry="callouts[0]" class="mt-5"></Subscribe>
+          <InlineCallout class="mt-5">
+          </InlineCallout>
         </div>
         <div class="testimonial">
           <div class="container">
@@ -44,7 +45,7 @@
 </template>
 <script>
 import Service from '~components/Service.vue'
-import Subscribe from '~components/subscribe/container.vue'
+import InlineCallout from '~components/InlineCallout.vue'
 
 export default {
   name: 'services',
@@ -67,7 +68,7 @@ export default {
     data['services'] = services.data.reverse()
     return data
   },
-  components: { Service, Subscribe },
+  components: { Service, InlineCallout },
   computed: {
     callouts() {
       return this.$store.state.callouts

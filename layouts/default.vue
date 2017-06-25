@@ -64,7 +64,7 @@
           </nav>
         </div>
       </header>
-      <Chat v-if="showChat"></Chat>
+  
       <main id="main" :class="{ 'no-top-padding': noTopPadding }">
         <nuxt/>
       </main>
@@ -141,15 +141,14 @@
 import Logo from '~components/Logo.vue'
 import GravityForm from '~components/GravityForm.vue'
 import SearchOverlay from '~components/SearchOverlay.vue'
-import Chat from '~components/Chat.vue'
+
 import { mapState, mapMutations } from 'vuex'
 
 export default {
   components: {
     Logo,
     GravityForm,
-    SearchOverlay,
-    Chat
+    SearchOverlay
   },
   data() {
     return {

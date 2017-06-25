@@ -1,5 +1,5 @@
  <template>
-  <div class="no-hero">
+  <div>
     <div class="row">
       <div class="col-lg-2">
         <div v-if="types && topics" class="filter-bar menu">
@@ -9,17 +9,17 @@
         </div>
       </div>
       <div class="col-xl-8 col-lg-9">
-        <div class="container" id="content" v-if="insights.length > 0">
+        <div class="container" id="content" v-if="insights && insights.length > 0">
           <h1>Insights</h1>
           <ListTransition :previous="previouslyLoadedInsights" :current="insights.length">
             <div v-for="(insight, index) in insights" :key="insight" :data-index="index">
               <Post :entry="insight" :firstBlock="true" :index="index"></Post>
               <transition name="list" appear>
-                <Subscribe v-if="callouts && callouts[0] && index % 5 == 1 && index < insights.length - 1" :entry="callouts[0]" class="mb-5"></Subscribe>
+                <InlineCallout class="mb-5" v-if="index % 5 == 1 && index < insights.length - 1"></InlineCallout>
               </transition>
             </div>
           </ListTransition>
-          <div class="pager" v-if="insights.length < totalRecords">
+          <div class="pager" v-if="insights && insights.length < totalRecords">
             <a class="btn btn-primary my-4" href="#" @click.prevent="nextPage">Load more</a>
           </div>
         </div>
@@ -30,17 +30,24 @@
           <div v-if="selectedType">Type {{getTypesIndexedById[selectedType].name}}</div>
         </div>
       </div>
+      <div>
+        <Chat></Chat>
+      </div>
     </div>
   </div>
 </template>
 <script>
 
 import Post from '~components/Post.vue'
-import Subscribe from '~components/subscribe/container.vue'
+import InlineCallout from '~components/InlineCallout.vue'
 import { mapState, mapGetters } from 'vuex'
 import axios from 'axios'
 import FilterList from '~components/FilterList.vue'
 import ListTransition from '~components/ListTransition.vue'
+import Chat from '~components/Chat.vue'
+
+
+
 if (process.BROWSER_BUILD) {
   require('velocity-animate')
 }
@@ -74,11 +81,15 @@ export default {
       ]
     }
   },
+  created() {
+    this.$store.dispatch('fetchPageCallouts', 'insights')
+  },
   components: {
     FilterList,
     ListTransition,
     Post,
-    Subscribe
+    InlineCallout,
+    Chat
   },
   computed: {
     ...mapState(['callouts', 'types', 'topics']),

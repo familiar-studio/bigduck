@@ -20,7 +20,8 @@ export const state = () => ({
   typesPath: "wp/v2/type",
   page: 1,
   footer: null,
-  query: {}
+  query: {},
+  callout: null
 });
 
 export const mutations = {
@@ -67,6 +68,9 @@ export const mutations = {
   },
   setEvents(state, data) {
     state.events = data;
+  },
+  setActiveCallout(state, data) {
+    state.callout = data;
   }
 };
 
@@ -164,6 +168,12 @@ export const actions = {
       rootGetters.hostname + args.path + "/" + args.slug
     );
     return response.data;
+  },
+  async fetchPageCallouts({ rootGetters, commit }, slug) {
+    let response = await axios.get(rootGetters.hostname + "wp/v2/pages", {
+      params: { slug }
+    });
+    commit("setActiveCallout", response.data[0].acf);
   }
 };
 

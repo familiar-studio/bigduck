@@ -36,7 +36,6 @@
 import Axios from 'axios'
 import ColorCallout from '~components/ColorCallout.vue'
 import GravityForm from '~components/GravityForm.vue'
-import Subscribe from '~components/subscribe/container.vue'
 import Work from '~components/Work.vue'
 import Post from '~components/Post.vue'
 
@@ -79,7 +78,7 @@ export default {
     }
   },
   components: {
-    Subscribe, Work, Post, ColorCallout, GravityForm
+    Work, Post, ColorCallout, GravityForm
   },
   async created() {
     let relatedWorkIds = this.service.acf.related_case_studies

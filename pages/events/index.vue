@@ -3,16 +3,14 @@
     <div class="row">
       <div class="col-lg-2">
         <div v-if="topics && eventCategories" class="filter-bar menu">
-  
           <FilterList label="Topics" taxonomy="topic" :terms="topics" :selected="selectedTopic" v-on:clicked="toggleTaxonomy($event)"></FilterList>
           <FilterList label="Types" taxonomy="event_category" :terms="eventCategories" :selected="selectedCategory" v-on:clicked="toggleTaxonomy($event)"></FilterList>
           <a v-if="selectedCategory || selectedTopic" href="#" @click.prevent="resetFilters" class="btn btn-primary">Clear All</a>
-  
         </div>
       </div>
       <div class="col-lg-9 col-xl-8">
         <div class="container">
-          <div v-if="events" id="content">
+          <div id="content">
             <div class="page-title">
               <h1>Upcoming Events</h1>
               <h4>
@@ -27,7 +25,8 @@
                 <div v-for="(event, index) in events" :key="index">
                   <Event :entry="event" :firstBlock="true" :categories="categories" :index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
                   <transition name="list" appear>
-                    <Subscribe v-if="callouts[0] && index % 5 == 1 && index < events.length - 1" :entry="callouts[0]"></Subscribe>
+                    <InlineCallout v-if="index % 5 == 1 && index < events.length - 1">
+                    </InlineCallout>
                   </transition>
                 </div>
               </ListTransition>
@@ -42,12 +41,11 @@
               <div v-if="selectedCategory">Type {{getEventCategoriesIndexedById[selectedCategory].name}}</div>
             </div>
           </div>
-          <div v-else>
-            Loading events...
-          </div>
         </div>
       </div>
-  
+      <div class="col-lg-2">
+        <Chat></Chat>
+      </div>
     </div>
   </div>
 </template>
@@ -56,7 +54,10 @@ import Event from '~components/Event.vue'
 import FilterList from '~components/FilterList.vue'
 import ListTransition from '~components/ListTransition.vue'
 import { mapState, mapGetters } from 'vuex'
-import Subscribe from '~components/subscribe/container.vue'
+import InlineCallout from '~components/InlineCallout.vue'
+import Chat from '~components/Chat.vue'
+import axios from 'axios'
+
 
 export default {
   name: 'events',
@@ -64,7 +65,8 @@ export default {
     Event,
     FilterList,
     ListTransition,
-    Subscribe
+    InlineCallout,
+    Chat
   },
   head() {
     return {
@@ -77,7 +79,8 @@ export default {
   },
   data() {
     return {
-      previouslyLoadedEvents: 0
+      previouslyLoadedEvents: 0,
+      callout: null
     }
   },
   async asyncData({ store, query }) {
@@ -91,7 +94,7 @@ export default {
   },
   computed: {
     ...mapState(['categories', 'callouts', 'eventCategories', 'topics']),
-    ...mapGetters(['getTopicsIndexedById', 'getEventCategoriesIndexedById']),
+    ...mapGetters(['getTopicsIndexedById', 'getEventCategoriesIndexedById', 'hostname']),
     selectedCategory() {
       return this.$route.query.event_category
     },
@@ -101,6 +104,9 @@ export default {
   },
   watch: {
     '$route.query': 'filterResults'
+  },
+  async created() {
+    this.$store.dispatch('fetchPageCallouts', 'events')
   },
   methods: {
     toggleTaxonomy(event) {

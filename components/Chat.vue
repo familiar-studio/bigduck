@@ -1,19 +1,28 @@
-<template lang="html">
-  <div class="chat-group">
+<template>
+  <div class="chat-group" v-if="callout" :key="callout">
     <div class="chat-bubble">
-      Hi. Want to stay in the loop?
+      {{ callout.chat_headline }}
     </div>
     <div class="chat-bubble">
-      Sign up for our newsletter!
+      {{ callout.chat_body }}
     </div>
     <div class="chat-bubble chat-response bgChange">
-      <a href="#">Sign up</a>
+      <a href="#">
+        {{ callout.chat_button_text }}
+      </a>
     </div>
   </div>
 </template>
 
 <script>
-export default {}
+
+import { mapState } from 'vuex'
+
+export default {
+  computed: {
+    ...mapState(['callout'])
+  }
+}
 </script>
 
 <style>

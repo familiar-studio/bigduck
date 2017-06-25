@@ -144,7 +144,7 @@ export default {
   },
   async asyncData({ state, params, store }) {
     let data = {}
-    let response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_insight?slug=' + params.slug)
+    let response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_insight', { params: { slug: params.slug } })
     data.insight = response.data[0]
     if (data.insight.acf.related_case_studies) {
       data.relatedWorkIds = data.insight.acf.related_case_studies.map((caseStudy) => { return caseStudy.ID })
@@ -203,6 +203,7 @@ export default {
   },
   // mounted if form exists in dom mounted then change action
   methods: {
+    ...mapActions(['fetch']),
     prependIndefiniteArticle(word) {
       if (word) {
         if ('aeiou'.indexOf(word.split('')[0].toLowerCase()) > -1) {

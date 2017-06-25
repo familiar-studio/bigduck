@@ -1,12 +1,14 @@
 <template>
   <div class="progress bgChange" :style="{
-                            'width': percent+'%',
-                            'opacity': show ? 1 : 0
-                          }">
+                              'width': percent+'%',
+                              'opacity': show ? 1 : 0
+                            }">
   </div>
 </template>
 
 <script>
+import Vue from 'vue'
+
 export default {
   name: 'nuxt-loading',
   data() {

@@ -127,7 +127,6 @@ import ColorCallout from '~components/ColorCallout.vue'
 import GravityForm from '~components/GravityForm.vue'
 import Service from '~components/Service.vue'
 import share from '~components/Share.vue'
-import Subscribe from '~components/subscribe/container.vue'
 import Work from '~components/Work.vue'
 import { mapState, mapGetters } from 'vuex'
 import flickity from '~components/Flickity.vue'
@@ -156,7 +155,6 @@ export default {
     flickity,
     Service,
     share,
-    Subscribe,
     Work
   },
   computed: {
