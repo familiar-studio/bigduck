@@ -11,12 +11,6 @@
   color: $white;
   -webkit-font-smoothing: antialiased;
   transition: all .3s ease;
-
-  display: none;
-  @include media-breakpoint-up(md) {
-    display: block;
-  }
-
   &::before{
     content:'';
     position: absolute;
@@ -31,14 +25,18 @@
 }
 
 .chat-group{
-  margin-top: 400px;
-  max-width: 200px;
-  display: flex;
-  flex-direction: column;
+
+  width: 200px;
+
   position: fixed;
-  right: 2rem;
   bottom: 3rem;
+  right: 10px;
   z-index: 10;
+
+  display: none;
+  @include media-breakpoint-up(md) {
+    display: block;
+  }
 
   .chat-bubble{
     margin-right: 1rem;
@@ -66,7 +64,7 @@
     &::before{
       border-width: 0;
     }
-    span{
+    a {
       display: inline-block;
       padding: .5rem .75rem;
     }

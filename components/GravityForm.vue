@@ -46,7 +46,7 @@
         </template>
 
         <template v-else-if="field.type == 'textarea'">
-          <textarea v-model="formData[field.id]" class="form-control"  n:name="field.id" v-validate="{ rules: { required: field.isRequired } }" />
+          <textarea v-model="formData[field.id]" class="form-control"  :name="field.id" v-validate="{ rules: { required: field.isRequired } }" />
         </template>
 
         <template v-else>
@@ -113,16 +113,16 @@ export default {
       let fieldCount = 0
 
       return this.allFields.filter((field, index) => {
+        // if checkboxes and not already has data initalize as array to make multi-select work properly
+        if (field.type === 'checkbox' && (!this.formData[field.id] || !Array.isArray(this.formData[field.id]))) {
+          this.formData[field.id] = []
+        }
         // always include the first three
         if (index < 3) {
           return field
         } else {
           if ((!this.formData[field.id] && fieldCount < this.totalProfilingFields) || this.showAll) {
             fieldCount++
-            // if checkboxes and not already has data initalize as array to make multi-select work properly
-            if (field.type === 'checkbox') {
-              this.formData[field.id] = []
-            }
             return field
           }
         }

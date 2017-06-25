@@ -7,7 +7,7 @@
       Sign up for our newsletter!
     </div>
     <div class="chat-bubble chat-response bgChange">
-      <span>Sign up</span>
+      <a href="#">Sign up</a>
     </div>
   </div>
 </template>

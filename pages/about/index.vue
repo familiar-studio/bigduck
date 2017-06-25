@@ -3,7 +3,7 @@
     <div class="img-hero" :style=" { backgroundImage: 'url(' + page.acf.featured_image.url + ')' }">
       <figcaption class="figure-caption">{{page.acf.featured_image.caption}}</figcaption>
     </div>
-    <div class="container-fluid">
+    <div>
       <div class="row">
         <div class="col-lg-2">
           <div class="menu subnav">

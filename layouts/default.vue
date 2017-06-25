@@ -8,7 +8,7 @@
             <span class="navbar-toggler-icon"></span>
           </button>
 
-          <nuxt-link class="navbar-brand" to="/">
+          <nuxt-link class="navbar-brand" to="/" @click="hideNav()">
             <Logo></Logo>
             <div class="label tagline hidden-xs-down">Smart communications for nonprofits</div>
           </nuxt-link>
@@ -17,23 +17,23 @@
             <div class="label tagline hidden-sm-up">Smart communications for nonprofits</div>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item" @mouseover="hover('services')" @mouseleave="hovering = false">
-                  <nuxt-link  class="nav-link" to="/services"><span>Services</span></nuxt-link>
+                  <nuxt-link  @click="hideNav()" class="nav-link" to="/services"><span>Services</span></nuxt-link>
                   <div class="nav-text" :class="{ 'show': currentText === 'services'}">What we can do for you and your project</div>
                 </li>
                 <li class="nav-item" @mouseover="hover('work')" @mouseleave="hovering = false">
-                  <nuxt-link  class="nav-link" to="/work"><span>Work</span></nuxt-link>
+                  <nuxt-link  @click="hideNav()" class="nav-link" to="/work"><span>Work</span></nuxt-link>
                   <div class="nav-text" :class="{ 'show': currentText === 'work'}">Examples of what we've done and for whom</div>
                 </li>
                 <li class="nav-item" @mouseover="hover('events')" @mouseleave="hovering = false">
-                  <nuxt-link  class="nav-link" to="/events"><span>Events</span></nuxt-link>
+                  <nuxt-link @click="hideNav()" class="nav-link" to="/events"><span>Events</span></nuxt-link>
                   <div class="nav-text" :class="{ 'show': currentText === 'events'}">Join us online and in-person</div>
                 </li>
                 <li class="nav-item" @mouseover="hover('insights')" @mouseleave="hovering = false">
-                  <nuxt-link  class="nav-link" to="/insights"><span>Insights</span></nuxt-link>
+                  <nuxt-link  @click="hideNav()" class="nav-link" to="/insights"><span>Insights</span></nuxt-link>
                   <div class="nav-text" :class="{ 'show': currentText === 'insights'}">Thoughts and resources from our team</div>
                 </li>
                 <li class="nav-item" @mouseover="hover('about')" @mouseleave="hovering = false">
-                  <nuxt-link  class="nav-link" to="/about"><span>About</span></nuxt-link>
+                  <nuxt-link @click="hideNav()" class="nav-link" to="/about"><span>About</span></nuxt-link>
                   <div class="nav-text" :class="{ 'show': currentText === 'about'}">Learn more about us</div>
                 </li>
                 <li class="nav-item" @mouseover="hover('contact')" @mouseleave="hovering = false">
@@ -52,11 +52,11 @@
         </nav>
       </div>
     </header>
-
+    <Chat v-if="showChat" ></Chat>
     <main id="main" :class="{ 'no-top-padding': noTopPadding }">
       <nuxt/>
     </main>
-    <Chat v-if="showChat" ></Chat>
+    
 
     <footer id="footer">
         <div >
@@ -101,16 +101,19 @@
     </div>
     <section id="footer-callout" v-if="showFooter" class="bgChange text-white my-0 py-5">
       <div class="container">
-        <div class="footer-content">
-          <h2>Want to stay in the loop?</h2>
-          <p>Subscribe to our newsletter and get the latest nonprofit communications tips and tools delivered monthly to your inbox.</p>
+        <div class="row">
+          <div class="col-lg-8 offset-lg-2">
+            <div class="footer-content">
+              <h2>Want to stay in the loop?</h2>
+              <p>Subscribe to our newsletter and get the latest nonprofit communications tips and tools delivered monthly to your inbox.</p>
 
-          <GravityForm :formId="4"></GravityForm>
-          <nuxt-link to="/privacy" class="link-privacy">Privacy Policy</nuxt-link>
+              <GravityForm :formId="4"></GravityForm>
 
+            </div>
+          </div>
         </div>
       </div>
-
+      <nuxt-link to="/privacy" class="link-privacy">Privacy Policy</nuxt-link>
     </section>
 
 
@@ -122,6 +125,7 @@
   import GravityForm from '~components/GravityForm.vue'
   import SearchOverlay from '~components/SearchOverlay.vue'
   import Chat from '~components/Chat.vue'
+  import { mapState, mapMutations } from 'vuex'
 
   export default {
     components: {
@@ -169,6 +173,11 @@
           return true
         }
         return false
+      }
+    },
+    watch: {
+      '$route': function () {
+        this.navVisible = false
       }
     },
     methods: {

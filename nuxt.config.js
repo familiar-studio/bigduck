@@ -18,7 +18,7 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
-  cache: true,
+  cache: false,
   transition: {
     name: 'page',
     mode: 'out-in',
@@ -34,7 +34,11 @@ module.exports = {
   ** Customize the progress-bar color
   */
   loading: { color: '#3B8070' },
-  router: {},
+  router: {
+    scrollBehavior: function (to, from, savedPosition) {
+      return { x: 0, y: 0 }
+    }
+  },
   css: [
      { src: '~assets/scss/styles.scss', lang: 'scss' }
   ],

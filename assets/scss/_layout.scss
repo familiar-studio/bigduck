@@ -57,8 +57,8 @@ overflow-x: hidden;
   justify-content: center;
   -webkit-font-smoothing: antialiased;
   .footer-content{
-    max-width: $centered-content-width;
     padding: 5rem 0;
+    margin: 0 auto;
     overflow-y: scroll;
   }
 
@@ -153,7 +153,7 @@ overflow-x: hidden;
 
 .overlap {
   position: relative;
-  margin-top: -80px;
+  //margin-top: -80px;
   @include media-breakpoint-up(md){
     margin-top: -200px;
   }
@@ -161,7 +161,10 @@ overflow-x: hidden;
 
 article.main {
   background-color: white;
-  padding: 2.5rem;
+  padding: 2rem;
+  margin-left: -$grid-gutter-width-base/2;
+  margin-right: -$grid-gutter-width-base/2;
+
   @include media-breakpoint-up(md){
     padding: 3rem 3.75rem;
   }

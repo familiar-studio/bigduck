@@ -3,7 +3,7 @@
     <div class="img-hero" :style="{ backgroundImage: 'url(' + event.acf.featured_image.url + ')' }">
       <figcaption class="figure-caption">{{event.acf.featured_image.caption}}</figcaption>
     </div>
-    <div class="container-fluid" id="content">
+    <div  id="content">
       <div class="row">
         <div class="col-lg-1 hidden-md-down">
           <share></share>

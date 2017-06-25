@@ -1,7 +1,10 @@
 .filter-bar{
   padding-left: 1rem;
   margin-top: 1.6rem;
-
+  display: none;
+  @include media-breakpoint-up(md){
+    display: block;
+  }
 
   .label-lg{
     color: $gray;
