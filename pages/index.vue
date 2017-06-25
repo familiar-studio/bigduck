@@ -48,12 +48,16 @@ import Axios from 'axios'
 import Featured from '~components/Featured.vue'
 import Event from '~components/Event.vue'
 import Post from '~components/Post.vue'
+import Chat from '~components/Chat.vue'
+import { mapState, mapGetters } from 'vuex'
+
 
 export default {
   components: {
     Event,
     Featured,
-    Post
+    Post,
+    Chat
   },
   head() {
     return {
@@ -69,25 +73,14 @@ export default {
     let data = {}
     let response = await Axios.get(store.getters['hostname'] + 'wp/v2/pages/37')
     let page = response.data
-    data['page'] = page
     if (page && page.acf) {
-      let relatedWorkIds = page.acf.featured_case_studies
-      if (typeof relatedWorkIds !== 'undefined' && relatedWorkIds) {
-        response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_case_study?' + relatedWorkIds.map((obj) => 'include[]=' + obj.ID).join('&'))
-        data['relatedCaseStudies'] = response.data
-      }
-      let upcomingEventIds = page.acf.upcoming_events
-      if (typeof upcomingEventIds !== 'undefined' && upcomingEventIds) {
-        response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_event?' + upcomingEventIds.map((obj) => 'include[]=' + obj.ID).join('&'))
-        data['upcomingEvents'] = response.data
-      }
-      let latestInsightIds = page.acf.latest_insights
-      if (typeof latestInsightIds !== 'undefined' && latestInsightIds) {
-        response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_insight?' + latestInsightIds.map((obj) => 'include[]=' + obj.ID).join('&'))
-        data['latestInsights'] = response.data
+      return {
+        page: response.data,
+        relatedWorkIds: page.acf.featured_case_studies,
+        upcomingEventIds: page.acf.upcoming_events,
+        latestInsightIds: page.acf.latest_insights
       }
     }
-    return data
   },
   data() {
     return {
@@ -112,15 +105,17 @@ export default {
       frameInterval: 100,
       // how many frames to wait after a word has been typed before starting to delete it
       // setting loop to false will stop typing after word returns to 'voices'
-      loop: true
+      loop: true,
+      relatedCaseStudies: null,
+      upcomingEvents: null,
+      latestInsights: null
     }
   },
   computed: {
-    topics() { return this.$store.state.topics },
-    types() { return this.$store.state.types },
-    topicsIndexedById() { return this.$store.getters['getTopicsIndexedById'] },
-    typesIndexedById() { return this.$store.getters['getTypesIndexedById'] },
-    word() { return this.words[this.wordIndex] },
+    ...mapGetters(['hostname']),
+    word() {
+      return this.words[this.wordIndex]
+    },
     waitingIntervalFrames() {
       // the number of letters to typed and deleted, one frame to change word, times the let of a frame
       return this.totalWordTypeTime - this.frameInterval * ((2 * this.word.length) + 1)
@@ -128,6 +123,29 @@ export default {
   },
   created() {
     this.interval = setInterval(this.nextFrame, this.frameInterval)
+    this.$store.dispatch('fetchPageCallouts', 'insights')
+
+    if (this.relatedWorkIds) {
+      Axios.get(this.hostname + 'wp/v2/bd_case_study', { params: { includes: this.relatedWorkIds } }).then(
+        (response) => {
+          this.relatedCaseStudies = response.data
+        }
+      )
+    }
+    if (this.upcomingEventIds) {
+      Axios.get(this.hostname + 'wp/v2/bd_event', { params: { includes: this.upcomingEventIds } }).then(
+        (response) => {
+          this.upcomingEvents = response.data
+        }
+      )
+    }
+    if (this.latestInsightIds) {
+      Axios.get(this.hostname + 'wp/v2/bd_insight', { params: { includes: this.latestInsightIds } }).then(
+        (response) => {
+          this.latestInsights = response.data
+        }
+      )
+    }
   },
   methods: {
     nextFrame() {
