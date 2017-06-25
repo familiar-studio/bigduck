@@ -187,7 +187,7 @@ export default {
       return true
     },
     showFooter() {
-      if (this.page === 'work-slug' || this.page === 'contact' || this.page === 'services-slug') {
+      if (this.page === 'work-slug' || this.page === 'contact' || this.page === 'services-slug' || this.page === 'events-speaking') {
         return false
       }
       return true

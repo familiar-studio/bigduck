@@ -1,22 +1,23 @@
-.filter-bar{
+.filter-bar {
   padding-left: 1rem;
   margin-top: 1.6rem;
   display: none;
-  @include media-breakpoint-up(md){
+  margin-left: 1rem;
+  @include media-breakpoint-up(md) {
     display: block;
   }
 
-  .label-lg{
+  .label-lg {
     color: $gray;
     margin-bottom: .3rem;
   }
-  .media-list{
+  .media-list {
     margin: .5rem 0 2rem;
   }
-  .media{
+  .media {
     // align-items: center;
     margin-bottom: .5rem;
-    h6{
+    h6 {
       margin-bottom: 0;
       transition: all .3s ease;
       @extend .underlineChange;
@@ -25,29 +26,28 @@
       display: inline-block;
     }
   }
-  img, svg{
+  img, svg {
     opacity: .3;
     transition: opacity .3s ease;
     margin-right: .75rem;
   }
 
-  a:hover, .nuxt-link-exact-active, .active{
+  a:hover, .nuxt-link-exact-active, .active {
     @extend .fillChange;
-    .media h6{
+    .media h6 {
       background-size: 100% 1px !important;
     }
     svg {
       opacity: 1;
     }
   }
-  .nuxt-link-exact-active, .active{
-    .media h6{
+  .nuxt-link-exact-active, .active {
+    .media h6 {
       @extend .colorChange;
     }
-    .btn{
+    .btn {
       opacity: 0;
       transform: translateY(3px);
     }
   }
-
 }

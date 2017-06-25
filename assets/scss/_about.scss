@@ -1,48 +1,44 @@
-.values{
+.values {
   color: $white;
   -webkit-font-smoothing: antialiased;
-  & > div{
-    @include media-breakpoint-up(md){
+  & > div {
+    @include media-breakpoint-up(md) {
       padding: 3rem 0rem;
     }
   }
-  h1{
+  h1 {
     margin-bottom: 0;
   }
 
-  h3{
+  h3 {
     margin-bottom: 0;
   }
-  ul{
+  ul {
     margin-top: 2rem;
   }
-  li{
+  li {
     border-bottom: 1px solid $white;
     margin-bottom: 2rem;
     padding-bottom: .5rem;
-    &:last-child{
+    &:last-child {
       border-bottom: none;
     }
   }
 }
 
 .subnav {
-  z-index: 10;
+  //z-index: 10;
 }
 
 .active h2 {
   // @extend .underlineChange;
 }
 
-
-
-
-
 #jobs .active {
- h2 {
-  @extend .colorChange;
-  @extend .underlineChange;
- }
+  h2 {
+    @extend .colorChange;
+    @extend .underlineChange;
+  }
 }
 
 span.active svg {
@@ -53,44 +49,43 @@ span.active svg {
 // }
 
 .team-member {
-    display: block;
-    margin: 1rem 0 2rem;
+  display: block;
+  margin: 1rem 0 2rem;
 
-    .col-image{
-      position: relative;
-      background-color: $gray-light;
-      transition: all .3s ease;
+  .col-image {
+    position: relative;
+    background-color: $gray-light;
+    transition: all .3s ease;
 
-      &::before{
-        @extend .bgChange;
-        content: '';
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        transition: background-color 1s ease, opacity .3s ease !important;
-      }
+    &::before {
+      @extend .bgChange;
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: background-color 1s ease, opacity .3s ease !important;
     }
+  }
 
-    .featured-image{
-      opacity: .8;
-      transition: all .3s ease;
-      filter: grayscale(0%);
-      height: 169px;
+  .featured-image {
+    opacity: .8;
+    transition: all .3s ease;
+    filter: grayscale(0%);
+    height: 169px;
+  }
+
+  &:hover {
+    .featured-image {
+      filter: grayscale(90%);
     }
-
-    &:hover{
-      .featured-image{
-        filter: grayscale(90%);
-      }
-      .col-image::before{
-        opacity: 0.85;
-      }
-      .col-image{
-        opacity: 1;
-      }
+    .col-image::before {
+      opacity: 0.85;
     }
-
+    .col-image {
+      opacity: 1;
+    }
+  }
 }
 
 .about {
@@ -99,7 +94,7 @@ span.active svg {
       display: none;
     }
   }
-    hr {
+  hr {
     border-color: black;
     .block-overlap .col-text {
       width: 70%;

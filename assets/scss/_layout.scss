@@ -28,6 +28,8 @@ body {
 .subnav {
   position: sticky;
   top: 85px;
+  margin-left: 10px;
+
   .nav-link {
     text-transform: inherit;
     letter-spacing: initial;
@@ -163,6 +165,8 @@ article.main {
 
   @include media-breakpoint-up(md) {
     padding: 3rem 3.75rem;
+    margin-left: 0px;
+    margin-right: 0px;
   }
   .badge-group {
     margin-bottom: 1.5rem;

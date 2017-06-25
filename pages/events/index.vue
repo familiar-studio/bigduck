@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid no-hero">
+  <div class="no-hero">
     <div class="row">
       <div class="col-lg-2">
         <div v-if="topics && eventCategories" class="filter-bar menu">
