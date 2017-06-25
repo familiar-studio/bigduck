@@ -1,5 +1,5 @@
 <template>
-  <div id="full-wrapper" :class="'color-'+currentColor">
+  <div id="full-wrapper">
     <div class="page-wrapper" :class="page">
       <header id="header" :class="{ 'small-nav': haveScrolled, 'nav-open':navVisible, 'hovering':hovering }">
         <div class="container-fluid">
@@ -161,6 +161,13 @@ export default {
       query: null,
       currentText: null,
       hovering: false
+    }
+  },
+  head() {
+    return {
+      htmlAttrs: {
+        class: 'color-' + this.currentColor
+      }
     }
   },
   computed: {

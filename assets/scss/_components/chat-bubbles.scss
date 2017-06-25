@@ -1,5 +1,4 @@
-.chat-bubble{
-
+.chat-bubble {
   background-color: $inverse-bg;
   padding: .25rem .75rem;
   border-radius: 1rem;
@@ -11,8 +10,8 @@
   color: $white;
   -webkit-font-smoothing: antialiased;
   transition: all .3s ease;
-  &::before{
-    content:'';
+  &::before {
+    content: '';
     position: absolute;
     bottom: -.65rem;
     left: .75rem;
@@ -24,8 +23,7 @@
   }
 }
 
-.chat-group{
-
+.chat-group {
   width: 200px;
 
   position: fixed;
@@ -38,11 +36,11 @@
     display: block;
   }
 
-  .chat-bubble{
+  .chat-bubble {
     margin-right: 1rem;
     padding: .5rem .75rem;
     margin-bottom: .5rem;
-    &:first-child::before{
+    &:first-child::before {
       border-width: 0;
     }
     animation: fadeInUp .4s forwards;
@@ -53,7 +51,7 @@
       }
     }
   }
-  .chat-response{
+  .chat-response {
     align-self: flex-end;
     margin-left: 1rem;
     margin-right: 0;
@@ -61,7 +59,7 @@
     padding: 0;
     border-radius: 1rem;
     border: 1px solid $gray-lightest;
-    &::before{
+    &::before {
       border-width: 0;
     }
     a {

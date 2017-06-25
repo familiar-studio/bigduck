@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="jumbotron">
+    <div class="jumbotron" id="content">
       <div class="container">
         <h1 class="display-2">Developing the
           <span class="color">{{wordString}}</span>

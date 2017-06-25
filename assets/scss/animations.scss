@@ -13,7 +13,6 @@
   #content, article.main {
     transform: translateY(100px);
   }
-
 }
 .page-leave-to {
   opacity: 0;
@@ -37,28 +36,58 @@
   transform: translateY(-500px);
 }
 
+// Load in animation
+main#main {
+  animation: fadeInUpBig 0.5s both;
+  animation-delay: 0.2s;
+}
 
+body {
+  animation: fadeIn 0.5s both;
+}
 
+header#header {
+  animation: fadeIn 0.5s both;
+  //animation-fill-mode: both;
+  animation-delay: 0.5s;
+}
 
-
-
-
-@keyframes fadeInUp{
-  0%{
-    opacity: 0;
+@keyframes fadeInUp {
+  0% {
+    opacity: 0.0001;
     transform: translateY(0);
   }
-  100%{
+  100% {
     opacity: 1;
     transform: translateY(-8px);
   }
 }
 
-@keyframes fadeIn{
-  0%{
-    opacity: 0;
+@keyframes fadeInUpBig {
+  0% {
+    opacity: 0.0001;
+    transform: translateY(200px);
   }
-  100%{
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0.0001;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeBody {
+  0% {
+    opacity: 0.0001;
+  }
+  100% {
     opacity: 1;
   }
 }
