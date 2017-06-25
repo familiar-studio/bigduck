@@ -117,15 +117,17 @@
       <SearchOverlay v-if="searchVisible" @hide="hideSearch()"></SearchOverlay>
   
     </div>
-    <section id="footer-callout" v-if="showFooter" class="bgChange text-white my-0 py-5">
+    <section id="footer-callout" v-if="callout" class="bgChange text-white my-0 py-5">
       <div class="container">
         <div class="row">
           <div class="col-lg-8 offset-lg-2">
             <div class="footer-content">
-              <h2>Want to stay in the loop?</h2>
-              <p>Subscribe to our newsletter and get the latest nonprofit communications tips and tools delivered monthly to your inbox.</p>
+              <h2>{{ callout.chat_headline }}</h2>
+              <p>
+                {{ callout.chat_body }}
+              </p>
   
-              <GravityForm :formId="4"></GravityForm>
+              <GravityForm :formId="formId"></GravityForm>
   
             </div>
           </div>
@@ -170,6 +172,13 @@ export default {
     }
   },
   computed: {
+    ...mapState(['callout']),
+    formId() {
+      if (this.callout.footer_form) {
+        return this.callout.footer_form
+      }
+      return 4
+    },
     page() {
       if (this.$route.name === 'index') {
         return 'homepage'

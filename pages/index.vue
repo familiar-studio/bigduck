@@ -33,7 +33,7 @@
   
     <div class="container">
       <div v-if="latestInsights" class="my-5">
-        <h2>Latest Insights</h2>
+        <h2>Recent Insights</h2>
   
         <div class="" v-for="(insight, index) in latestInsights">
           <Post :entry="insight" :index="index + latestInsights.length"></Post>

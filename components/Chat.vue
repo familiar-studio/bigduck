@@ -7,7 +7,7 @@
       {{ callout.chat_body }}
     </div>
     <div class="chat-bubble chat-response bgChange">
-      <a href="#">
+      <a href="#" v-scroll-to="{ el:'#footer-callout', offset:50}">
         {{ callout.chat_button_text }}
       </a>
     </div>

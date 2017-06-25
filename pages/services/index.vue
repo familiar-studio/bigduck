@@ -1,29 +1,31 @@
 <template>
   <div>
-    <div v-if="servicesPage">
-      <div class="img-hero" :style=" { backgroundImage: 'url(' + servicesPage.acf.featured_image.url + ')' }">
-        <figcaption class="figure-caption">{{servicesPage.acf.featured_image.caption}}</figcaption>
-      </div>
   
-      <div id="content">
+    <div class="img-hero" :style=" { backgroundImage: 'url(' + servicesPage.acf.featured_image.url + ')' }">
+      <figcaption class="figure-caption">{{servicesPage.acf.featured_image.caption}}</figcaption>
+    </div>
+    <div class="row">
+      <div class="col-lg-2">
+      </div>
+      <div class="col-lg-8">
         <div class="container">
-          <article class='main bg-white overlap' v-html="servicesPage.acf.text">
-          </article>
-          <div class="pt-5">
-            <h2 v-html="servicesPage.acf.services_heading"></h2>
-            <div v-for="service in services" v-if="service.slug !== 'brandraising-benchmark'">
-              <Service :entry="service"></Service>
+          <div id="content">
+            <article class='main bg-white overlap' v-html="servicesPage.acf.text">
+            </article>
+            <div class="pt-5">
+              <h2 v-html="servicesPage.acf.services_heading"></h2>
+              <div v-for="service in services" v-if="service.slug !== 'brandraising-benchmark'">
+                <Service :entry="service"></Service>
+              </div>
+              <h2 v-html="servicesPage.acf.brandraising_benchmark_heading" class="mt-5"></h2>
+              <div v-for="service in services" v-if="service.slug === 'brandraising-benchmark'">
+                <Service :entry="service"></Service>
+              </div>
             </div>
-            <h2 v-html="servicesPage.acf.brandraising_benchmark_heading" class="mt-5"></h2>
-            <div v-for="service in services" v-if="service.slug === 'brandraising-benchmark'">
-              <Service :entry="service"></Service>
-            </div>
+            <InlineCallout class="mt-5">
+            </InlineCallout>
           </div>
-          <InlineCallout class="mt-5">
-          </InlineCallout>
-        </div>
-        <div class="testimonial">
-          <div class="container">
+          <div class="testimonial">
             <div class="row">
               <div class="col-md-8">
                 <blockquote>
@@ -40,12 +42,17 @@
           </div>
         </div>
       </div>
+      <div class="col-lg-2">
+        <Chat></Chat>
+      </div>
     </div>
   </div>
 </template>
 <script>
 import Service from '~components/Service.vue'
 import InlineCallout from '~components/InlineCallout.vue'
+import Chat from '~components/Chat.vue'
+
 
 export default {
   name: 'services',
@@ -68,11 +75,9 @@ export default {
     data['services'] = services.data.reverse()
     return data
   },
-  components: { Service, InlineCallout },
-  computed: {
-    callouts() {
-      return this.$store.state.callouts
-    }
-  }
+  created() {
+    this.$store.dispatch('fetchPageCallouts', 'services')
+  },
+  components: { Service, InlineCallout, Chat }
 }
 </script>

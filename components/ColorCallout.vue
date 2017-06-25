@@ -1,6 +1,6 @@
 <template>
   <div class="callout-fullwidth text-white color">
-    <div class="callout-content">
+    <div class="container">
       <slot></slot>
     </div>
   </div>

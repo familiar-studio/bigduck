@@ -1,29 +1,29 @@
 <template>
   <div>
-  
-    <div class="">
-      <div class="row">
-        <div class="col-lg-2">
-          <div v-if="topics" class="filter-bar menu">
-            <FilterList label="Topics" taxonomy="topic" :terms="topics" :selected="selectedTopic" v-on:clicked="toggleTaxonomy($event)"></FilterList>
-            <a v-if="selectedTopic" href="#" @click.prevent="resetFilters" class="btn btn-primary">Clear All</a>
-          </div>
+    <div class="row">
+      <div class="col-lg-2">
+        <div v-if="topics" class="filter-bar menu">
+          <FilterList label="Topics" taxonomy="topic" :terms="topics" :selected="selectedTopic" v-on:clicked="toggleTaxonomy($event)"></FilterList>
+          <a v-if="selectedTopic" href="#" @click.prevent="resetFilters" class="btn btn-primary">Clear All</a>
         </div>
-        <div class='col-lg-8'>
+      </div>
+      <div class='col-lg-8'>
   
-          <div class="container" id="content">
-            <div v-if="work">
-              <h1>Work</h1>
-              <Work :work="work" v-if="work.length > 0"></Work>
-              <div v-else>
-                <h3>No case studies found in
-                  <span v-if="selectedTopic">{{getTopicsIndexedById[selectedTopic].name}}</span>
-                </h3>
-              </div>
+        <div class="container" id="content">
+          <div v-if="work">
+            <h1>Work</h1>
+            <Work :work="work" v-if="work.length > 0"></Work>
+            <div v-else>
+              <h3>No case studies found in
+                <span v-if="selectedTopic">{{getTopicsIndexedById[selectedTopic].name}}</span>
+              </h3>
             </div>
           </div>
-  
         </div>
+  
+      </div>
+      <div class="col-lg-2">
+        <Chat></Chat>
       </div>
     </div>
   </div>
@@ -34,6 +34,8 @@ import Work from '~components/Work.vue'
 import FilterList from '~components/FilterList.vue'
 import Axios from 'axios'
 import { mapState, mapGetters } from 'vuex'
+import Chat from '~components/Chat.vue'
+
 
 export default {
   name: 'work',
@@ -47,7 +49,7 @@ export default {
     }
   },
   components: {
-    Work, FilterList
+    Work, FilterList, Chat
   },
   computed: {
     ...mapState(['topics', 'sectors']),
@@ -58,6 +60,9 @@ export default {
   },
   watch: {
     '$route.query': 'filterResults'
+  },
+  created() {
+    this.$store.dispatch('fetchPageCallouts', 'work')
   },
   async asyncData({ store, query }) {
     try {

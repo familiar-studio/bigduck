@@ -5,7 +5,7 @@
         <div v-if="case_study.acf.hero_image" class="img-wrapper">
           <img :src="case_study.acf.hero_image.sizes.cropped_rectangle" class="img-fluid" />
           <!-- <div class="bg-img" :style=" { backgroundImage: 'url(' + case_study.acf.hero_image.url + ')' }">
-                          </div> -->
+                            </div> -->
         </div>
         <div class="card">
           <div class="card-block">
@@ -19,7 +19,7 @@
             <h3 class="card-title">
               <span class="underlineChange hoverColor">{{ case_study.acf.client_name }}</span>
             </h3>
-            <p class="card-text" v-html="case_study.acf.short_description"></p>
+            <div class="card-text" v-html="case_study.acf.short_description"></div>
           </div>
         </div>
       </router-link>

@@ -93,7 +93,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['categories', 'callouts', 'eventCategories', 'topics']),
+    ...mapState(['categories', 'eventCategories', 'topics']),
     ...mapGetters(['getTopicsIndexedById', 'getEventCategoriesIndexedById', 'hostname']),
     selectedCategory() {
       return this.$route.query.event_category

@@ -24,9 +24,17 @@
           <h2>Related Case Studies</h2>
           <Work :work="relatedCaseStudies"></Work>
         </div>
-        <ColorCallout class="bgChange text-white my-0 py-5">
-          <GravityForm :formId="5" :showAll="true"></GravityForm>
-        </ColorCallout>
+  
+        <div class="callout-fullwidth text-white color bgChange">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-8 offset-lg-2">
+                <h3>{{ service.acf.cta_text }}</h3>
+                <GravityForm :formId="5" :showAll="true"></GravityForm>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   
@@ -78,7 +86,7 @@ export default {
     }
   },
   components: {
-    Work, Post, ColorCallout, GravityForm
+    Work, Post, GravityForm
   },
   async created() {
     let relatedWorkIds = this.service.acf.related_case_studies

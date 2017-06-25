@@ -1,7 +1,7 @@
  <template>
   <div>
     <div class="row">
-      <div class="col-lg-2">
+      <div class="col-lg-2 flex-first">
         <div v-if="types && topics" class="filter-bar menu">
           <FilterList label="Topics" taxonomy="topic" :terms="topics" :selected="selectedTopic" v-on:clicked="toggleTaxonomy($event)"></FilterList>
           <FilterList label="Types" taxonomy="type" :terms="types" :selected="selectedType" v-on:clicked="toggleTaxonomy($event)"></FilterList>
@@ -30,7 +30,8 @@
           <div v-if="selectedType">Type {{getTypesIndexedById[selectedType].name}}</div>
         </div>
       </div>
-      <div>
+  
+      <div class="col-lg-2">
         <Chat></Chat>
       </div>
     </div>
@@ -92,7 +93,7 @@ export default {
     Chat
   },
   computed: {
-    ...mapState(['callouts', 'types', 'topics']),
+    ...mapState(['types', 'topics']),
     ...mapGetters(['getTopicsIndexedById', 'getTypesIndexedById']),
     selectedType() {
       return this.$route.query.type

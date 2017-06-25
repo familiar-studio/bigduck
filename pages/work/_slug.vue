@@ -104,15 +104,16 @@
               <Service :entry="relatedService"></Service>
             </div>
   
-            <ColorCallout class="bgChange text-white my-0 py-5">
-  
-              <div class="row">
-                <div class="col-lg-8 offset-lg-2">
-                  <h3>{{ caseStudy.acf.cta_text }}</h3>
-                  <GravityForm :formId="formId" :showAll="true"></GravityForm>
+            <div class="callout-fullwidth text-white color bgChange">
+              <div class="container">
+                <div class="row">
+                  <div class="col-lg-8 offset-lg-2">
+                    <h3>{{ caseStudy.acf.cta_text }}</h3>
+                    <GravityForm :formId="formId" :showAll="true"></GravityForm>
+                  </div>
                 </div>
               </div>
-            </ColorCallout>
+            </div>
   
           </div>
   
@@ -123,7 +124,6 @@
 </template>
 <script>
 import Axios from 'axios'
-import ColorCallout from '~components/ColorCallout.vue'
 import GravityForm from '~components/GravityForm.vue'
 import Service from '~components/Service.vue'
 import share from '~components/Share.vue'
@@ -150,7 +150,6 @@ export default {
     }
   },
   components: {
-    ColorCallout,
     GravityForm,
     flickity,
     Service,
