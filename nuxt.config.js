@@ -28,7 +28,7 @@ module.exports = {
     { src: '~plugins/vue-validate', ssr: false },
     { src: '~plugins/newfangled.js', ssr: false },
     { src: '~plugins/ga.js', ssr: false },
-    { src: '~plugins/scrollspy.js', ssr: false }
+    { src: '~plugins/scrollto.js', ssr: false }
   ],
   /*
   ** Customize the progress-bar color

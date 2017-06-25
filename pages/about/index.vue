@@ -9,22 +9,22 @@
           <div class="menu subnav">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link" :class="{active:scrollPos == 0}" href="#" @click.prevent="$scrollTo(0)" ><span>{{ page.acf.we_believe_headline}}</span></a>
+                <a data-scroll class="nav-link" :class="{ 'active': activeSection == 'we-believe' }"  href="#" v-scroll-to="'#we-believe'"  ><span>{{ page.acf.we_believe_headline}}</span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" :class="{active:scrollPos == 1}" href="#" @click.prevent="$scrollTo(1)" ><span>{{ page.acf.values_headline}}</span></a>
+                <a data-scroll class="nav-link"  href="#"  v-scroll-to="'#values'" ><span>{{ page.acf.values_headline}}</span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" :class="{active:scrollPos == 2}" href="#" @click.prevent="$scrollTo(2)" ><span>Open House</span></a>
+                <a class="nav-link"  href="#" v-scroll-to="'#open-house'" ><span>Open House</span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" :class="{active:scrollPos == 3}" href="#" @click.prevent="$scrollTo(3)" ><span>{{ page.acf.our_clients_headline}}</span></a>
+                <a class="nav-link" href="#" v-scroll-to="'#our-clients'" ><span>{{ page.acf.our_clients_headline}}</span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" :class="{active:scrollPos == 4}" href="#" @click.prevent="$scrollTo(4)" ><span>{{ page.acf.team_headline}}</span></a>
+                <a class="nav-link"  href="#" v-scroll-to="'#team'"  ><span>{{ page.acf.team_headline}}</span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" :class="{active:scrollPos == 5}" href="#" @click.prevent="$scrollTo(5)" ><span>{{ page.acf.jobs_headline}}</span></a>
+                <a class="nav-link"  href="#" v-scroll-to="'#jobs'" ><span>{{ page.acf.jobs_headline}}</span></a>
               </li>
             </ul>
           </div>
@@ -147,11 +147,16 @@
         applyUrl: 'http://bigduck.nyc',
         scrollPos: 0,
         openCategory: null,
-        openJob: null
+        openJob: null,
+        activeSection: 'we-believe'
       }
     },
-    ready: function () {
-      this.$scrollSet()
+    mounted () {
+      if (process.BROWSER_BUILD) {
+        window.addEventListener('scroll', () => {
+          console.log('scrolled')
+        })
+      }
     },
     async asyncData ({store, query, dispatch}) {
       let data = {}
