@@ -106,6 +106,15 @@ p {
   @include media-breakpoint-down(lg) {
     font-size: 3.5rem;
   }
+  @include media-breakpoint-down(md) {
+    font-size: 3.25rem;
+   }
+  @include media-breakpoint-down(sm) {
+    font-size: 3rem;
+   }
+   @include media-breakpoint-down(xs) {
+    font-size: 2.75rem;
+  }
 }
 
 //BUTTONS AND BADGES

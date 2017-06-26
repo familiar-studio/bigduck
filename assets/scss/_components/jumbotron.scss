@@ -8,7 +8,7 @@
     }
   }
 
- 
+
   .cursor{
     width: 4px;
     height: 5rem;
@@ -19,5 +19,17 @@
     animation-duration: .4s;
     animation-direction: alternate;
     animation-iteration-count: infinite;
+    margin-left: .125rem;
+    @include media-breakpoint-down(lg) {
+      height: 3.5rem;
+      margin-top: 5px;
+    }
+    @include media-breakpoint-down(md) {
+      height: 3.5rem;
+      margin-top: 1px;
+     }
+    @include media-breakpoint-down(sm) {
+      height: 2.75rem;
+     }
   }
 }

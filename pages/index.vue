@@ -2,19 +2,21 @@
   <div>
     <div class="jumbotron" id="hero-animation">
       <div class="container">
-  
+
         <h1 class="display-2">
           <span>
             Developing
           </span>
+          <br class="hidden-sm-up" />
           <span>
             the
           </span>
+          <br class="hidden-xs-down hidden-md-up" />
           <span class="color"> {{wordString}}</span>
           <div class="cursor-wrapper">
             <span class="cursor bgChange"></span>
           </div>
-          <br class="hidden-lg-down" />
+          <br class="hidden-sm-up" />
           <span> of</span>
           <span> determined</span>
           <span> nonprofits.</span>
@@ -36,18 +38,18 @@
     <div class="container">
       <div v-if="upcomingEvents" class="mt-5">
         <h2>Featured Events</h2>
-  
+
         <div class="" v-for="(event, index) in upcomingEvents">
           <Event :entry="event" index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
         </div>
         <nuxt-link class="btn btn-primary" to="/events">View All Events</nuxt-link>
       </div>
     </div>
-  
+
     <div class="container">
       <div v-if="latestInsights" class="my-5">
         <h2>Recent Insights</h2>
-  
+
         <div class="" v-for="(insight, index) in latestInsights">
           <Post :entry="insight" :index="index + latestInsights.length"></Post>
         </div>

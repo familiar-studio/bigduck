@@ -53,21 +53,27 @@ body {
 
 .jumbotron#hero-animation {
   h1 {
-    @for $i from 1 through 8 {
-      span:nth-child(#{$i}) {
+    @for $i from 1 through 10 {
+    > span:nth-child(#{$i}) {
         animation: fadeIn 0.5s both;
-        animation-delay: ($i * .1s) + 0.8s;
+        animation-delay: ($i * .1s) + 1s;
       }
     }
     .cursor-wrapper {
       display: inline;
       animation: fadeIn 0.5s both;
-      animation-delay: 1s;
+      animation-delay: 2.3s;
     }
   }
   .btn-primary {
     animation: fadeIn 0.5s both;
-    animation-delay: 1.6s;
+    animation-delay: 2.5s;
+  }
+  .linebreak {
+    display: none;
+      @include media-breakpoint-down(xs) {
+        display: inline;
+      }
   }
 }
 
