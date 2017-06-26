@@ -11,14 +11,16 @@
       <div class="col-xl-8 col-lg-9">
         <div class="container" id="content" v-if="insights.length > 0">
           <h1>Insights</h1>
-          <ListTransition :previous="previouslyLoadedInsights" :current="insights.length">
+          <!-- <ListTransition :previous="previouslyLoadedInsights" :current="insights.length"> -->
+          <transition-group name="fade" appear>
             <div v-for="(insight, index) in insights" :key="insight" :data-index="index">
               <Post :entry="insight" :firstBlock="true" :index="index"></Post>
               <transition name="list" appear>
                 <Subscribe v-if="callouts && callouts[0] && index % 5 == 1 && index < insights.length - 1" :entry="callouts[0]" class="mb-5"></Subscribe>
               </transition>
             </div>
-          </ListTransition>
+          </transition-group>
+          <!-- </ListTransition> -->
           <div class="pager" v-if="insights.length < totalRecords">
             <a class="btn btn-primary my-4" href="#" @click.prevent="nextPage">Load more</a>
           </div>
