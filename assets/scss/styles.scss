@@ -108,12 +108,12 @@ p {
   }
   @include media-breakpoint-down(md) {
     font-size: 3.25rem;
-   }
+  }
   @include media-breakpoint-down(sm) {
     font-size: 3rem;
-   }
-   @include media-breakpoint-down(xs) {
-    font-size: 2.75rem;
+  }
+  @media (max-width: 376px) {
+    font-size: 2.5rem;
   }
 }
 

@@ -171,10 +171,16 @@ class StarterSite extends TimberSite {
 		// 	remove_filter( 'rest_pre_serve_request', 'rest_send_cors_headers' );
 
 		// }, 15 );
+		add_action("gform_after_submission",array( $this, 'handle_form') , 10, 2);
 
 				parent::__construct();
 
 
+	}
+
+	function handle_form() {
+		echo "it works";
+		die();
 	}
 
 	function handle_preflight() {
