@@ -14,7 +14,7 @@
 <script>
 export default {
   computed: {
-    isListView () {
+    isListView() {
       return this.$route.name !== 'work-id'
     }
   }

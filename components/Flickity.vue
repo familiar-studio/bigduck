@@ -1,7 +1,7 @@
 <template>
   <div class="carousel" :class="{'is-expanded':open, 'first-slide':isFirstSlide}">
     <div class="carousel-cell" v-for="image,index in images">
-      <img :src="image.sizes.large" :alt="image.title" class="img-fluid" @click="toggleSize()">
+      <img :src="image.sizes.large" :alt="image.title">
       <figcaption class="figure-caption">{{image.caption}}</figcaption>
       <div class="slide-counter label">{{index + 1}}/{{images.length}}</div>
     </div>
@@ -13,11 +13,12 @@
 import Vue from 'vue'
 if (process.BROWSER_BUILD) {
   var Flickity = require('flickity')
+  require('flickity-imagesloaded')
 }
 
 export default {
   props: ['images'],
-  data () {
+  data() {
     return {
       open: false,
       flickity: null,
@@ -26,6 +27,7 @@ export default {
         prevNextButtons: true,
         pageDots: false,
         setGallerySize: false,
+
         // percentPosition: false,
         imagesLoaded: true,
         selectedAttraction: 0.01,
@@ -33,26 +35,29 @@ export default {
       }
     }
   },
-  mounted () {
+  mounted() {
     this.flickity = new Flickity(this.$el, this.options)
+    this.flickity.on('staticClick', () => {
+      this.toggleSize()
+    })
   },
   methods: {
-    toggleSize () {
+    toggleSize() {
       console.log('toggle size')
       this.open = !this.open
       setTimeout(() => {
         this.flickity.resize()
-        // this.flickity.reposition()
+        this.flickity.reposition()
       }, 50
       )
     }
   },
   computed: {
-    isFirstSlide () {
+    isFirstSlide() {
       return this.index === 1
     },
 
-    length () {
+    length() {
       if (this.flickity) {
         return this.flickity.slides.length
       }

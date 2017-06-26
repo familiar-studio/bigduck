@@ -51,13 +51,13 @@
 import Axios from 'axios'
 
 export default {
-  data () {
+  data() {
     return {
       totalPages: null,
       query: null
     }
   },
-  head () {
+  head() {
     return {
       title: 'Search',
       meta: [
@@ -66,18 +66,18 @@ export default {
       ]
     }
   },
-  async asyncData ({route, store}) {
+  async asyncData({ route, store }) {
     let response = await Axios.get(store.getters.hostname + 'wp/v2/posts?search=' + route.query.query)
     return {
       results: response.data
     }
   },
-  mounted () {
+  mounted() {
     this.query = this.$route.query.query
     this.search()
   },
   methods: {
-    async search () {
+    async search() {
       let results = await Axios.get(this.$store.getters.hostname + 'wp/v2/posts?search=' + this.query)
       this.results = results.data
     }

@@ -1,39 +1,34 @@
 <template>
-<div>
-  <div v-if="featuredImage" class="img-hero" :style="{ backgroundImage: 'url(' + featuredImage + ')' }">
-    <figcaption class="figure-caption">Hardcoded for now</figcaption>
-  </div>
-  <div class="container" :class="{'overlap':featuredImage}">
-    <article class="main">
-      <h1>{{this.title}}</h1>
-      <div v-if="pageContent" v-html="pageContent">
-      </div>
-    </article>
-  </div>
-</div>
+  <Page :title="title" :formId="formId" :content="content" :image="image">
+  </Page>
 </template>
 <script>
-  import Axios from 'axios'
+import Axios from 'axios'
+import Page from '~components/Page'
 
-  export default {
-    name: 'speaking',
-    async asyncData ({store}) {
-      let response = await Axios.get(store.getters['hostname'] + 'wp/v2/pages?slug=speaking-engagements')
-
-      if (response.data) {
-        return {
-          title: response.data[0].title.rendered,
-          pageContent: response.data[0].content.rendered,
-          featuredImage: response.data[0].acf.featured_image,
-          data: response.data[0]
-        }
-      }
-    },
-    head () {
-      return {
-        title: this.title,
-        meta: []
-      }
+export default {
+  name: 'contact',
+  head() {
+    return {
+      title: this.title,
+      meta: [
+        { 'og:image': this.image }
+      ]
     }
+  },
+  async asyncData({ store }) {
+    let response = await Axios.get(store.getters['hostname'] + 'wp/v2/pages?slug=speaking-engagements')
+    var data = response.data[0]
+    return {
+      data: data,
+      image: data.acf.featured_image,
+      formId: data.acf.form,
+      title: data.title.rendered,
+      content: data.content.rendered
+    }
+  },
+  components: {
+    Page
   }
+}
 </script>

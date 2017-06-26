@@ -1,20 +1,23 @@
 #header {
   background-color: $white;
   padding: .5rem 0;
-  transition: all .5s ease;
-  position: sticky;
+  transition: height .3s ease;
+  height: 130px;
+  will-change: height;
+  position: fixed;
+  margin-bottom: 100px;
   top: 0px;
   z-index: 30;
   width: 100%;
   min-height: 0;
 
-  .navbar-brand .tagline{
-    @include media-breakpoint-only(lg){
+  .navbar-brand .tagline {
+    @include media-breakpoint-only(lg) {
       opacity: 0;
       width: 0;
     }
   }
-  .tagline{
+  .tagline {
     @extend .colorChange;
     color: nth($duck-colors, 1);
     -webkit-font-smoothing: antialiased;
@@ -25,54 +28,55 @@
   #logo {
     @extend .fillChange;
   }
-
 }
-.homepage #header{
+.homepage #header {
   background-color: $gray-lightest;
 }
 
-
-.navbar-brand{
+.navbar-brand {
   white-space: normal;
-  @include media-breakpoint-up(sm){
+  transition: transform .5s ease;
+  transform-origin: left top;
+  will-change: transform;
+  @include media-breakpoint-up(sm) {
     display: flex;
     align-items: flex-end;
     flex-shrink: 0;
   }
-  svg{
-    transition: all .5s ease;
+
+  svg {
     width: 134px;
     height: 80px;
   }
 
-  .tagline{
+  .tagline {
     max-width: 180px;
     margin-top: 0;
     transform: translateY(2px);
     font-size: 18px;
-    @include media-breakpoint-up(sm){
+    @include media-breakpoint-up(sm) {
       margin-left: 20px;
     }
   }
 }
 
 //styles for the 🍔 icon
-.navbar-toggler{
-  z-index:90;
+.navbar-toggler {
+  z-index: 90;
   border-width: 0;
   padding: 0;
   right: 5px;
   top: 15px;
 
-  .navbar-toggler-icon{
+  .navbar-toggler-icon {
     background-image: none;
     position: relative;
     margin-top: 12px;
     height: 4px;
     background-color: $gray-darker;
-    width: 32px;
+    width: 26px;
     transition: all .2s ease;
-    &::before, &::after{
+    &::before, &::after {
       content: '';
       display: block;
       position: absolute;
@@ -83,42 +87,41 @@
       transition: all .2s ease;
       transform-origin: center center;
     }
-    &::before{
+    &::before {
       top: -8px;
     }
-    &::after{
+    &::after {
       top: -16px;
     }
   }
 }
 
-
-#main-menu{
+#main-menu {
   max-height: 0;
   overflow: hidden;
   transition: all .3s ease;
-  @include media-breakpoint-up(lg){
+  @include media-breakpoint-up(lg) {
     padding-top: 0;
     align-self: flex-start;
     max-height: none;
     overflow: visible;
   }
-  ul{
+  ul {
     margin-top: 2rem;
-    @include media-breakpoint-up(lg){
+    @include media-breakpoint-up(lg) {
       margin-top: 0;
     }
   }
 
-  .nav-item{
+  .nav-item {
     position: relative;
-    & > .nuxt-link-active, &:hover{
+    & > .nuxt-link-active, &:hover {
       opacity: 1;
-       + .nav-text {
+      + .nav-text {
         opacity: 1;
       }
     }
-    &.nuxt-link-active span{
+    &.nuxt-link-active span {
       background-size: 100% 5px !important;
     }
     &:hover {
@@ -130,17 +133,17 @@
       }
     }
   }
-  .nav-link{
+  .nav-link {
     color: $gray-darker;
     opacity: .5;
     transition: opacity .4s ease;
     font-size: 1.4rem;
 
-    @include media-breakpoint-up(lg){
+    @include media-breakpoint-up(lg) {
       padding: .25rem 1rem;
       font-size: 1rem;
     }
-    span{
+    span {
       // @extend .underlineChange;
       transition: background-size .4s ease;
       background-size: 0%;
@@ -159,11 +162,11 @@
       }
     }
   }
-  .nav-text{
+  .nav-text {
     @extend .label;
     display: none;
 
-    @include media-breakpoint-up(lg){
+    @include media-breakpoint-up(lg) {
       display: block;
       position: absolute;
       width: 6rem;
@@ -171,71 +174,72 @@
       left: 1rem;
       opacity: 0;
       transition: opacity .4s ease;
-
     }
   }
-
 }
 
-.nav-link{
+.nav-link {
   font-family: $font-family-sans-serif;
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 700;
 }
 
-#header.nav-open{
+#header.nav-open {
   @extend .bgChange;
   background-color: nth($duck-colors, 1);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
-  .navbar-toggler-icon{
+  .navbar-toggler-icon {
     background-color: transparent;
-    &::before{
+    &::before {
       background-color: $white;
       transform: rotate(-45deg);
     }
-    &::after{
+    &::after {
       background-color: $white;
       top: -8px;
       transform: rotate(45deg);
     }
   }
-  #main-menu{
+  #main-menu {
     max-height: 1000px;
-    .nav-link{
+    .nav-link {
       color: $white;
       opacity: 1;
-      span{
+      span {
         background-image: linear-gradient($white, $white);
         animation: none;
       }
     }
   }
-  svg path{
+  svg path {
     fill: $white !important;
   }
-  .tagline{
+  .tagline {
     color: $white;
   }
 }
 
-#header.small-nav:not(.nav-open){
+#header.small-nav:not(.nav-open) {
   background-color: $white;
   padding: 0;
-  box-shadow: 0px 0px 10px 0px rgba($black,0.1);
-  .navbar-brand{
-    svg{
-      width:60px;
-      height: 36px;
+  box-shadow: 0px 0px 10px 0px rgba($black, 0.1);
+  height: 75px;
+  .navbar-brand {
+    transform: scale(0.6);
+
+    svg {
+      // width: 60px;
+      // height: 36px;
     }
-    .label{
+    .label {
       opacity: 0;
       height: 0;
     }
   }
 
-  #main-menu .nav-text{
+  #main-menu .nav-text {
     opacity: 0;
   }
 }
