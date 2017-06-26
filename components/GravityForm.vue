@@ -140,7 +140,7 @@ export default {
       localStorage.formData = JSON.stringify(this.formData)
       this.formData['form_id'] = this.formId
 
-      axios.post(this.baseUrl + 'entries', [this.formData], { params: { api_key: this.publicKey, signature: signature, expires: this.expires } })
+      axios.post(this.baseUrl + 'forms/' + this.formId + '/entries', [this.formData], { params: { api_key: this.publicKey, signature: signature, expires: this.expires } })
       this.$emit('submitted')
       this.submitted = true
     }
