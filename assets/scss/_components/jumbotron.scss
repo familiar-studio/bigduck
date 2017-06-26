@@ -1,20 +1,19 @@
-.jumbotron{
+.jumbotron {
   min-height: 60vh;
   display: flex;
   align-items: center;
-  .container{
-    @include media-breakpoint-up(xl){
+  .container {
+    @include media-breakpoint-up(xl) {
       width: 1180px;
     }
   }
 
-
-  .cursor{
+  .cursor {
     width: 4px;
     height: 5rem;
     display: inline-block;
     position: absolute;
-    transform:translateY(-.5rem);
+    transform: translateY(-.5rem);
     animation-name: fadeIn;
     animation-duration: .4s;
     animation-direction: alternate;
@@ -27,9 +26,9 @@
     @include media-breakpoint-down(md) {
       height: 3.5rem;
       margin-top: 1px;
-     }
+    }
     @include media-breakpoint-down(sm) {
       height: 2.75rem;
-     }
+    }
   }
 }

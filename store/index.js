@@ -1,9 +1,9 @@
 import axios from "axios";
 
 export const state = () => ({
-  localHostname: "http://wordpress.bigduck.dev/wp-json/",
+  localHostname: "https://wordpress.bigduck.dev/wp-json/",
   remoteHostname: "http://bigduck-wordpress.familiar.studio/wp-json/",
-  bareLocalHostname: "http://wordpress.bigduck.dev",
+  bareLocalHostname: "https://wordpress.bigduck.dev",
   bareRemoteHostname: "http://bigduck-wordpress.familiar.studio",
   callouts: null,
   categories: null,
@@ -195,6 +195,7 @@ export const getters = {
     // }
 
     return state.bareRemoteHostname;
+    //return state.bareLocalHostname;
   },
   callouts: state => {
     return state.callouts;
