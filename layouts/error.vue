@@ -1,8 +1,14 @@
 <template>
   <div class="container">
-    <h1 v-if="error.statusCode === 404">404 - Missing Duck!</h1>
+    <h1 v-if="error.statusCode === 404">Oh no! This page doesn't exist. </h1>
     <h1 v-else>An error occurred</h1>
-    <nuxt-link to="/">Back to Home page</nuxt-link>
+  
+    <img src="~assets/images/ascii.png" />
+    <p>
+      You can go back to where you were or
+      <nuxt-link to="/">return home</nuxt-link> to find one that does.
+    </p>
+  
   </div>
 </template>
 
