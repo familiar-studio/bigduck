@@ -37,19 +37,44 @@
 }
 
 // Load in animation
-main#main {
+#content {
   animation: fadeInUpBig 0.5s both;
-  animation-delay: 0.2s;
+  animation-delay: 0.6s;
 }
 
 body {
+  animation: fadeIn 0.9s both;
+}
+
+.filter-bar {
   animation: fadeIn 0.5s both;
+  animation-delay: 1s;
+}
+
+.jumbotron#hero-animation {
+  h1 {
+    @for $i from 1 through 8 {
+      span:nth-child(#{$i}) {
+        animation: fadeIn 0.5s both;
+        animation-delay: ($i * .1s) + 0.8s;
+      }
+    }
+    .cursor-wrapper {
+      display: inline;
+      animation: fadeIn 0.5s both;
+      animation-delay: 1s;
+    }
+  }
+  .btn-primary {
+    animation: fadeIn 0.5s both;
+    animation-delay: 1.6s;
+  }
 }
 
 header#header {
   animation: fadeIn 0.5s both;
   //animation-fill-mode: both;
-  animation-delay: 0.5s;
+  animation-delay: 0.3s;
 }
 
 @keyframes fadeInUp {
