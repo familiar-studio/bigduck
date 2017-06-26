@@ -1,0 +1,26 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    FAMILIAR - familiar-studio.com
+
+    Keith Mancuso -- Tech Partner
+    Carl Williamson -- Design Partner
+    Ian Crowther -- Design Partner
+    Dave Fischoff -- Developer 
+    Scott Ries -- Developer
+    Brian Bier -- Developer
+    Debra Ohayon -- Designer
+    Yuen Yung Lee -- Designer
+
+# THANKS
+
+    Everyone!
+
+# TECHNOLOGY COLOPHON
+
+    CSS3, HTML5
+    Wordpress
+    Nginx, PHP7, MYSQL
+    Vue.js, Nuxt.js
