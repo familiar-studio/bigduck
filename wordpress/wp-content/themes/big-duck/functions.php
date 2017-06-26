@@ -505,17 +505,16 @@ class StarterSite extends TimberSite {
 		$rawEvents = get_posts(array(
 				'post_type' => 'bd_event'
 		));
-
 		$team_member['events'] = array();
 		foreach($rawEvents as $rawEvent){
 			$fields = get_fields($rawEvent->ID);
-			// $events[] = $fields['start_time'];
-			// $events[] = strtotime($fields['start_time']);
+			$events[] = $fields;
+			$events[] = strtotime($fields['start_time']);
 			if(strtotime($fields['start_time']) > strtotime('now')){
 				$team = $fields['related_team_members'];
 				foreach($team as $member) {
-					if ($member['ID'] == $user->ID){
-						// $meta = get_post_content($rawEvent->ID);
+					if ($member['ID'] == intval($user->ID)){
+						// return $user;
 						$topics = wp_get_post_terms($rawEvent->ID, 'topic');
 						$eventCategories = wp_get_post_terms($rawEvent->ID, 'event_category');
 						$data = get_post($rawEvent->ID);
@@ -538,12 +537,15 @@ class StarterSite extends TimberSite {
 		$team_member['insights'] = array();
 		foreach($rawInsights as $rawInsight){
 			$fields = get_fields($rawInsight->ID);
-			if ($fields['author']['ID'] == $user->ID){
-				$insight = get_post($rawInsight->ID);
-				$topics = wp_get_post_terms($rawInsight->ID, 'topic');
-				$insight->acf = $fields;
-				$insight->topic = array($topics[0]->term_id);
-				$team_member['insights'][] = $insight;
+			$authors = $fields['author'];
+			foreach($authors as $author){
+				if ($author['ID'] == $user->ID){
+					$insight = get_post($rawInsight->ID);
+					$topics = wp_get_post_terms($rawInsight->ID, 'topic');
+					$insight->acf = $fields;
+					$insight->topic = array($topics[0]->term_id);
+					$team_member['insights'][] = $insight;
+				}
 			}
 		}
 
@@ -552,12 +554,12 @@ class StarterSite extends TimberSite {
 
 	function insights_by_user($data) {
 		$rawInsights = get_posts(array(
-			'post_type' => 'bd_insight'
+			'post_type' => 'bd_insight',
 		));
 		$insights = array();
 		foreach($rawInsights as $rawInsight){
 			$fields = get_fields($rawInsight->ID);
-			$insightUser = $data->get_params('id')['id'];
+			$insightUser = $data->get_params('slug')['slug'];
 			// $insights[] = $fields['author']['ID'];
 			if(isset($fields['author']) && $fields['author']['ID'] == intval($insightUser)) {
 				$insights[] = $fields;
