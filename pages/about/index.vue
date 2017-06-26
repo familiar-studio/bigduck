@@ -43,7 +43,8 @@
         </div>
         <div class="col-lg-8">
           <div class="container">
-            <div v-scroll-spy="scrollPos" :steps="30" :time="200">
+            <!-- <div v-scroll-spy="scrollPos" :steps="30" :time="200"> -->
+            <div>
               <article class="main overlap">
                 <h1 id="we-believe">{{ page.acf.we_believe_headline }}</h1>
                 <div v-html="page.acf.we_believe_body"></div>
@@ -75,29 +76,33 @@
                   <Event :entry="event" :index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
                 </div>
               </article>
-              <article class="pb-5" v-if="sectorsByIndex">
+
+              <article class="pb-5" v-if="sectorsByIndex" id="clients">
                 <h1 id="our-clients" v-html="page.acf.our_clients_headline"></h1>
                 <div v-html="page.acf.clients_body"></div>
                 <div class="" v-for="(client, index) in page.acf.clients">
                   <div class="" v-if="client.client_category">
-                  <div class="media" @click.prevent="toggleClient(client.client_category[0])">
+                  <div class="media" @click.prevent="toggleClient(client.client_category)">
                     <!-- <img class="mr-3" v-if="client.client_category"
                     :src="sectorsByIndex[client.client_category[0]].acf['taxonomy-icon']" /></img> -->
-                    <div>
-                  <h2>
-                    <!-- <span :class="{ 'active': openCategory === client.client_category[0] }" v-html="sectorsByIndex[client.client_category[0]].icon"></span> -->
-                    <!-- <a href="#"  :class="{ 'active': openCategory === client.client_category[0] }" class="ml-3" v-html="sectorsByIndex[client.client_category[0]].name"></a> -->
-                  </h2>
+                    <div :class="{ 'active': openCategory === client.client_category }" class="client">
+                      <span  v-html="sectorsByIndex[client.client_category].icon"></span>
+                      <h2 class="ml-3">
+                        <a href="#" ><span v-html="sectorsByIndex[client.client_category].name"></span></a>
+                      </h2>
+                      <div class="list">
+                        <ul class="list-unstyled collapse ml-5 row pl-1" :class="{'show': openCategory === client.client_category}">
+                          <li class="" v-for="client_list in client.c">
+                            <a :href="client_list.website">{{client_list.name}}</a>
+                          </li>
+                        </ul>
+                      </div>
                     </div>
-                    <ul class="list-unstyled collapse ml-5 row pl-1" :class="{'show': openCategory === client.client_category}">
-                      <li class="" v-for="client_list in client.c">
-                        <a :href="client_list.website">{{client_list.name}}</a>
-                      </li>
-                    </ul>
                     <!-- </div> -->
                   </div>
                   <hr class="mt-0"></hr>
                 </div>
+              </div>
               </article>
 
               <article class="break-container bg-white team pt-5 pb-5">
@@ -146,6 +151,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 <script>
 import Axios from 'axios'
@@ -165,13 +171,6 @@ export default {
       openCategory: null,
       openJob: null,
       activeSection: 'we-believe'
-    }
-  },
-  mounted() {
-    if (process.BROWSER_BUILD) {
-      window.addEventListener('scroll', () => {
-        console.log('scrolled')
-      })
     }
   },
   async asyncData({ store, query, dispatch }) {
