@@ -110,8 +110,8 @@
                 <div v-html="page.acf.team_body" class="mb-5"></div>
 
                 <div class="row">
-                  <div v-for="member in page.acf.team" class="col-md-4 mb-4 team-member">
-                    <nuxt-link :key="member.id" :to=" {name: 'about-slug', params: {slug: member.team_member.user_nicename}}">
+                  <div v-for="member in page.acf.team" class="col-md-4 mb-4">
+                    <nuxt-link :key="member.id" :to=" {name: 'about-slug', params: {slug: member.team_member.user_nicename}}" class="team-member">
                       <div class="col-image">
 
                         <div :style="{ 'background-image': 'url(' + teamMemberBySlug(member.team_member.user_nicename).headshot.url + ')' }" class="featured-image"></div>
