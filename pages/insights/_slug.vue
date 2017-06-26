@@ -34,14 +34,18 @@
                   {{ date }}
                 </div>
               </div>
-  
-              <h1 v-html="insight.title.rendered"></h1>
-              <div class="badge badge-default mb-3" v-if="insight.author">
-                <img v-if="insight.author_headshot.data.sizes" :src="insight.author_headshot.data.sizes.thumbnail" class="round author-img mr-2">
-                <div v-if="!insight.acf.is_guest_author" v-html="insight.acf.author.display_name"></div>
-                <div v-if="insight.acf.is_guest_author && insight.acf.author" v-html="entry.acf.author.display_name"></div>
+
+              <h1><span v-html="insight.title.rendered"></span></h1>
+              <div class="badge badge-default mb-3" v-if="insight.author_headshots && insight.acf.author.length > 0" v-for="author in insight.acf.author">
+                <img v-if="insight.author_headshots[author.ID].sizes" :src="insight.author_headshots[author.ID].sizes.thumbnail" class="round author-img mr-2">
+                <div v-html="author.display_name"></div>
               </div>
-  
+              <div v-if="insight.acf.guest_author_name" class="badge badge-default mb-3 author-no-img">
+                <span v-html="insight.acf.guest_author_name"></span>
+              </div>
+              <div v-if="!insight.acf.guest_author_name && insight.acf.author.length < 1" class="badge badge-default mb-3 author-no-img">
+                <span>Big Duck</span>
+              </div>
               <div v-for="block in insight.acf.body" :class="['block-' + block.acf_fc_layout]">
                 <div v-if="block.acf_fc_layout == 'text'" v-html="block.text"></div>
                 <template v-if="block.acf_fc_layout == 'callout'">
@@ -54,34 +58,37 @@
                 <Share></Share>
               </div>
             </article>
-  
+
             <div v-if="formId" class="form-light">
               <GravityForm :formId="formId" :viewAll="true" :gatedContent="true" @submitted="refreshContent()"></GravityForm>
             </div>
-  
+
             <article class="main" v-if="formId === false && insight.content.rendered">
               <div v-html="insight.content.rendered"></div>
             </article>
-  
-            <article class="mb-5 container" v-if="author && insight.author.acf ">
-              <div class="author-bio">
-                <div class="row">
-                  <div class="col-md-2 author-bio-pic">
-                    <img class="round" v-if="insight.author_headshot.data.sizes" :src="insight.author_headshot.data.sizes.thumbnail" alt="" />
-                  </div>
-                  <div class="col-md-10 author-bio-text">
-                    <h3>
-                      {{insight.acf.author.display_name}} is {{ prependIndefiniteArticle(author.acf.job_title) }} at Big Duck
-                    </h3>
-                    <nuxt-link class="btn btn-primary" :to="{name: 'about-slug', params: { slug: insight.acf.author.user_nicename}}">
-                      More about {{insight.acf.author.user_firstname}}
-                    </nuxt-link>
-                  </div>
-                </div>
-              </div>
-  
+
+            <article class="mb-5 container">
+               <div v-if="authors.length > 0" v-for="(author, index) in authors">
+                 <div class="author-bio">
+                   <div class="row">
+                     <div class="col-md-2 author-bio-pic">
+                       <!-- {{author.acf.headshot.sizes.thumbnail}} -->
+                       <img class="round" v-if="author.acf.headshot.sizes" :src="author.acf.headshot.sizes.thumbnail" alt="" />
+                     </div>
+                     <div class="col-md-10 author-bio-text">
+                       <h3>
+                         {{insight.acf.author[index].display_name}} is {{ prependIndefiniteArticle(author.acf.job_title) }} at Big Duck
+                       </h3>
+                       <nuxt-link class="btn btn-primary" :to="{name: 'about-slug', params: { slug: insight.acf.author[index].user_nicename}}">
+                         More about {{insight.acf.author[index].user_firstname}}
+                       </nuxt-link>
+                     </div>
+
+                     </div>
+                   </div>
+                 </div>
             </article>
-  
+
             <div class="mb-5" v-if="relatedCaseStudies">
               <h2>Related Case Studies</h2>
               <div class="row">
@@ -97,15 +104,15 @@
                       </div>
                       <div class="card-block py-0">
                         <h3 class="card-title">{{ case_study.title.rendered }}</h3>
-                        <p class="card-text" v-html="case_study.acf.short_description"></p>
+                        <div class="card-text" v-html="case_study.acf.short_description"></div>
                       </div>
                     </div>
                   </nuxt-link>
-  
+
                 </div>
               </div>
             </div>
-  
+
             <div class="mb-5" v-if="relatedInsights">
               <h2>Related Insights</h2>
               <div v-if="relatedInsights">
@@ -139,7 +146,7 @@ export default {
     return {
       relatedCaseStudies: null,
       relatedInsights: null,
-      author: null
+      authors: null
     }
   },
   async asyncData({ state, params, store }) {
@@ -151,6 +158,9 @@ export default {
     }
     if (data.insight.acf.related_insights) {
       data.relatedInsightIds = data.insight.acf.related_insights.map((insight) => { return insight.ID })
+    }
+    if (data.insight.acf.author.length > 0) {
+      data.authorIds = data.insight.acf.author.map((author) => { return author.ID })
     }
     return data
   },
@@ -195,9 +205,9 @@ export default {
         this.relatedInsights = response.data
       })
     }
-    if (!this.insight.is_guest_author) {
-      Axios.get(this.hostname + 'acf/v3/users/' + this.insight.acf.author.ID).then((response) => {
-        this.author = response.data
+    if (this.authorIds) {
+      Axios.get(this.hostname + 'acf/v3/users', { params: { include: this.authorIds } }).then((response) => {
+        this.authors = response.data
       })
     }
   },

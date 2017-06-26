@@ -185,6 +185,7 @@ export const getters = {
     //   return state.remoteHostname
     // }
 
+    // return state.localHostname;
     return state.remoteHostname;
   },
   bareHostname: state => {
@@ -194,6 +195,7 @@ export const getters = {
     //   return state.bareRemoteHostname
     // }
 
+    // return state.bareLocalHostname;
     return state.bareRemoteHostname;
     //return state.bareLocalHostname;
   },

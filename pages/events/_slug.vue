@@ -25,15 +25,23 @@
                     </div>
                   </div>
                   <div class="event-title">
-                    <h1 v-html="event.title.rendered"></h1>
-                    <h4 v-html="event.acf.subtitle"></h4>
+                    <h1><span v-html="event.title.rendered"></span></h1>
+                    <h4><span v-html="event.acf.subtitle"></span></h4>
                     <h6 class="mobile-event-date">{{month}} {{date}} {{start_time}}&ndash;{{end_time}}</h6>
                   </div>
-                  <p v-html="event.acf.text"></p>
+                  <div v-html="event.acf.text"></div>
                   <div v-if="event.related_team_members.data">
-                    <div class="media" v-for="team_member in event.related_team_members.data">
+                    <div class="speaker mt-3" v-for="team_member in event.related_team_members.data">
+                      <div class="media">
                       <img v-if="team_member.headshot" :src="team_member.headshot.sizes.thumbnail" class="round author-img mr-2">
                       <h6 class="align-self-center mb-0">{{ team_member.member.display_name}}</h6>
+                    </div>
+                    </div>
+                  </div>
+                  <div v-if="event.acf.guest_speakers.length > 0">
+                    <div class="speaker media" v-for="speaker in event.acf.guest_speakers">
+                      <!-- <img v-if="team_member.headshot" :src="team_member.headshot.sizes.thumbnail" class="round author-img mr-2"> -->
+                      <h6 class="align-self-center mb-0">{{ speaker.speaker_name }}</h6>
                     </div>
                   </div>
                   <h5 class="mt-3 location-name">
@@ -65,7 +73,7 @@
                       </div>
                     </div>
                     <div class="">
-  
+
                       <a :href="event.acf.registration_url" class="btn btn-primary my-3 event-registration">
                         Register
                       </a>
@@ -76,9 +84,9 @@
                   </aside>
                 </div>
               </div>
-  
+
             </article>
-  
+
             <div v-if="relatedEvents && relatedInsights">
               <h2 class="mb-3 mt-5">Related Events &amp; Insights</h2>
               <div v-if="relatedEvents">
@@ -173,3 +181,8 @@ export default {
   }
 }
 </script>
+<!-- /*<style>
+  .speaker {
+    margin-top: 1rem;
+  }
+</style>*/ -->
