@@ -1,11 +1,24 @@
 <template>
   <div>
-    <div class="jumbotron" id="content">
+    <div class="jumbotron" id="hero-animation">
       <div class="container">
-        <h1 class="display-2">Developing the
-          <span class="color">{{wordString}}</span>
-          <span class="cursor bgChange"></span>
-          <br class="hidden-lg-down" /> of determined nonprofits.</h1>
+  
+        <h1 class="display-2">
+          <span>
+            Developing
+          </span>
+          <span>
+            the
+          </span>
+          <span class="color"> {{wordString}}</span>
+          <div class="cursor-wrapper">
+            <span class="cursor bgChange"></span>
+          </div>
+          <br class="hidden-lg-down" />
+          <span> of</span>
+          <span> determined</span>
+          <span> nonprofits.</span>
+        </h1>
         <router-link class="btn btn-primary" to="/services">See how we do it &rarr;</router-link>
       </div>
     </div>
