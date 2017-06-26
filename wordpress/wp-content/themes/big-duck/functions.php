@@ -645,9 +645,9 @@ class StarterSite extends TimberSite {
 			)
 		);
 		register_rest_field('bd_insight',
-			'author_headshot',
+			'author_headshots',
 				array(
-					'get_callback' => array( $this, 'get_author_headshot' ),
+					'get_callback' => array( $this, 'get_author_headshots' ),
 					'schema' => null
 				)
 		);
@@ -811,18 +811,19 @@ class StarterSite extends TimberSite {
 		return new WP_REST_Response(array( 'events' => $events, 'event_ids' => $event_ids ));
 	}
 
-	function get_author_headshot($object) {
-		$author = get_field('author');
-		if (isset($author['ID'])) {
-			$headshot = get_field('headshot', 'user_' . $author['ID']);
-			return new WP_REST_Response($headshot);
+	function get_author_headshots($object) {
+		$authors = get_field('author');
+		$headshots = array();
+		if (gettype($authors) == 'array') {
+			foreach($authors as $author) {
+				$headshots[$author['ID']] = get_field('headshot', 'user_' . $author['ID']);
+			}
+		} else if (isset($authors['ID'])) {
+			$headshots[$authors['ID']] = get_field('headshot', 'user_' . $authors['ID']);
 		} else {
-			return null;
+			$headshots = null;
 		}
-		// $id = $author['ID'];
-		// $headshot = get_field('headshot', 'user_' . $id);
-		//
-		// return new WP_REST_Response($headshot);
+		return $headshots;
 	}
 
 	function get_event_team_members($object) {
