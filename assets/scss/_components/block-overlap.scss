@@ -1,35 +1,35 @@
-.block-overlap{
+.block-overlap {
   margin-bottom: 2rem;
   min-height: 310px;
 
   margin-left: -($grid-gutter-width-base/2);
   margin-right: -($grid-gutter-width-base/2);
-  @include media-breakpoint-up(sm){
-    margin:0;
+  @include media-breakpoint-up(sm) {
+    margin: 0;
     margin-bottom: 6rem;
   }
 
   a {
     position: relative;
-    @include media-breakpoint-up(sm){
+    @include media-breakpoint-up(sm) {
       display: flex;
     }
   }
 
-  .col-image{
+  .col-image {
     width: 100%;
     height: 150px;
     position: relative;
     background-color: $gray-light;
     transition: all .3s ease;
 
-    @include media-breakpoint-up(sm){
+    @include media-breakpoint-up(sm) {
       width: 60%;
       height: 100%;
       position: absolute;
     }
 
-    &::before{
+    &::before {
       @extend .bgChange;
       content: '';
       position: absolute;
@@ -40,31 +40,30 @@
       z-index: 3;
     }
   }
-  .col-text{
+  .col-text {
     z-index: 4;
     transition: all .3s ease;
-    @include media-breakpoint-up(sm){
+    @include media-breakpoint-up(sm) {
       width: 60%;
       position: relative;
     }
-    @include media-breakpoint-up(md){
+    @include media-breakpoint-up(md) {
       min-height: 310px;
     }
   }
 
-  &.even-block{
-    .col-image{
-      @include media-breakpoint-up(sm){
+  &.even-block {
+    .col-image {
+      @include media-breakpoint-up(sm) {
         order: 2;
         right: 0;
         top: 2.5rem;
       }
-
     }
   }
-  &.odd-block{
-    .col-text{
-      @include media-breakpoint-up(sm){
+  &.odd-block {
+    .col-text {
+      @include media-breakpoint-up(sm) {
         margin-left: auto;
         position: relative;
         top: 2.5rem;
@@ -72,31 +71,31 @@
     }
   }
 
-  &.first-block{
-    @include media-breakpoint-up(sm){
+  &.first-block {
+    @include media-breakpoint-up(sm) {
       margin-bottom: 4rem;
     }
-    a{
+    a {
       align-items: center;
     }
-    .card-title{
+    .card-title {
       font-size: 2.25rem;
     }
-    .col-image{
+    .col-image {
       height: 250px;
-      @include media-breakpoint-up(sm){
+      @include media-breakpoint-up(sm) {
         position: relative;
         flex-basis: 75%;
         width: 40%;
         height: 21rem;
         margin-bottom: 0;
       }
-      @media (min-width:1900px){
+      @media (min-width: 1900px) {
         height: 24rem;
       }
     }
-    .col-text{
-      @include media-breakpoint-up(sm){
+    .col-text {
+      @include media-breakpoint-up(sm) {
         position: absolute;
         width: 60%;
         right: 0;
@@ -107,7 +106,7 @@
     }
   }
 
-  .featured-image{
+  .featured-image {
     height: 100%;
     background-size: cover;
     background-position: 50% 50%;
@@ -116,35 +115,34 @@
     filter: grayscale(0%);
   }
 
-  .card{
+  .card {
     height: 100%;
     justify-content: center;
   }
 
-  .card-title{
+  .card-title {
     margin-bottom: .25rem;
   }
-  .badge-group{
+  .badge-group {
     padding-bottom: 1rem;
-    display: flex;
   }
-  .card-block{
+  .card-block {
     flex: initial;
   }
-  .card-footer{
+  .card-footer {
     padding: 0;
     padding-top: 1rem;
     position: relative;
   }
 
-  .chat-bubble{
+  .chat-bubble {
     position: absolute;
     bottom: 1.5rem;
     transform: translateX(-100%);
     left: .8rem;
     opacity: 0;
     transition: all .3s ease;
-    span{
+    span {
       @extend .h6;
       color: $white;
       margin-bottom: 0;
@@ -152,51 +150,50 @@
       display: block;
       transform: translateY(-.1rem);
     }
-    &::before{
+    &::before {
       right: .75rem;
       left: auto;
       border-width: 0 .75rem .75rem 0;
       border-color: transparent $inverse-bg transparent transparent;
     }
   }
-  a:hover{
-    .featured-image{
+  a:hover {
+    .featured-image {
       filter: grayscale(90%);
     }
-    .col-image::before{
+    .col-image::before {
       opacity: 0.85;
     }
-    .col-image{
+    .col-image {
       transform: translateY(.5rem);
     }
-    .col-text{
+    .col-text {
       transform: translateY(-.5rem);
     }
-    .chat-bubble{
+    .chat-bubble {
       opacity: 1;
       bottom: 1.7rem;
     }
   }
 }
 
-
-.card-block p, .card-block .card-text{
+.card-block p, .card-block .card-text {
   margin-bottom: 0;
   font-size: .9rem;
 }
 
-.block-overlap.block-event{
-  .card{
+.block-overlap.block-event {
+  .card {
     flex-direction: row;
   }
-  .card-block{
+  .card-block {
     align-self: center;
   }
-  .event-date{
+  .event-date {
     margin: 1.5rem;
   }
-  a:hover{
-    .event-date{
+  a:hover {
+    .event-date {
       @extend .bgChange;
     }
   }
