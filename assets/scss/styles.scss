@@ -265,3 +265,10 @@ label, .label, .figure-caption, .social-handle a {
 .bg-white {
   background: $white;
 }
+
+.author-no-img {
+  height: 45px;
+  span {
+    align-self: center;
+  }
+}

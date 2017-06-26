@@ -26,7 +26,7 @@
               <div v-for="(event, index) in events" :key="index">
                     <Event :entry="event" :firstBlock="true" :categories="categories" :index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
                     <transition name="list" appear>
-                      <Subscribe v-if="callouts[0] && index % 5 == 1 && index < events.length - 1" :entry="callouts[0]"></Subscribe>
+                      <Subscribe v-if="callouts && callouts[0] && index % 5 == 1 && index < events.length - 1" :entry="callouts[0]"></Subscribe>
                     </transition>
                 </div>
               </transition-group>
@@ -94,7 +94,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['categories', 'eventCategories', 'topics']),
+    ...mapState(['categories', 'eventCategories', 'topics', 'callouts']),
     ...mapGetters(['getTopicsIndexedById', 'getEventCategoriesIndexedById', 'hostname']),
     selectedCategory() {
       return this.$route.query.event_category
@@ -111,7 +111,6 @@ export default {
   },
   methods: {
     toggleTaxonomy(event) {
-      debugger
       // make a copy of the curren tquery string
       let query = Object.assign({}, this.$route.query)
 
