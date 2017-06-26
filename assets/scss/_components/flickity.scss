@@ -1,25 +1,25 @@
-.cs-block-gallery{
+.cs-block-gallery {
   margin: 2rem 0;
-  *{
+  * {
     outline: none;
   }
-  .container{
+  .container {
     padding: 0;
   }
 }
-.carousel{
+.carousel {
   position: relative;
-  margin-right: -1000px;
+  margin-right: -10000px;
 }
 
-.flickity-viewport{
+.flickity-viewport {
   width: 100%;
   height: 300px;
 
   //padding-bottom: 61%;
   overflow: visible;
   margin-bottom: 180px; //to accommodate the next/prev buttons
-  @include media-breakpoint-up(lg){
+  @include media-breakpoint-up(lg) {
     //padding-bottom: 46%;
   }
 }
@@ -31,11 +31,11 @@
 
   //padding-bottom: 61%;
   margin-right: 1.5rem;
-  @include media-breakpoint-up(lg){
+  @include media-breakpoint-up(lg) {
     //width: 75%;
     //padding-bottom: 46%;
   }
-  cursor:zoom-in;
+  cursor: zoom-in;
   img {
     max-width: 100%;
     height: 300px;
@@ -46,18 +46,19 @@
   }
 }
 
-.figure-caption{
+.figure-caption {
   padding-top: .5rem;
+  width: min-content;
+  min-width: 100%;
 }
 
-
-.flickity-prev-next-button{
+.flickity-prev-next-button {
   top: inherit;
   bottom: -100px;
   border-radius: 0;
   background-color: $gray-darker;
   opacity: 1;
-  outline:none;
+  outline: none;
   transform: none;
   &.previous {
     left: 0;
@@ -73,30 +74,28 @@
   &:hover {
     @extend .bgChange;
   }
-  &:disabled{
+  &:disabled {
     opacity: .05;
   }
-
 }
 
-.slide-counter{
+.slide-counter {
   position: absolute;
   bottom: 10px;
   right: 10px;
   opacity: .7;
 }
 
-
-.is-expanded{
-  .flickity-viewport{
+.is-expanded {
+  .flickity-viewport {
     height: 600px;
 
-    @include media-breakpoint-up(lg){
+    @include media-breakpoint-up(lg) {
       // padding-bottom: 73%;
     }
   }
-  .carousel-cell{
-    @include media-breakpoint-up(lg){
+  .carousel-cell {
+    @include media-breakpoint-up(lg) {
       cursor: zoom-out;
       // width: 120%;
       // padding-bottom: 73%;
@@ -105,7 +104,6 @@
 
     img {
       height: 600px;
-
     }
   }
 }
