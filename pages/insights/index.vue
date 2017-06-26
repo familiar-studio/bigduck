@@ -11,15 +11,17 @@
       <div class="col-xl-8 col-lg-9">
         <div class="container" id="content" v-if="insights && insights.length > 0">
           <h1>Insights</h1>
-          <ListTransition :previous="previouslyLoadedInsights" :current="insights.length">
+          <!-- <ListTransition :previous="previouslyLoadedInsights" :current="insights.length"> -->
+          <transition-group name="fade" appear>
             <div v-for="(insight, index) in insights" :key="insight" :data-index="index">
               <Post :entry="insight" :firstBlock="true" :index="index"></Post>
               <transition name="list" appear>
                 <InlineCallout class="mb-5" v-if="index % 5 == 1 && index < insights.length - 1"></InlineCallout>
               </transition>
             </div>
-          </ListTransition>
-          <div class="pager" v-if="insights && insights.length < totalRecords">
+          </transition-group>
+          <!-- </ListTransition> -->
+          <div class="pager" v-if="insights.length < totalRecords">
             <a class="btn btn-primary my-4" href="#" @click.prevent="nextPage">Load more</a>
           </div>
         </div>
@@ -30,7 +32,7 @@
           <div v-if="selectedType">Type {{getTypesIndexedById[selectedType].name}}</div>
         </div>
       </div>
-  
+
       <div class="col-lg-2">
         <Chat></Chat>
       </div>

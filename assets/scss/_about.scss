@@ -27,11 +27,12 @@
 }
 
 .subnav {
-  //z-index: 10;
+  z-index: 10;
 }
 
 .active h2 {
-  // @extend .underlineChange;
+  @extend .underlineChange;
+  transition: background-size .3s ease;
 }
 
 #jobs .active {
@@ -41,12 +42,39 @@
   }
 }
 
+#clients h2 {
+  display: inline;
+}
+
+#clients .list {
+  transition: max-height 0.5s ease;
+  max-height: 0;
+  ul {
+    display: none;
+  }
+}
+
+#clients div.active {
+  span svg {
+    @extend .fillChange;
+  }
+  a {
+    @extend .fillChange;
+  }
+  .list {
+    // display: block;
+    max-height: 1000px;
+    ul {
+      display: block;
+    }
+  }
+}
 span.active svg {
   @extend .fillChange;
 }
-// a.active {
-//   @extend .underlineChange;
-// }
+a.active, span.active a {
+  @extend .underlineChange;
+}
 
 .team-member {
   display: block;
@@ -100,4 +128,8 @@ span.active svg {
       width: 70%;
     }
   }
+}
+
+.about .subnav a.nav-link.active {
+  background-size: 0% 0%;
 }

@@ -21,15 +21,16 @@
               </h4>
             </div>
             <div v-if="events.length > 0">
-              <ListTransition :previous="previouslyLoadedEvents" :current="events.length">
-                <div v-for="(event, index) in events" :key="index">
-                  <Event :entry="event" :firstBlock="true" :categories="categories" :index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
-                  <transition name="list" appear>
-                    <InlineCallout v-if="index % 5 == 1 && index < events.length - 1">
-                    </InlineCallout>
-                  </transition>
+              <!-- <ListTransition :previous="previouslyLoadedEvents" :current="events.length"> -->
+              <transition-group name="fade" appear>
+              <div v-for="(event, index) in events" :key="index">
+                    <Event :entry="event" :firstBlock="true" :categories="categories" :index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
+                    <transition name="list" appear>
+                      <Subscribe v-if="callouts[0] && index % 5 == 1 && index < events.length - 1" :entry="callouts[0]"></Subscribe>
+                    </transition>
                 </div>
-              </ListTransition>
+              </transition-group>
+              <!-- </ListTransition> -->
               <div class="pager" v-if="events.length < totalRecords">
                 <a class="btn btn-primary my-4" href="#" @click.prevent="nextPage">Load more</a>
               </div>
