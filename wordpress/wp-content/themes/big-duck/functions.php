@@ -68,21 +68,15 @@ function bd_cpt_search( $query ) {
 }
 
 register_sidebar( array(
-	'id' => 'footer',
-	'name' => __( 'Footer', $text_domain ),
-	'description' => __( 'This is the footer Smart CTA' ),
-));
-
-register_sidebar( array(
 	'id' => 'chat',
-	'name' => __( 'Chat', $text_domain ),
-	'description' => __( 'This is the chat Smart CTA'),
+	'name' => __( 'Chat & Footer', $text_domain ),
+	'description' => __( 'This is the chat and footer Smart CTA' ),
 ));
 
 register_sidebar( array(
-	'id' => 'insights',
-	'name' => __( 'Insights', $text_domain ),
-	'description' => __( 'This is the Smart CTA for Insights' ),
+	'id' => 'inline',
+	'name' => __( 'Inline', $text_domain ),
+	'description' => __( 'This is the Smart CTA for Inline CTAs' ),
 ));
 
 add_filter( 'acf/fields/wysiwyg/toolbars' , 'my_toolbars'  );

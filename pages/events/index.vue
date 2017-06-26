@@ -23,11 +23,11 @@
             <div v-if="events.length > 0">
               <!-- <ListTransition :previous="previouslyLoadedEvents" :current="events.length"> -->
               <transition-group name="fade" appear>
-              <div v-for="(event, index) in events" :key="index">
-                    <Event :entry="event" :firstBlock="true" :categories="categories" :index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
-                    <transition name="list" appear>
-                      <Subscribe v-if="callouts && callouts[0] && index % 5 == 1 && index < events.length - 1" :entry="callouts[0]"></Subscribe>
-                    </transition>
+                <div v-for="(event, index) in events" :key="index">
+                  <Event :entry="event" :firstBlock="true" :categories="categories" :index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
+                  <transition name="list" appear>
+                    <Subscribe v-if="callouts && callouts[0] && index % 5 == 1 && index < events.length - 1" :entry="callouts[0]"></Subscribe>
+                  </transition>
                 </div>
               </transition-group>
               <!-- </ListTransition> -->
@@ -105,9 +105,6 @@ export default {
   },
   watch: {
     '$route.query': 'filterResults'
-  },
-  async created() {
-    this.$store.dispatch('fetchPageCallouts', 'events')
   },
   methods: {
     toggleTaxonomy(event) {

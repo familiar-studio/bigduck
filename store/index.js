@@ -21,7 +21,8 @@ export const state = () => ({
   page: 1,
   footer: null,
   query: {},
-  callout: null
+  callout: {},
+  form: null
 });
 
 export const mutations = {
@@ -70,7 +71,27 @@ export const mutations = {
     state.events = data;
   },
   setActiveCallout(state, data) {
-    state.callout = data;
+    var parser = new DOMParser();
+    var doc = parser.parseFromString(data.html, "text/html");
+
+    var callout = {};
+    var forms = doc.getElementsByTagName("form");
+    var titles = doc.getElementsByClassName("gform_title");
+    var descriptions = doc.getElementsByClassName("gform_description");
+
+    if (forms.length > 0) {
+      var form = forms[0];
+      callout.formId = form.id.split("_")[1];
+    }
+
+    if (titles.length > 0) {
+      callout.title = titles[0].innerHTML;
+    }
+    if (descriptions.length > 0) {
+      callout.description = descriptions[0].innerHTML;
+    }
+
+    state.callout[data.slug] = callout;
   }
 };
 
@@ -170,10 +191,10 @@ export const actions = {
     return response.data;
   },
   async fetchPageCallouts({ rootGetters, commit }, slug) {
-    let response = await axios.get(rootGetters.hostname + "wp/v2/pages", {
-      params: { slug }
-    });
-    commit("setActiveCallout", response.data[0].acf);
+    let response = await axios.get(
+      rootGetters.hostname + "familiar/v1/sidebars/" + slug
+    );
+    commit("setActiveCallout", { slug: slug, html: response.data.rendered });
   }
 };
 
@@ -198,9 +219,6 @@ export const getters = {
     // return state.bareLocalHostname;
     return state.bareRemoteHostname;
     //return state.bareLocalHostname;
-  },
-  callouts: state => {
-    return state.callouts;
   },
   previousQuery: state => {
     return state.previousQuery;

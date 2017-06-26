@@ -122,12 +122,12 @@
         <div class="row">
           <div class="col-lg-8 offset-lg-2">
             <div class="footer-content">
-              <h2>{{ callout.chat_headline }}</h2>
+              <h2>{{ callout.chat.title }}</h2>
               <p>
-                {{ callout.chat_body }}
+                {{ callout.chat.description }}
               </p>
   
-              <GravityForm :formId="formId"></GravityForm>
+              <GravityForm :formId="callout.chat.formId"></GravityForm>
   
             </div>
           </div>
@@ -173,12 +173,6 @@ export default {
   },
   computed: {
     ...mapState(['callout']),
-    formId() {
-      if (this.callout.footer_form) {
-        return this.callout.footer_form
-      }
-      return 4
-    },
     page() {
       if (this.$route.name === 'index') {
         return 'homepage'
@@ -187,12 +181,6 @@ export default {
       } else {
         return ''
       }
-    },
-    showChat() {
-      if (this.page === 'contact' || this.page === 'work' || this.page === 'work-slug') {
-        return false
-      }
-      return true
     },
     showFooter() {
       if (this.page === 'work-slug' || this.page === 'contact' || this.page === 'services-slug' || this.page === 'events-speaking') {
@@ -243,6 +231,9 @@ export default {
     if (process.BROWSER_BUILD) {
       setInterval(this.changeColor, 5000)
       window.addEventListener('scroll', this.handleScroll)
+
+      this.$store.dispatch('fetchPageCallouts', 'chat')
+
     }
   }
 }

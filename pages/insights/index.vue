@@ -32,7 +32,7 @@
           <div v-if="selectedType">Type {{getTypesIndexedById[selectedType].name}}</div>
         </div>
       </div>
-
+  
       <div class="col-lg-2">
         <Chat></Chat>
       </div>
@@ -83,9 +83,6 @@ export default {
         { 'og:image': '' }
       ]
     }
-  },
-  created() {
-    this.$store.dispatch('fetchPageCallouts', 'insights')
   },
   components: {
     FilterList,

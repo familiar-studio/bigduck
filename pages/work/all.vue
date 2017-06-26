@@ -61,9 +61,6 @@ export default {
   watch: {
     '$route.query': 'filterResults'
   },
-  created() {
-    this.$store.dispatch('fetchPageCallouts', 'work')
-  },
   async asyncData({ store, query }) {
     try {
       store.commit('resetPage')

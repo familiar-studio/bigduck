@@ -75,9 +75,6 @@ export default {
     data['services'] = services.data.reverse()
     return data
   },
-  created() {
-    this.$store.dispatch('fetchPageCallouts', 'services')
-  },
   components: { Service, InlineCallout, Chat }
 }
 </script>
