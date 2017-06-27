@@ -34,19 +34,15 @@
                     <h6 class="mobile-event-date">{{month}} {{date}} {{start_time}}&ndash;{{end_time}}</h6>
                   </div>
                   <div v-html="event.acf.text"></div>
-                  <div v-if="event.related_team_members.data || event.acf.guest_speakers.length > 0" class="row">
-                    <div class="col-md-6 speaker mt-3" v-if="event.related_team_members.data" v-for="team_member in event.related_team_members.data">
-                      <div class="media">
-                        <img v-if="team_member.headshot" :src="team_member.headshot.sizes.thumbnail" class="round author-img mr-2">
-                        <h6 class="align-self-center mb-0">{{ team_member.member.display_name}}</h6>
-                      </div>
-                  </div>
-                  <div v-if="event.acf.guest_speakers.length > 0" class="col-md-6 mt-2">
-                    <div class="speaker media" v-for="speaker in event.acf.guest_speakers">
+                  <div v-if="event.related_team_members.data || event.acf.guest_speakers.length > 0" class="author-listing">
+                    <div class="media speaker mt-3" v-if="event.related_team_members.data" v-for="team_member in event.related_team_members.data">
+                      <img v-if="team_member.headshot" :src="team_member.headshot.sizes.thumbnail" class="round author-img mr-2">
+                      <h6 class="align-self-center mb-0">{{ team_member.member.display_name}}</h6>
+                    </div>
+                    <div class="speaker media mt-3" v-for="speaker in event.acf.guest_speakers" v-if="event.acf.guest_speakers.length > 0" >
                       <!-- <img v-if="team_member.headshot" :src="team_member.headshot.sizes.thumbnail" class="round author-img mr-2"> -->
                       <h6 class="align-self-center mb-0">{{ speaker.speaker_name }}</h6>
                     </div>
-                  </div>
                 </div>
                   <h5 class="mt-3 location-name">
                     <span v-if="event.acf.external_location">

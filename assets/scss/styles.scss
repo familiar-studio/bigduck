@@ -281,3 +281,14 @@ label, .label, .figure-caption, .social-handle a {
     align-self: center;
   }
 }
+
+.author-listing {
+  display: flex;
+  flex-wrap: wrap;
+  div {
+    margin-right: 1rem;
+  }
+  // div {
+  //   display: inline-block;
+  // }
+}

@@ -38,19 +38,18 @@
               <h1>
                 <span v-html="insight.title.rendered"></span>
               </h1>
-              <div class="row" v-if="insight.acf.author.length > 0">
-                <div class="col-md-4" v-if="insight.author_headshots" v-for="author in insight.acf.author">
-                  <div class="badge badge-default mb-3">
+              <div class="author-listing" v-if="insight.acf.author.length > 0">
+                  <div class="badge badge-default mb-3" v-if="insight.author_headshots" v-for="author in insight.acf.author">
                     <img v-if="insight.author_headshots[author.user_nicename].sizes" :src="insight.author_headshots[author.user_nicename].sizes.thumbnail" class="round author-img mr-2">
                     <div><nuxt-link :to="'/about/' + author.user_nicename">{{author.display_name}}</nuxt-link></div>
                   </div>
-                </div>
-                <div v-if="insight.acf.guest_author_name" class="col-md-4">
-                  <div class="badge badge-default mb-3 author-no-img">
+
+                <div>
+                  <div v-if="insight.acf.guest_author_name" class="badge badge-default mb-3 author-no-img">
                     <span v-html="insight.acf.guest_author_name"></span>
                   </div>
-                </div>
               </div>
+            </div>
               <div v-if="!insight.acf.guest_author_name && insight.acf.author.length < 1" class="badge badge-default mb-3 author-no-img">
                 <span>Big Duck</span>
               </div>
