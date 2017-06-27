@@ -10,17 +10,19 @@ export default ({ app: { router }, store }) => {
       /*
       ** Send the pageview
       */
+      var externalID;
       // if (ActOn && Acton.Beacon) {
       //   ActOn.Beacon.track();
+      //
+      // if (typeof ActOn.Beacon.cookie !== "undefined") {
+      //   externalID = ActOn.Beacon.cookie["4852"];
+      // }
       // }
 
       var sessionId = jscookie.get("nfsession") || 0;
       var pageLink = window.location.href;
       var pageTitle = document.title ? document.title : pageLink;
-      var externalID;
-      if (typeof ActOn.Beacon.cookie !== "undefined") {
-        externalID = ActOn.Beacon.cookie["4852"];
-      }
+
       var params = {
         token: "da4596d42db619720f1d573329bd7c01de4e7f61",
         sessionid: sessionId,
