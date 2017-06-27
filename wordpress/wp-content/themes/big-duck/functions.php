@@ -627,29 +627,32 @@ class StarterSite extends TimberSite {
 			$fields = get_fields($rawEvent->ID);
 			if(strtotime($fields['start_time']) > strtotime('now')){
 				$team = $fields['related_team_members'];
-				foreach($team as $member) {
-					// $events[] = $member['user_nicename'];
-					// $events[] = $data->get_params('id')['id'];
-					if ($member['user_nicename'] == $data->get_params('id')['id']){
-						// $team_meta = $team;
-						foreach($team as $member_data) {
-							// $team_meta[] = $included_member['ID'];
-							$included_member = get_fields('user_' . $member_data['ID']);
-							$included_member['display_name'] = $member_data['display_name'];
-							$team_meta[] = $included_member;
+				if (is_array($team)){
+
+					foreach($team as $member) {
+						// $events[] = $member['user_nicename'];
+						// $events[] = $data->get_params('id')['id'];
+						if ($member['user_nicename'] == $data->get_params('id')['id']){
+							// $team_meta = $team;
+							foreach($team as $member_data) {
+								// $team_meta[] = $included_member['ID'];
+								$included_member = get_fields('user_' . $member_data['ID']);
+								$included_member['display_name'] = $member_data['display_name'];
+								$team_meta[] = $included_member;
 
 
+							}
+							// $team_members_meta = get_fields($member->ID);
+							$event = get_post($rawEvent->ID);
+							$topics = wp_get_post_terms($rawEvent->ID, 'topic');
+							$eventCategories = wp_get_post_terms($rawEvent->ID, 'event_category');
+							$event->acf = $fields;
+							$event->slug = $event->post_name;
+							$event->topic = $topics;
+							$event->event_category = $eventCategories;
+							$events[] = array('data' => $event, 'team_meta' => $team_meta);
+							continue;
 						}
-						// $team_members_meta = get_fields($member->ID);
-						$event = get_post($rawEvent->ID);
-						$topics = wp_get_post_terms($rawEvent->ID, 'topic');
-						$eventCategories = wp_get_post_terms($rawEvent->ID, 'event_category');
-						$event->acf = $fields;
-						$event->slug = $event->post_name;
-						$event->topic = $topics;
-						$event->event_category = $eventCategories;
-						$events[] = array('data' => $event, 'team_meta' => $team_meta);
-						continue;
 					}
 				}
 			}
