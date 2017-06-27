@@ -623,7 +623,9 @@ class StarterSite extends TimberSite {
 						}
 						// $team_members_meta = get_fields($member->ID);
 						$event = get_post($rawEvent->ID);
-						$events[] = array('data' => $fields, 'slug' => $event->post_name, 'team_meta' => $team_meta);
+						$event->acf = $fields;
+						$event->slug = $event->post_name;
+						$events[] = array('data' => $event, 'team_meta' => $team_meta);
 						continue;
 					}
 				}
