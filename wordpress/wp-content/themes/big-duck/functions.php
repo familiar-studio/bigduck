@@ -627,7 +627,7 @@ class StarterSite extends TimberSite {
 						}
 						// $team_members_meta = get_fields($member->ID);
 						$event = get_post($rawEvent->ID);
-						$topics = wp_get_post_terms($rawEvent->ID, 'topic')->term_id;
+						$topics = wp_get_post_terms($rawEvent->ID, 'topic');
 						$eventCategories = wp_get_post_terms($rawEvent->ID, 'event_category');
 						$event->acf = $fields;
 						$event->slug = $event->post_name;
