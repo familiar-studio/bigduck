@@ -617,13 +617,18 @@ class StarterSite extends TimberSite {
 					// $events[] = $data->get_params('id')['id'];
 					if ($member['user_nicename'] == $data->get_params('id')['id']){
 						// $team_meta = $team;
-						foreach($team as $included_member) {
+						foreach($team as $member_data) {
 							// $team_meta[] = $included_member['ID'];
 							$team_meta[] = get_fields('user_' . $included_member['ID']);
+							$user = get_user($included_member['ID']);
+							$included_member = get_fields('user_' . $included_member['ID']);
+							$included_member->display_name = $user->display_name;
+
+
 						}
 						// $team_members_meta = get_fields($member->ID);
 						$event = get_post($rawEvent->ID);
-						$topics = wp_get_post_terms($rawEvent->ID, 'topic');
+						$topics = wp_get_post_terms($rawEvent->ID, 'topic')->term_id;
 						$eventCategories = wp_get_post_terms($rawEvent->ID, 'event_category');
 						$event->acf = $fields;
 						$event->slug = $event->post_name;
