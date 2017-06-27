@@ -201,9 +201,11 @@ export default {
     },
     authorsById () {
       let authors = {};
-      this.insight.acf.author.forEach((author) => {
-        authors[author.ID] = author
-      })
+      if (this.insight) {
+        this.insight.acf.author.forEach((author) => {
+          authors[author.ID] = author
+        })
+      }
       return authors
     },
     authorMetaById () {
