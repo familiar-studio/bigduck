@@ -19,8 +19,14 @@ function bd_pre_get_posts( $query ) {
 
 	if ( isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == 'bd_event' ) {
 		$query->set('orderby', 'meta_value');
-		$query->set('meta_key', 'start_date');
-		$query->set('order', 'DESC');
+		$query->set('meta_key', 'start_time');
+		$query->set('order', 'ASC');
+		$query->set('meta_query', array(
+			'key' => 'start_time',
+			'value' => strtotime('now'),
+			'compare' => '>=',
+			'type' => 'DATE'
+		));
 	}
 
 	return $query;
