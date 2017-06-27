@@ -6,7 +6,7 @@
     <div class="container overlap" id="content">
       <article class="main">
         <div class="badge badge-default">
-          <nuxt-link :to="{name: 'about'}">Team</nuxt-link>
+          <nuxt-link to="/about#team">Team</nuxt-link>
         </div>
         <div class="row">
           <div class="col-md-9">
