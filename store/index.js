@@ -220,7 +220,7 @@ export const getters = {
     // if ((window.location.hostname.indexOf('localhost') > -1 || window.location.hostname.indexOf('.dev') > -1)) {
     //   return state.bareLocalHostname
     // } else {
-    //   return state.bareRemoteHostname
+      // return state.bareRemoteHostname
     // }
 
     // return state.bareLocalHostname;
