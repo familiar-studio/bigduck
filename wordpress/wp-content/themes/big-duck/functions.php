@@ -12,7 +12,28 @@ if ( ! class_exists( 'Timber' ) ) {
 	return;
 }
 
+function bd_pre_get_posts( $query ) {
+	// if( is_admin() ) {
+	// 	return $query;
+	// }
+	if ( isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == 'bd_event' ) {
+		$today = date('Y-m-d H:i:s');
+		$query->set('orderby', 'meta_value');
+		$query->set('meta_key', 'start_time');
+		$query->set('order', 'DESC');
+		$query->set('meta_query', array(
+			array(
+				'key' => 'start_time',
+				'value' => $today,
+				'compare' => '>'
+			)
+		));
+	}
 
+	return $query;
+}
+
+add_filter('pre_get_posts', 'bd_pre_get_posts');
 
 function bd_search_join( $join ) {
 	global $wpdb;
@@ -558,15 +579,38 @@ class StarterSite extends TimberSite {
 
 	function insights_by_user($data) {
 		$rawInsights = get_posts(array(
-			'post_type' => 'bd_insight',
+			'post_type' => 'bd_insight'
+			// 'fields' => 'all_with_meta'
 		));
 		$insights = array();
 		foreach($rawInsights as $rawInsight){
 			$fields = get_fields($rawInsight->ID);
-			$insightUser = $data->get_params('slug')['slug'];
+			$insightUser = $data->get_params('id')['id'];
 			// $insights[] = $fields['author']['ID'];
-			if(isset($fields['author']) && $fields['author']['ID'] == intval($insightUser)) {
-				$insights[] = $fields;
+			if(isset($fields['author'])) {
+				foreach($fields['author'] as $a){
+					// $authors_meta = array('ID' => $a['user_nicename'], 'user' => $insightUser);
+					if ($a['user_nicename'] == $insightUser){
+						$authors_meta = array();
+						// $authors_meta[] = 'found';
+						// $authors_meta[] = $fields['author'];
+						foreach($fields['author'] as $a2){
+							$author_meta = get_fields('user_' . $a2['ID']);
+							$author_data = $a2;
+							$author_data['meta'] = $author_meta;
+							$authors_meta[] = $author_data;
+						}
+						$insight_data = $rawInsight;
+						$insight_data->acf = $fields;
+						$insight_data->authors = $authors_meta;
+						$insight_data->type = wp_get_post_terms($rawInsight->ID, 'type');
+						$insight_data->topic = wp_get_post_terms($rawInsight->ID, 'topic');
+						$insight_data->title = get_the_title($rawInsight->ID);
+						$insights[] = $insight_data;
+						continue;
+					}
+				}
+				// $insights[] = $;
 			}
 		}
 		return new WP_REST_Response($insights);
@@ -582,8 +626,27 @@ class StarterSite extends TimberSite {
 			if(strtotime($fields['start_time']) > strtotime('now')){
 				$team = $fields['related_team_members'];
 				foreach($team as $member) {
-					if ($member['ID'] == $data->get_params('id')['id']){
-						$events[] = $fields;
+					// $events[] = $member['user_nicename'];
+					// $events[] = $data->get_params('id')['id'];
+					if ($member['user_nicename'] == $data->get_params('id')['id']){
+						// $team_meta = $team;
+						foreach($team as $member_data) {
+							// $team_meta[] = $included_member['ID'];
+							$included_member = get_fields('user_' . $member_data['ID']);
+							$included_member['display_name'] = $member_data['display_name'];
+							$team_meta[] = $included_member;
+
+
+						}
+						// $team_members_meta = get_fields($member->ID);
+						$event = get_post($rawEvent->ID);
+						$topics = wp_get_post_terms($rawEvent->ID, 'topic');
+						$eventCategories = wp_get_post_terms($rawEvent->ID, 'event_category');
+						$event->acf = $fields;
+						$event->slug = $event->post_name;
+						$event->topic = $topics;
+						$event->event_category = $eventCategories;
+						$events[] = array('data' => $event, 'team_meta' => $team_meta);
 						continue;
 					}
 				}
@@ -736,17 +799,20 @@ class StarterSite extends TimberSite {
 	}
 
 	function insight_reading_time($object) {
+
 		$body = get_field('body');
-		$content = '';
-		if (!is_null($body) && $body){
-			foreach($body as $block) {
-				$content .= $block['text'];
+		if ($body) {
+			$content = '';
+			if (!is_null($body) && $body){
+				foreach($body as $block) {
+					$content .= $block['text'];
+				}
 			}
+			$wordCount = str_word_count(strip_tags($content));
+			$minutes = floor($wordCount / 200);
+			$minutes = $minutes . ' min';
+			return new WP_REST_Response($minutes);
 		}
-		$wordCount = str_word_count(strip_tags($content));
-		$minutes = floor($wordCount / 200);
-		$minutes = $minutes . ' min';
-		return new WP_REST_Response($minutes);
 	}
 
 	function get_event_category_icon($object) {
@@ -828,10 +894,10 @@ class StarterSite extends TimberSite {
 		$headshots = array();
 		if (gettype($authors) == 'array') {
 			foreach($authors as $author) {
-				$headshots[$author['ID']] = get_field('headshot', 'user_' . $author['ID']);
+				$headshots[$author['user_nicename']] = get_field('headshot', 'user_' . $author['ID']);
 			}
-		} else if (isset($authors['ID'])) {
-			$headshots[$authors['ID']] = get_field('headshot', 'user_' . $authors['ID']);
+		} else if (isset($authors['user_nicename'])) {
+			$headshots[$authors['user_nicename']] = get_field('headshot', 'user_' . $authors['ID']);
 		} else {
 			$headshots = null;
 		}
@@ -841,15 +907,15 @@ class StarterSite extends TimberSite {
 	function get_event_team_members($object) {
 		$rawMembers = get_field('related_team_members');
 		$members = array();
-		foreach($rawMembers as $member){
-			$members[] = array(
-				'headshot' => get_field('headshot', 'user_' . $member['ID']),
-				'member' => $member
-			);
-			// $member['headshot'] = get_field('headshot', 'user_' . $id);
+		if (is_array($rawMembers)){
+			foreach($rawMembers as $member){
+				$members[] = array(
+					'headshot' => get_field('headshot', 'user_' . $member['ID']),
+					'member' => $member
+				);
+			}
 		}
 		return new WP_REST_Response($members);
-		return new WP_REST_Response(get_fields('bd_event_' . $object['id']));
 	}
 
 	function get_post_event_for_api($object) {

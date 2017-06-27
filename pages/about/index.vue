@@ -50,7 +50,7 @@
                 <div v-html="page.acf.we_believe_body"></div>
                 <h1>{{ page.our_clients_headline }}</h1>
               </article>
-  
+
               <article class="values bgChange break-container mt-5">
                 <div>
                   <h1 id="values">{{ page.acf.values_headline }}</h1>
@@ -68,15 +68,15 @@
                   </ul>
                 </div>
               </article>
-  
+
               <article v-if="openHouse" class="openHouse">
                 <h1 class="mt-5" id="open-house">Open House</h1>
                 <div v-html="page.acf.open_house_body"></div>
                 <div class="" v-for="(event, index) in openHouse">
-                  <Event :entry="event" :index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
+                  <!-- <Event :entry="event" :index="index" :relatedTeamMembers="event.related_team_members.data"></Event> -->
                 </div>
               </article>
-  
+
               <article class="pb-5" v-if="sectorsByIndex" id="clients">
                 <h1 id="our-clients" v-html="page.acf.our_clients_headline"></h1>
                 <div v-html="page.acf.clients_body"></div>
@@ -106,16 +106,16 @@
                   </div>
                 </div>
               </article>
-  
+
               <article class="break-container bg-white team pt-5 pb-5">
                 <h1 id="team">{{page.acf.team_headline}}</h1>
                 <div v-html="page.acf.team_body" class="mb-5"></div>
-  
+
                 <div class="row">
                   <div v-for="member in page.acf.team" class="col-md-4 mb-4">
                     <nuxt-link :key="member.id" :to=" {name: 'about-slug', params: {slug: member.team_member.user_nicename}}" class="team-member">
                       <div class="col-image">
-  
+
                         <div :style="{ 'background-image': 'url(' + teamMemberBySlug(member.team_member.user_nicename).headshot.url + ')' }" class="featured-image"></div>
                       </div>
                       <div>
@@ -126,7 +126,7 @@
                   </div>
                 </div>
               </article>
-  
+
               <article id="jobs" class="pt-5 pb-5">
                 <h1>{{ page.acf.jobs_headline }}</h1>
                 <div v-html="page.acf.jobs_body" class="mb-5"></div>

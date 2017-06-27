@@ -11,16 +11,16 @@
             <div class="card-block">
               <div class="badge-group" v-if="topics && eventCategories">
                 <div class="badge badge-default" v-if="topics && entry['topic'].length > 0" v-for="topic in entry.topic">
-                  <div v-html="getTopicsIndexedById[entry['topic'][0]].icon"></div>
-                  <div v-html="getTopicsIndexedById[entry['topic'][0]].name"></div>
+                  <div v-if="entry['topic'][0]['term_id']" v-html="getTopicsIndexedById[entry['topic'][0]['term_id']].icon"></div><div v-else v-html="getTopicsIndexedById[entry['topic'][0]].icon"></div>
+                  <div v-if="entry['topic'][0]['term_id']" v-html="getTopicsIndexedById[entry['topic'][0]['term_id']].name"></div><div v-else v-html="getTopicsIndexedById[entry['topic'][0]].name"></div>
                 </div>
                 <div class="badge badge-default badge-type" v-if="eventCategories && entry['event_category'].length > 0">
-                  <div v-html="getEventCategoriesIndexedById[entry['event_category'][0]].icon"></div>
-                  <div v-html="getEventCategoriesIndexedById[entry['event_category'][0]].name"></div>
+                  <div v-if="entry['event_category'][0]['term_id']" v-html="getEventCategoriesIndexedById[entry['event_category'][0]['term_id']].icon"></div><div v-else v-html="getEventCategoriesIndexedById[entry['event_category'][0]].icon"></div>
+                  <div v-if="entry['event_category'][0]['term_id']" v-html="getEventCategoriesIndexedById[entry['event_category'][0]['term_id']].name"></div><div v-else v-html="getEventCategoriesIndexedById[entry['event_category'][0]].name"></div>
                 </div>
               </div>
               <h3 class="card-title">
-                <span class="underlineChange" v-html="entry.title.rendered"></span>
+                <span v-if="entry.title" class="underlineChange" v-html="entry.title.rendered"></span><span class="underlineChange" v-else v-html="entry.post_title"></span>
               </h3>
               <div class="card-text" v-html="entry.acf.subtitle"></div>
               <div class="card-footer">
@@ -30,6 +30,7 @@
                   </span>
                 </div>
                 <div class="media" v-for="team_member in relatedTeamMembers">
+
                   <img v-if="team_member.headshot" :src="team_member.headshot.sizes.thumbnail" class="round author-img mr-2">
                   <h6 v-if="team_member.member" class="align-self-center mb-0">{{ team_member.member.display_name}}</h6>
                   <h6 v-else-if="team_member.display_name" class="align-self-center mb-0">{{ team_member.display_name }}</h6>

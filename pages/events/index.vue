@@ -29,7 +29,6 @@
                   </transition>
                 </div>
               </transition-group>
-  
               <div class="pager" v-if="events.length < totalRecords">
                 <a class="btn btn-primary my-4" href="#" @click.prevent="nextPage">Load more</a>
               </div>
@@ -84,6 +83,7 @@ export default {
   async asyncData({ store, query }) {
     store.commit('resetPage')
     const response = await store.dispatch('fetchByQuery', { isPaged: true, query: query, path: 'wp/v2/bd_event' })
+    console.log(response)
     return {
       events: response.data,
       totalPages: response.headers['x-wp-totalpages'],
