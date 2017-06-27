@@ -558,15 +558,34 @@ class StarterSite extends TimberSite {
 
 	function insights_by_user($data) {
 		$rawInsights = get_posts(array(
-			'post_type' => 'bd_insight',
+			'post_type' => 'bd_insight'
+			// 'fields' => 'all_with_meta'
 		));
 		$insights = array();
 		foreach($rawInsights as $rawInsight){
 			$fields = get_fields($rawInsight->ID);
-			$insightUser = $data->get_params('slug')['slug'];
+			$insightUser = $data->get_params('id')['id'];
 			// $insights[] = $fields['author']['ID'];
-			if(isset($fields['author']) && $fields['author']['ID'] == intval($insightUser)) {
-				$insights[] = $fields;
+			if(isset($fields['author'])) {
+				foreach($fields['author'] as $a){
+					// $authors_meta = array('ID' => $a['user_nicename'], 'user' => $insightUser);
+					if ($a['user_nicename'] == $insightUser){
+						$authors_meta = array();
+						// $authors_meta[] = 'found';
+						// $authors_meta[] = $fields['author'];
+						foreach($fields['author'] as $a2){
+							$author_meta = get_fields('user_' . $a2['ID']);
+							$author_data = $a2;
+							$author_data['meta'] = $author_meta;
+							$authors_meta[] = $author_data;
+						}
+						$insight_data = $fields;
+						$insight_data['authors'] = $authors_meta;
+						$insights[] = $insight_data;
+						continue;
+					}
+				}
+				// $insights[] = $;
 			}
 		}
 		return new WP_REST_Response($insights);
@@ -582,8 +601,17 @@ class StarterSite extends TimberSite {
 			if(strtotime($fields['start_time']) > strtotime('now')){
 				$team = $fields['related_team_members'];
 				foreach($team as $member) {
-					if ($member['ID'] == $data->get_params('id')['id']){
-						$events[] = $fields;
+					// $events[] = $member['user_nicename'];
+					// $events[] = $data->get_params('id')['id'];
+					if ($member['user_nicename'] == $data->get_params('id')['id']){
+						// $team_meta = $team;
+						foreach($team as $included_member) {
+							$team_meta[] = $included_member['ID'];
+							$team_meta[] = get_fields('user_' . $included_member['ID']);
+						}
+						// $team_members_meta = get_fields($member->ID);
+						$event = get_post($rawEvent->ID);
+						$events[] = array('data' => $fields, 'slug' => $event->post_name, 'team_meta' => $team_meta);
 						continue;
 					}
 				}
