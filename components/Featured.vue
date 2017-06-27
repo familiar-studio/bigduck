@@ -1,5 +1,5 @@
 <template>
-  <div class="block-work-featured">
+  <div v-once class="block-work-featured">
     <router-link :to="{ name : 'work-slug', params : { slug: work.slug }}">
       <div class="bg-img" :style="{'background-image': 'url(' + work.acf.hero_image.url + ') '}"></div>
       <div class="overlay" :style="{ backgroundColor: work.acf.primary_color }"></div>

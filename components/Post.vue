@@ -1,5 +1,5 @@
 <template>
-  <div class="block-overlap" :class="blockClass" :type="types && entry.type && entry.type[0] ? getTypesIndexedById[entry.type[0]].slug : ''" >
+  <div v-once class="block-overlap" :class="blockClass" :type="types && entry.type && entry.type[0] ? getTypesIndexedById[entry.type[0]].slug : ''">
     <nuxt-link :to="{ name: 'insights-slug', params: { slug: entry.slug }}" :key="entry.id">
       <div class="col-image">
         <div :style="{ 'background-image': 'url(' + entry.acf.featured_image+ ')' }" class="featured-image"></div>
@@ -16,7 +16,7 @@
                 <div v-html="getTypesIndexedById[type].icon"></div>
                 <div v-html="getTypesIndexedById[type].name"></div>
               </div>
-
+  
               <div class="badge badge-default">
                 <span v-if="types && entry.type[0]">
                   <span v-if="getTypesIndexedById[entry.type[0]].verb == 'Read' && entry.calculated_reading_time">
@@ -29,7 +29,7 @@
                 </span>
               </div>
             </div>
-
+  
             <h3 class="card-title">
               <span class="underlineChange" v-html="entry.title.rendered"></span>
             </h3>
@@ -45,11 +45,13 @@
               </div>
               <div class="media" v-if="entry.acf.author.length > 0" v-for="author in entry.acf.author">
                 <img v-if="entry.author_headshots[author['ID']] && entry.author_headshots[author['ID']].sizes" :src="entry.author_headshots[author['ID']].sizes.thumbnail" class="round author-img mr-2">
-                <h6 class="align-self-center mb-0"><span v-html="author.display_name"></span></h6>
+                <h6 class="align-self-center mb-0">
+                  <span v-html="author.display_name"></span>
+                </h6>
               </div>
               <div v-if="entry.acf.guest_author_name" class="media author-no-img">
                 <h6 class="align-self-center mb-0">
-                  <span >{{entry.acf.guest_author_name}}</span>
+                  <span>{{entry.acf.guest_author_name}}</span>
                 </h6>
               </div>
               <div v-if="!entry.acf.guest_author_name && entry.acf.author.length < 1" class="media author-no-img">
@@ -57,7 +59,7 @@
                   <span>Big Duck</span>
                 </h6>
               </div>
-
+  
             </div>
           </div>
         </div>

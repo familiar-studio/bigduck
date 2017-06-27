@@ -13,7 +13,7 @@ export const state = () => ({
   sectors: null,
   topics: null,
   types: null,
-  postsPerPage: 16,
+  postsPerPage: 8,
   eventCategoriesPath: "wp/v2/event_category",
   sectorsPath: "wp/v2/sector",
   topicsPath: "wp/v2/topic",

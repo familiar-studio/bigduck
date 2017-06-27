@@ -79,7 +79,6 @@ export default {
   },
   components: {
     FilterList,
-
     Post,
     InlineCallout,
     Chat

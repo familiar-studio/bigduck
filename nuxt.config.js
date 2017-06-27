@@ -25,7 +25,7 @@ module.exports = {
   plugins: [
     { src: "~plugins/vue-validate", ssr: false },
     { src: "~plugins/newfangled.js", ssr: false },
-    { src: "~plugins/ga.js", ssr: false },
+    //{ src: "~plugins/ga.js", ssr: false },
     { src: "~plugins/scrollto.js", ssr: false }
   ],
   /*
@@ -46,7 +46,7 @@ module.exports = {
     /*
     ** Run ESLINT on save
     */
-    vendor: ["axios", "date-fns", "velocity-animate"],
+    vendor: ["axios", "date-fns"],
     extend(config, ctx) {
       if (ctx.isClient) {
         config.module.rules.push({

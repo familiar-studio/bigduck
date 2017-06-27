@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-once>
     <!-- <div> -->
     <div class="block-overlap block-event" :class="blockClass">
       <nuxt-link :to="{ name: 'events-slug', params: { slug: entry.slug }}" :key="entry.id">
