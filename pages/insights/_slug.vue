@@ -34,8 +34,10 @@
                   {{ date }}
                 </div>
               </div>
-
-              <h1><span v-html="insight.title.rendered"></span></h1>
+  
+              <h1>
+                <span v-html="insight.title.rendered"></span>
+              </h1>
               <div class="badge badge-default mb-3" v-if="insight.author_headshots && insight.acf.author.length > 0" v-for="author in insight.acf.author">
                 <img v-if="insight.author_headshots[author.ID].sizes" :src="insight.author_headshots[author.ID].sizes.thumbnail" class="round author-img mr-2">
                 <div v-html="author.display_name"></div>
@@ -58,37 +60,37 @@
                 <Share></Share>
               </div>
             </article>
-
+  
             <div v-if="formId" class="form-light">
-              <GravityForm :formId="formId" :viewAll="true" :gatedContent="true" @submitted="refreshContent()"></GravityForm>
+              <GravityForm :formId="formId" :viewAll="true" :gatedContent="insight.id" @submitted="refreshContent()"></GravityForm>
             </div>
-
+  
             <article class="main" v-if="formId === false && insight.content.rendered">
               <div v-html="insight.content.rendered"></div>
             </article>
-
+  
             <article class="mb-5 container">
-               <div v-if="authors.length > 0" v-for="(author, index) in authors">
-                 <div class="author-bio">
-                   <div class="row">
-                     <div class="col-md-2 author-bio-pic">
-                       <!-- {{author.acf.headshot.sizes.thumbnail}} -->
-                       <img class="round" v-if="author.acf.headshot.sizes" :src="author.acf.headshot.sizes.thumbnail" alt="" />
-                     </div>
-                     <div class="col-md-10 author-bio-text">
-                       <h3>
-                         {{insight.acf.author[index].display_name}} is {{ prependIndefiniteArticle(author.acf.job_title) }} at Big Duck
-                       </h3>
-                       <nuxt-link class="btn btn-primary" :to="{name: 'about-slug', params: { slug: insight.acf.author[index].user_nicename}}">
-                         More about {{insight.acf.author[index].user_firstname}}
-                       </nuxt-link>
-                     </div>
-
-                     </div>
-                   </div>
-                 </div>
+              <div v-if="authors.length > 0" v-for="(author, index) in authors">
+                <div class="author-bio">
+                  <div class="row">
+                    <div class="col-md-2 author-bio-pic">
+                      <!-- {{author.acf.headshot.sizes.thumbnail}} -->
+                      <img class="round" v-if="author.acf.headshot.sizes" :src="author.acf.headshot.sizes.thumbnail" alt="" />
+                    </div>
+                    <div class="col-md-10 author-bio-text">
+                      <h3>
+                        {{insight.acf.author[index].display_name}} is {{ prependIndefiniteArticle(author.acf.job_title) }} at Big Duck
+                      </h3>
+                      <nuxt-link class="btn btn-primary" :to="{name: 'about-slug', params: { slug: insight.acf.author[index].user_nicename}}">
+                        More about {{insight.acf.author[index].user_firstname}}
+                      </nuxt-link>
+                    </div>
+  
+                  </div>
+                </div>
+              </div>
             </article>
-
+  
             <div class="mb-5" v-if="relatedCaseStudies">
               <h2>Related Case Studies</h2>
               <div class="row">
@@ -108,11 +110,11 @@
                       </div>
                     </div>
                   </nuxt-link>
-
+  
                 </div>
               </div>
             </div>
-
+  
             <div class="mb-5" v-if="relatedInsights">
               <h2>Related Insights</h2>
               <div v-if="relatedInsights">
@@ -166,10 +168,10 @@ export default {
   },
   head() {
     return {
-      title: this.insight.title.rendered ? this.insight.title.rendered : null,
+      title: this.insight && this.insight.title.rendered ? this.insight.title.rendered : null,
       meta: [
         { description: 'Overview' },
-        { 'og:image': this.insight.acf.featured_image }
+        { 'og:image': this.insight ? this.insight.acf.featured_image : null }
       ]
     }
   },
@@ -225,8 +227,10 @@ export default {
       return null
     },
     async refreshContent() {
-      let response = await Axios.get(this.hostname + 'wp/v2/bd_insight/', { query: { slug: this.$route.params.slug } })
-      this.insight = response.data
+      let response = await Axios.get(this.hostname + 'wp/v2/bd_insight', { params: { slug: this.$route.params.slug } })
+      console.log('Refreshed Content', response.data[0])
+
+      this.insight = response.data[0]
     }
 
   }

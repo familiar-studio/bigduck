@@ -76,6 +76,11 @@
 <script>
 import CryptoJS from 'crypto-js'
 import axios from 'axios'
+import { mapGetters } from 'vuex'
+
+if (process.BROWSER_BUILD) {
+  var jscookie = require("js-cookie")
+}
 
 export default {
   data() {
@@ -102,11 +107,12 @@ export default {
       default: false
     },
     gatedContent: {
-      type: Boolean,
-      default: false
+      type: Number,
+      default: null
     }
   },
   computed: {
+    ...mapGetters(['hostname']),
     expires() {
       var d = new Date()
       var expiration = 3600
@@ -142,14 +148,27 @@ export default {
       var base64 = hash.toString(CryptoJS.enc.Base64)
       return encodeURIComponent(base64)
     },
-    submitEntry() {
+    async submitEntry() {
       var signature = this.CalculateSig('entries', 'POST')
       localStorage.formData = JSON.stringify(this.formData)
       this.formData['form_id'] = this.formId
       var endpoint = this.baseUrl + 'forms/' + this.formId + '/submissions';
       console.log('endpoint', endpoint)
 
-      axios.post(this.baseUrl + 'forms/' + this.formId + '/submissions', { "input_values": this.formData }, { params: { api_key: this.publicKey, signature: signature, expires: this.expires } })
+      await axios.post(this.baseUrl + 'forms/' + this.formId + '/submissions', { "input_values": this.formData }, { params: { api_key: this.publicKey, signature: signature, expires: this.expires } })
+
+      if (this.gatedContent) {
+        if (process.BROWSER_BUILD) {
+
+          var gatedCookie = await axios.get(this.hostname + 'familiar/v1/gated', { params: { form_id: this.formId, post_id: this.gatedContent } })
+          console.log('setting this cookie', gatedCookie.data)
+          jscookie.set(gatedCookie.data, "true", {
+            expires: 7,
+            domain: "familiar.studio"
+          });
+        }
+      }
+
       this.$emit('submitted')
       this.submitted = true
 

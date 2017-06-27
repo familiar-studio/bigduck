@@ -41,7 +41,10 @@ export default ({ app: { router }, store }) => {
         })
         .then(response => {
           console.log("page view", response);
-          Cookies.set("nfsession", response.data, { expires: 7 });
+          jscookie.set("nfsession", response.data, {
+            expires: 7,
+            domain: "familiar.studio"
+          });
         });
     });
   }
