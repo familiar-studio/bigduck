@@ -593,7 +593,7 @@ class StarterSite extends TimberSite {
 						}
 						$insight_data = $rawInsight;
 						$insight_data['acf'] = $fields;
-						$insight_data['author'] = $authors_meta;
+						$insight_data['authors'] = $authors_meta;
 						$insight_data['type'] = wp_get_post_terms($rawInsight->ID, 'type');
 						$insight_data['topic'] = wp_get_post_terms($rawInsight->ID, 'topic');
 						$insight_data['title'] = get_the_title($rawInsight->ID);
