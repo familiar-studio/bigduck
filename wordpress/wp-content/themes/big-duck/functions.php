@@ -800,17 +800,20 @@ class StarterSite extends TimberSite {
 	}
 
 	function insight_reading_time($object) {
+
 		$body = get_field('body');
-		$content = '';
-		if (!is_null($body) && $body){
-			foreach($body as $block) {
-				$content .= $block['text'];
+		if ($body) {
+			$content = '';
+			if (!is_null($body) && $body){
+				foreach($body as $block) {
+					$content .= $block['text'];
+				}
 			}
+			$wordCount = str_word_count(strip_tags($content));
+			$minutes = floor($wordCount / 200);
+			$minutes = $minutes . ' min';
+			return new WP_REST_Response($minutes);
 		}
-		$wordCount = str_word_count(strip_tags($content));
-		$minutes = floor($wordCount / 200);
-		$minutes = $minutes . ' min';
-		return new WP_REST_Response($minutes);
 	}
 
 	function get_event_category_icon($object) {
