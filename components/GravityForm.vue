@@ -57,6 +57,10 @@
   
       </div>
   
+      <div v-for="field in hiddenFields">
+        <input v-model="formData[field.id]" :name="field.id" type="hidden" />
+      </div>
+  
       <button type="submit" @click.prevent="submitEntry()" class="btn btn-secondary">Submit</button>
     </form>
     <div v-else>
@@ -83,7 +87,8 @@ export default {
       formData: {},
       totalProfilingFields: 2,
       submitted: false,
-      confirmation: 'Thanks, your the greatest!'
+      confirmation: 'Thanks, your the greatest!',
+      hiddenFields: []
 
     }
   },
@@ -125,6 +130,8 @@ export default {
             return field
           }
         }
+
+        this.hiddenFields.push(field)
       })
     }
   },
@@ -143,6 +150,9 @@ export default {
       axios.post(this.baseUrl + 'forms/' + this.formId + '/entries', [this.formData], { params: { api_key: this.publicKey, signature: signature, expires: this.expires } })
       this.$emit('submitted')
       this.submitted = true
+
+      // create the gated content cookie
+      //gatedContent
     }
   },
   created() {

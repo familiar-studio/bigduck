@@ -119,7 +119,7 @@
       <SearchOverlay v-if="searchVisible" @hide="hideSearch()"></SearchOverlay>
   
     </div>
-    <section id="footer-callout" v-if="chat" class="bgChange text-white my-0 py-5">
+    <section id="footer-callout" v-if="chat && showFooter" class="bgChange text-white my-0 py-5">
       <div class="container">
         <div class="row">
           <div class="col-lg-8 offset-lg-2">

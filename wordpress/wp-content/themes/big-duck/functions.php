@@ -236,6 +236,20 @@ class StarterSite extends TimberSite {
 			'methods' => 'GET',
 			'callback' => array($this, 'get_events')
 		));
+		register_rest_route('familiar/v1', '/gated', array(
+			'methods' => 'GET',
+			'callback' => array($this, 'get_gated_id')
+		));
+	}
+
+	function get_gated_id () {
+		$form_id = $request->get_param( 'form_id' );
+		$post_id = $request->get_param( 'post_id' );
+
+		//$gated = new NFGated();
+		//$id = $gated->getGatedUniqueId( $form_id, $post_id );
+		return new WP_REST_Response( 'something', 200 );
+
 	}
 
 	function get_items( $request ){

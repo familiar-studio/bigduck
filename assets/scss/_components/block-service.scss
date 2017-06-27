@@ -1,13 +1,21 @@
-.block-service{
+.block-service {
   display: block;
   margin: 1rem 0 2rem;
 
-  .col-image{
+  margin-left: -$grid-gutter-width-base/2;
+  margin-right: -$grid-gutter-width-base/2;
+
+  @include media-breakpoint-up(md) {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+  .col-image {
     position: relative;
     background-color: $gray-light;
     transition: all .3s ease;
 
-    &::before{
+    &::before {
       @extend .bgChange;
       content: '';
       position: absolute;
@@ -18,21 +26,21 @@
       z-index: 3;
     }
   }
-  .featured-image{
+  .featured-image {
     opacity: .8;
     transition: all .3s ease;
     filter: grayscale(0%);
     min-height: 200px;
   }
 
-  &:hover{
-    .featured-image{
+  &:hover {
+    .featured-image {
       filter: grayscale(90%);
     }
-    .col-image::before{
+    .col-image::before {
       opacity: 0.85;
     }
-    .col-image{
+    .col-image {
       opacity: 1;
     }
   }
