@@ -537,19 +537,21 @@ class StarterSite extends TimberSite {
 			$events[] = strtotime($fields['start_time']);
 			if(strtotime($fields['start_time']) > strtotime('now')){
 				$team = $fields['related_team_members'];
-				foreach($team as $member) {
-					if ($member['ID'] == intval($user->ID)){
-						// return $user;
-						$topics = wp_get_post_terms($rawEvent->ID, 'topic');
-						$eventCategories = wp_get_post_terms($rawEvent->ID, 'event_category');
-						$data = get_post($rawEvent->ID);
-						$postContent = $data->post_content;
-						$data->acf = $fields;
-						$data->event_category = array($eventCategories[0]->term_id);
-						$data->topic = array($topics[0]->term_id);
-						$data->title = array('rendered' => get_the_title($rawEvent->ID));
-						$team_member['events'][] = $data;
-						continue;
+				if (is_array($team)){
+					foreach($team as $member) {
+						if ($member['ID'] == intval($user->ID)){
+							// return $user;
+							$topics = wp_get_post_terms($rawEvent->ID, 'topic');
+							$eventCategories = wp_get_post_terms($rawEvent->ID, 'event_category');
+							$data = get_post($rawEvent->ID);
+							$postContent = $data->post_content;
+							$data->acf = $fields;
+							$data->event_category = array($eventCategories[0]->term_id);
+							$data->topic = array($topics[0]->term_id);
+							$data->title = array('rendered' => get_the_title($rawEvent->ID));
+							$team_member['events'][] = $data;
+							continue;
+						}
 					}
 				}
 			}
