@@ -29,7 +29,6 @@
                   </transition>
                 </div>
               </transition-group>
-  
               <div class="pager" v-if="events.length < totalRecords">
                 <a class="btn btn-primary my-4" href="#" @click.prevent="nextPage">Load more</a>
               </div>
