@@ -70,19 +70,24 @@
             </article>
 
             <article class="mb-5 container">
-              <div v-if="authors.length > 0" v-for="(author, index) in authors">
+              <!-- <div class="badge badge-default mb-3" v-if="insight.author_headshots && insight.acf.author.length > 0" v-for="author in insight.acf.author">
+                <img v-if="insight.author_headshots[author.user_nicename].sizes" :src="insight.author_headshots[author.user_nicename].sizes.thumbnail" class="round author-img mr-2">
+                <div v-html="author.display_name"></div>
+              </div> -->
+              <div v-if="insight.acf.author.length > 0" v-for="(author, index) in insight.acf.author">
                 <div class="author-bio">
                   <div class="row">
                     <div class="col-md-2 author-bio-pic">
                       <!-- {{author.acf.headshot.sizes.thumbnail}} -->
-                      <img class="round" v-if="author.acf.headshot.sizes" :src="author.acf.headshot.sizes.thumbnail" alt="" />
+                      <img class="round" v-if="insight.author_headshots[author.user_nicename].sizes" :src="insight.author_headshots[author.user_nicename].sizes.thumbnail" alt="" />
                     </div>
-                    <div class="col-md-10 author-bio-text">
+                    <div class="col-md-10 author-bio-text" v-if="authorMetaById">
+                      <!-- {{author}} -->
                       <h3>
-                        {{insight.acf.author[index].display_name}} is {{ prependIndefiniteArticle(author.acf.job_title) }} at Big Duck
+                        {{author.display_name}} is {{prependIndefiniteArticle(authorMetaById[author.ID].acf.job_title)}} at Big Duck
                       </h3>
-                      <nuxt-link class="btn btn-primary" :to="{name: 'about-slug', params: { slug: insight.acf.author[index].user_nicename}}">
-                        More about {{insight.acf.author[index].user_firstname}}
+                      <nuxt-link class="btn btn-primary" :to="{name: 'about-slug', params: { slug: author.user_nicename}}">
+                        More about {{author.user_firstname}}
                       </nuxt-link>
                     </div>
 
@@ -193,7 +198,24 @@ export default {
         }
       }
       return null
+    },
+    authorsById () {
+      let authors = {};
+      this.insight.acf.author.forEach((author) => {
+        authors[author.ID] = author
+      })
+      return authors
+    },
+    authorMetaById () {
+      let authorsById = {};
+      if (this.authors){
+        this.authors.forEach((author) => {
+          authorsById[author.id] = author
+        })
+      }
+      return authorsById
     }
+
   },
   created() {
     // get related case studies
