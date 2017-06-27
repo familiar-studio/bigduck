@@ -212,15 +212,15 @@ class StarterSite extends TimberSite {
 			'methods' => 'GET',
 			'callback' => array($this, 'featured_work')
 		));
-		register_rest_route('familiar/v1', '/insights/user/(?P<id>\d+)', array(
+		register_rest_route('familiar/v1', '/insights/user/(?P<id>[\w-]+)', array(
 			'methods' => 'GET',
 			'callback' => array($this, 'insights_by_user')
 		));
-		register_rest_route('familiar/v1', '/events/user/(?P<id>\d+)', array(
+		register_rest_route('familiar/v1', '/events/user/(?P<id>[\w-]+)', array(
 			'methods' => 'GET',
 			'callback' => array($this, 'events_by_user')
 		));
-		register_rest_route('familiar/v1', '/work/user/(?P<id>\d+)', array(
+		register_rest_route('familiar/v1', '/work/user/(?P<id>[\w-]+)', array(
 			'methods' => 'GET',
 			'callback' => array($this, 'work_by_user')
 		));

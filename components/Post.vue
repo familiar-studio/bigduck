@@ -1,13 +1,13 @@
 <template>
-  <div class="block-overlap" :class="blockClass" :type="types && entry.type[0] ? getTypesIndexedById[entry.type[0]].slug : ''" v-if="entry.type">
+  <div class="block-overlap" :class="blockClass" :type="types && entry.type && entry.type[0] ? getTypesIndexedById[entry.type[0]].slug : ''" >
     <nuxt-link :to="{ name: 'insights-slug', params: { slug: entry.slug }}" :key="entry.id">
       <div class="col-image">
         <div :style="{ 'background-image': 'url(' + entry.acf.featured_image+ ')' }" class="featured-image"></div>
       </div>
       <div class="col-text">
         <div class="card">
-          <div class="card-block">
-            <div class="badge-group">
+          <div class="card-block" v-if="entry.type">
+            <div class="badge-group" v-if="entry.type">
               <div class="badge badge-default" v-for="topic in entry.topic">
                 <div v-html="getTopicsIndexedById[topic].icon"></div>
                 <div v-html="getTopicsIndexedById[topic].name"></div>

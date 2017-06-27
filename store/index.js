@@ -225,7 +225,7 @@ export const getters = {
 
     // return state.bareLocalHostname;
     return state.bareRemoteHostname;
-    //return state.bareLocalHostname;
+    // return state.bareLocalHostname;
   },
   previousQuery: state => {
     return state.previousQuery;

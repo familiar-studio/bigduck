@@ -31,7 +31,8 @@
                 </div>
                 <div class="media" v-for="team_member in relatedTeamMembers">
                   <img v-if="team_member.headshot" :src="team_member.headshot.sizes.thumbnail" class="round author-img mr-2">
-                  <h6 class="align-self-center mb-0">{{ team_member.member.display_name}}</h6>
+                  <h6 v-if="team_member.member" class="align-self-center mb-0">{{ team_member.member.display_name}}</h6>
+                  <h6 v-else-if="team_member.display_name" class="align-self-center mb-0">{{ team_member.display_name }}</h6>
                 </div>
                 <div class="media author-no-img" v-for="guest in entry.acf.guest_speakers">
                   <h6 class="align-self-center mb-0">{{guest.speaker_name}}</h6>

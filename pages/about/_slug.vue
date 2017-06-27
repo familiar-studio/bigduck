@@ -6,7 +6,7 @@
     <div class="container overlap" id="content">
       <article class="main">
         <div class="badge badge-default">
-          Team
+          <nuxt-link :to="{name: 'about'}">Team</nuxt-link>
         </div>
         <div class="row">
           <div class="col-md-9">
@@ -43,13 +43,13 @@
         </div>
       </article>
 
-      <div v-if="this.relatedEvents && this.relatedEvents.length > 0">
+      <div v-if="member.events && member.events.length > 0">
         <h2>Events with {{member.name.split(" ")[0]}}</h2>
-        <Event v-for="(event, index) in this.relatedEvents" :entry="event" :key="event.id" :index="index"></Event>
+        <Event v-for="(event, index) in member.events" :entry="event" :key="event.id" :index="index" :relatedTeamMembers="event.acf.related_team_members"></Event>
       </div>
-      <div class="" v-if="this.relatedInsights && this.relatedInsights.length > 0">
+      <div class="" v-if="member.insights && member.insights.length > 0">
         <h2>Insights by {{ member.name.split(" ")[0]}}</h2>
-        <Post v-for="(insight, index) in this.relatedInsights" :key="insight.id" :entry="insight" :index="index"></Post>
+        <Post v-for="(insight, index) in member.insights" :key="insight.id" :entry="insight" :index="index"></Post>
       </div>
     </div>
   </div>
@@ -63,43 +63,45 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'team-member',
-  components: {
-    Event, Post
-  },
-  data() {
+  data () {
     return {
       relatedEvents: null,
       relatedInsights: null
     }
   },
+  components: {
+    Event, Post
+  },
   computed: {
-    ...mapGetters(['hostname'])
+    ...mapGetters(['hostname']),
+    // relatedEvents () {
+    //   return this.member.events
+    // },
+    // relatedInsights () {
+    //   return this.member.insights
+    // }
   },
   async created() {
     let relatedEventIds = this.member.events.map((event) => { return event.ID })
-    if (typeof relatedEventIds !== 'undefined' && relatedEventIds) {
-      let response = await Axios.get(this.hostname + 'wp/v2/bd_event', { params: { include: relatedEventIds } })
+    console.log(relatedEventIds)
+    if (relatedEventIds.length > 0 && relatedEventIds) {
+      // debugger
+      let response = await Axios.get(this.hostname + 'familiar/v1/events/user/' + this.member.slug )
       this.relatedEvents = response.data
     }
     let relatedInsightIds = this.member.insights.map((insight) => { return insight.ID })
-    if (typeof relatedInsightIds !== 'undefined' && relatedInsightIds) {
-      let response = await Axios.get(this.hostname + 'wp/v2/bd_insight', { params: { include: relatedInsightIds } })
+    console.log(relatedInsightIds)
+    if (relatedInsightIds.length > 0 && relatedInsightIds) {
+      let response = await Axios.get(this.hostname + 'familiar/v1/insights/user/' + this.member.slug )
       this.relatedInsights = response.data
     }
   },
   async asyncData({ store, params }) {
+
     let response = await Axios.get(store.getters['hostname'] + 'familiar/v1/team/' + params.slug)
+    // console.log(store.getters['hostname'] + 'familiar/v1/team/' + params.slug)
     return {
       member: response.data
-    }
-  },
-  head() {
-    return {
-      title: this.member.name,
-      meta: [
-        { description: this.member.job_title },
-        { 'og:image': this.member.headshot.url }
-      ]
     }
   }
 }
