@@ -619,10 +619,9 @@ class StarterSite extends TimberSite {
 						// $team_meta = $team;
 						foreach($team as $member_data) {
 							// $team_meta[] = $included_member['ID'];
-							$team_meta[] = get_fields('user_' . $included_member['ID']);
-							$user = get_user($included_member['ID']);
-							$included_member = get_fields('user_' . $included_member['ID']);
-							$included_member->display_name = $user->display_name;
+							$included_member = get_fields('user_' . $member_data['ID']);
+							$included_member['display_name'] = $member_data['display_name'];
+							$team_meta[] = $included_member;
 
 
 						}
