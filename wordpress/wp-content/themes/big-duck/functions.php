@@ -618,7 +618,7 @@ class StarterSite extends TimberSite {
 					if ($member['user_nicename'] == $data->get_params('id')['id']){
 						// $team_meta = $team;
 						foreach($team as $included_member) {
-							$team_meta[] = $included_member['ID'];
+							// $team_meta[] = $included_member['ID'];
 							$team_meta[] = get_fields('user_' . $included_member['ID']);
 						}
 						// $team_members_meta = get_fields($member->ID);
