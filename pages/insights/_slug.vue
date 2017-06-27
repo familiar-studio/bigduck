@@ -34,12 +34,12 @@
                   {{ date }}
                 </div>
               </div>
-  
+
               <h1>
                 <span v-html="insight.title.rendered"></span>
               </h1>
               <div class="badge badge-default mb-3" v-if="insight.author_headshots && insight.acf.author.length > 0" v-for="author in insight.acf.author">
-                <img v-if="insight.author_headshots[author.ID].sizes" :src="insight.author_headshots[author.ID].sizes.thumbnail" class="round author-img mr-2">
+                <img v-if="insight.author_headshots[author.user_nicename].sizes" :src="insight.author_headshots[author.user_nicename].sizes.thumbnail" class="round author-img mr-2">
                 <div v-html="author.display_name"></div>
               </div>
               <div v-if="insight.acf.guest_author_name" class="badge badge-default mb-3 author-no-img">
@@ -60,15 +60,15 @@
                 <Share></Share>
               </div>
             </article>
-  
+
             <div v-if="formId" class="form-light">
               <GravityForm :formId="formId" :viewAll="true" :gatedContent="insight.id" @submitted="refreshContent()"></GravityForm>
             </div>
-  
+
             <article class="main" v-if="formId === false && insight.content.rendered">
               <div v-html="insight.content.rendered"></div>
             </article>
-  
+
             <article class="mb-5 container">
               <div v-if="authors.length > 0" v-for="(author, index) in authors">
                 <div class="author-bio">
@@ -85,12 +85,12 @@
                         More about {{insight.acf.author[index].user_firstname}}
                       </nuxt-link>
                     </div>
-  
+
                   </div>
                 </div>
               </div>
             </article>
-  
+
             <div class="mb-5" v-if="relatedCaseStudies">
               <h2>Related Case Studies</h2>
               <div class="row">
@@ -110,11 +110,11 @@
                       </div>
                     </div>
                   </nuxt-link>
-  
+
                 </div>
               </div>
             </div>
-  
+
             <div class="mb-5" v-if="relatedInsights">
               <h2>Related Insights</h2>
               <div v-if="relatedInsights">

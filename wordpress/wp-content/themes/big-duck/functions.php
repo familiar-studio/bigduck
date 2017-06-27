@@ -894,10 +894,10 @@ class StarterSite extends TimberSite {
 		$headshots = array();
 		if (gettype($authors) == 'array') {
 			foreach($authors as $author) {
-				$headshots[$author['ID']] = get_field('headshot', 'user_' . $author['ID']);
+				$headshots[$author['user_nicename']] = get_field('headshot', 'user_' . $author['ID']);
 			}
-		} else if (isset($authors['ID'])) {
-			$headshots[$authors['ID']] = get_field('headshot', 'user_' . $authors['ID']);
+		} else if (isset($authors['user_nicename'])) {
+			$headshots[$authors['user_nicename']] = get_field('headshot', 'user_' . $authors['ID']);
 		} else {
 			$headshots = null;
 		}
