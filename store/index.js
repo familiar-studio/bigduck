@@ -21,7 +21,8 @@ export const state = () => ({
   page: 1,
   footer: null,
   query: {},
-  callout: {},
+  chat: {},
+  inline: {},
   form: null
 });
 
@@ -81,7 +82,7 @@ export const mutations = {
 
     if (forms.length > 0) {
       var form = forms[0];
-      callout.formId = form.id.split("_")[1];
+      callout.formId = Number(form.id.split("_")[1]);
     }
 
     if (titles.length > 0) {
@@ -91,7 +92,7 @@ export const mutations = {
       callout.description = descriptions[0].innerHTML;
     }
 
-    state.callout[data.slug] = callout;
+    state[data.slug] = callout;
   }
 };
 
@@ -194,7 +195,13 @@ export const actions = {
     let response = await axios.get(
       rootGetters.hostname + "familiar/v1/sidebars/" + slug
     );
-    commit("setActiveCallout", { slug: slug, html: response.data.rendered });
+    if (response.data.widgets && response.data.widgets[0]) {
+      console.log("widgets", response.data.widgets);
+      commit("setActiveCallout", {
+        slug: slug,
+        html: response.data.widgets[0].rendered
+      });
+    }
   }
 };
 

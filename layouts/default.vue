@@ -66,7 +66,9 @@
       </header>
   
       <main id="main" :class="{ 'no-top-padding': noTopPadding }">
+  
         <nuxt/>
+  
       </main>
   
       <footer id="footer">
@@ -117,17 +119,17 @@
       <SearchOverlay v-if="searchVisible" @hide="hideSearch()"></SearchOverlay>
   
     </div>
-    <section id="footer-callout" v-if="callout" class="bgChange text-white my-0 py-5">
+    <section id="footer-callout" v-if="chat" class="bgChange text-white my-0 py-5">
       <div class="container">
         <div class="row">
           <div class="col-lg-8 offset-lg-2">
             <div class="footer-content">
-              <h2>{{ callout.chat.title }}</h2>
+              <h2>{{ chat.title }}</h2>
               <p>
-                {{ callout.chat.description }}
+                {{ chat.description }}
               </p>
   
-              <GravityForm :formId="callout.chat.formId"></GravityForm>
+              <GravityForm v-if="chat.formId" :formId="chat.formId"></GravityForm>
   
             </div>
           </div>
@@ -144,6 +146,7 @@ import Logo from '~components/Logo.vue'
 import GravityForm from '~components/GravityForm.vue'
 import SearchOverlay from '~components/SearchOverlay.vue'
 
+
 import { mapState, mapMutations } from 'vuex'
 
 export default {
@@ -151,6 +154,7 @@ export default {
     Logo,
     GravityForm,
     SearchOverlay
+
   },
   data() {
     return {
@@ -172,7 +176,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['callout']),
+    ...mapState(['chat']),
     page() {
       if (this.$route.name === 'index') {
         return 'homepage'
@@ -184,6 +188,12 @@ export default {
     },
     showFooter() {
       if (this.page === 'work-slug' || this.page === 'contact' || this.page === 'services-slug' || this.page === 'events-speaking') {
+        return false
+      }
+      return true
+    },
+    showChat() {
+      if (this.page === 'homepage' || this.page === 'work-all' || this.page === 'services' || this.page === 'insights') {
         return false
       }
       return true
@@ -233,6 +243,8 @@ export default {
       window.addEventListener('scroll', this.handleScroll)
 
       this.$store.dispatch('fetchPageCallouts', 'chat')
+      this.$store.dispatch('fetchPageCallouts', 'inline')
+
 
     }
   }

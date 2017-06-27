@@ -1,18 +1,18 @@
 <template>
-  <div class="callout-fullwidth bg-inverse text-white" v-if="callout">
+  <div class="callout-fullwidth bg-inverse text-white" v-if="inline">
     <div class="callout-content">
   
-      <h2>{{ callout.inline_callout_headline }}</h2>
+      <h2>{{ inline.title }}</h2>
       <p>
-        {{ callout.inline_callout_body }}
+        {{ inline.description }}
       </p>
   
       <a href="#" v-if="!formVisible" @click.prevent="toggleForm()" class="btn btn-primary">
-        {{ callout.inline_callout_button_text }}
+        Sign up
       </a>
   
-      <div v-if="formVisible && callout.inline_callout_form">
-        <GravityForm :formId="callout.inline_callout_form"></GravityForm>
+      <div v-if="formVisible && inline.formId">
+        <GravityForm :formId="inline.formId"></GravityForm>
       </div>
   
     </div>
@@ -30,7 +30,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['callout'])
+    ...mapState(['inline'])
   },
   components: {
     GravityForm

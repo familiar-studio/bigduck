@@ -30,6 +30,8 @@
   top: 60vh;
   z-index: 10;
 
+  margin-right: 1rem;
+
   display: none;
   @include media-breakpoint-up(md) {
     display: block;

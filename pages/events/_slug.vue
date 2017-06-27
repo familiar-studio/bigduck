@@ -5,10 +5,10 @@
     </div>
     <div id="content">
       <div class="row">
-        <div class="col-lg-1 hidden-md-down">
+        <div class="col-lg-2 hidden-md-down">
           <share></share>
         </div>
-        <div class="col-lg-10">
+        <div class="col-lg-8">
           <div class="container overlap">
             <article class="main">
               <div class="row">
@@ -25,17 +25,21 @@
                     </div>
                   </div>
                   <div class="event-title">
-                    <h1><span v-html="event.title.rendered"></span></h1>
-                    <h4><span v-html="event.acf.subtitle"></span></h4>
+                    <h1>
+                      <span v-html="event.title.rendered"></span>
+                    </h1>
+                    <h4>
+                      <span v-html="event.acf.subtitle"></span>
+                    </h4>
                     <h6 class="mobile-event-date">{{month}} {{date}} {{start_time}}&ndash;{{end_time}}</h6>
                   </div>
                   <div v-html="event.acf.text"></div>
                   <div v-if="event.related_team_members.data">
                     <div class="speaker mt-3" v-for="team_member in event.related_team_members.data">
                       <div class="media">
-                      <img v-if="team_member.headshot" :src="team_member.headshot.sizes.thumbnail" class="round author-img mr-2">
-                      <h6 class="align-self-center mb-0">{{ team_member.member.display_name}}</h6>
-                    </div>
+                        <img v-if="team_member.headshot" :src="team_member.headshot.sizes.thumbnail" class="round author-img mr-2">
+                        <h6 class="align-self-center mb-0">{{ team_member.member.display_name}}</h6>
+                      </div>
                     </div>
                   </div>
                   <div v-if="event.acf.guest_speakers.length > 0">
@@ -73,7 +77,7 @@
                       </div>
                     </div>
                     <div class="">
-
+  
                       <a :href="event.acf.registration_url" class="btn btn-primary my-3 event-registration">
                         Register
                       </a>
@@ -84,9 +88,9 @@
                   </aside>
                 </div>
               </div>
-
+  
             </article>
-
+  
             <div v-if="relatedEvents && relatedInsights">
               <h2 class="mb-3 mt-5">Related Events &amp; Insights</h2>
               <div v-if="relatedEvents">
@@ -102,6 +106,9 @@
             </div>
           </div>
         </div>
+        <div class="col-lg-2">
+          <Chat></Chat>
+        </div>
       </div>
     </div>
   </div>
@@ -112,6 +119,8 @@ import Event from '~components/Event.vue'
 import Post from '~components/Post.vue'
 import dateFns from 'date-fns'
 import Share from '~components/Share.vue'
+import Chat from '~components/Chat.vue'
+
 
 import { mapState, mapGetters } from 'vuex'
 

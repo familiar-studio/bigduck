@@ -1,14 +1,14 @@
 <template>
-  <div class="chat-group" v-if="callout && callout.chat">
+  <div class="chat-group" v-if="chat">
     <div class="chat-bubble">
-      {{ callout.chat.title }}
+      {{ chat.title }}
     </div>
     <div class="chat-bubble">
-      {{ callout.chat.description }}
+      {{ chat.description }}
     </div>
     <div class="chat-bubble chat-response bgChange">
-      <a :href="callout.chat_link" v-if="callout.chat_link">
-        {{ callout.chat.chat_button_text }}
+      <a :href="chat.chat_link" v-if="chat.chat_link">
+        {{ chat.chat_button_text }}
       </a>
       <a href="#" v-else v-scroll-to="{ el:'#footer-callout', offset:50}">
         Learn More
@@ -28,7 +28,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['callout'])
+    ...mapState(['chat'])
   },
 
 }

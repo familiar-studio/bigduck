@@ -1,5 +1,6 @@
 <template>
   <div>
+  
     <div class="jumbotron" id="hero-animation">
       <div class="container">
   
@@ -24,6 +25,7 @@
         <router-link class="btn btn-primary" to="/services">See how we do it &rarr;</router-link>
       </div>
     </div>
+  
     <Featured v-for="(caseStudy, index) in relatedCaseStudies" :work="caseStudy" :index="index" :key="index"></Featured>
     <div class="testimonial mb-5">
       <div class="container">
@@ -35,27 +37,36 @@
         </blockquote>
       </div>
     </div>
-    <div class="container">
-      <div v-if="upcomingEvents" class="mt-5">
-        <h2>Featured Events</h2>
+    <div class="row">
   
-        <div class="" v-for="(event, index) in upcomingEvents">
-          <Event :entry="event" index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
+      <div class="col-lg-8 offset-lg-2">
+        <div class="container">
+          <div v-if="upcomingEvents" class="mt-5">
+            <h2>Featured Events</h2>
+  
+            <div class="" v-for="(event, index) in upcomingEvents">
+              <Event :entry="event" index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
+            </div>
+            <nuxt-link class="btn btn-primary" to="/events">View All Events</nuxt-link>
+          </div>
         </div>
-        <nuxt-link class="btn btn-primary" to="/events">View All Events</nuxt-link>
+  
+        <div class="container">
+          <div v-if="latestInsights" class="my-5">
+            <h2>Recent Insights</h2>
+  
+            <div class="" v-for="(insight, index) in latestInsights">
+              <Post :entry="insight" :index="index + latestInsights.length"></Post>
+            </div>
+            <nuxt-link class="btn btn-primary" to="/insights">View All Insights</nuxt-link>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2">
+        <Chat></Chat>
       </div>
     </div>
   
-    <div class="container">
-      <div v-if="latestInsights" class="my-5">
-        <h2>Recent Insights</h2>
-  
-        <div class="" v-for="(insight, index) in latestInsights">
-          <Post :entry="insight" :index="index + latestInsights.length"></Post>
-        </div>
-        <nuxt-link class="btn btn-primary" to="/insights">View All Insights</nuxt-link>
-      </div>
-    </div>
   </div>
 </template>
 <script>
@@ -64,6 +75,7 @@ import Featured from '~components/Featured.vue'
 import Event from '~components/Event.vue'
 import Post from '~components/Post.vue'
 import Chat from '~components/Chat.vue'
+
 import { mapState, mapGetters } from 'vuex'
 
 
@@ -198,3 +210,5 @@ export default {
   }
 }
 </script>
+
+

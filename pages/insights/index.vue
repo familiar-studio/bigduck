@@ -51,6 +51,7 @@ import Chat from '~components/Chat.vue'
 
 
 
+
 if (process.BROWSER_BUILD) {
   require('velocity-animate')
 }

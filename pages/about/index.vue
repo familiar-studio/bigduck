@@ -84,7 +84,7 @@
                   <div class="" v-if="client.client_category">
                     <div class="media" @click.prevent="toggleClient(client.client_category)">
                       <!-- <img class="mr-3" v-if="client.client_category"
-                          :src="sectorsByIndex[client.client_category[0]].acf['taxonomy-icon']" /></img> -->
+                                :src="sectorsByIndex[client.client_category[0]].acf['taxonomy-icon']" /></img> -->
                       <div :class="{ 'active': openCategory === client.client_category }" class="client">
                         <span v-html="sectorsByIndex[client.client_category].icon"></span>
                         <h2 class="ml-3">
@@ -158,6 +158,7 @@
 import Axios from 'axios'
 import Event from '~components/Event.vue'
 import Chat from '~components/Chat.vue'
+
 
 export default {
   name: 'about',
