@@ -84,7 +84,7 @@ a.active, span.active a {
     position: relative;
     background-color: $gray-light;
     transition: all .3s ease;
-    opacity: .8;
+    // opacity: .8;
 
     &::before {
       @extend .bgChange;
