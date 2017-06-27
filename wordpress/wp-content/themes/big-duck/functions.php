@@ -19,9 +19,9 @@ function bd_pre_get_posts( $query ) {
 	if ( isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == 'bd_event' ) {
 		$today = date('Y-m-d H:i:s');
 		echo 'filter!';
-		// $query->set('orderby', 'meta_value');
-		// $query->set('meta_key', 'start_time');
-		// $query->set('order', 'DESC');
+		$query->set('orderby', 'meta_value');
+		$query->set('meta_key', 'start_time');
+		$query->set('order', 'DESC');
 		$query->set('meta_query', array(
 			array(
 				'key' => 'start_time',
@@ -905,15 +905,15 @@ class StarterSite extends TimberSite {
 	function get_event_team_members($object) {
 		$rawMembers = get_field('related_team_members');
 		$members = array();
-		foreach($rawMembers as $member){
-			$members[] = array(
-				'headshot' => get_field('headshot', 'user_' . $member['ID']),
-				'member' => $member
-			);
-			// $member['headshot'] = get_field('headshot', 'user_' . $id);
+		if (is_array($rawMembers)){
+			foreach($rawMembers as $member){
+				$members[] = array(
+					'headshot' => get_field('headshot', 'user_' . $member['ID']),
+					'member' => $member
+				);
+			}
 		}
 		return new WP_REST_Response($members);
-		return new WP_REST_Response(get_fields('bd_event_' . $object['id']));
 	}
 
 	function get_post_event_for_api($object) {
