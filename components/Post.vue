@@ -20,12 +20,12 @@
               <div class="badge badge-default">
                 <span v-if="types && firstType && entry.acf.time">
                   <span v-if="getTypesIndexedById[firstType].verb == 'Read' && entry.calculated_reading_time">
-                    {{entry.calculated_reading_time.data}}
+                    {{entry.calculated_reading_time.data}} {{ getTypesIndexedById[firstType].verb }}
                   </span>
-                  <span v-else>
-                    {{ entry.acf.time }} {{ entry.acf.time_interval }}
+                  <span v-else-if="entry.acf.time && entry.acf.time_interval">
+                    {{ entry.acf.time }} {{ entry.acf.time_interval }} {{ getTypesIndexedById[firstType].verb }}
                   </span>
-                  {{ getTypesIndexedById[firstType].verb }}
+
                 </span>
               </div>
             </div>
@@ -43,18 +43,21 @@
                   Read More
                 </span>
               </div>
-              <div class="media" v-if="entry.authors.length > 0" v-for="author in entry.authors">
-
-                <img vif="author.meta.headshot.sizes" :src="author.meta.headshot.sizes.thumbnail" class="round author-img mr-2">
-                <h6 class="align-self-center mb-0">
-                  <span v-html="author.display_name"></span>
-                </h6>
+              <div class="media" v-if="entry.authors">
+                  <div v-if="entry.authors.length > 0" v-for="author in entry.authors" class="media">
+                  <img v-if="author.meta.headshot.sizes" :src="author.meta.headshot.sizes.thumbnail" class="round author-img mr-2">
+                  <h6 class="align-self-center mb-0">
+                    <span v-html="author.display_name"></span>
+                  </h6>
+                </div>
               </div>
-              <div class="media" v-else-if="entry.acf.author.length > 0" v-for="author in entry.acf.author">
-                <img v-if="entry.author_headshots && entry.author_headshots[author['ID']] && entry.author_headshots[author['ID']].sizes" :src="entry.author_headshots[author['ID']].sizes.thumbnail" class="round author-img mr-2">
-                <h6 class="align-self-center mb-0">
-                  <span v-html="author.display_name"></span>
-                </h6>
+              <div v-else>
+                  <div v-if="entry.acf.author.length > 0" v-for="author in entry.acf.author" class="media">
+                  <img v-if="entry.author_headshots && entry.author_headshots[author['ID']] && entry.author_headshots[author['ID']].sizes" :src="entry.author_headshots[author['ID']].sizes.thumbnail" class="round author-img mr-2">
+                  <h6 class="align-self-center mb-0">
+                    <span v-html="author.display_name"></span>
+                  </h6>
+                </div>
               </div>
               <div v-if="entry.acf.guest_author_name" class="media author-no-img">
                 <h6 class="align-self-center mb-0">
