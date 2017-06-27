@@ -21,10 +21,11 @@
                 </div>
                 <div class="badge badge-default">
                   <span v-if="types && insight.type[0]">
-                    <span v-if="getTypesIndexedById[insight.type[0]].verb == 'Read' && insight.calculated_reading_time">
+                    {{insight.calculated_reading_time}}
+                    <span v-if="insight.calculated_reading_time && getTypesIndexedById[insight.type[0]].verb == 'Read'">
                       {{insight.calculated_reading_time.data}}
                     </span>
-                    <span v-else>
+                    <span>
                       {{ insight.acf.time }} {{ insight.acf.time_interval }}
                     </span>
                     {{ getTypesIndexedById[insight.type[0]].verb }}
@@ -167,13 +168,13 @@ export default {
     return data
   },
   head() {
-    return {
-      title: this.insight && this.insight.title.rendered ? this.insight.title.rendered : null,
-      meta: [
-        { description: 'Overview' },
-        { 'og:image': this.insight ? this.insight.acf.featured_image : null }
-      ]
-    }
+    // return {
+    //   title: this.insight && this.insight.title.rendered ? this.insight.title.rendered : null,
+    //   meta: [
+    //     { description: 'Overview' },
+    //     { 'og:image': this.insight ? this.insight.acf.featured_image : null }
+    //   ]
+    // }
   },
   computed: {
     ...mapState(['types', 'topics']),
@@ -195,20 +196,22 @@ export default {
       return null
     },
     authorsById() {
-      let authors = {};
-      this.insight.acf.author.forEach((author) => {
-        authors[author.ID] = author
-      })
+      if (this.insight) {
+        let authors = {};
+        this.insight.acf.author.forEach((author) => {
+          authors[author.ID] = author
+        })
+      }
       return authors
     },
     authorMetaById() {
-      let authorsById = {};
       if (this.authors) {
+        let authorsById = {}
         this.authors.forEach((author) => {
           authorsById[author.id] = author
         })
+        return authorsById
       }
-      return authorsById
     }
 
   },

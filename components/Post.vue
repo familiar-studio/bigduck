@@ -43,26 +43,36 @@
                   Read More
                 </span>
               </div>
-              <div class="media" v-if="entry.authors">
-                  <div v-if="entry.authors.length > 0" v-for="author in entry.authors" class="media">
+              <div class="row" v-if="entry.authors">
+                <div class="col-md-6" v-for="author in entry.authors">
+
+                  <div v-if="entry.authors.length > 0" class="media">
                   <img v-if="author.meta.headshot.sizes" :src="author.meta.headshot.sizes.thumbnail" class="round author-img mr-2">
                   <h6 class="align-self-center mb-0">
                     <span v-html="author.display_name"></span>
                   </h6>
                 </div>
-              </div>
-              <div v-else>
-                  <div v-if="entry.acf.author.length > 0" v-for="author in entry.acf.author" class="media">
-                  <img v-if="entry.author_headshots && entry.author_headshots[author['ID']] && entry.author_headshots[author['ID']].sizes" :src="entry.author_headshots[author['ID']].sizes.thumbnail" class="round author-img mr-2">
+                </div>
+                <div v-if="entry.acf.guest_author_name" class="media author-no-img">
                   <h6 class="align-self-center mb-0">
-                    <span v-html="author.display_name"></span>
+                    <span>{{entry.acf.guest_author_name}}</span>
                   </h6>
                 </div>
               </div>
+              <div v-else class="row">
+                  <div class="col-md-6" v-for="author in entry.acf.author" >
+                    <div v-if="entry.acf.author.length > 0" class="media">
+                    <img v-if="entry.author_headshots && entry.author_headshots[author['user_nicename']] && entry.author_headshots[author['user_nicename']].sizes" :src="entry.author_headshots[author['user_nicename']].sizes.thumbnail" class="round author-img mr-2">
+                    <h6 class="align-self-center mb-0">
+                      <span v-html="author.display_name"></span>
+                    </h6>
+                  </div>
+                </div>
               <div v-if="entry.acf.guest_author_name" class="media author-no-img">
                 <h6 class="align-self-center mb-0">
                   <span>{{entry.acf.guest_author_name}}</span>
                 </h6>
+              </div>
               </div>
               <div v-if="!entry.acf.guest_author_name && entry.acf.author.length < 1" class="media author-no-img">
                 <h6 class="align-self-center mb-0">
