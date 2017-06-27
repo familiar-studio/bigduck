@@ -21,7 +21,6 @@
               </h4>
             </div>
             <div v-if="events.length > 0">
-              <!-- <ListTransition :previous="previouslyLoadedEvents" :current="events.length"> -->
               <transition-group name="fade" appear>
                 <div v-for="(event, index) in events" :key="index">
                   <Event :entry="event" :firstBlock="true" :categories="categories" :index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
@@ -30,7 +29,7 @@
                   </transition>
                 </div>
               </transition-group>
-              <!-- </ListTransition> -->
+  
               <div class="pager" v-if="events.length < totalRecords">
                 <a class="btn btn-primary my-4" href="#" @click.prevent="nextPage">Load more</a>
               </div>
@@ -53,11 +52,9 @@
 <script>
 import Event from '~components/Event.vue'
 import FilterList from '~components/FilterList.vue'
-import ListTransition from '~components/ListTransition.vue'
 import { mapState, mapGetters } from 'vuex'
 import InlineCallout from '~components/InlineCallout.vue'
 import Chat from '~components/Chat.vue'
-
 import axios from 'axios'
 
 
@@ -66,7 +63,6 @@ export default {
   components: {
     Event,
     FilterList,
-    ListTransition,
     InlineCallout,
     Chat
   },

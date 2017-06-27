@@ -46,15 +46,7 @@ import InlineCallout from '~components/InlineCallout.vue'
 import { mapState, mapGetters } from 'vuex'
 import axios from 'axios'
 import FilterList from '~components/FilterList.vue'
-import ListTransition from '~components/ListTransition.vue'
 import Chat from '~components/Chat.vue'
-
-
-
-
-if (process.BROWSER_BUILD) {
-  require('velocity-animate')
-}
 
 export default {
   name: 'insights',
@@ -87,7 +79,7 @@ export default {
   },
   components: {
     FilterList,
-    ListTransition,
+
     Post,
     InlineCallout,
     Chat
