@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="img-hero" v-if="insight.acf.featured_image" :style=" { backgroundImage: 'url(' + insight.acf.featured_image + ')' }">
+  <div v-if="insight">
+    <div class="img-hero" v-if="insight && insight.acf.featured_image" :style=" { backgroundImage: 'url(' + insight.acf.featured_image + ')' }">
       <figcaption class="figure-caption">{{insight.acf.featured_image.caption}}</figcaption>
     </div>
     <div class="">
@@ -15,7 +15,7 @@
                 <nuxt-link class="badge badge-default underlineChange" :to="{name: 'insights'}">
                   Insights
                 </nuxt-link>
-                <div class="badge badge-default" v-for="topic in insight.topic" v-if="topics">
+                <div class="badge badge-default" v-for="topic in insight.topic" v-if="topics && getTopicsIndexedById[topic]">
                   <img :src="getTopicsIndexedById[topic].acf.icon">
                   <div v-html="getTopicsIndexedById[topic].name"></div>
                 </div>
@@ -34,7 +34,7 @@
                   {{ date }}
                 </div>
               </div>
-
+  
               <h1>
                 <span v-html="insight.title.rendered"></span>
               </h1>
@@ -60,42 +60,37 @@
                 <Share></Share>
               </div>
             </article>
-
+  
             <div v-if="formId" class="form-light">
               <GravityForm :formId="formId" :viewAll="true" :gatedContent="insight.id" @submitted="refreshContent()"></GravityForm>
             </div>
-
+  
             <article class="main" v-if="formId === false && insight.content.rendered">
               <div v-html="insight.content.rendered"></div>
             </article>
-
+  
             <article class="mb-5 container">
-              <!-- <div class="badge badge-default mb-3" v-if="insight.author_headshots && insight.acf.author.length > 0" v-for="author in insight.acf.author">
-                <img v-if="insight.author_headshots[author.user_nicename].sizes" :src="insight.author_headshots[author.user_nicename].sizes.thumbnail" class="round author-img mr-2">
-                <div v-html="author.display_name"></div>
-              </div> -->
+  
               <div v-if="insight.acf.author.length > 0" v-for="(author, index) in insight.acf.author">
                 <div class="author-bio">
                   <div class="row">
                     <div class="col-md-2 author-bio-pic">
-                      <!-- {{author.acf.headshot.sizes.thumbnail}} -->
                       <img class="round" v-if="insight.author_headshots[author.user_nicename].sizes" :src="insight.author_headshots[author.user_nicename].sizes.thumbnail" alt="" />
                     </div>
                     <div class="col-md-10 author-bio-text" v-if="authorMetaById">
-                      <!-- {{author}} -->
-                      <h3>
+                      <h3 v-if="authorMetaById[author.ID]">
                         {{author.display_name}} is {{prependIndefiniteArticle(authorMetaById[author.ID].acf.job_title)}} at Big Duck
                       </h3>
                       <nuxt-link class="btn btn-primary" :to="{name: 'about-slug', params: { slug: author.user_nicename}}">
                         More about {{author.user_firstname}}
                       </nuxt-link>
                     </div>
-
+  
                   </div>
                 </div>
               </div>
             </article>
-
+  
             <div class="mb-5" v-if="relatedCaseStudies">
               <h2>Related Case Studies</h2>
               <div class="row">
@@ -115,11 +110,11 @@
                       </div>
                     </div>
                   </nuxt-link>
-
+  
                 </div>
               </div>
             </div>
-
+  
             <div class="mb-5" v-if="relatedInsights">
               <h2>Related Insights</h2>
               <div v-if="relatedInsights">
@@ -199,16 +194,16 @@ export default {
       }
       return null
     },
-    authorsById () {
+    authorsById() {
       let authors = {};
       this.insight.acf.author.forEach((author) => {
         authors[author.ID] = author
       })
       return authors
     },
-    authorMetaById () {
+    authorMetaById() {
       let authorsById = {};
-      if (this.authors){
+      if (this.authors) {
         this.authors.forEach((author) => {
           authorsById[author.id] = author
         })
