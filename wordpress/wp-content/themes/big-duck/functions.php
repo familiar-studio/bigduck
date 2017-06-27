@@ -12,7 +12,19 @@ if ( ! class_exists( 'Timber' ) ) {
 	return;
 }
 
+function bd_pre_get_posts( $query ) {
+	if( is_admin() ) {
+		return $query;
+	}
 
+	if ( isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == 'bd_event' ) {
+		$query->set('orderby', 'meta_value');
+		$query->set('meta_key', 'start_date');
+		$query->set('order', 'DESC');
+	}
+
+	return $query;
+}
 
 function bd_search_join( $join ) {
 	global $wpdb;
