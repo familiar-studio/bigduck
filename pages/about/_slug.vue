@@ -44,7 +44,7 @@
       </article>
 
       <div v-if="relatedEvents && relatedEvents.events.length > 0">
-        <h2>Events with {{member.name.split(" ")[0]}}</h2>
+        <h2 class="mt-5">Events with {{member.name.split(" ")[0]}}</h2>
         <Event v-for="(event, index) in relatedEvents.events" :entry="event.data" :key="event.slug" :index="index" :relatedTeamMembers="event.team_meta"></Event>
       </div>
       <div class="" v-if="relatedInsights && relatedInsights.length > 0">
@@ -83,7 +83,7 @@ export default {
   },
   async created() {
     let relatedEventIds = this.member.events.map((event) => { return event.ID })
-    console.log(relatedEventIds)
+    console.log(this.member)
     if (relatedEventIds.length > 0 && relatedEventIds) {
       // debugger
       let response = await Axios.get(this.hostname + 'familiar/v1/events/user/' + this.member.slug )
@@ -99,6 +99,7 @@ export default {
   async asyncData({ store, params }) {
 
     let response = await Axios.get(store.getters['hostname'] + 'familiar/v1/team/' + params.slug)
+    console.log(response)
     // console.log(store.getters['hostname'] + 'familiar/v1/team/' + params.slug)
     return {
       member: response.data
