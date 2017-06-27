@@ -10,9 +10,9 @@ export default ({ app: { router }, store }) => {
       /*
       ** Send the pageview
       */
-      if (ActOn && Acton.Beacon) {
-        ActOn.Beacon.track();
-      }
+      // if (ActOn && Acton.Beacon) {
+      //   ActOn.Beacon.track();
+      // }
 
       var sessionId = jscookie.get("nfsession") || 0;
       var pageLink = window.location.href;
