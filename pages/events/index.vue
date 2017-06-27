@@ -25,7 +25,7 @@
                 <div v-for="(event, index) in events" :key="index">
                   <Event :entry="event" :firstBlock="true" :categories="categories" :index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
                   <transition name="list" appear>
-                    <Subscribe v-if="callouts && callouts[0] && index % 5 == 1 && index < events.length - 1" :entry="callouts[0]"></Subscribe>
+                    <InlineCallout class="mb-5" v-if="index % 5 == 1 && index < events.length - 1"></InlineCallout>
                   </transition>
                 </div>
               </transition-group>

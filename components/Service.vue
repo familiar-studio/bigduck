@@ -1,5 +1,5 @@
 <template>
-  <div class="block-service" :class="blockClass" v-if="entry.acf">
+  <div v-once class="block-service" :class="blockClass" v-if="entry.acf">
     <router-link :to="{ name: 'services-slug', params: { slug: entry.slug }}" :key="entry.id">
       <div class="row no-gutters">
         <div class="col-md-6 col-image">
