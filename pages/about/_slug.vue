@@ -43,13 +43,13 @@
         </div>
       </article>
 
-      <div v-if="member.events && member.events.length > 0">
+      <div v-if="relatedEvents && relatedEvents.events.length > 0">
         <h2>Events with {{member.name.split(" ")[0]}}</h2>
-        <Event v-for="(event, index) in member.events" :entry="event" :key="event.id" :index="index" :relatedTeamMembers="event.acf.related_team_members"></Event>
+        <Event v-for="(event, index) in relatedEvents.events" :entry="event.data" :key="event.slug" :index="index" :relatedTeamMembers="event.team_meta"></Event>
       </div>
-      <div class="" v-if="member.insights && member.insights.length > 0">
+      <div class="" v-if="relatedInsights && relatedInsights.length > 0">
         <h2>Insights by {{ member.name.split(" ")[0]}}</h2>
-        <Post v-for="(insight, index) in member.insights" :key="insight.id" :entry="insight" :index="index"></Post>
+        <Post v-for="(insight, index) in relatedInsights" :key="insight.id" :entry="insight" :index="index"></Post>
       </div>
     </div>
   </div>
