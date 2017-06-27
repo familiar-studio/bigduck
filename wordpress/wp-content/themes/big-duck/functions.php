@@ -242,13 +242,13 @@ class StarterSite extends TimberSite {
 		));
 	}
 
-	function get_gated_id () {
+	function get_gated_id ($request) {
 		$form_id = $request->get_param( 'form_id' );
 		$post_id = $request->get_param( 'post_id' );
 
-		//$gated = new NFGated();
-		//$id = $gated->getGatedUniqueId( $form_id, $post_id );
-		return new WP_REST_Response( 'something', 200 );
+		$gated = new NFGated();
+		$id = $gated->getGatedUniqueId( $form_id, $post_id );
+		return new WP_REST_Response( $id, 200 );
 
 	}
 
@@ -1001,6 +1001,21 @@ class StarterSite extends TimberSite {
 					'show_in_menu' => true,
 					'has_archive' => true,
 					'rewrite' => array('slug' => 'callouts'),
+					'show_in_rest' => true
+				)
+			);
+
+			register_post_type( 'sidebarcta',
+				array(
+					'labels' => array(
+						'name' => __( 'Sidebar CTAs' ),
+						'singular_name' => __( 'Sidebar CTA' )
+					),
+					'public' => true,
+					'show_ui' => true,
+					'show_in_menu' => true,
+					'has_archive' => true,
+					'rewrite' => array('slug' => 'sidebarcta'),
 					'show_in_rest' => true
 				)
 			);

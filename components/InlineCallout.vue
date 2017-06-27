@@ -2,7 +2,7 @@
   <div class="callout-fullwidth bg-inverse text-white" v-if="inline">
     <div class="callout-content">
   
-      <h2>{{ inline.title }}</h2>
+      <h2 v-html="inline.title"></h2>
       <p>
         {{ inline.description }}
       </p>

@@ -7,7 +7,7 @@
         <label :for="field.id" v-if="field.type != 'hidden'">{{field.label}}</label>
   
         <template v-if="field.type == 'select'">
-          <select v-model="formData[field.id]" class="custom-select form-control">
+          <select v-model="formData['input_'+field.id]" class="custom-select form-control">
             <option v-for="choice in field.choices" :value="choice.value">
               {{ choice.text }}
             </option>
@@ -17,7 +17,7 @@
         <template v-else-if="field.type == 'checkbox'">
           <div class="custom-controls-stacked">
             <label class="custom-control custom-checkbox" v-for="choice in field.choices">
-              <input class="custom-control-input" type="checkbox" :name="field.id" v-model="formData[field.id]" :value="choice.value">
+              <input class="custom-control-input" type="checkbox" :name="field.id" v-model="formData['input_'+field.id]" :value="choice.value">
               <span class="custom-control-indicator"></span>
               <span class="custom-control-description">{{ choice.text }}</span>
             </label>
@@ -26,7 +26,7 @@
         <template v-else-if="field.type == 'radio'">
           <div class="custom-controls-stacked">
             <label class="custom-control custom-radio" v-for="choice in field.choices">
-              <input class="custom-control-input" type="radio" :name="field.id" v-model="formData[field.id]" :value="choice.value">
+              <input class="custom-control-input" type="radio" :name="field.id" v-model="formData['input_'+field.id]" :value="choice.value">
               <span class="custom-control-indicator"></span>
               <span class="custom-control-description">{{ choice.text }}</span>
             </label>
@@ -34,23 +34,23 @@
         </template>
   
         <template v-else-if="field.type == 'email'">
-          <input v-model="formData[field.id]" type="email" :name="field.id" class="form-control" v-validate="{ rules: { required: field.isRequired, email: true } }" />
+          <input v-model="formData['input_'+field.id]" type="email" :name="field.id" class="form-control" v-validate="{ rules: { required: field.isRequired, email: true } }" />
         </template>
   
         <template v-else-if="field.type == 'number'">
-          <input v-model="formData[field.id]" type="number" :name="field.id" class="form-control" v-validate="{ rules: { required: field.isRequired, numeric: true } }" />
+          <input v-model="formData['input_'+field.id]" type="number" :name="field.id" class="form-control" v-validate="{ rules: { required: field.isRequired, numeric: true } }" />
         </template>
   
         <template v-else-if="field.type == 'hidden'">
-          <input v-model="formData[field.id]" :name="field.id" type="hidden" />
+          <input v-model="formData['input_'+field.id]" :name="field.id" type="hidden" />
         </template>
   
         <template v-else-if="field.type == 'textarea'">
-          <textarea v-model="formData[field.id]" class="form-control" :name="field.id" v-validate="{ rules: { required: field.isRequired } }" />
+          <textarea v-model="formData['input_'+field.id]" class="form-control" :name="field.id" v-validate="{ rules: { required: field.isRequired } }" />
         </template>
   
         <template v-else>
-          <input v-model="formData[field.id]" type="text" class="form-control" :name="field.id" v-validate="{ rules: { required: field.isRequired } }" />
+          <input v-model="formData['input_'+field.id]" type="text" class="form-control" :name="field.id" v-validate="{ rules: { required: field.isRequired } }" />
         </template>
   
         <div class="form-control-feedback" v-show="errors.has(field.id.toString())">{{ errors.first(field.id.toString()) }}</div>
@@ -58,7 +58,7 @@
       </div>
   
       <div v-for="field in hiddenFields">
-        <input v-model="formData[field.id]" :name="field.id" type="hidden" />
+        <input v-model="formData['input_'+field.id]" :name="field.id" type="hidden" />
       </div>
   
       <button type="submit" @click.prevent="submitEntry()" class="btn btn-secondary">Submit</button>
@@ -119,7 +119,7 @@ export default {
       return this.allFields.filter((field, index) => {
         // if checkboxes and not already has data initalize as array to make multi-select work properly
         if (field.type === 'checkbox' && (!this.formData[field.id] || !Array.isArray(this.formData[field.id]))) {
-          this.formData[field.id] = []
+          this.formData['input_' + field.id] = []
         }
         // always include the first three
         if (index < 3) {
@@ -146,8 +146,10 @@ export default {
       var signature = this.CalculateSig('entries', 'POST')
       localStorage.formData = JSON.stringify(this.formData)
       this.formData['form_id'] = this.formId
+      var endpoint = this.baseUrl + 'forms/' + this.formId + '/submissions';
+      console.log('endpoint', endpoint)
 
-      axios.post(this.baseUrl + 'forms/' + this.formId + '/entries', [this.formData], { params: { api_key: this.publicKey, signature: signature, expires: this.expires } })
+      axios.post(this.baseUrl + 'forms/' + this.formId + '/submissions', { "input_values": this.formData }, { params: { api_key: this.publicKey, signature: signature, expires: this.expires } })
       this.$emit('submitted')
       this.submitted = true
 
