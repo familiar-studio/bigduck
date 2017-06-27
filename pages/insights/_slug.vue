@@ -21,7 +21,6 @@
                 </div>
                 <div class="badge badge-default">
                   <span v-if="types && insight.type[0]">
-                    {{insight.calculated_reading_time}}
                     <span v-if="insight.calculated_reading_time && getTypesIndexedById[insight.type[0]].verb == 'Read'">
                       {{insight.calculated_reading_time.data}}
                     </span>
