@@ -16,11 +16,11 @@
                   <div class="badge-group">
                     <router-link class="badge badge-default underlineChange" :to="{name: 'events'}">Event</router-link>
                     <div class="badge badge-default" v-for="topic in event.topic">
-                      <img :src="getTopicsIndexedById[topic].acf.icon">
+                      <div v-html="getTopicsIndexedById[topic].icon"></div>
                       <div v-html="getTopicsIndexedById[topic].name"></div>
                     </div>
                     <div class="badge badge-default" v-for="eventCategory in event['event_category']">
-                      <img :src="getEventCategoriesIndexedById[eventCategory].acf.icon">
+                      <div v-html="getEventCategoriesIndexedById[eventCategory].icon"></div>
                       <div v-html="getEventCategoriesIndexedById[eventCategory].name"></div>
                     </div>
                   </div>
