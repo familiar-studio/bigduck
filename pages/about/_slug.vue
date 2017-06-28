@@ -4,7 +4,7 @@
       <figcaption class="figure-caption">{{member.headshot.caption}}</figcaption>
     </div>
     <div class="container overlap" id="content">
-      <article class="main">
+      <article class="main" :class="{'mb-5': !relatedInsights && !relatedEvents }">
         <div class="badge badge-default">
           <nuxt-link to="/about#team">Team</nuxt-link>
         </div>
@@ -87,14 +87,14 @@ export default {
   async created() {
     let relatedEventIds = this.member.events.map((event) => { return event.ID })
     console.log(this.member)
-    if (relatedEventIds.length > 0 && relatedEventIds) {
+    if (relatedEventIds && relatedEventIds.length > 0 ) {
       // debugger
       let response = await Axios.get(this.hostname + 'familiar/v1/events/user/' + this.member.slug )
       this.relatedEvents = response.data
     }
     let relatedInsightIds = this.member.insights.map((insight) => { return insight.ID })
     console.log(relatedInsightIds)
-    if (relatedInsightIds.length > 0 && relatedInsightIds) {
+    if (relatedInsightIds && relatedInsightIds.length > 0 ) {
       let response = await Axios.get(this.hostname + 'familiar/v1/insights/user/' + this.member.slug )
       this.relatedInsights = response.data
     }
