@@ -6,7 +6,7 @@
     <div class="container overlap" id="content">
       <article class="main" :class="{'mb-5': !relatedInsights && !relatedEvents }">
         <div class="badge badge-default">
-          <nuxt-link to="/about#team">Team</nuxt-link>
+          <nuxt-link to="/about#team" class="overview-link">Team</nuxt-link>
         </div>
         <h1 class="mt-4 mb-1">{{member.name}}</h1>
         <div class="row">

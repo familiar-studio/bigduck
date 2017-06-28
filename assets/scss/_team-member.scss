@@ -19,3 +19,8 @@ aside {
 
   }
 }
+
+.overview-link  {
+  @extend .underlineChange;
+  line-height: 1.5;
+}
