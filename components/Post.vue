@@ -1,6 +1,6 @@
 <template>
   <div v-once class="block-overlap" :class="blockClass" :type="types && entry.type && firstType ? getTypesIndexedById[firstType].slug : ''">
-    <nuxt-link :to="{ name: 'insights-slug', params: { slug: entry.slug }}" :key="entry.id">
+    <nuxt-link :to="{ name: 'insights-slug', params: { slug: slug }}" :key="entry.id">
       <div class="col-image">
         <div :style="{ 'background-image': 'url(' + entry.acf.featured_image+ ')' }" class="featured-image"></div>
       </div>
@@ -105,6 +105,9 @@ export default {
       } else {
         return 'even-block'
       }
+    },
+    slug () {
+      return this.entry.slug ? this.entry.slug : this.entry.post_name
     }
   }
 }

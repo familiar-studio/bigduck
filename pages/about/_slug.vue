@@ -51,7 +51,7 @@
         <Event v-for="(event, index) in relatedEvents.events" :entry="event.data" :key="event.slug" :index="index" :relatedTeamMembers="event.team_meta"></Event>
       </div>
       <div class="" v-if="relatedInsights && relatedInsights.length > 0">
-        <h2>Insights by {{ member.name.split(" ")[0]}}</h2>
+        <h2 :class="{'mt-5': !relatedEvents }">Insights by {{ member.name.split(" ")[0]}}</h2>
         <Post v-for="(insight, index) in relatedInsights" :key="insight.id" :entry="insight" :index="index"></Post>
       </div>
     </div>
