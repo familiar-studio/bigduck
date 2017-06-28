@@ -1,9 +1,9 @@
 <template>
   <div>
-  
+
     <div class="jumbotron" id="hero-animation">
       <div class="container">
-  
+
         <h1 class="display-2">
           <span>
             Developing
@@ -25,7 +25,7 @@
         <router-link class="btn btn-primary" to="/services">See how we do it &rarr;</router-link>
       </div>
     </div>
-  
+
     <Featured v-for="(caseStudy, index) in relatedCaseStudies" :work="caseStudy" :index="index" :key="index"></Featured>
     <div class="testimonial mb-5">
       <div class="container">
@@ -38,23 +38,23 @@
       </div>
     </div>
     <div class="row">
-  
+
       <div class="col-lg-8 offset-lg-2">
         <div class="container">
           <div v-if="upcomingEvents" class="mt-5">
             <h2>Featured Events</h2>
-  
+
             <div class="" v-for="(event, index) in upcomingEvents">
               <Event :entry="event" index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
             </div>
             <nuxt-link class="btn btn-primary" to="/events">View All Events</nuxt-link>
           </div>
         </div>
-  
+
         <div class="container">
           <div v-if="latestInsights" class="my-5">
             <h2>Recent Insights</h2>
-  
+
             <div class="" v-for="(insight, index) in latestInsights">
               <Post :entry="insight" :index="index + latestInsights.length"></Post>
             </div>
@@ -66,7 +66,7 @@
         <Chat></Chat>
       </div>
     </div>
-  
+
   </div>
 </template>
 <script>
@@ -103,9 +103,9 @@ export default {
     if (page && page.acf) {
       return {
         page: response.data,
-        relatedWorkIds: page.acf.featured_case_studies,
-        upcomingEventIds: page.acf.upcoming_events,
-        latestInsightIds: page.acf.latest_insights
+        relatedWorkIds: page.acf.featured_case_studies.map((work) => { return work.ID }),
+        upcomingEventIds: page.acf.upcoming_events.map((event) => { return event.ID }),
+        latestInsightIds: page.acf.latest_insights.map((insight) => { return insight.ID })
       }
     }
   },
@@ -153,21 +153,21 @@ export default {
     this.$store.dispatch('fetchPageCallouts', 'insights')
 
     if (this.relatedWorkIds) {
-      Axios.get(this.hostname + 'wp/v2/bd_case_study', { params: { includes: this.relatedWorkIds } }).then(
+      Axios.get(this.hostname + 'wp/v2/bd_case_study', { params: { include: this.relatedWorkIds } }).then(
         (response) => {
           this.relatedCaseStudies = response.data
         }
       )
     }
     if (this.upcomingEventIds) {
-      Axios.get(this.hostname + 'wp/v2/bd_event', { params: { includes: this.upcomingEventIds } }).then(
+      Axios.get(this.hostname + 'wp/v2/bd_event', { params: { include: this.upcomingEventIds } }).then(
         (response) => {
           this.upcomingEvents = response.data
         }
       )
     }
     if (this.latestInsightIds) {
-      Axios.get(this.hostname + 'wp/v2/bd_insight', { params: { includes: this.latestInsightIds } }).then(
+      Axios.get(this.hostname + 'wp/v2/bd_insight', { params: { include: this.latestInsightIds } }).then(
         (response) => {
           this.latestInsights = response.data
         }
@@ -210,5 +210,3 @@ export default {
   }
 }
 </script>
-
-
