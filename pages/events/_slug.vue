@@ -10,7 +10,7 @@
         </div>
         <div class="col-lg-8">
           <div class="container overlap">
-            <article class="main">
+            <article class="main" :class="{ 'mb-5': !relatedInsights && !relatedEvents }">
               <div class="row">
                 <div class="col-lg-9">
                   <div class="badge-group">
@@ -37,7 +37,7 @@
                   <div v-if="event.related_team_members.data || event.acf.guest_speakers.length > 0" class="author-listing">
                     <div class="media speaker mt-3" v-if="event.related_team_members.data" v-for="team_member in event.related_team_members.data">
                       <img v-if="team_member.headshot" :src="team_member.headshot.sizes.thumbnail" class="round author-img mr-2">
-                      <h6 class="align-self-center mb-0">{{ team_member.member.display_name}}</h6>
+                      <h6 class="align-self-center mb-0"><nuxt-link :to="'/about/' + team_member.member.user_nicename">{{ team_member.member.display_name}}</nuxt-link></h6>
                     </div>
                     <div class="speaker media mt-3" v-for="speaker in event.acf.guest_speakers" v-if="event.acf.guest_speakers.length > 0" >
                       <!-- <img v-if="team_member.headshot" :src="team_member.headshot.sizes.thumbnail" class="round author-img mr-2"> -->
@@ -87,7 +87,7 @@
 
             </article>
 
-            <div v-if="relatedEvents && relatedInsights">
+            <div v-if="relatedEvents || relatedInsights">
               <h2 class="mb-3 mt-5">Related Events &amp; Insights</h2>
               <div v-if="relatedEvents">
                 <div class="" v-for="(event, index) in relatedEvents">
