@@ -20,7 +20,7 @@ function bd_pre_get_posts( $query ) {
 		$today = date('Y-m-d H:i:s');
 		$query->set('orderby', 'meta_value');
 		$query->set('meta_key', 'start_time');
-		$query->set('order', 'DESC');
+		$query->set('order', 'ASC');
 		$query->set('meta_query', array(
 			array(
 				'key' => 'start_time',
