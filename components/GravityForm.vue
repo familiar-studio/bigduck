@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form v-if="!submitted">
+    <form v-if="!submitted && visibleFields">
   
       <div v-for="field in visibleFields" class="form-group" :class="{'has-danger':errors.has(field.id.toString())}">
   
@@ -66,9 +66,7 @@
     <div v-else>
       <h2>{{confirmation}}</h2>
   
-      <div v-if="gatedContent">
-        <p>This is where the gated content would go this is all hard coded for now but should give you an idea of what will look like</p>
-      </div>
+  
     </div>
   </div>
 </template>

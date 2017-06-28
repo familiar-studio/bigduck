@@ -35,8 +35,7 @@
                 </div>
               </div>
 
-              <h1>
-                <span v-html="insight.title.rendered"></span>
+              <h1 v-html="insight.title.rendered">
               </h1>
               <div class="author-listing" v-if="insight.acf.author.length > 0">
                   <div class="badge badge-default mb-3" v-if="insight.author_headshots" v-for="author in insight.acf.author">
@@ -45,8 +44,7 @@
                   </div>
 
                 <div>
-                  <div v-if="insight.acf.guest_author_name" class="badge badge-default mb-3 author-no-img">
-                    <span v-html="insight.acf.guest_author_name"></span>
+                  <div v-if="insight.acf.guest_author_name" class="badge badge-default mb-3 author-no-img" v-html="insight.acf.guest_author_name">
                   </div>
               </div>
             </div>
@@ -172,13 +170,13 @@ export default {
     return data
   },
   head() {
-    // return {
-    //   title: this.insight && this.insight.title.rendered ? this.insight.title.rendered : null,
-    //   meta: [
-    //     { description: 'Overview' },
-    //     { 'og:image': this.insight ? this.insight.acf.featured_image : null }
-    //   ]
-    // }
+    return {
+      title: this.insight && this.insight.title.rendered ? this.insight.title.rendered : null,
+      meta: [
+        { description: 'Overview' },
+        { 'og:image': this.insight ? this.insight.acf.featured_image : null }
+      ]
+    }
   },
   computed: {
     ...mapState(['types', 'topics']),
