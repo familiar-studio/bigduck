@@ -22,6 +22,7 @@ body {
 }
 
 .subnav {
+  position: -webkit-sticky;
   position: sticky;
   top: 85px;
   margin-left: 10px;
