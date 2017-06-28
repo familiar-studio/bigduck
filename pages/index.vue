@@ -162,6 +162,7 @@ export default {
     if (this.upcomingEventIds) {
       Axios.get(this.hostname + 'wp/v2/bd_event', { params: { include: this.upcomingEventIds } }).then(
         (response) => {
+          debugger
           this.upcomingEvents = response.data
         }
       )
