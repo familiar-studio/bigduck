@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="filter-list">
     <div class="label label-lg">{{ label }}</div>
     <div class="media-list">
       <a href="#" v-for="term in terms" :key="term.id" :class="{ active: term.id == selected }" @click.prevent="clicked(taxonomy, term.id)">

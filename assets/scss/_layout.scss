@@ -185,3 +185,9 @@ article.main {
     margin-bottom: 1rem;
   }
 }
+
+.filter-list {
+  @include media-breakpoint-only(md) {
+    display: none;
+  }
+}
