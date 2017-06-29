@@ -43,7 +43,7 @@
   .col-text {
     z-index: 4;
     transition: all .3s ease;
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-up(sm) {
       width: 60%;
       position: relative;
     }
@@ -86,16 +86,21 @@
       @include media-breakpoint-up(sm) {
         position: relative;
         flex-basis: 75%;
-        width: 40%;
+        width: 60%;
         height: 21rem;
         margin-bottom: 0;
+      }
+      @include media-breakpoint-up(lg) {
+        width: 40%;
+
       }
       @media (min-width: 1900px) {
         height: 24rem;
       }
     }
     .col-text {
-      @include media-breakpoint-up(md) {
+
+      @include media-breakpoint-up(sm) {
         position: absolute;
         width: 60%;
         right: 0;
