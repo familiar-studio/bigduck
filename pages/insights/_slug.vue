@@ -96,26 +96,30 @@
 
             <div class="mb-5" v-if="relatedCaseStudies">
               <h2>Related Case Studies</h2>
-              <div class="row">
-                <div v-for="case_study in relatedCaseStudies" class="col-md-6">
+              <!-- <div class="row"> -->
+                <div v-for="case_study in relatedCaseStudies" class="block-overlap">
                   <nuxt-link :to="{name: 'work-slug', params: {slug: case_study.slug}}" :key="case_study.ID">
-                    <img v-if="case_study.acf.hero_image" :src="case_study.acf.hero_image.sizes.large" style="width:100%">
-                    <div class="card two-up-card mx-4">
-                      <div class="card-header" v-if="topics && types">
-                        <div class="badge badge-default" v-for="topic in case_study.topic">
-                          <div v-html="getTopicsIndexedById[topic].icon.data"></div>
-                          <div v-html="getTopicsIndexedById[topic].name"></div>
+                    <div class="col-image">
+                      <img v-if="case_study.acf.hero_image" :src="case_study.acf.hero_image.sizes.large" style="width:100%">
+                    </div>
+                    <div class="col-text">
+                      <div class="card">
+                        <div class="card-block">
+                        <div class="badge-group" v-if="topics && types">
+                          <div class="badge badge-default" v-for="topic in case_study.topic">
+                            <div v-html="getTopicsIndexedById[topic].icon"></div>
+                            <div v-html="getTopicsIndexedById[topic].name"></div>
+                          </div>
                         </div>
-                      </div>
-                      <div class="card-block py-0">
-                        <h3 class="card-title">{{ case_study.title.rendered }}</h3>
-                        <div class="card-text" v-html="case_study.acf.short_description"></div>
+                          <h3 class="card-title">{{ case_study.title.rendered }}</h3>
+                          <div class="card-text" v-html="case_study.acf.short_description"></div>
+                        </div>
                       </div>
                     </div>
                   </nuxt-link>
 
                 </div>
-              </div>
+              <!-- </div> -->
             </div>
 
             <div class="mb-5" v-if="relatedInsights">
