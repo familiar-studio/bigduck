@@ -1,5 +1,5 @@
 <template>
-  <div v-once>
+  <div v-once class="event">
     <!-- <div> -->
     <div class="block-overlap block-event" :class="blockClass">
       <nuxt-link :to="{ name: 'events-slug', params: { slug: entry.slug }}" :key="entry.id">
@@ -96,7 +96,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 img.featured-image {
   height: 450px;
 }

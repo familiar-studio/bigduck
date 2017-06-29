@@ -43,7 +43,7 @@
   .col-text {
     z-index: 4;
     transition: all .3s ease;
-    @include media-breakpoint-up(sm) {
+    @include media-breakpoint-up(md) {
       width: 60%;
       position: relative;
     }
@@ -95,11 +95,12 @@
       }
     }
     .col-text {
-      @include media-breakpoint-up(sm) {
+      @include media-breakpoint-up(md) {
         position: absolute;
         width: 60%;
         right: 0;
       }
+
       @include media-breakpoint-only(lg) {
         width: 70%;
       }
@@ -203,5 +204,11 @@
 .openHouse .block-overlap .col-text {
   @include media-breakpoint-only(lg) {
     width: 70%;
+  }
+}
+
+.event .block-overlap .col-text {
+  @include media-breakpoint-only(sm) {
+    width: 75%;
   }
 }

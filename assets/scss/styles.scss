@@ -316,3 +316,9 @@ label, .label, .figure-caption, .social-handle a {
     display: none;
   }
 }
+
+.event .col-text {
+  @include media-breakpoint-only(md) {
+    width: 75%;
+  }
+}

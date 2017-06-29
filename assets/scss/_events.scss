@@ -61,3 +61,14 @@ h6.mobile-event-date {
     display: none;
   }
 }
+
+.event {
+  .block-overlap {
+    .col-text {
+      background-color: red;
+      @include media-breakpoint-only(md) {
+        width: 75%;
+      }
+    }
+  }
+}
