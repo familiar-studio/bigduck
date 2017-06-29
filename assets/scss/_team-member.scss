@@ -23,4 +23,13 @@ aside {
 .overview-link  {
   @extend .underlineChange;
   line-height: 1.5;
+  &:hover {
+    @extend .colorChange;
+  }
+}
+
+.team .overlap {
+  @include media-breakpoint-up(md) {
+    margin-top: -100px;
+  }
 }

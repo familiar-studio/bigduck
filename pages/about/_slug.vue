@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="">
+  <div class="team">
     <div class="img-hero" :style=" { backgroundImage: 'url(' + member.headshot.url + ')' }">
       <figcaption class="figure-caption">{{member.headshot.caption}}</figcaption>
     </div>
