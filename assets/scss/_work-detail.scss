@@ -91,3 +91,12 @@
     }
   }
 }
+
+.flickity-prev-next-button {
+  position: static;
+  margin-right: 0.5rem;
+  svg {
+    position: static;
+    margin-top: 4px;
+  }
+}
