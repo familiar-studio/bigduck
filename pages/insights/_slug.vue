@@ -12,7 +12,7 @@
           <div class="container" :class="{'overlap':insight.acf.featured_image}">
             <article class="main">
               <div class="badge-group">
-                <nuxt-link class="badge badge-default underlineChange" :to="{name: 'insights'}">
+                <nuxt-link class="badge badge-default underlineChange overview-link" :to="{name: 'insights'}">
                   Insights
                 </nuxt-link>
                 <div class="badge badge-default" v-for="topic in insight.topic" v-if="topics && getTopicsIndexedById[topic]">

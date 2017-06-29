@@ -14,7 +14,7 @@
               <div class="row">
                 <div class="col-lg-9">
                   <div class="badge-group">
-                    <router-link class="badge badge-default underlineChange" :to="{name: 'events'}">Event</router-link>
+                    <router-link class="badge badge-default underlineChange overview-link" :to="{name: 'events'}">Events</router-link>
                     <div class="badge badge-default" v-for="topic in event.topic">
                       <div v-html="getTopicsIndexedById[topic].icon"></div>
                       <div v-html="getTopicsIndexedById[topic].name"></div>

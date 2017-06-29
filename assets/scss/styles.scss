@@ -325,4 +325,7 @@ label, .label, .figure-caption, .social-handle a {
 
 .overview-link {
   min-height: 22px;
+  @include media-breakpoint-up(lg) {
+    min-height: 25px;
+  }
 }
