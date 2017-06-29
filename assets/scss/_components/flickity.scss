@@ -18,7 +18,7 @@
 
   //padding-bottom: 61%;
   overflow: visible;
-  margin-bottom: 180px; //to accommodate the next/prev buttons
+  // margin-bottom: 180px; //to accommodate the next/prev buttons
   @include media-breakpoint-up(lg) {
     //padding-bottom: 46%;
   }
@@ -91,22 +91,24 @@
 
 .is-expanded {
   .flickity-viewport {
-    height: 600px;
+    height: 550px;
 
     @include media-breakpoint-up(lg) {
       // padding-bottom: 73%;
     }
+    padding-bottom: 2rem;
   }
   .carousel-cell {
     @include media-breakpoint-up(lg) {
       cursor: zoom-out;
       // width: 120%;
       // padding-bottom: 73%;
-      height: 600px;
+      height: 500px;
     }
+    padding-bottom: 2rem;
 
     img {
-      height: 600px;
+      height: 500px;
     }
   }
 }
