@@ -51,7 +51,7 @@
                 <h1>{{ page.our_clients_headline }}</h1>
               </article>
 
-              <article class="values bgChange break-container mt-5">
+              <article class="values bgChange break-container">
                 <div>
                   <h1 id="values">{{ page.acf.values_headline }}</h1>
                   <div v-html="page.acf.values_body"></div>
@@ -85,23 +85,26 @@
                     <div class="media" @click.prevent="toggleClient(client.client_category)">
                       <!-- <img class="mr-3" v-if="client.client_category"
                                 :src="sectorsByIndex[client.client_category[0]].acf['taxonomy-icon']" /></img> -->
-                      <div :class="{ 'active': openCategory === client.client_category }" class="client">
+                      <div :class="{ 'active': openCategory === client.client_category }" class="client media">
                         <span v-html="sectorsByIndex[client.client_category].icon"></span>
-                        <h2 class="ml-3">
-                          <a href="#">
-                            <span v-html="sectorsByIndex[client.client_category].name"></span>
-                          </a>
-                        </h2>
-                        <div class="list">
+                        <div class="ml-3">
+                          <h2>
+                            <a href="#">
+                              <span v-html="sectorsByIndex[client.client_category].name"></span>
+                            </a>
+                          </h2>
+                        </div>
+                        <br />
+                      </div>
+                      <!-- </div> -->
+                    </div>
+                        <div class="list" :class="{'show': openCategory === client.client_category}">
                           <ul class="list-unstyled collapse ml-5 row pl-1" :class="{'show': openCategory === client.client_category}">
                             <li class="" v-for="client_list in client.c">
                               <a :href="client_list.website">{{client_list.name}}</a>
                             </li>
                           </ul>
                         </div>
-                      </div>
-                      <!-- </div> -->
-                    </div>
                     <hr class="mt-0"></hr>
                   </div>
                 </div>
