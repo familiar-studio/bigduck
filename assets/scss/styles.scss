@@ -299,3 +299,14 @@ label, .label, .figure-caption, .social-handle a {
   //   display: inline-block;
   // }
 }
+
+  .badge-group, .block-overlap .badge-group  {
+    margin-bottom: 0px;
+    padding-bottom: 0;
+    .badge {
+      margin-bottom: 1rem;
+    }
+    & + * {
+      margin-top: 0.5rem;
+    }
+  }

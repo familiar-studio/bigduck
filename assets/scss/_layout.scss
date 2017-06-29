@@ -5,14 +5,14 @@ body {
   position: relative;
   z-index: 1;
   background-color: $gray-lightest;
-  overflow-x: visible;
+  // overflow-x: visible;
 }
 #main {
   padding-top: 180px;
   min-height: calc(100vh - 196px);
-  @include media-breakpoint-down(md) {
+  // @include media-breakpoint-down(md) {
     overflow-x: hidden;
-  }
+  // }
 }
 
 .container {
@@ -165,8 +165,13 @@ article.main {
     margin-left: 0px;
     margin-right: 0px;
   }
-  .badge-group {
-    margin-bottom: 1.5rem;
+  .badge-group  {
+    .badge {
+      margin-bottom: 1rem;
+    }
+    & + * {
+      margin-top: 0.5rem;
+    }
   }
   h1 {
     margin-bottom: 1rem;
