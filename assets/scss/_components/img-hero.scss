@@ -19,6 +19,10 @@
   }
 
   figcaption{
+    display: none;
+    @include media-breakpoint-up(md) {
+      display: block;
+    }
     position: absolute;
     top: 100vw;
     right: 20px;

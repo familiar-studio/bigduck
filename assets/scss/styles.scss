@@ -143,7 +143,7 @@ p {
   }
 
   &.underlineChange {
-    background-position: center 100% !important;
+    // background-position: center 75% !important;
     transition: all .3s ease;
     &:hover {
       @extend .colorChange;
@@ -310,3 +310,9 @@ label, .label, .figure-caption, .social-handle a {
       margin-top: 0.5rem;
     }
   }
+
+.chat-bubble {
+  @include media-breakpoint-down(sm) {
+    display: none;
+  }
+}
