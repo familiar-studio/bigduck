@@ -25,6 +25,8 @@
         <router-link class="btn btn-primary" to="/services">See how we do it &rarr;</router-link>
       </div>
     </div>
+    <div id="below-hero-animation">
+
 
     <Featured v-for="(caseStudy, index) in relatedCaseStudies" :work="caseStudy" :index="index" :key="index"></Featured>
     <div class="testimonial mb-5">
@@ -66,7 +68,7 @@
         <Chat></Chat>
       </div>
     </div>
-
+    </div>
   </div>
 </template>
 <script>
@@ -162,7 +164,6 @@ export default {
     if (this.upcomingEventIds) {
       Axios.get(this.hostname + 'wp/v2/bd_event', { params: { include: this.upcomingEventIds } }).then(
         (response) => {
-          debugger
           this.upcomingEvents = response.data
         }
       )

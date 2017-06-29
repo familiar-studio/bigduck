@@ -77,6 +77,11 @@ body {
   }
 }
 
+#below-hero-animation {
+  animation: fadeIn 0.5s both;
+  animation-delay: 2.5s;
+}
+
 header#header {
   animation: fadeIn 0.5s both;
   //animation-fill-mode: both;
