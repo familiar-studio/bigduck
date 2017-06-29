@@ -61,7 +61,7 @@
         <input v-model="formData['input_'+field.id]" :name="field.id" type="hidden" />
       </div>
 
-      <button type="submit" @click.prevent="submitEntry()" class="btn btn-primary">Submit</button>
+      <button type="submit" @click.prevent="submitEntry()" class="btn" :class="'btn-' + btnType">Submit</button>
     </form>
     <div v-else>
       <h2>{{confirmation}}</h2>
@@ -107,6 +107,10 @@ export default {
     gatedContent: {
       type: Number,
       default: null
+    },
+    btnType: {
+      type: String,
+      default: 'primary'
     }
   },
   computed: {

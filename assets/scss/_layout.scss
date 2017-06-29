@@ -67,6 +67,14 @@ body {
     bottom: 20px;
     right: 20px;
   }
+  .btn-tertiary {
+    background-color: black;
+    color: white;
+    &:hover {
+      background-color: white;
+      @extend .colorChange;
+    }
+  }
 }
 
 #footer {
