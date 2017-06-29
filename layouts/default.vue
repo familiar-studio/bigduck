@@ -231,7 +231,6 @@ export default {
       }
     },
     hover(id) {
-      console.log(id)
       this.hovering = true
       this.currentText = id
     }

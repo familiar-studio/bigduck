@@ -12,10 +12,10 @@
           <div class="container overlap ">
             <article class="main overflow-x-hidden" id="content">
               <div class="badge-group">
-                <nuxt-link class="badge badge-default underlineChange" :to="{name: 'work'}">Work</nuxt-link>
+                <nuxt-link class="badge badge-default underlineChange overview-link" :to="{name: 'work'}">Work</nuxt-link>
                 <div class="badge badge-default" v-html="caseStudy.acf.client_name"></div>
               </div>
-  
+
               <h1>{{ caseStudy.title.rendered }}</h1>
               <div class="badge-group" v-if="topics">
                 <div class="badge badge-default" v-for="topic in caseStudy.topic">
@@ -27,12 +27,12 @@
                   <div v-html="sectorsIndexedById[sector].name"></div>
                 </div>
               </div>
-  
+
               <div class="row cs-intro">
                 <div class="col-lg-9">
                   <h5 v-html="caseStudy.acf.introduction"></h5>
                   <div v-html="caseStudy.acf.article_text"></div>
-  
+
                 </div>
                 <div class="col-lg-3">
                   <aside>
@@ -47,22 +47,22 @@
                 </div>
               </div>
             </article>
-  
+
             <div v-for="(block, index) in caseStudy.acf.body">
-  
+
               <!-- TEXT  -->
               <div v-if="block.acf_fc_layout == 'text'" class="cs-block-text">
                 <h2 class="mb-3 mt-5" v-html="block.heading"></h2>
                 <div v-html="block.text"></div>
               </div>
-  
+
               <!-- GALLERY  -->
               <div v-if="block.acf_fc_layout == 'gallery'" class="cs-block-gallery break-container">
                 <div class="container">
                   <flickity :images="block.gallery"></flickity>
                 </div>
               </div>
-  
+
               <!-- CALLOUT  -->
               <div v-if="block.acf_fc_layout == 'callout'" class="cs-block-callout break-container" :style="{ backgroundColor: caseStudy.acf.primary_color }">
                 <div class="row">
@@ -76,7 +76,7 @@
                   </div>
                 </div>
               </div>
-  
+
               <!-- TESTIMONIAL -->
               <div v-if="block.acf_fc_layout == 'testimonial'" class="cs-block-testimonial testimonial break-container">
                 <div class="row">
@@ -91,19 +91,19 @@
                   </div>
                 </div>
               </div>
-  
+
               <!-- FACTOID -->
               <div v-if="block.acf_fc_layout == 'factoid'" class="cs-block-factoid">
                 <h1 class="display-1">{{block.number}}</h1>
                 <h6 v-html="block.description"></h6>
               </div>
             </div>
-  
+
             <h2 class="mb-3 mt-5">Related Service</h2>
             <div v-if="relatedService">
               <Service :entry="relatedService"></Service>
             </div>
-  
+
             <div class="callout-fullwidth text-white color bgChange">
               <div class="container">
                 <div class="row">
@@ -114,9 +114,9 @@
                 </div>
               </div>
             </div>
-  
+
           </div>
-  
+
         </div>
       </div>
     </div>

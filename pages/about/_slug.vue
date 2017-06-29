@@ -85,14 +85,12 @@ export default {
   },
   async created() {
     let relatedEventIds = this.member.events.map((event) => { return event.ID })
-    console.log(this.member)
     if (relatedEventIds && relatedEventIds.length > 0 ) {
       // debugger
       let response = await Axios.get(this.hostname + 'familiar/v1/events/user/' + this.member.slug )
       this.relatedEvents = response.data
     }
     let relatedInsightIds = this.member.insights.map((insight) => { return insight.ID })
-    console.log(relatedInsightIds)
     if (relatedInsightIds && relatedInsightIds.length > 0 ) {
       let response = await Axios.get(this.hostname + 'familiar/v1/insights/user/' + this.member.slug )
       this.relatedInsights = response.data
@@ -101,8 +99,6 @@ export default {
   async asyncData({ store, params }) {
 
     let response = await Axios.get(store.getters['hostname'] + 'familiar/v1/team/' + params.slug)
-    console.log(response)
-    // console.log(store.getters['hostname'] + 'familiar/v1/team/' + params.slug)
     return {
       member: response.data
     }

@@ -163,7 +163,6 @@ export default {
     // get related insights
     if (this.relatedInsightsIds) {
       Axios.get(this.hostname + 'wp/v2/bd_insight', { params: { include: this.relatedInsightsIds } }).then((response) => {
-        console.log('insights', response)
         this.relatedInsights = response.data
       })
     }
