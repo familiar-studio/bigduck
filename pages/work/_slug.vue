@@ -30,7 +30,7 @@
 
               <div class="row cs-intro">
                 <div class="col-lg-9">
-                  <h5 v-html="caseStudy.acf.introduction"></h5>
+                  <h5 v-html="caseStudy.acf.introduction" class="mb-4"></h5>
                   <div v-html="caseStudy.acf.article_text"></div>
 
                 </div>
@@ -108,7 +108,7 @@
               <div class="container">
                 <div class="row">
                   <div class="col-lg-10 offset-lg-1">
-                    <h2>{{ caseStudy.acf.cta_text }}</h2>
+                    <h2 class="mb-4">{{ caseStudy.acf.cta_text }}</h2>
                     <GravityForm :formId="formId" :showAll="true"></GravityForm>
                   </div>
                 </div>

@@ -297,14 +297,16 @@ label, .label, .figure-caption, .social-handle a {
 }
 
 .badge-group  {
-  // margin-bottom: 0px;
-  // padding-bottom: 0;
   .badge {
     margin-bottom: .75rem;
   }
-  // & + * {
-  //   margin-top: 0.5rem;
-  // }
+}
+
+.overview-link  {
+  @extend .underlineChange;
+  &:hover {
+    @extend .colorChange;
+  }
 }
 
 .chat-bubble {
@@ -319,9 +321,48 @@ label, .label, .figure-caption, .social-handle a {
   }
 }
 
-.overview-link {
-  min-height: 22px;
-  @include media-breakpoint-up(lg) {
-    min-height: 25px;
+.error-page{
+  margin-top: 10vh;
+  text-align: center;
+}
+.ascii-duck{
+  margin: 3rem 0;
+  h1{
+    font-size: 5rem;
+    margin-bottom: 0;
+    line-height: .9;
+    &:nth-child(2){
+      margin-left: .9rem;
+    }
+  }
+}
+.bill-wrapper{
+  animation-name: quack;
+  animation-duration: 2.5s;
+  animation-iteration-count: infinite;
+  transform-origin: right center;
+  display: inline-block;
+  animation-delay: .5s;
+  span{
+    @extend .colorChange;
+    display: inline-block;
+  }
+}
+
+@keyframes quack {
+  0% {
+    transform: scale(1);
+  }
+  20% {
+    transform: scale(1.1);
+  }
+  25% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.1);
+  }
+  50% {
+    transform: scale(1);
   }
 }

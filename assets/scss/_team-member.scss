@@ -24,13 +24,6 @@
 }
 
 
-.overview-link  {
-  @extend .underlineChange;
-  &:hover {
-    @extend .colorChange;
-  }
-}
-
 .team .overlap {
   @include media-breakpoint-up(md) {
     margin-top: -100px;
