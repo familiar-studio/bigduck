@@ -68,11 +68,17 @@
     z-index: 3;
     flex-grow: 1;
     transition: all .3s ease;
-    @include media-breakpoint-up(sm){
+    @include media-breakpoint-up(lg){
       margin: -1.25rem 1rem 0;
     }
     @media (min-width: 1400px){
       margin: -1.75rem 1.5rem 0;
+    }
+  }
+  .card-block{
+    padding: 1rem;
+    @include media-breakpoint-up (lg){
+      padding: 1.5rem;
     }
   }
 
