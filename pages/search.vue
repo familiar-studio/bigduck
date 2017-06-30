@@ -36,6 +36,12 @@
               <h3><span class="underlineChange hoverColor" v-html="result.title.rendered"></span></h3>
               <div class="card-text" v-html="result.acf.short_description"></div>
             </router-link>
+            <router-link v-else :to="{name: 'services-slug', params: {slug: result.slug}}" href="">
+              <h6>Insight</h6>
+              <h3><span class="underlineChange hoverColor" v-html="result.title.rendered"></span></h3>
+              <div class="card-text" v-html="result.acf.short_description"></div>
+            </router-link>
+
             <!-- <hr/> -->
           </div>
         </li>
@@ -54,7 +60,8 @@ export default {
   data() {
     return {
       totalPages: null,
-      query: null
+      query: null,
+      results: null
     }
   },
   head() {
@@ -67,10 +74,10 @@ export default {
     }
   },
   async asyncData({ route, store }) {
-    let response = await Axios.get(store.getters.hostname + 'wp/v2/posts?search=' + route.query.query)
-    return {
-      results: response.data
-    }
+    // let response = await Axios.get(store.getters.hostname + 'wp/v2/bd_insight?filter[s]=' + route.query.query)
+    // return {
+    //   results: response.data
+    // }
   },
   mounted() {
     this.query = this.$route.query.query
@@ -78,7 +85,8 @@ export default {
   },
   methods: {
     async search() {
-      let results = await Axios.get(this.$store.getters.hostname + 'wp/v2/posts?search=' + this.query)
+      ///wp-json/wp/v2/multiple-post-type?search=awesome&type[]=post&type[]=page&type[]=article
+      let results = await Axios.get(this.$store.getters.hostname + 'wp/v2/multiple-post-type', { params: { search: this.query, type: ['bd_insight', 'bd_service', 'bd_case_study'] } })
       this.results = results.data
     }
   }
