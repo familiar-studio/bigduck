@@ -9,12 +9,12 @@
           <div class="card-block" v-if="entry.type">
             <div class="badge-group" v-if="entry.type">
               <div class="badge badge-default" v-for="topic in entry.topic">
-                <div v-if="entry['topic'][0]['term_id']" v-html="getTopicsIndexedById[entry['topic'][0]['term_id']].icon"></div><div v-else v-html="getTopicsIndexedById[entry['topic'][0]].icon"></div>
-                <div v-if="entry['topic'][0]['term_id']" v-html="getTopicsIndexedById[entry['topic'][0]['term_id']].name"></div><div v-else v-html="getTopicsIndexedById[entry['topic'][0]].name"></div>
+                <div v-if="entry['topic'][0] && entry['topic'][0]['term_id']" v-html="getTopicsIndexedById[entry['topic'][0]['term_id']].icon"></div><div v-else v-html="getTopicsIndexedById[entry['topic'][0]].icon"></div>
+                <div v-if="entry['topic'][0] && entry['topic'][0]['term_id']" v-html="getTopicsIndexedById[entry['topic'][0]['term_id']].name"></div><div v-else v-html="getTopicsIndexedById[entry['topic'][0]].name"></div>
               </div>
               <div class="badge badge-default badge-type" v-for="type in entry.type">
-                <div v-if="entry['type'][0]['term_id']" v-html="getTypesIndexedById[entry['type'][0]['term_id']].icon"></div><div v-else v-html="getTypesIndexedById[entry['type'][0]].icon"></div>
-                <div v-if="entry['type'][0]['term_id']" v-html="getTypesIndexedById[entry['type'][0]['term_id']].name"></div><div v-else v-html="getTypesIndexedById[entry['type'][0]].name"></div>
+                <div v-if="entry['type'][0] && entry['type'][0]['term_id']" v-html="getTypesIndexedById[entry['type'][0]['term_id']].icon"></div><div v-else v-html="getTypesIndexedById[entry['type'][0]].icon"></div>
+                <div v-if="entry['type'][0] && entry['type'][0]['term_id']" v-html="getTypesIndexedById[entry['type'][0]['term_id']].name"></div><div v-else v-html="getTypesIndexedById[entry['type'][0]].name"></div>
               </div>
 
               <div class="badge badge-default">
@@ -95,7 +95,7 @@ export default {
     ...mapState(['types', 'topics']),
     ...mapGetters(['getTopicsIndexedById', 'getTypesIndexedById']),
     firstType () {
-      return this.entry.type[0].term_id ? parseInt(this.entry.type[0].term_id) : this.entry.type[0]
+      return (this.entry.type[0] && this.entry.type[0].term_id) ? parseInt(this.entry.type[0].term_id) : this.entry.type[0]
     },
     blockClass() {
       if (this.index === 0 && this.firstBlock) {
