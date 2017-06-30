@@ -83,16 +83,16 @@
 
                 <div class="collapse-block" v-for="(client, index) in page.acf.clients">
                   <div class="" v-if="client.client_category">
-                    <div class="media" :class="{ 'active': openCategory === client.client_category }" @click.prevent="toggleClient(client.client_category)">
+                    <div class="media" :class="{ 'active': openCategory === client.client_category }" >
                       <span class="svg" v-html="sectorsByIndex[client.client_category].icon"></span>
                       <h3>
-                        <a href="#" class="underlineChange" v-html="sectorsByIndex[client.client_category].name">
+                        <a href="#" class="underlineChange" v-html="sectorsByIndex[client.client_category].name" @click.prevent="toggleClient(client.client_category)">
                         </a>
                       </h3>
                     </div>
                   </div>
-                  <div class="collapse" :class="{'show': openCategory === client.client_category}">
-                    <ul class="list-unstyled collapse client-list" :class="{'show': openCategory === client.client_category}">
+                  <div class="collapse-content" :class="{'show': openCategory === client.client_category}">
+                    <ul class="list-unstyled client-list">
                       <li class="" v-for="client_list in client.c">
                         <a :href="client_list.website">{{client_list.name}}</a>
                       </li>
@@ -131,10 +131,16 @@
                         <a href="#" class="underlineChange" @click.prevent="toggleJob(job.id)">{{job.title.rendered}}</a>
                       </h3>
                     </div>
-                    <div class="collapse" :class="{'show': job.id === openJob}">
-                      <h5 v-html="job.acf.job_description_heading" class="mt-3"></h5>
-                      <div v-html="job.acf.job_description"></div>
-                      <a class="btn btn-primary mb-3" :href="applyUrl">Apply</a>
+                    <div class="collapse-content" :class="{'show': job.id === openJob}">
+                      <div class="job-description">
+                        <h5 v-html="job.acf.job_description_heading" v-if="job.acf.job_description_heading" class="mt-3"></h5>
+                        <div v-html="job.acf.job_description" v-if="job.acf.job_description"></div>
+                        <h5 v-html="job.acf.requirements_heading" v-if="job.acf.requirements_heading" class="mt-3"></h5>
+                        <div v-html="job.acf.requirements_body" v-if="job.acf.requirements_body"></div>
+                        <h5 v-html="job.acf.how_to_apply_heading" v-if="job.acf.how_to_apply_heading" class="mt-3"></h5>
+                        <div v-html="job.acf.how_to_apply_body" v-if="job.acf.how_to_apply_body"></div>
+                        <a class="btn btn-primary mb-3" :href="job.acf.apply_link" v-if="job.acf.apply_link">Apply</a>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -164,7 +170,6 @@ export default {
   },
   data() {
     return {
-      applyUrl: 'http://bigduck.nyc',
       scrollPos: 0,
       openCategory: null,
       openJob: null,
