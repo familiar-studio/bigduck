@@ -70,7 +70,7 @@
                     <div :style=" { backgroundImage: 'url(' + block.image.url + ')' }" class="bg-img"></div>
                   </div>
                   <div class="col-md-6 pull-md-6 col-text">
-                    <h2>{{ block.headline }}</h2>
+                    <h2 v-html="block.headline"></h2>
                     <div v-html="block.text"></div>
                     <a :href="block.website" v-if="block.website" class="btn btn-info" target="_blank">Visit Site</a>
                   </div>
