@@ -99,12 +99,20 @@ export default {
   },
   async asyncData({ store }) {
     let data = {}
-    let response = await Axios.get(store.getters['hostname'] + 'wp/v2/pages/37')
+    let response =  await Axios.get(store.getters['hostname'] + 'wp/v2/pages/37')
     let page = response.data
     if (page && page.acf) {
+      data.relatedWorkIds = page.acf.featured_case_studies.map((work) => { return work.ID })
+      if (data.relatedWorkIds) {
+        await Axios.get(store.getters['hostname'] + 'wp/v2/bd_case_study', { params: { include: data.relatedWorkIds } }).then(
+          (response) => {
+            data.relatedCaseStudies = response.data
+          }
+        )
+      }
       return {
         page: response.data,
-        relatedWorkIds: page.acf.featured_case_studies.map((work) => { return work.ID }),
+        ...data,
         upcomingEventIds: page.acf.upcoming_events.map((event) => { return event.ID }),
         latestInsightIds: page.acf.latest_insights.map((insight) => { return insight.ID })
       }
@@ -153,13 +161,7 @@ export default {
     this.interval = setInterval(this.nextFrame, this.frameInterval)
     this.$store.dispatch('fetchPageCallouts', 'insights')
 
-    if (this.relatedWorkIds) {
-      Axios.get(this.hostname + 'wp/v2/bd_case_study', { params: { include: this.relatedWorkIds } }).then(
-        (response) => {
-          this.relatedCaseStudies = response.data
-        }
-      )
-    }
+
     if (this.upcomingEventIds) {
       Axios.get(this.hostname + 'wp/v2/bd_event', { params: { include: this.upcomingEventIds } }).then(
         (response) => {

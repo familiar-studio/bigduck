@@ -30,7 +30,7 @@
 
               <div class="row cs-intro">
                 <div class="col-lg-9">
-                  <h5 v-html="caseStudy.acf.introduction"></h5>
+                  <h5 v-html="caseStudy.acf.introduction" class="mb-4"></h5>
                   <div v-html="caseStudy.acf.article_text"></div>
 
                 </div>
@@ -70,7 +70,7 @@
                     <div :style=" { backgroundImage: 'url(' + block.image.url + ')' }" class="bg-img"></div>
                   </div>
                   <div class="col-md-6 pull-md-6 col-text">
-                    <h2>{{ block.headline }}</h2>
+                    <h2 v-html="block.headline"></h2>
                     <div v-html="block.text"></div>
                     <a :href="block.website" v-if="block.website" class="btn btn-info" target="_blank">Visit Site</a>
                   </div>
@@ -108,7 +108,7 @@
               <div class="container">
                 <div class="row">
                   <div class="col-lg-10 offset-lg-1">
-                    <h2>{{ caseStudy.acf.cta_text }}</h2>
+                    <h2 class="mb-4">{{ caseStudy.acf.cta_text }}</h2>
                     <GravityForm :formId="formId" :showAll="true"></GravityForm>
                   </div>
                 </div>

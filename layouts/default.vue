@@ -20,37 +20,37 @@
                   <nuxt-link @click="hideNav()" class="nav-link" to="/services">
                     <span>Services</span>
                   </nuxt-link>
-                  <div class="nav-text" :class="{ 'show': currentText === 'services'}">What we can do for you and your project</div>
+                  <div class="nav-text" :class="{ 'show': currentText === 'services'}" v-html="menuCallouts['services']"></div>
                 </li>
                 <li class="nav-item" @mouseover="hover('work')" @mouseleave="hovering = false">
                   <nuxt-link @click="hideNav()" class="nav-link" to="/work">
                     <span>Work</span>
                   </nuxt-link>
-                  <div class="nav-text" :class="{ 'show': currentText === 'work'}">Examples of what we've done and for whom</div>
+                  <div class="nav-text" :class="{ 'show': currentText === 'work'}" v-html="menuCallouts['work']"></div>
                 </li>
                 <li class="nav-item" @mouseover="hover('events')" @mouseleave="hovering = false">
                   <nuxt-link @click="hideNav()" class="nav-link" to="/events">
                     <span>Events</span>
                   </nuxt-link>
-                  <div class="nav-text" :class="{ 'show': currentText === 'events'}">Join us online and in-person</div>
+                  <div class="nav-text" :class="{ 'show': currentText === 'events'}" v-html="menuCallouts['events']"></div>
                 </li>
                 <li class="nav-item" @mouseover="hover('insights')" @mouseleave="hovering = false">
                   <nuxt-link @click="hideNav()" class="nav-link" to="/insights">
                     <span>Insights</span>
                   </nuxt-link>
-                  <div class="nav-text" :class="{ 'show': currentText === 'insights'}">Thoughts and resources from our team</div>
+                  <div class="nav-text" :class="{ 'show': currentText === 'insights'}" v-html="menuCallouts['insights']"></div>
                 </li>
                 <li class="nav-item" @mouseover="hover('about')" @mouseleave="hovering = false">
                   <nuxt-link @click="hideNav()" class="nav-link" to="/about">
                     <span>About</span>
                   </nuxt-link>
-                  <div class="nav-text" :class="{ 'show': currentText === 'about'}">Learn more about us</div>
+                  <div class="nav-text" :class="{ 'show': currentText === 'about'}" v-html="menuCallouts['about']"></div>
                 </li>
                 <li class="nav-item" @mouseover="hover('contact')" @mouseleave="hovering = false">
                   <nuxt-link class="nav-link" to="/contact">
                     <span>Contact</span>
                   </nuxt-link>
-                  <div class="nav-text" :class="{ 'show': currentText === 'contact'}">Reach out to us</div>
+                  <div class="nav-text" :class="{ 'show': currentText === 'contact'}" v-html="menuCallouts['contact']"></div>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link float-left" href="#" @click.prevent="showSearch()">
@@ -89,7 +89,7 @@
                   <path d="M23.444 4.834c-.814.363-1.5.375-2.228.016.938-.562.981-.957 1.32-2.019-.878.521-1.851.9-2.886 1.104-.827-.882-2.008-1.435-3.315-1.435-2.51 0-4.544 2.036-4.544 4.544 0 .356.04.703.117 1.036-3.776-.189-7.125-1.998-9.366-4.748-.391.671-.615 1.452-.615 2.285 0 1.577.803 2.967 2.021 3.782-.745-.024-1.445-.228-2.057-.568l-.001.057c0 2.202 1.566 4.038 3.646 4.456-.666.181-1.368.209-2.053.079.579 1.804 2.257 3.118 4.245 3.155-1.945 1.524-4.356 2.159-6.728 1.881 2.012 1.289 4.399 2.041 6.966 2.041 8.358 0 12.928-6.924 12.928-12.929l-.012-.588c.887-.64 1.953-1.237 2.562-2.149z" />
                 </svg>
               </a>
-              <a href="#">
+              <a href="http://www.bigducknyc.com/rssmgr/feed.php?co%3Dblog_makerssfeed%26ot%5Bblog_id%5D%3D1047%26en%3D1ad45" target="_blank">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <path d="M0.000218181818,13.0570909 C6.03342342,13.0570909 10.9442182,17.9675917 10.9442182,24 L15.3078545,24 C15.3078545,15.5582468 8.44230597,8.69345455 0.000218181818,8.69345455 L0.000218181818,13.0570909 Z"></path>
                   <path d="M0,17.9712 L0,23.9995636 L6,23.9995636 C6,20.2762909 3.71890909,17.9712 0,17.9712"></path>
@@ -176,7 +176,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['chat']),
+    ...mapState(['chat', 'menuCallouts']),
     page() {
       if (this.$route.name === 'index') {
         return 'homepage'
