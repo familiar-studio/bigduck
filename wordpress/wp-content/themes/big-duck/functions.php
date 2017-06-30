@@ -959,6 +959,7 @@ class StarterSite extends TimberSite {
 		register_taxonomy_for_object_type('category', 'bd_service');
 		register_taxonomy_for_object_type('category', 'tribe_events');
 		register_taxonomy_for_object_type('category', 'bd_event');
+		register_taxonomy_for_object_type('tag', 'bd_insight');
 	}
 
 	function enqueue_bundles() {
@@ -1093,7 +1094,35 @@ class StarterSite extends TimberSite {
 	}
 
 	function register_taxonomies() {
+
 		//this is where you can register custom taxonomies
+		$labels = array(
+			 'name' => _x( 'Tags', 'taxonomy general name' ),
+			 'singular_name' => _x( 'Tag', 'taxonomy singular name' ),
+			 'search_items' =>  __( 'Search Tags' ),
+			 'popular_items' => __( 'Popular Tags' ),
+			 'all_items' => __( 'All Tags' ),
+			 'parent_item' => null,
+			 'parent_item_colon' => null,
+			 'edit_item' => __( 'Edit Tag' ),
+			 'update_item' => __( 'Update Tag' ),
+			 'add_new_item' => __( 'Add New Tag' ),
+			 'new_item_name' => __( 'New Tag Name' ),
+			 'separate_items_with_commas' => __( 'Separate tags with commas' ),
+			 'add_or_remove_items' => __( 'Add or remove tags' ),
+			 'choose_from_most_used' => __( 'Choose from the most used tags' ),
+			 'menu_name' => __( 'Tags' ),
+		 );
+
+		 register_taxonomy('tag','bd_insight',array(
+			 'hierarchical' => false,
+			 'labels' => $labels,
+				'show_in_rest' => true,
+				'show_ui' => true,
+			 'query_var' => true,
+			 'rewrite' => array( 'slug' => 'tag' ),
+		 ));
+
 		$labels = array(
 			'name'              => _x( 'Event Categories', 'taxonomy general name', 'textdomain' ),
 			'singular_name'     => _x( 'Event', 'taxonomy singular name', 'textdomain' ),
