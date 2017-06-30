@@ -23,7 +23,8 @@ export const state = () => ({
   query: {},
   chat: {},
   inline: {},
-  form: null
+  form: null,
+  menuCallouts: null
 });
 
 export const mutations = {
@@ -49,6 +50,9 @@ export const mutations = {
   },
   setCallouts(state, data) {
     state.callouts = data;
+  },
+  setMenuCallouts(state, data) {
+    state.menuCallouts = data;
   },
   setFooter(state, data) {
     state.footer = data;
@@ -110,7 +114,8 @@ export const actions = {
       dispatch("fetchTopics"),
       dispatch("fetchTypes"),
       dispatch("fetchSectors"),
-      dispatch("fetchEventCategories")
+      dispatch("fetchEventCategories"),
+      dispatch("fetchMenuCallouts")
     ]);
   },
   formInjection(context, body) {
@@ -128,6 +133,14 @@ export const actions = {
       .then(response => {
         context.commit("setCallouts", response.data);
       });
+  },
+  fetchMenuCallouts(context) {
+    console.log(context.getters['hostname'] + 'wp/v2/pages?slug=menu-callouts')
+    return axios.get(context.getters['hostname'] + 'wp/v2/pages?slug=menu-callouts')
+      .then(response => {
+        console.log(response.data.acf)
+        context.commit("setMenuCallouts", response.data[0].acf)
+      })
   },
   fetchFooter(context) {
     return axios

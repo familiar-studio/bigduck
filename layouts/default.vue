@@ -20,37 +20,37 @@
                   <nuxt-link @click="hideNav()" class="nav-link" to="/services">
                     <span>Services</span>
                   </nuxt-link>
-                  <div class="nav-text" :class="{ 'show': currentText === 'services'}">What we can do for you and your project</div>
+                  <div class="nav-text" :class="{ 'show': currentText === 'services'}" v-html="menuCallouts['services']"></div>
                 </li>
                 <li class="nav-item" @mouseover="hover('work')" @mouseleave="hovering = false">
                   <nuxt-link @click="hideNav()" class="nav-link" to="/work">
                     <span>Work</span>
                   </nuxt-link>
-                  <div class="nav-text" :class="{ 'show': currentText === 'work'}">Examples of what we've done and for whom</div>
+                  <div class="nav-text" :class="{ 'show': currentText === 'work'}" v-html="menuCallouts['work']"></div>
                 </li>
                 <li class="nav-item" @mouseover="hover('events')" @mouseleave="hovering = false">
                   <nuxt-link @click="hideNav()" class="nav-link" to="/events">
                     <span>Events</span>
                   </nuxt-link>
-                  <div class="nav-text" :class="{ 'show': currentText === 'events'}">Join us online and in-person</div>
+                  <div class="nav-text" :class="{ 'show': currentText === 'events'}" v-html="menuCallouts['events']"></div>
                 </li>
                 <li class="nav-item" @mouseover="hover('insights')" @mouseleave="hovering = false">
                   <nuxt-link @click="hideNav()" class="nav-link" to="/insights">
                     <span>Insights</span>
                   </nuxt-link>
-                  <div class="nav-text" :class="{ 'show': currentText === 'insights'}">Thoughts and resources from our team</div>
+                  <div class="nav-text" :class="{ 'show': currentText === 'insights'}" v-html="menuCallouts['insights']"></div>
                 </li>
                 <li class="nav-item" @mouseover="hover('about')" @mouseleave="hovering = false">
                   <nuxt-link @click="hideNav()" class="nav-link" to="/about">
                     <span>About</span>
                   </nuxt-link>
-                  <div class="nav-text" :class="{ 'show': currentText === 'about'}">Learn more about us</div>
+                  <div class="nav-text" :class="{ 'show': currentText === 'about'}" v-html="menuCallouts['about']"></div>
                 </li>
                 <li class="nav-item" @mouseover="hover('contact')" @mouseleave="hovering = false">
                   <nuxt-link class="nav-link" to="/contact">
                     <span>Contact</span>
                   </nuxt-link>
-                  <div class="nav-text" :class="{ 'show': currentText === 'contact'}">Reach out to us</div>
+                  <div class="nav-text" :class="{ 'show': currentText === 'contact'}" v-html="menuCallouts['contact']"></div>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link float-left" href="#" @click.prevent="showSearch()">
@@ -176,7 +176,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['chat']),
+    ...mapState(['chat', 'menuCallouts']),
     page() {
       if (this.$route.name === 'index') {
         return 'homepage'
