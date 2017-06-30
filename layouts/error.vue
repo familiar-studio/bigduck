@@ -8,7 +8,7 @@
     </div>
 
     <p class="block-text">
-      You can go back to where you were or
+      You can <a href="#" @click="goback()">go back</a> to where you were, or
       <nuxt-link to="/">return home</nuxt-link> to find one that does.
     </p>
 
@@ -18,6 +18,11 @@
 <script>
 export default {
   props: ['error'],
-  layout: 'default' // you can set a custom layout for the error page
+  layout: 'default', // you can set a custom layout for the error page
+  methods: {
+    goback(){
+      this.$router.go(-1)
+    }
+  }
 }
 </script>
