@@ -5,27 +5,22 @@ body {
   position: relative;
   z-index: 1;
   background-color: $gray-lightest;
-  // overflow-x: visible;
+  overflow-x: visible;
 }
 #main {
   padding-top: 180px;
   min-height: calc(100vh - 196px);
-  // @include media-breakpoint-down(md) {
+  @include media-breakpoint-down(md){
     overflow-x: hidden;
-  // }
-}
-
-.container {
-  @include media-breakpoint-down(md) {
-    //width: calc(100vw - 2rem);
   }
 }
 
+
 .subnav {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 85px;
-  margin-left: 10px;
+  // position: -webkit-sticky;
+  // position: sticky;
+  // top: 85px;
+  margin-left: .5rem;
 
   .nav-link {
     text-transform: inherit;
@@ -177,9 +172,9 @@ article.main {
     .badge {
       margin-bottom: 1rem;
     }
-    & + * {
-      margin-top: 0.5rem;
-    }
+    // & + * {
+    //   margin-top: 0.5rem;
+    // }
   }
   h1 {
     margin-bottom: 1rem;

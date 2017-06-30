@@ -1,15 +1,15 @@
 .filter-bar {
-  padding-left: 1rem;
   margin-top: 1.6rem;
   display: none;
-  margin-left: 1rem;
-  position: -webkit-sticky;
   position: sticky;
   top: 85px;
+  margin-left: 1.25rem;
+
 
   @include media-breakpoint-up(md) {
     display: block;
   }
+
 
   .label-lg {
     color: $gray;

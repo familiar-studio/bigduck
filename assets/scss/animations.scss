@@ -69,12 +69,6 @@ body {
     animation: fadeIn 0.5s both;
     animation-delay: 2.5s;
   }
-  .linebreak {
-    display: none;
-      @include media-breakpoint-down(xs) {
-        display: inline;
-      }
-  }
 }
 
 #below-hero-animation {

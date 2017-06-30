@@ -12,12 +12,11 @@
           <span>
             the
           </span>
-          <br class="hidden-md-up" />
           <span class="color"> {{wordString}}</span>
           <div class="cursor-wrapper">
             <span class="cursor bgChange"></span>
           </div>
-          <br class="hidden-sm-up" />
+          <br/>
           <span> of</span>
           <span> determined</span>
           <span> nonprofits.</span>

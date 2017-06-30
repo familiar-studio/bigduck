@@ -99,16 +99,16 @@
               </div>
             </div>
 
-            <h2 class="mb-3 mt-5">Related Service</h2>
-            <div v-if="relatedService">
+            <div v-if="relatedService" class="my-5">
+              <h2 class="mb-3">Related Service</h2>
               <Service :entry="relatedService"></Service>
             </div>
 
-            <div class="callout-fullwidth text-white color bgChange">
+            <div class="callout-fullwidth text-white color bgChange work-cta">
               <div class="container">
                 <div class="row">
-                  <div class="col-lg-8 offset-lg-2">
-                    <h3>{{ caseStudy.acf.cta_text }}</h3>
+                  <div class="col-lg-10 offset-lg-1">
+                    <h2>{{ caseStudy.acf.cta_text }}</h2>
                     <GravityForm :formId="formId" :showAll="true"></GravityForm>
                   </div>
                 </div>

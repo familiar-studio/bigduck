@@ -3,9 +3,10 @@
   margin-left: -5000px;
   margin-right: -5000px;
   -webkit-font-smoothing: antialiased;
-  // .callout-content{
-  //   max-width: $centered-content-width;
-  //   margin: auto;
-  // }
- 
+
+}
+.work-cta{
+  .btn-primary{
+    background-color: $gray-darker !important;
+  }
 }
