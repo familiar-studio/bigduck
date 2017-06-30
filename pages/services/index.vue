@@ -5,9 +5,9 @@
       <figcaption class="figure-caption">{{servicesPage.acf.featured_image.caption}}</figcaption>
     </div>
     <div class="row">
-      <div class="col-lg-2">
+      <div class="col-lg-1 col-xl-2">
       </div>
-      <div class="col-lg-8">
+      <div class="col-lg-10 col-xl-8">
         <div class="container">
           <div id="content">
             <article class='main bg-white overlap' v-html="servicesPage.acf.text">
@@ -42,7 +42,7 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-2">
+      <div class="col-xl-2">
         <Chat></Chat>
       </div>
     </div>

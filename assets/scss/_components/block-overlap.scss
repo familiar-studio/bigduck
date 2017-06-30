@@ -129,9 +129,7 @@
   .card-title {
     margin-bottom: .25rem;
   }
-  .badge-group {
-    padding-bottom: 1rem;
-  }
+
   .card-block {
     flex: initial;
   }
@@ -204,16 +202,10 @@
       @extend .bgChange;
     }
   }
-}
 
-.openHouse .block-overlap .col-text {
-  @include media-breakpoint-only(lg) {
-    width: 70%;
-  }
-}
-
-.event .block-overlap .col-text {
-  @include media-breakpoint-only(sm) {
-    width: 75%;
+  .col-text {
+    @include media-breakpoint-only(lg) {
+      width: 70%;
+    }
   }
 }

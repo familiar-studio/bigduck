@@ -1,5 +1,6 @@
 .cs-block-gallery {
-  margin: 2rem 0;
+  margin-top: 2rem;
+  margin-bottom: 6rem;
   * {
     outline: none;
   }
@@ -14,38 +15,31 @@
 
 .flickity-viewport {
   width: 100%;
-  height: 300px;
-
-  //padding-bottom: 61%;
   overflow: visible;
-  // margin-bottom: 180px; //to accommodate the next/prev buttons
+  height: 300px;
   @include media-breakpoint-up(lg) {
-    //padding-bottom: 46%;
+    height: 400px;
   }
+
 }
 
 .carousel-cell {
-  //width: 100%;
   width: auto;
   height: 300px;
   max-width: calc(100vw - 30px);
 
-
-  //padding-bottom: 61%;
   margin-right: 1.5rem;
   @include media-breakpoint-up(lg) {
-    //width: 75%;
-    //padding-bottom: 46%;
+    height: 400px;
   }
   cursor: zoom-in;
   img {
     max-width: 100%;
     height: 300px;
     object-fit: contain;
-    // background-color: white;
-    // margin: auto;
-    // object-fit: contain;
-    // object-position: center center;
+    @include media-breakpoint-up(lg) {
+      height: 400px;
+    }
   }
 }
 
@@ -91,24 +85,23 @@
 
 .is-expanded {
   .flickity-viewport {
-    height: 550px;
 
     @include media-breakpoint-up(lg) {
-      // padding-bottom: 73%;
+      height: 650px;
     }
-    padding-bottom: 2rem;
+    // padding-bottom: 2rem;
   }
   .carousel-cell {
     @include media-breakpoint-up(lg) {
       cursor: zoom-out;
       // width: 120%;
       // padding-bottom: 73%;
-      height: 500px;
+      height: 600px;
     }
-    padding-bottom: 2rem;
+    // padding-bottom: 2rem;
 
     img {
-      height: 500px;
+      height: 600px;
     }
   }
 }

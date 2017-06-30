@@ -1,11 +1,22 @@
+.about h1{
+  margin-bottom: .5rem;
+}
 .values {
+  position:relative;
+  z-index: -1;
   color: $white;
   -webkit-font-smoothing: antialiased;
-  // & > div {
-  //   @include media-breakpoint-up(md) {
-  //     padding: 3rem 0rem;
-  //   }
-  // }
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  &::before{
+    content:'';
+    position: absolute;
+    width: 100%;
+    height: 150px;
+    top: -150px;
+    left: 0;
+    background-color: inherit;
+  }
   h1 {
     margin-bottom: 0;
   }
@@ -30,11 +41,6 @@
   }
 }
 
-.subnav {
-  z-index: 10;
-  position: -webkit-sticky;
-  position: sticky;
-}
 
 .active h2 a span {
   @extend .underlineChange;
@@ -48,46 +54,63 @@
   }
 }
 
-#clients h2 {
-  display: inline;
-}
+.collapse-block{
+  border-bottom: 1px solid $gray-darker;
+  padding: 1rem 0;
 
-#clients .list {
-  transition: max-height 0.5s ease;
-  max-height: 0;
-  ul {
-    display: none;
+  .media{
+    margin-bottom: 0;
   }
-}
-
-#clients div.active {
-  span svg {
-    @extend .fillChange;
-  }
-  a {
-    @extend .fillChange;
-  }
-  .list {
-    // display: block;
-    max-height: 1000px;
-    ul {
-      display: block;
+  h3{
+    margin-bottom: 0;
+    a:hover{
+      @extend .colorChange;;
     }
   }
+  .underlineChange{
+    background-size: 0 1px !important;
+  }
+  .svg{
+    margin-right: 20px;
+  }
+  .collapse{
+    transition: all 0.5s ease;
+    display: block;
+    max-height: 0;
+    overflow: hidden;
+    .client-list {
+      margin-left: 56px; //width of icon + margin
+      margin-top: .5rem;
+      margin-bottom: 0;
+      @include media-breakpoint-up(md){
+        column-count: 2;
+        column-gap: $grid-gutter-width-base;
+      }
+      li{
+        padding-bottom: 3px;
+        break-inside: avoid;
+      }
+
+    }
+  }
+  .active{
+    svg {
+      @extend .fillChange;
+    }
+    h3 a{
+      @extend .colorChange;
+    }
+    .underlineChange{
+      background-size: 100% 1px !important;
+    }
+  }
+
+  .collapse.show {
+    max-height: 1200px;
+  }
+
 }
 
-#clients .list.show {
-  max-height: 1000px;
-  ul {
-    display: block;
-  }
-}
-span.active svg {
-  @extend .fillChange;
-}
-a.active, span.active a {
-  @extend .underlineChange;
-}
 
 .team-member {
   display: block;
@@ -147,9 +170,4 @@ a.active, span.active a {
 
 .about .subnav a.nav-link.active {
   background-size: 0% 0%;
-}
-
-.values {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
 }

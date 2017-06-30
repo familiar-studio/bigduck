@@ -50,7 +50,7 @@
 }
 
 .break-container {
-  @include media-breakpoint-up(md) {
+  @include media-breakpoint-up(sm) {
 
     padding-left: 5000px;
     padding-right: 5000px;
@@ -91,7 +91,7 @@ h1 {
     font-size: inherit;
   }
 
-  @include media-breakpoint-down(lg) {
+  @include media-breakpoint-down(xs) {
     font-size: 2.5rem;
   }
 }
@@ -179,7 +179,6 @@ label, .label, .figure-caption, .social-handle a {
   letter-spacing: 1px;
   -webkit-font-smoothing: antialiased;
   transition: all .3s ease;
-  padding-top: .7rem;
   cursor: pointer;
 }
 
@@ -275,10 +274,6 @@ label, .label, .figure-caption, .social-handle a {
   width: 100%;
 }
 
-.overflow-x-hidden {
-  overflow-x: hidden;
-}
-
 .bg-white {
   background: $white;
 }
@@ -301,16 +296,16 @@ label, .label, .figure-caption, .social-handle a {
   // }
 }
 
-  .badge-group, .block-overlap .badge-group  {
-    margin-bottom: 0px;
-    padding-bottom: 0;
-    .badge {
-      margin-bottom: 1rem;
-    }
-    & + * {
-      margin-top: 0.5rem;
-    }
+.badge-group  {
+  // margin-bottom: 0px;
+  // padding-bottom: 0;
+  .badge {
+    margin-bottom: .75rem;
   }
+  // & + * {
+  //   margin-top: 0.5rem;
+  // }
+}
 
 .chat-bubble {
   @include media-breakpoint-down(sm) {

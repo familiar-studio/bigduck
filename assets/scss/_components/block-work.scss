@@ -59,8 +59,8 @@
   margin-left: -$grid-gutter-width-base/2;
   margin-right: -$grid-gutter-width-base/2;
   @include media-breakpoint-up(md){
-      margin-left:  0;
-      margin-right:  0;
+    margin-left:  0;
+    margin-right:  0;
   }
 
   .card{
@@ -68,13 +68,14 @@
     z-index: 3;
     flex-grow: 1;
     transition: all .3s ease;
-    @include media-breakpoint-up(md){
+    @include media-breakpoint-up(sm){
+      margin: -1.25rem 1rem 0;
+    }
+    @media (min-width: 1400px){
       margin: -1.75rem 1.5rem 0;
     }
   }
-  .badge-group{
-    margin-bottom: 1rem;
-  }
+
   .card-title{
     margin-bottom: .1rem;
   }
@@ -120,7 +121,6 @@
 
   .nav-link {
     line-height: 1;
-    padding-bottom: 0.30rem;
 
     &:not(.nuxt-link-active) {
       &:hover {
