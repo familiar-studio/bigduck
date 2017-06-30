@@ -102,10 +102,8 @@ export const mutations = {
 
 export const actions = {
   async nuxtServerInit(context) {
-    console.log("nuxtServerInit dispatch");
     const loaded = await context.dispatch("loadAppInitNeed");
     context.commit("processTypeVerbs");
-    // console.log('nuxtServerInit loaded', loaded)
   },
   loadAppInitNeed({ dispatch }) {
     return Promise.all([
@@ -135,10 +133,8 @@ export const actions = {
       });
   },
   fetchMenuCallouts(context) {
-    console.log(context.getters['hostname'] + 'wp/v2/pages?slug=menu-callouts')
     return axios.get(context.getters['hostname'] + 'wp/v2/pages?slug=menu-callouts')
       .then(response => {
-        console.log(response.data.acf)
         context.commit("setMenuCallouts", response.data[0].acf)
       })
   },
