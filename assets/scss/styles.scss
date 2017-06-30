@@ -156,6 +156,9 @@ p {
   flex-wrap: wrap;
   @include media-breakpoint-up(md) {
   }
+  .badge {
+    margin-bottom: .5rem;
+  }
 }
 
 label, .label, .figure-caption, .social-handle a {
@@ -296,11 +299,6 @@ label, .label, .figure-caption, .social-handle a {
   // }
 }
 
-.badge-group  {
-  .badge {
-    margin-bottom: .75rem;
-  }
-}
 
 .overview-link  {
   @extend .underlineChange;

@@ -102,12 +102,13 @@
 
       @include media-breakpoint-up(sm) {
         position: absolute;
-        width: 60%;
+        width: 75%;
         right: 0;
       }
 
-      @include media-breakpoint-only(lg) {
-        width: 70%;
+
+      @include media-breakpoint-up(xl) {
+        width: 60%;
       }
     }
   }
@@ -186,6 +187,8 @@
   font-size: .9rem;
 }
 
+
+
 .block-overlap.block-event {
   .card {
     flex-direction: row;
@@ -204,8 +207,12 @@
   }
 
   .col-text {
-    @include media-breakpoint-only(lg) {
-      width: 70%;
+    @include media-breakpoint-up(md) {
+      width: 75%;
+    }
+
+    @include media-breakpoint-up(xl) {
+      width: 60%;
     }
   }
 }

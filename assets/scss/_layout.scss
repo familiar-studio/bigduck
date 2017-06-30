@@ -5,14 +5,15 @@ body {
   position: relative;
   z-index: 1;
   background-color: $gray-lightest;
-  overflow-x: visible;
+  // overflow-x: visible;
 }
 #main {
   padding-top: 180px;
-  min-height: calc(100vh - 340px);
-  @include media-breakpoint-down(md){
-    overflow-x: hidden;
-  }
+  min-height: calc(100vh - 180px);
+  overflow-x: hidden;
+  // @include media-breakpoint-down(md){
+  //   overflow-x: hidden;
+  // }
 }
 
 

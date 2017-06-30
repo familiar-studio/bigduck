@@ -24,6 +24,7 @@
 }
 
 .carousel-cell {
+  display: inline-block;
   width: auto;
   height: 300px;
   max-width: calc(100vw - 30px);
@@ -45,8 +46,14 @@
 
 .figure-caption {
   padding-top: .5rem;
+  width: -webkit-min-content;
+  width: -moz-min-content;
   width: min-content;
   min-width: 100%;
+  @supports not (width: min-content){
+    max-width: 600px;
+  }
+
 }
 
 .flickity-prev-next-button {
