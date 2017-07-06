@@ -1,7 +1,7 @@
 <template>
-  <div class="no-hero">
+  <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-2">
+      <div class="col-lg-3 col-xl-2">
         <div v-if="topics && eventCategories" class="filter-bar menu">
           <FilterList label="Topics" taxonomy="topic" :terms="topics" :selected="selectedTopic" v-on:clicked="toggleTaxonomy($event)"></FilterList>
           <FilterList label="Types" taxonomy="event_category" :terms="eventCategories" :selected="selectedCategory" v-on:clicked="toggleTaxonomy($event)"></FilterList>
@@ -15,7 +15,7 @@
               <h1>Upcoming Events</h1>
               <h4>
                 <router-link :to="{name: 'events-speaking'}">
-                  <img src="/svgs/speaking-icon.svg" class="mr-2" />Interested in having Big Duck speak at your organization?
+                  <img src="/svgs/speaking-icon.svg" class="mr-2" />Interested in having Big Duck speak at your organization?<br class="hidden-xl-up"/>
                   <span class="label colorChange"> Learn more about our talks…</span>
                 </router-link>
               </h4>

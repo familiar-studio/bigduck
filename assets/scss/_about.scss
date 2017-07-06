@@ -73,15 +73,17 @@
   .svg{
     margin-right: 20px;
   }
-  .collapse{
+  .collapse-content{
     transition: all 0.5s ease;
-    display: block;
+    display: block !important;
     max-height: 0;
+    height: 100%;
     overflow: hidden;
     .client-list {
       margin-left: 56px; //width of icon + margin
       margin-top: .5rem;
       margin-bottom: 0;
+      transition: all 0.5s ease;
       @include media-breakpoint-up(md){
         column-count: 2;
         column-gap: $grid-gutter-width-base;
@@ -90,7 +92,6 @@
         padding-bottom: 3px;
         break-inside: avoid;
       }
-
     }
   }
   .active{
@@ -105,8 +106,8 @@
     }
   }
 
-  .collapse.show {
-    max-height: 1200px;
+  .collapse-content.show {
+    max-height: 6000px;
   }
 
 }

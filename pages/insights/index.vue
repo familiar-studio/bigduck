@@ -1,7 +1,7 @@
  <template>
-  <div>
+  <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-2 flex-first">
+      <div class="col-lg-3 col-xl-2">
         <div v-if="types && topics" class="filter-bar menu">
           <FilterList label="Topics" taxonomy="topic" :terms="topics" :selected="selectedTopic" v-on:clicked="toggleTaxonomy($event)"></FilterList>
           <FilterList label="Types" taxonomy="type" :terms="types" :selected="selectedType" v-on:clicked="toggleTaxonomy($event)"></FilterList>
