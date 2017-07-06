@@ -6728,7 +6728,7 @@ vue-router@^2.5.3:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-2.6.0.tgz#77b271f6e0ac6d57e8e556da58c6582fce0ab712"
 
-vue-scrollto@2.6.11:
+vue-scrollto@2.6.10:
   version "2.6.10"
   resolved "https://registry.yarnpkg.com/vue-scrollto/-/vue-scrollto-2.6.10.tgz#873848bee063c463d45729cf9a969072b5022a48"
   dependencies:
