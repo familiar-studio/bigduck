@@ -7,7 +7,8 @@
     <div class="flickity">
       <div class="carousel" :class="{'is-expanded':open, 'first-slide':isFirstSlide}">
         <div class="carousel-cell" v-for="image,index in images">
-          <img :src="image.sizes.large" :alt="image.title">
+          <img :src="image.url" :alt="image.title" v-if="image.mime_type == 'image/gif'">
+          <img :src="image.sizes.large" :alt="image.title" v-else>
           <figcaption class="figure-caption">{{image.caption}}</figcaption>
           <div class="slide-counter label">{{index + 1}}/{{images.length}}</div>
         </div>
