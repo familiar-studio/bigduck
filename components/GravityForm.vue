@@ -111,6 +111,9 @@ export default {
     btnType: {
       type: String,
       default: 'primary'
+    },
+    cookiePrefix: {
+      type: String
     }
   },
   computed: {
@@ -164,7 +167,7 @@ export default {
 
           var gatedCookie = await axios.get(this.hostname + 'familiar/v1/gated', { params: { form_id: this.formId, post_id: this.gatedContent } })
           console.log('setting this cookie', gatedCookie.data)
-          jscookie.set(this.gatedContent, "true", {
+          jscookie.set(this.cookiePrefix + this.gatedContent, "true", {
             expires: 7
           });
         }

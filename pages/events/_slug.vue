@@ -31,6 +31,14 @@
                     <h4>
                       <span v-html="event.acf.subtitle"></span>
                     </h4>
+                    <div v-if="event.acf.is_webinar">
+                      <div v-if="contentRefreshed || !formFilled">
+                        <GravityForm :formId=9 :viewAll="true" :gatedContent="event.id" @submitted="refreshContent()" cookiePrefix="event-"></GravityForm>
+                      </div>
+                      <div v-if="formFilled || contentRefreshed">
+                        <div v-html="event.acf.post_registration_content"></div>
+                      </div>
+                    </div>
                     <h6 class="mobile-event-date">{{month}} {{date}} {{start_time}}&ndash;{{end_time}}</h6>
                   </div>
                   <div v-html="event.acf.text"></div>
@@ -74,9 +82,11 @@
                     </div>
                     <div class="">
 
-                      <a :href="event.acf.registration_url" class="btn btn-primary my-3 event-registration">
-                        Register
-                      </a>
+                      <div v-if="!event.acf.is_webinar || formFilled || contentRefreshed">
+                        <a :href="event.acf.registration_url" class="btn btn-primary my-3 event-registration">
+                          Register
+                        </a>
+                      </div>
                     </div>
                     <div class="hidden-lg-up">
                       <share></share>
@@ -111,11 +121,13 @@
 </template>
 <script>
 import Axios from 'axios'
-import Event from '~components/Event.vue'
-import Post from '~components/Post.vue'
-import dateFns from 'date-fns'
-import Share from '~components/Share.vue'
 import Chat from '~components/Chat.vue'
+import Cookies from 'js-cookie'
+import dateFns from 'date-fns'
+import Event from '~components/Event.vue'
+import GravityForm from '~components/GravityForm.vue'
+import Post from '~components/Post.vue'
+import Share from '~components/Share.vue'
 
 
 import { mapState, mapGetters } from 'vuex'
@@ -124,6 +136,7 @@ export default {
   name: 'event',
   components: {
     Event,
+    GravityForm,
     Post,
     Share
   },
@@ -132,16 +145,19 @@ export default {
       relatedEventsIds: null,
       relatedInsightsIds: null,
       relatedInsights: null,
-      relatedEvents: null
+      relatedEvents: null,
+      contentRefreshed: false
     }
   },
   head() {
-    return {
-      title: this.event.title.rendered,
-      meta: [
-        { description: this.event.acf.subtitle },
-        { 'og:image': this.event.acf.featured_image.url }
-      ]
+    if (this.event) {
+      return {
+        title: this.event.title.rendered,
+        meta: [
+          { description: this.event.acf.subtitle },
+          { 'og:image': this.event.acf.featured_image.url }
+        ]
+      }
     }
   },
   async asyncData({ store, query, params }) {
@@ -170,6 +186,14 @@ export default {
   computed: {
     ...mapState(['callouts', 'topics']),
     ...mapGetters(['hostname', 'getTopicsIndexedById', 'getEventCategoriesIndexedById']),
+    formFilled() {
+      let cookies = Cookies.get()
+      if (this.event && cookies) {
+        // figure out whether the user has filled out the form from the cookie
+
+        return cookies['event-' + this.event.id] === "true"
+      }
+    },
     month() {
       return dateFns.format(this.event.acf.start_time, 'MMM')
     },
@@ -181,6 +205,11 @@ export default {
     },
     end_time() {
       return dateFns.format(this.event.acf.end_time, 'h:mma')
+    }
+  },
+  methods: {
+    refreshContent() {
+      this.contentRefreshed = true
     }
   }
 }

@@ -56,7 +56,7 @@
               </div>
               <div v-if="insight.acf.is_gated_content">
                 <div v-if="contentRefreshed || !formFilled">
-                  <GravityForm :formId="insight.acf.gated_content_form" :viewAll="true" :gatedContent="insight.id" @submitted="refreshContent()"></GravityForm>
+                  <GravityForm :formId="insight.acf.gated_content_form" :viewAll="true" :gatedContent="insight.id" @submitted="refreshContent()" cookiePrefix="insight-"></GravityForm>
                 </div>
                 <div v-if="formFilled || contentRefreshed">
                   <div v-html="insight.acf.gated_content_text"></div>
@@ -211,7 +211,7 @@ export default {
       if (this.insight && cookies) {
         // figure out whether the user has filled out the form from the cookie
 
-        return cookies[this.insight.id] === "true"
+        return cookies['insight-' + this.insight.id] === "true"
       }
     },
     date() {
