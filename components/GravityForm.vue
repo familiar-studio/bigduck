@@ -1,5 +1,6 @@
 <template>
   <div>
+    <transition name="fade" appear>
     <form v-if="!submitted && visibleFields">
 
       <div v-for="field in visibleFields" class="form-group" :class="{'has-danger':errors.has(field.id.toString())}">
@@ -68,6 +69,7 @@
 
 
     </div>
+  </transition>
   </div>
 </template>
 
@@ -114,6 +116,13 @@ export default {
     },
     cookiePrefix: {
       type: String
+    },
+    acton_id: {},
+    id: {
+      type: Number
+    },
+    title: {
+      type: String
     }
   },
   computed: {
@@ -157,10 +166,17 @@ export default {
       var signature = this.CalculateSig('entries', 'POST')
       localStorage.formData = JSON.stringify(this.formData)
       this.formData['form_id'] = this.formId
+      // this.formData['title'] = this.
+      this.formData['acton_id'] = this.acton_id
+      this.formData['webinar_title'] = this.title
+      this.formData['webinar_id'] = this.id
+
       var endpoint = this.baseUrl + 'forms/' + this.formId + '/submissions';
       console.log('endpoint', endpoint)
 
-      await axios.post(this.baseUrl + 'forms/' + this.formId + '/submissions', { "input_values": this.formData }, { params: { api_key: this.publicKey, signature: signature, expires: this.expires } })
+      await axios.post(this.baseUrl + 'forms/' + this.formId + '/submissions',
+        { "input_values": this.formData },
+        { params: { api_key: this.publicKey, signature: signature, expires: this.expires } })
 
       if (this.gatedContent) {
         if (process.BROWSER_BUILD) {

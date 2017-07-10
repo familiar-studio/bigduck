@@ -55,7 +55,7 @@
                 <span>Big Duck</span>
               </div>
               <div v-if="insight.acf.is_gated_content">
-                <div v-if="contentRefreshed || !formFilled">
+                <div v-if="contentRefreshed">
                   <GravityForm :formId="insight.acf.gated_content_form" :viewAll="true" :gatedContent="insight.id" @submitted="refreshContent()" cookiePrefix="insight-"></GravityForm>
                 </div>
                 <div v-if="formFilled || contentRefreshed">
@@ -77,6 +77,9 @@
             </div>
               <div class="hidden-lg-up mt-4">
                 <Share></Share>
+              </div>
+              <div v-if="!contentRefreshed && !formFilled" class="form-light">
+                <GravityForm :formId="insight.acf.gated_content_form" :viewAll="true" :gatedContent="insight.id" @submitted="refreshContent()" cookiePrefix="insight-"></GravityForm>
               </div>
             </article>
 

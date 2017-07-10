@@ -10,7 +10,7 @@
         </div>
         <div class="col-lg-8">
           <div class="container overlap">
-            <article class="main" :class="{ 'mb-5': !relatedInsights && !relatedEvents }">
+            <article class="main" :class="{ 'mb-5': !event.acf.is_webinar || formFilled }">
               <div class="row">
                 <div class="col-lg-9">
                   <div class="badge-group">
@@ -32,9 +32,6 @@
                       <span v-html="event.acf.subtitle"></span>
                     </h4>
                     <div v-if="event.acf.is_webinar">
-                      <div v-if="contentRefreshed || !formFilled">
-                        <GravityForm :formId=9 :viewAll="true" :gatedContent="event.id" @submitted="refreshContent()" cookiePrefix="event-"></GravityForm>
-                      </div>
                       <div v-if="formFilled || contentRefreshed">
                         <div v-html="event.acf.post_registration_content"></div>
                       </div>
@@ -82,8 +79,8 @@
                     </div>
                     <div class="">
 
-                      <div v-if="!event.acf.is_webinar || formFilled || contentRefreshed">
-                        <a :href="event.acf.registration_url" class="btn btn-primary my-3 event-registration">
+                      <div v-if="!formFilled && !contentRefreshed">
+                        <a :href="event.acf.is_webinar ? '#register' : event.acf.registration_url" class="btn btn-primary my-3 event-registration" v-scroll-to="{ el:'#register'}">
                           Register
                         </a>
                       </div>
@@ -96,6 +93,14 @@
               </div>
 
             </article>
+
+            <div v-if="event.acf.is_webinar && !formFilled" class="form-light" id="register" :class="{'mb-5': !relatedInsights && !relatedEvents}">
+              <div v-if="!contentRefreshed">
+                <h3>Register for this event</h3>
+                <p>{{ eventRegistrationText }}</p>
+              </div>
+              <GravityForm :formId=9 :viewAll="true" :gatedContent="event.id" @submitted="refreshContent()" cookiePrefix="event-" :id="event.id" :title="event.title.rendered" :actonId="event.acf.acton_form_id"></GravityForm>
+            </div>
 
             <div v-if="relatedEvents || relatedInsights">
               <h2 class="mb-3 mt-5">Related Events &amp; Insights</h2>
@@ -135,6 +140,7 @@ import { mapState, mapGetters } from 'vuex'
 export default {
   name: 'event',
   components: {
+    Chat,
     Event,
     GravityForm,
     Post,
@@ -186,6 +192,9 @@ export default {
   computed: {
     ...mapState(['callouts', 'topics']),
     ...mapGetters(['hostname', 'getTopicsIndexedById', 'getEventCategoriesIndexedById']),
+    eventRegistrationText() {
+      return this.$store.state.menuCallouts.event_registration_text
+    },
     formFilled() {
       let cookies = Cookies.get()
       if (this.event && cookies) {
