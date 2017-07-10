@@ -164,9 +164,8 @@ export default {
 
           var gatedCookie = await axios.get(this.hostname + 'familiar/v1/gated', { params: { form_id: this.formId, post_id: this.gatedContent } })
           console.log('setting this cookie', gatedCookie.data)
-          jscookie.set(gatedCookie.data, "true", {
-            expires: 7,
-            domain: "familiar.studio"
+          jscookie.set(this.gatedContent, "true", {
+            expires: 7
           });
         }
       }

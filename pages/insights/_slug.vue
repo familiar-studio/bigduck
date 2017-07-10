@@ -1,9 +1,12 @@
 <template>
+
   <div v-if="insight">
+
+
     <div class="img-hero" v-if="insight && insight.acf.featured_image" :style=" { backgroundImage: 'url(' + insight.acf.featured_image + ')' }">
       <figcaption class="figure-caption">{{insight.acf.featured_image.caption}}</figcaption>
     </div>
-    <div class="">
+    <div>
       <div class="row">
         <div class="col-lg-1 hidden-md-down">
           <Share></Share>
@@ -51,6 +54,18 @@
               <div v-if="!insight.acf.guest_author_name && insight.acf.author.length < 1" class="badge badge-default mb-3 author-no-img">
                 <span>Big Duck</span>
               </div>
+              <div v-if="insight.acf.is_gated_content">
+                <div v-if="contentRefreshed || !formFilled">
+                  <GravityForm :formId="insight.acf.gated_content_form" :viewAll="true" :gatedContent="insight.id" @submitted="refreshContent()"></GravityForm>
+                </div>
+                <div v-if="formFilled || contentRefreshed">
+                  <div v-html="insight.acf.gated_content_text"></div>
+                  <a :href="insight.acf.gated_download.url" v-if="insight.acf.gated_download.url" class="btn btn-primary">{{insight.acf.gated_download_button_text}}</a>
+                </div>
+                <div v-else>
+                </div>
+              </div>
+              <div v-else>
               <div v-for="block in insight.acf.body" :class="['block-' + block.acf_fc_layout]">
                 <div v-if="block.acf_fc_layout == 'text'" v-html="block.text"></div>
                 <template v-if="block.acf_fc_layout == 'callout'">
@@ -59,14 +74,15 @@
                   <img :src="block.image" alt="callout image" v-if="block.image" />
                 </template>
               </div>
+            </div>
               <div class="hidden-lg-up mt-4">
                 <Share></Share>
               </div>
             </article>
 
-            <div v-if="formId" class="form-light">
+            <!-- <div v-if="formId" class="form-light">
               <GravityForm :formId="formId" :viewAll="true" :gatedContent="insight.id" @submitted="refreshContent()"></GravityForm>
-            </div>
+            </div> -->
 
             <!-- <article class="main" v-if="formId === false && insight.content.rendered"> -->
               <!-- <div v-html="insight.content.rendered"></div> -->
@@ -139,7 +155,9 @@
   </div>
 </template>
 <script>
+
 import Axios from 'axios'
+import Cookies from 'js-cookie'
 import dateFns from 'date-fns'
 import GravityForm from '~components/GravityForm.vue'
 import { mapState, mapGetters, mapActions } from 'vuex'
@@ -157,7 +175,8 @@ export default {
     return {
       relatedCaseStudies: null,
       relatedInsights: null,
-      authors: null
+      authors: null,
+      contentRefreshed: false
     }
   },
   async asyncData({ state, params, store }) {
@@ -187,6 +206,14 @@ export default {
   computed: {
     ...mapState(['types', 'topics']),
     ...mapGetters(['hostname', 'getTopicsIndexedById', 'getTypesIndexedById']),
+    formFilled() {
+      let cookies = Cookies.get()
+      if (this.insight && cookies) {
+        // figure out whether the user has filled out the form from the cookie
+
+        return cookies[this.insight.id] === "true"
+      }
+    },
     date() {
       return dateFns.format(this.insight.date, 'MMM D, YYYY')
     },
@@ -254,11 +281,8 @@ export default {
       }
       return null
     },
-    async refreshContent() {
-      let response = await Axios.get(this.hostname + 'wp/v2/bd_insight', { params: { slug: this.$route.params.slug } })
-      console.log('Refreshed Content', response.data[0])
-
-      this.insight = response.data[0]
+    refreshContent() {
+      this.contentRefreshed = true
     }
 
   }
