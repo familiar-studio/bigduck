@@ -54,16 +54,18 @@
               <div v-if="!insight.acf.guest_author_name && insight.acf.author.length < 1" class="badge badge-default mb-3 author-no-img">
                 <span>Big Duck</span>
               </div>
-              <div v-if="insight.acf.is_gated_content">
-                <div v-if="contentRefreshed">
-                  <GravityForm :formId="insight.acf.gated_content_form" :viewAll="true" :gatedContent="insight.id" @submitted="refreshContent()" cookiePrefix="insight-"></GravityForm>
-                </div>
-                <div v-if="formFilled || contentRefreshed">
-                  <div v-html="insight.acf.gated_content_text"></div>
-                  <a :href="insight.acf.gated_download.url" v-if="insight.acf.gated_download.url" class="btn btn-primary">{{insight.acf.gated_download_button_text}}</a>
-                </div>
-                <div v-else>
-                </div>
+              <div v-if="insight.acf.is_gated_content" >
+                <!-- <div v-if="contentRefreshed"> -->
+
+                <!-- </div> -->
+                <transition name="fade" appear>
+                  <div v-if="formFilled || contentRefreshed">
+                    <div v-html="insight.acf.gated_content_text"></div>
+                    <a :href="insight.acf.gated_download.url" v-if="insight.acf.gated_download.url" class="btn btn-primary">{{insight.acf.gated_download_button_text}}</a>
+                  </div>
+                  <div v-else>
+                  </div>
+                </transition>
               </div>
               <div v-else>
               <div v-for="block in insight.acf.body" :class="['block-' + block.acf_fc_layout]">
@@ -78,18 +80,10 @@
               <div class="hidden-lg-up mt-4">
                 <Share></Share>
               </div>
-              <div v-if="!contentRefreshed && !formFilled" class="form-light">
+            </article>
+              <div v-if="contentRefreshed || !formFilled" class="form-light">
                 <GravityForm :formId="insight.acf.gated_content_form" :viewAll="true" :gatedContent="insight.id" @submitted="refreshContent()" cookiePrefix="insight-"></GravityForm>
               </div>
-            </article>
-
-            <!-- <div v-if="formId" class="form-light">
-              <GravityForm :formId="formId" :viewAll="true" :gatedContent="insight.id" @submitted="refreshContent()"></GravityForm>
-            </div> -->
-
-            <!-- <article class="main" v-if="formId === false && insight.content.rendered"> -->
-              <!-- <div v-html="insight.content.rendered"></div> -->
-            <!-- </article> -->
 
             <article class="mb-5 container">
 
