@@ -9,8 +9,8 @@
         <div class="carousel-cell" v-for="image,index in images">
           <img :src="image.url" :alt="image.title" v-if="image.mime_type == 'image/gif'">
           <img :src="image.sizes.large" :alt="image.title" v-else>
-          <figcaption class="figure-caption">{{image.caption}}</figcaption>
           <div class="slide-counter label">{{index + 1}}/{{images.length}}</div>
+          <figcaption class="figure-caption">{{image.caption}}</figcaption>
         </div>
       </div>
     </div>
