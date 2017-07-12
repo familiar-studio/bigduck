@@ -27,7 +27,7 @@
     <div id="below-hero-animation">
 
 
-    <Featured v-for="(caseStudy, index) in relatedCaseStudies" :work="caseStudy" :index="index" :key="index"></Featured>
+    <Featured v-for="(caseStudy, index) in relatedCaseStudies" :work="caseStudy" :index="index" :key="caseStudy"></Featured>
     <div class="testimonial mb-5">
       <div class="container">
         <blockquote>
@@ -93,7 +93,7 @@ export default {
       titleTemplate: null,
       meta: [
         { description: 'Developing the voices of determined nonprofits.' },
-        { 'og:image': '' }
+        { 'og:image': 'http://bigduck-wordpress.familiar.studio/wp-content/uploads/2017/07/logo.svg' }
       ]
     }
   },

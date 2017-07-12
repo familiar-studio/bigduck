@@ -69,7 +69,7 @@ export default {
       title: 'Search',
       meta: [
         { description: '' },
-        { 'og:image': '' }
+        { 'og:image': 'http://bigduck-wordpress.familiar.studio/wp-content/uploads/2017/07/logo.svg' }
       ]
     }
   },

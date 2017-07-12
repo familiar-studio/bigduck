@@ -20,15 +20,16 @@
                 </router-link>
               </h4>
             </div>
-            <div v-if="events.length > 0">
-              <transition-group name="fade" appear>
-                <div v-for="(event, index) in events" :key="index">
-                  <Event :entry="event" :firstBlock="true" :categories="categories" :index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
+            <div v-if="events && events.length > 0">
+              <!-- <transition-group name="fade" appear> -->
+              {{events[0].title.rendered}}
+                <div v-for="(event, index) in events" :key="event">
+                  <Event :entry="event" :firstBlock="true" :index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
                   <transition name="list" appear>
                     <InlineCallout class="mb-5" v-if="index % 5 == 1 && index < events.length - 1"></InlineCallout>
                   </transition>
                 </div>
-              </transition-group>
+              <!-- </transition-group> -->
               <div class="pager" v-if="events.length < totalRecords">
                 <a class="btn btn-primary my-4" href="#" @click.prevent="nextPage">Load more</a>
               </div>
@@ -70,7 +71,7 @@ export default {
       title: 'Events',
       meta: [
         { description: 'Overview' },
-        { 'og:image': 'Events images' }
+        { 'og:image': 'http://bigduck-wordpress.familiar.studio/wp-content/uploads/2017/07/logo.svg' }
       ]
     }
   },
@@ -121,7 +122,6 @@ export default {
     async filterResults() {
       this.$store.commit('resetPage')
       const response = await this.$store.dispatch('fetchByQuery', { isPaged: true, path: 'wp/v2/bd_event', query: this.$route.query })
-
       this.events = response.data
       this.totalPages = response.headers['x-wp-totalpages']
       this.totalRecords = response.headers['x-wp-total']

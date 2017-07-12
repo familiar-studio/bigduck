@@ -196,7 +196,7 @@ export default {
       title: this.insight && this.insight.title.rendered ? this.insight.title.rendered : null,
       meta: [
         { description: 'Overview' },
-        { 'og:image': this.insight ? this.insight.acf.featured_image : null }
+        { 'og:image': this.insight ? this.insight.acf.featured_image : 'http://bigduck-wordpress.familiar.studio/wp-content/uploads/2017/07/logo.svg' }
       ]
     }
   },

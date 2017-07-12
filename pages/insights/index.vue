@@ -73,7 +73,7 @@ export default {
       title: 'Insights',
       meta: [
         { description: '' },
-        { 'og:image': '' }
+        { 'og:image': 'http://bigduck-wordpress.familiar.studio/wp-content/uploads/2017/07/logo.svg' }
       ]
     }
   },
@@ -115,7 +115,6 @@ export default {
     async filterResults() {
       this.$store.commit('resetPage')
       const response = await this.$store.dispatch('fetchByQuery', { isPaged: true, path: 'wp/v2/bd_insight', query: this.$route.query })
-
       this.insights = response.data
       this.totalPages = response.headers['x-wp-totalpages']
       this.totalRecords = response.headers['x-wp-total']
