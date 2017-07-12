@@ -24,13 +24,12 @@
                 </div>
                 <div class="badge badge-default">
                   <span v-if="types && insight.type[0]">
-                    <span v-if="insight.calculated_reading_time && getTypesIndexedById[insight.type[0]].verb == 'Read'">
-                      {{insight.calculated_reading_time.data}}
-                    </span>
-                    <span>
-                      {{ insight.acf.time }} {{ insight.acf.time_interval }}
-                    </span>
-                    {{ getTypesIndexedById[insight.type[0]].verb }}
+                    <div v-if="insight.calculated_reading_time && insight.calculated_reading_time.data && getTypesIndexedById[insight.type[0]].verb == 'Read'">
+                      {{insight.calculated_reading_time.data}} Read
+                    </div>
+                    <div v-if="getTypesIndexedById[insight.type[0]].verb !== 'Read'">
+                      {{insight.acf.time}} {{insight.acf.time_interval}} {{ getTypesIndexedById[entry.type[0]].verb }}
+                    </div>
                   </span>
                 </div>
                 <div class="badge badge-default">

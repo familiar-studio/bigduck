@@ -18,12 +18,12 @@
               </div>
 
               <div class="badge badge-default">
-                <span v-if="types && firstType && entry.acf.time">
-                  <span v-if="getTypesIndexedById[firstType].verb == 'Read' && entry.calculated_reading_time">
-                    {{entry.calculated_reading_time.data}} {{ getTypesIndexedById[firstType].verb }}
+                <span v-if="types && firstType">
+                  <span v-if="entry.calculated_reading_time && entry.calculated_reading_time.data && getTypesIndexedById[entry.type[0]].verb == 'Read'">
+                    {{entry.calculated_reading_time.data}} Read
                   </span>
-                  <span v-else-if="entry.acf.time && entry.acf.time_interval">
-                    {{ entry.acf.time }} {{ entry.acf.time_interval }} {{ getTypesIndexedById[firstType].verb }}
+                  <span v-if="getTypesIndexedById[entry.type[0]].verb !== 'Read'">
+                    {{entry.acf.time}} {{entry.acf.time_interval}} {{ getTypesIndexedById[entry.type[0]].verb }}
                   </span>
 
                 </span>
