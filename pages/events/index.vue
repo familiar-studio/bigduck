@@ -11,8 +11,8 @@
       <div class="col-lg-9 col-xl-8">
         <div class="container">
           <div id="content">
+            <h1>Upcoming Events</h1>
             <div class="page-title">
-              <h1>Upcoming Events</h1>
               <h4>
                 <router-link :to="{name: 'events-speaking'}">
                   <img src="/svgs/speaking-icon.svg" class="mr-2" />Interested in having Big Duck speak at your organization?<br class="hidden-xl-up"/>
@@ -22,7 +22,6 @@
             </div>
             <div v-if="events && events.length > 0">
               <!-- <transition-group name="fade" appear> -->
-              {{events[0].title.rendered}}
                 <div v-for="(event, index) in events" :key="event">
                   <Event :entry="event" :firstBlock="true" :index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
                   <transition name="list" appear>
@@ -35,10 +34,10 @@
               </div>
             </div>
             <div v-else>
-              No events found in
-              <span v-if="selectedTopic">Topic {{getTopicsIndexedById[selectedTopic].name}}</span>
-              <span v-if="selectedTopic && selectedCategory"> and </span>
-              <div v-if="selectedCategory">Type {{getEventCategoriesIndexedById[selectedCategory].name}}</div>
+              There are currently no upcoming
+              <span v-if="selectedTopic">{{getTopicsIndexedById[selectedTopic].name}}</span>
+              <span v-if="selectedTopic && selectedCategory"> or </span>
+              <span v-if="selectedCategory">{{getEventCategoriesIndexedById[selectedCategory].name}}</span> events.
             </div>
           </div>
         </div>

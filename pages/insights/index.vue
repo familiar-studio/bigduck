@@ -9,8 +9,8 @@
         </div>
       </div>
       <div class="col-xl-8 col-lg-9">
-        <div class="container" id="content" v-if="insights && insights.length > 0">
-          <h1>Insights</h1>
+        <h1>Insights</h1>
+          <div v-if="insights && insights.length > 0">
           <!-- <ListTransition :previous="previouslyLoadedInsights" :current="insights.length"> -->
           <!-- <transition-group name="fade" appear> -->
             <div v-for="(insight, index) in insights" :key="insight" :data-index="index">
@@ -26,10 +26,12 @@
           </div>
         </div>
         <div v-else>
-          No insights found in
-          <span v-if="selectedTopic">Topic {{getTopicsIndexedById[selectedTopic].name}}</span>
-          <span v-if="selectedTopic && selectedType"> and </span>
-          <div v-if="selectedType">Type {{getTypesIndexedById[selectedType].name}}</div>
+          <div class="">
+            There are currently no
+            <span v-if="selectedTopic">{{getTopicsIndexedById[selectedTopic].name}}</span>
+            <span v-if="selectedTopic && selectedType"> or </span>
+            <span v-if="selectedType">{{getTypesIndexedById[selectedType].name}}</span> insights.
+          </div>
         </div>
       </div>
 

@@ -14,9 +14,9 @@
             <h1>Work</h1>
             <Work :work="work" v-if="work.length > 0"></Work>
             <div v-else>
-              <h3>No case studies found in
-                <span v-if="selectedTopic">{{getTopicsIndexedById[selectedTopic].name}}</span>
-              </h3>
+              There are is currently no work in the
+                <span v-if="selectedTopic">{{getTopicsIndexedById[selectedTopic].name}}</span> topic
+              
             </div>
           </div>
         </div>
