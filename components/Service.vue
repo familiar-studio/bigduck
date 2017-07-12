@@ -1,13 +1,13 @@
 <template>
-  <div v-once class="block-service" :class="blockClass" v-if="entry.acf">
+  <div v-once class="block-overlap" :class="blockClass" v-if="entry.acf">
     <router-link :to="{ name: 'services-slug', params: { slug: entry.slug }}" :key="entry.id">
-      <div class="row no-gutters">
-        <div class="col-md-6 col-image">
+      <!-- <div class="row no-gutters"> -->
+        <div class=" col-image">
           <div class="featured-image" v-if="entry.acf.featured_image" :style="{ 'background-image': 'url(' + entry.acf.featured_image.url+ ')' }">
           </div>
         </div>
-  
-        <div class="col-md-6">
+
+        <div class=" col-text">
           <div class="card">
             <div class="card-block">
               <h3>
@@ -18,13 +18,13 @@
             </div>
           </div>
         </div>
-      </div>
+      <!-- </div> -->
     </router-link>
   </div>
 </template>
 <script>
 export default {
-  props: ['entry'],
+  props: ['entry', 'index'],
   computed: {
     typeIcon() {
       this.$store.state.topics.filter((topic) => {

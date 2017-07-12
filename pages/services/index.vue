@@ -13,14 +13,10 @@
             <article class='main bg-white overlap' v-html="servicesPage.acf.text">
             </article>
             <div class="pt-5">
-              <h2 v-html="servicesPage.acf.services_heading"></h2>
-              <div v-for="service in services" v-if="service.slug !== 'brandraising-benchmark'">
-                <Service :entry="service"></Service>
-              </div>
-              <h2 v-html="servicesPage.acf.brandraising_benchmark_heading" class="mt-5"></h2>
-              <div v-for="service in services" v-if="service.slug === 'brandraising-benchmark'">
-                <Service :entry="service"></Service>
-              </div>
+              <h2 v-html="servicesPage.acf.services_heading" class="mb-3"></h2>
+              <Service v-for="(service, index) in otherServices" :entry="service" :index="index"></Service>
+              <h2 v-html="servicesPage.acf.brandraising_benchmark_heading" class="mt-5 mb-3"></h2>
+              <Service :entry="brandraisingBenchmark" :index="otherServices.length"></Service>
             </div>
             <InlineCallout class="mt-5">
             </InlineCallout>
@@ -49,13 +45,14 @@
   </div>
 </template>
 <script>
-import Service from '~components/Service.vue'
-import InlineCallout from '~components/InlineCallout.vue'
 import Chat from '~components/Chat.vue'
+import InlineCallout from '~components/InlineCallout.vue'
+import Service from '~components/Service.vue'
 
 
 export default {
   name: 'services',
+  components: { Chat, InlineCallout, Service },
   head() {
     return {
       title: 'Services',
@@ -63,6 +60,15 @@ export default {
         { description: this.servicesPage.acf.services_heading },
         { 'og:image': this.servicesPage.acf.featured_image.url }
       ]
+    }
+  },
+  computed: {
+    brandraisingBenchmark () {
+      return this.services.filter((service) => { return service.slug === 'brandraising-benchmark'})[0]
+    },
+
+    otherServices () {
+      return this.services.filter((service) => { return service.slug !== 'brandraising-benchmark'})
     }
   },
   async asyncData({ store, query, state }) {
@@ -74,7 +80,6 @@ export default {
     data['servicesPage'] = page.data[0]
     data['services'] = services.data.reverse()
     return data
-  },
-  components: { Service, InlineCallout, Chat }
+  }
 }
 </script>
