@@ -581,46 +581,57 @@ class StarterSite extends TimberSite {
 
 	function insights_by_user($data) {
 		$rawInsights = get_posts(array(
-			'post_type' => 'bd_insight'
+			'post_type' => 'bd_insight',
+			'posts_per_page' => -1
 			// 'fields' => 'all_with_meta'
 		));
 		$insights = array();
 		foreach($rawInsights as $rawInsight){
 			$fields = get_fields($rawInsight->ID);
 			$insightUser = $data->get_params('id')['id'];
+			// return new WP_REST_Response($rawInsights);
 			// $insights[] = $fields['author']['ID'];
-			if(isset($fields['author'])) {
-				foreach($fields['author'] as $a){
-					// $authors_meta = array('ID' => $a['user_nicename'], 'user' => $insightUser);
-					if ($a['user_nicename'] == $insightUser){
-						$authors_meta = array();
-						// $authors_meta[] = 'found';
-						// $authors_meta[] = $fields['author'];
-						foreach($fields['author'] as $a2){
-							$author_meta = get_fields('user_' . $a2['ID']);
-							$author_data = $a2;
-							$author_data['meta'] = $author_meta;
-							$authors_meta[] = $author_data;
+			if(isset($fields['author']) && is_array($fields['author'])){
+				// return new WP_REST_Response($fields['author']);
+		// 		return array(
+		// 			'author' => new WP_REST_Response($fields['author'],
+		// 			'user' => $insightUser
+		// 	)
+		// );
+
+
+					foreach($fields['author'] as $a){
+						// $authors_meta = array('ID' => $a['user_nicename'], 'user' => $insightUser);
+						if ($a['user_nicename'] == $insightUser){
+							$authors_meta = array();
+							// $authors_meta[] = 'found';
+							// $authors_meta[] = $fields['author'];
+							foreach($fields['author'] as $a2){
+								$author_meta = get_fields('user_' . $a2['ID']);
+								$author_data = $a2;
+								$author_data['meta'] = $author_meta;
+								$authors_meta[] = $author_data;
+							}
+							$insight_data = $rawInsight;
+							$insight_data->acf = $fields;
+							$insight_data->authors = $authors_meta;
+							$insight_data->type = wp_get_post_terms($rawInsight->ID, 'type');
+							$insight_data->topic = wp_get_post_terms($rawInsight->ID, 'topic');
+							$insight_data->title = get_the_title($rawInsight->ID);
+							$insights[] = $insight_data;
+							continue;
 						}
-						$insight_data = $rawInsight;
-						$insight_data->acf = $fields;
-						$insight_data->authors = $authors_meta;
-						$insight_data->type = wp_get_post_terms($rawInsight->ID, 'type');
-						$insight_data->topic = wp_get_post_terms($rawInsight->ID, 'topic');
-						$insight_data->title = get_the_title($rawInsight->ID);
-						$insights[] = $insight_data;
-						continue;
 					}
 				}
 				// $insights[] = $;
-			}
 		}
 		return new WP_REST_Response($insights);
 	}
 
 	function events_by_user($data) {
 		$rawEvents = get_posts(array(
-				'post_type' => 'bd_event'
+				'post_type' => 'bd_event',
+				'posts_per_page' => -1
 		));
 		$events = array();
 		foreach($rawEvents as $rawEvent){
