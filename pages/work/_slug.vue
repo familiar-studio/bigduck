@@ -12,7 +12,7 @@
           <div class="container overlap ">
             <article class="main overflow-x-hidden" id="content">
               <div class="badge-group">
-                <nuxt-link class="badge badge-default underlineChange overview-link" :to="{name: 'work'}">Work</nuxt-link>
+                <nuxt-link class="badge badge-default underline-change overview-link" :to="{name: 'work'}">Work</nuxt-link>
                 <div class="badge badge-default" v-html="caseStudy.acf.client_name"></div>
               </div>
 

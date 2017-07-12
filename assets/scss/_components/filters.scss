@@ -6,11 +6,9 @@
   top: 100px;
   margin-left: .75rem;
 
-
   @include media-breakpoint-up(md) {
     display: block;
   }
-
 
   .label-lg {
     color: $gray;
@@ -25,20 +23,23 @@
     h6 {
       margin-bottom: 0;
       transition: all .3s ease;
-      @extend .underlineChange;
+      @extend .underline-change;
       background-size: 0% 1px !important;
       background-position: center 98% !important;
       display: inline-block;
     }
   }
-  img, svg {
+  img,
+  svg {
     opacity: .3;
     transition: opacity .3s ease;
     margin-right: .75rem;
   }
 
-  a:hover, .nuxt-link-exact-active, .active {
-    @extend .fillChange;
+  a:hover,
+  .nuxt-link-exact-active,
+  .active {
+    @extend .fill-change;
     .media h6 {
       background-size: 100% 1px !important;
     }
@@ -46,9 +47,10 @@
       opacity: 1;
     }
   }
-  .nuxt-link-exact-active, .active {
+  .nuxt-link-exact-active,
+  .active {
     .media h6 {
-      @extend .colorChange;
+      @extend .color-change;
     }
     .btn {
       opacity: 0;

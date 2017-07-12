@@ -3,15 +3,17 @@
     transition: background-color 1s ease;
     background-color: nth($duck-colors, $i);
 
-    .bgChange {
+    .bg-change {
+      //background-color: blue;
       transition: background-color 1s ease;
       background-color: nth($duck-colors, $i);
     }
-    .colorChange {
+
+    .color-change {
       transition: color 1s ease;
       color: nth($duck-colors, $i);
     }
-    .underlineChange {
+    .underline-change {
       transition: background-image 1s ease, background-size .3s ease;
       background-image: linear-gradient(
         nth($duck-colors, $i),
@@ -21,16 +23,16 @@
       background-repeat: no-repeat;
       background-size: 100% 1px;
     }
-    .borderChange {
+    .border-change {
       transition: border 1s ease;
       border-color: nth($duck-colors, $i);
     }
 
-    .fillChange path {
+    .fill-change path {
       transition: fill 1s ease;
       fill: nth($duck-colors, $i);
     }
-    a:hover .hoverColor {
+    a:hover .hover-color {
       transition: color 1s ease;
       color: nth($duck-colors, $i);
     }

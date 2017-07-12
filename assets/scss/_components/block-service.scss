@@ -16,7 +16,7 @@
     transition: all .3s ease;
 
     &::before {
-      @extend .bgChange;
+      @extend .bg-change;
       content: '';
       position: absolute;
       width: 100%;

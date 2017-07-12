@@ -11,7 +11,7 @@
           <div class="card">
             <div class="card-block">
               <h3>
-                <span v-html="entry.title.rendered" class="underlineChange"></span>
+                <span v-html="entry.title.rendered" class="underline-change"></span>
               </h3>
               <div class="card-text" v-html="entry.acf.short_description">
               </div>

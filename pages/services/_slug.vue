@@ -7,7 +7,7 @@
       <div class="container">
         <article class="main bg-white overlap mb-5">
           <div class="badge-group">
-            <router-link class="badge badge-default underlineChange overview-link" :to="{name: 'services'}">Services</router-link>
+            <router-link class="badge badge-default underline-change overview-link" :to="{name: 'services'}">Services</router-link>
           </div>
           <h1>{{ service.title.rendered }}</h1>
           <div v-html="service.acf.introduction"></div>

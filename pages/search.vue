@@ -18,27 +18,27 @@
           <div class="search-result">
             <router-link v-if="result.type == 'bd_insight'" :to="{name: 'insights-slug', params: {slug: result.slug}}" href="">
               <h6>Insight</h6>
-              <h3><span class="underlineChange hoverColor" v-html="result.title.rendered"></span></h3>
+              <h3><span class="underline-change hover-color" v-html="result.title.rendered"></span></h3>
               <div class="card-text" v-html="result.acf.short_description"></div>
             </router-link>
             <router-link v-if="result.type == 'bd_case_study'" :to="{name: 'work-slug', params: {slug: result.slug}}" href="">
               <h6>Work</h6>
-              <h3><span class="underlineChange hoverColor" v-html="result.acf.client_name"></span></h3>
+              <h3><span class="underline-change hover-color" v-html="result.acf.client_name"></span></h3>
               <div class="card-text" v-html="result.title.rendered"></div>
             </router-link>
             <router-link v-if="result.type == 'bd_event'" :to="{name: 'events-slug', params: {slug: result.slug}}" href="">
               <h6>Event {{result.acf.start_time}}</h6>
-              <h3><span class="underlineChange hoverColor" v-html="result.title.rendered"></span></h3>
+              <h3><span class="underline-change hover-color" v-html="result.title.rendered"></span></h3>
               <div class="card-text" v-html="result.acf.subtitle"></div>
             </router-link>
             <router-link v-if="result.type == 'bd_service'" :to="{name: 'services-slug', params: {slug: result.slug}}" href="">
               <h6>Service</h6>
-              <h3><span class="underlineChange hoverColor" v-html="result.title.rendered"></span></h3>
+              <h3><span class="underline-change hover-color" v-html="result.title.rendered"></span></h3>
               <div class="card-text" v-html="result.acf.short_description"></div>
             </router-link>
             <router-link v-else :to="{name: 'services-slug', params: {slug: result.slug}}" href="">
               <h6>Insight</h6>
-              <h3><span class="underlineChange hoverColor" v-html="result.title.rendered"></span></h3>
+              <h3><span class="underline-change hover-color" v-html="result.title.rendered"></span></h3>
               <div class="card-text" v-html="result.acf.short_description"></div>
             </router-link>
 

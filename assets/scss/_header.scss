@@ -18,7 +18,7 @@
     }
   }
   .tagline {
-    @extend .colorChange;
+    @extend .color-change;
     color: nth($duck-colors, 1);
     -webkit-font-smoothing: antialiased;
     margin-top: .2rem;
@@ -26,7 +26,7 @@
   }
 
   #logo {
-    @extend .fillChange;
+    @extend .fill-change;
   }
 }
 .homepage #header {
@@ -76,7 +76,8 @@
     background-color: $gray-darker;
     width: 26px;
     transition: all .2s ease;
-    &::before, &::after {
+    &::before,
+    &::after {
       content: '';
       display: block;
       position: absolute;
@@ -115,7 +116,8 @@
 
   .nav-item {
     position: relative;
-    & > .nuxt-link-active, &:hover {
+    & > .nuxt-link-active,
+    &:hover {
       opacity: 1;
       + .nav-text {
         opacity: 1;
@@ -144,16 +146,16 @@
       font-size: 1rem;
     }
     span {
-      @extend .underlineChange;
+      @extend .underline-change;
       background-size: 0 1px !important;
       display: inline-block;
     }
-    &.nuxt-link-active, &:hover {
+    &.nuxt-link-active,
+    &:hover {
       span {
         background-size: 100% 1px !important;
       }
     }
-
   }
   .nav-text {
     @extend .label;
@@ -179,7 +181,7 @@
 }
 
 #header.nav-open {
-  @extend .bgChange;
+  @extend .bg-change;
   background-color: nth($duck-colors, 1);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;

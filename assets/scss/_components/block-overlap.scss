@@ -30,7 +30,7 @@
     }
 
     &::before {
-      @extend .bgChange;
+      @extend .bg-change;
       content: '';
       position: absolute;
       width: 100%;
@@ -92,20 +92,17 @@
       }
       @include media-breakpoint-up(lg) {
         width: 40%;
-
       }
       @media (min-width: 1900px) {
         height: 24rem;
       }
     }
     .col-text {
-
       @include media-breakpoint-up(sm) {
         position: absolute;
         width: 75%;
         right: 0;
       }
-
 
       @include media-breakpoint-up(xl) {
         width: 60%;
@@ -182,12 +179,11 @@
   }
 }
 
-.card-block p, .card-block .card-text {
+.card-block p,
+.card-block .card-text {
   margin-bottom: 0;
   font-size: .9rem;
 }
-
-
 
 .block-overlap.block-event {
   .card {
@@ -202,7 +198,7 @@
   }
   a:hover {
     .event-date {
-      @extend .bgChange;
+      @extend .bg-change;
     }
   }
 

@@ -1,14 +1,14 @@
-.events{
-  .page-title{
+.events {
+  .page-title {
     margin-bottom: 2rem;
-    h1{
+    h1 {
       margin-bottom: 0;
     }
-    .label{
+    .label {
       margin-left: .5rem;
     }
   }
-  .callout-fullwidth{
+  .callout-fullwidth {
     margin-bottom: 3rem;
   }
 }
@@ -20,27 +20,28 @@
   background-color: $gray-darker;
   -webkit-font-smoothing: antialiased;
   padding: .75rem;
-  h2, h6{
+  h2,
+  h6 {
     color: $white;
     margin-bottom: 0;
   }
-  h2{
+  h2 {
     font-size: 3rem;
   }
 }
 
-.events-slug{
-  .event-title{
+.events-slug {
+  .event-title {
     margin-bottom: 2rem;
-    h1{
+    h1 {
       margin-bottom: 0;
     }
   }
-  aside{
+  aside {
     display: inline-flex;
     flex-direction: column;
     // align-items: center;
-    @include media-breakpoint-up(lg){
+    @include media-breakpoint-up(lg) {
       margin-right: 0;
       margin-left: auto;
     }
@@ -50,13 +51,13 @@
 .location-name {
   span {
     font-family: $font-family-sans-serif;
-    @extend .underlineChange;
+    @extend .underline-change;
     padding-bottom: 0.375rem;
   }
 }
 
 h6.mobile-event-date {
-  @include media-breakpoint-up(lg){
+  @include media-breakpoint-up(lg) {
     display: none;
   }
 }

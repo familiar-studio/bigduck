@@ -16,7 +16,7 @@
               <h4>
                 <router-link :to="{name: 'events-speaking'}">
                   <img src="/svgs/speaking-icon.svg" class="mr-2" />Interested in having Big Duck speak at your organization?<br class="hidden-xl-up"/>
-                  <span class="label colorChange"> Learn more about our talks…</span>
+                  <span class="label color-change"> Learn more about our talks…</span>
                 </router-link>
               </h4>
             </div>

@@ -75,7 +75,7 @@
 .cs-block-factoid{
   margin: 2rem 0;
   border-left: .5rem solid nth($duck-colors, 1);
-  @extend .borderChange;
+  @extend .border-change;
   padding: .5rem 1.5rem .25rem;
   display: inline-block;
   h1{
