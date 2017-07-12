@@ -589,23 +589,10 @@ class StarterSite extends TimberSite {
 		foreach($rawInsights as $rawInsight){
 			$fields = get_fields($rawInsight->ID);
 			$insightUser = $data->get_params('id')['id'];
-			// return new WP_REST_Response($rawInsights);
-			// $insights[] = $fields['author']['ID'];
 			if(isset($fields['author']) && is_array($fields['author'])){
-				// return new WP_REST_Response($fields['author']);
-		// 		return array(
-		// 			'author' => new WP_REST_Response($fields['author'],
-		// 			'user' => $insightUser
-		// 	)
-		// );
-
-
 					foreach($fields['author'] as $a){
-						// $authors_meta = array('ID' => $a['user_nicename'], 'user' => $insightUser);
 						if ($a['user_nicename'] == $insightUser){
 							$authors_meta = array();
-							// $authors_meta[] = 'found';
-							// $authors_meta[] = $fields['author'];
 							foreach($fields['author'] as $a2){
 								$author_meta = get_fields('user_' . $a2['ID']);
 								$author_data = $a2;
@@ -623,7 +610,6 @@ class StarterSite extends TimberSite {
 						}
 					}
 				}
-				// $insights[] = $;
 		}
 		return new WP_REST_Response($insights);
 	}
