@@ -19,6 +19,16 @@
             <img class="img-fluid img-multiply" :src="block.image.url" />
           </div>
           <h2 v-if="block.acf_fc_layout == 'heading'" class="mt-5" v-html="block.heading"></h2>
+          <div v-if="block.acf_fc_layout == 'faq' && block.questions.length > 0">
+            <ul class="list-unstyled">
+              <li v-for="question in block.questions">
+                <h2>{{ question.question }}</h2>
+                <div class="" v-html="question.answer">
+
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
         <div class="container mt-5" v-if="relatedCaseStudies && relatedCaseStudies.length > 0">
           <h2>Related Case Studies</h2>
