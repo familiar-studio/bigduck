@@ -528,7 +528,15 @@ class StarterSite extends TimberSite {
 			$team_member = $fields;
 		}
 		$rawEvents = get_posts(array(
-				'post_type' => 'bd_event'
+				'post_type' => 'bd_event',
+				'posts_per_page' => 8,
+				'meta_query'	=> array(
+					array(
+						'key'	 	=> 'author',
+						'value'	  	=> $user->ID,
+						'compare' 	=> 'IN',
+					)
+				)
 		));
 		$team_member['events'] = array();
 		foreach($rawEvents as $rawEvent){
@@ -539,26 +547,30 @@ class StarterSite extends TimberSite {
 				$team = $fields['related_team_members'];
 				if (is_array($team)){
 					foreach($team as $member) {
-						if ($member['ID'] == intval($user->ID)){
-							// return $user;
-							$topics = wp_get_post_terms($rawEvent->ID, 'topic');
-							$eventCategories = wp_get_post_terms($rawEvent->ID, 'event_category');
-							$data = get_post($rawEvent->ID);
-							$postContent = $data->post_content;
-							$data->acf = $fields;
-							$data->event_category = array($eventCategories[0]->term_id);
-							$data->topic = array($topics[0]->term_id);
-							$data->title = array('rendered' => get_the_title($rawEvent->ID));
-							$team_member['events'][] = $data;
-							continue;
-						}
+						$topics = wp_get_post_terms($rawEvent->ID, 'topic');
+						$eventCategories = wp_get_post_terms($rawEvent->ID, 'event_category');
+						$data = get_post($rawEvent->ID);
+						$postContent = $data->post_content;
+						$data->acf = $fields;
+						$data->event_category = array($eventCategories[0]->term_id);
+						$data->topic = array($topics[0]->term_id);
+						$data->title = array('rendered' => get_the_title($rawEvent->ID));
+						$team_member['events'][] = $data;
 					}
 				}
 			}
 		}
 
 		$rawInsights = get_posts(array(
-			'post_type' => 'bd_insight'
+			'post_type' => 'bd_insight',
+			'posts_per_page' => 8,
+			'meta_query'	=> array(
+				array(
+					'key'	 	=> 'author',
+					'value'	  	=> $user->ID,
+					'compare' 	=> 'IN',
+				)
+			)
 		));
 
 		$team_member['insights'] = array();
@@ -566,13 +578,11 @@ class StarterSite extends TimberSite {
 			$fields = get_fields($rawInsight->ID);
 			$authors = $fields['author'];
 			foreach($authors as $author){
-				if ($author['ID'] == $user->ID){
-					$insight = get_post($rawInsight->ID);
-					$topics = wp_get_post_terms($rawInsight->ID, 'topic');
-					$insight->acf = $fields;
-					$insight->topic = array($topics[0]->term_id);
-					$team_member['insights'][] = $insight;
-				}
+				$insight = get_post($rawInsight->ID);
+				$topics = wp_get_post_terms($rawInsight->ID, 'topic');
+				$insight->acf = $fields;
+				$insight->topic = array($topics[0]->term_id);
+				$team_member['insights'][] = $insight;
 			}
 		}
 
