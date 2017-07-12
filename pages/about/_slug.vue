@@ -42,14 +42,13 @@
           </div>
         </div>
       </article>
-
       <div v-if="relatedEvents && relatedEvents.events.length > 0">
         <h2 class="mt-5 mb-3">Events with {{member.name.split(" ")[0]}}</h2>
         <Event v-for="(event, index) in relatedEvents.events" :entry="event.data" :key="event.slug" :index="index" :relatedTeamMembers="event.team_meta"></Event>
       </div>
-      <div class="" v-if="relatedInsights && relatedInsights.length > 0">
+      <div class="" v-if="relatedInsights && relatedInsights.length > 0 && relatedEvents">
         <h2 :class="{'mt-5 mb-3': !relatedEvents }">Insights by {{ member.name.split(" ")[0]}}</h2>
-        <Post v-for="(insight, index) in relatedInsights" :key="insight.id" :entry="insight" :index="index"></Post>
+        <Post v-for="(insight, index) in relatedInsights.slice(0, relatedInsightsPerPage)" :key="insight.id" :entry="insight" :index="index + relatedEvents.events.length"></Post>
       </div>
     </div>
   </div>
@@ -73,7 +72,7 @@ export default {
     Event, Post
   },
   computed: {
-    ...mapGetters(['hostname']),
+    ...mapGetters(['hostname', 'relatedInsightsPerPage']),
     // relatedEvents () {
     //   return this.member.events
     // },
@@ -88,11 +87,14 @@ export default {
       let response = await Axios.get(this.hostname + 'familiar/v1/events/user/' + this.member.slug )
       this.relatedEvents = response.data
     }
-    let relatedInsightIds = this.member.insights.map((insight) => { return insight.ID })
-    if (relatedInsightIds && relatedInsightIds.length > 0 ) {
+    // let relatedInsightIds = this.member.insights.map((insight) => { return insight.ID })
+    // console.log(this.hostname + 'familiar/v1/insights/user/' + this.member.slug)
+    // console.log('ids', relatedInsightIds)
+    // if (relatedInsightIds && relatedInsightIds.length > 0 ) {
       let response = await Axios.get(this.hostname + 'familiar/v1/insights/user/' + this.member.slug )
+      // debugger
       this.relatedInsights = response.data
-    }
+    // }
   },
   async asyncData({ store, params }) {
 

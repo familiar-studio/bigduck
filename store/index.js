@@ -24,7 +24,8 @@ export const state = () => ({
   chat: {},
   inline: {},
   form: null,
-  menuCallouts: null
+  menuCallouts: null,
+  relatedInsightsPerPage: 2
 });
 
 export const mutations = {
@@ -236,8 +237,11 @@ export const getters = {
     return state.bareRemoteHostname;
     // return state.bareLocalHostname;
   },
+  relatedInsightsPerPage: state => {
+    return state.relatedInsightsPerPage
+  },
   previousQuery: state => {
-    return state.previousQuery;
+    return state.previousQuery
   },
   getTopicsIndexedById: state => {
     if (state.topics) {
