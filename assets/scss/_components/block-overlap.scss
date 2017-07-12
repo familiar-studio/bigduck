@@ -41,7 +41,7 @@
     }
   }
   .col-text {
-    z-index: 4;
+    // z-index: 4;
     transition: all .3s ease;
     @include media-breakpoint-up(sm) {
       width: 60%;
@@ -85,6 +85,7 @@
       height: 250px;
       @include media-breakpoint-up(sm) {
         position: relative;
+
         flex-basis: 75%;
         width: 60%;
         height: 21rem;
@@ -103,7 +104,9 @@
       @include media-breakpoint-up(sm) {
         position: absolute;
         width: 75%;
+        top: 3rem;
         right: 0;
+        // bottom: 4rem;
       }
 
 
