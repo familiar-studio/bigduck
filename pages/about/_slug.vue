@@ -46,9 +46,11 @@
         <h2 class="mt-5 mb-3">Events with {{member.name.split(" ")[0]}}</h2>
         <Event v-for="(event, index) in relatedEvents.events" :entry="event.data" :key="event.slug" :index="index" :relatedTeamMembers="event.team_meta"></Event>
       </div>
-      <div class="" v-if="relatedInsights && relatedInsights.length > 0 && relatedEvents">
+      <div class="" v-if="relatedInsights && relatedInsights.length > 0">
         <h2 :class="{'mt-5 mb-3': !relatedEvents }">Insights by {{ member.name.split(" ")[0]}}</h2>
-        <Post v-for="(insight, index) in relatedInsights.slice(0, relatedInsightsPerPage)" :key="insight.id" :entry="insight" :index="index + relatedEvents.events.length"></Post>
+
+        <Post v-for="(insight, index) in relatedInsights.slice(0, relatedInsightsPerPage)" :key="insight.id" :entry="insight" :index="index + relatedEventsLength"></Post>
+
       </div>
     </div>
   </div>
@@ -73,6 +75,13 @@ export default {
   },
   computed: {
     ...mapGetters(['hostname', 'relatedInsightsPerPage']),
+    relatedEventsLength () {
+      if (this.relatedEvents && this.relatedEvents.events) {
+        return this.relatedEvents.events.length
+      } else {
+        return 0
+      }
+    }
     // relatedEvents () {
     //   return this.member.events
     // },
