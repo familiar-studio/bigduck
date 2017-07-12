@@ -64,16 +64,13 @@
 @for $i from 1 through length($duck-colors) {
   ::selection {
     background-color: nth($duck-colors, $i);
-
     color: white;
   }
 }
 
-@for $i from 1 through length($duck-colors) {
-  ::-moz-selection {
-    background-color: nth($duck-colors, $i);
-    color: white;
-  }
+::-moz-selection {
+  background-color: $gray-darker;
+  color: white;
 }
 
 //TYPOGRAPHY
