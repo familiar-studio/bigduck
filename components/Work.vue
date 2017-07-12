@@ -17,7 +17,7 @@
               </div>
             </div>
             <h3 class="card-title">
-              <span class="underlineChange hoverColor">{{ case_study.acf.client_name }}</span>
+              <span class="underline-change hover-color">{{ case_study.acf.client_name }}</span>
             </h3>
             <div class="card-text" v-html="case_study.acf.short_description"></div>
           </div>

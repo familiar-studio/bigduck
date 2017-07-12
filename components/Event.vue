@@ -20,7 +20,7 @@
                 </div>
               </div>
               <h3 class="card-title">
-                <span v-if="entry.title" class="underlineChange" v-html="entry.title.rendered"></span><span class="underlineChange" v-else v-html="entry.post_title"></span>
+                <span v-if="entry.title" class="underline-change" v-html="entry.title.rendered"></span><span class="underline-change" v-else v-html="entry.post_title"></span>
               </h3>
               <div class="card-text" v-html="entry.acf.subtitle"></div>
               <div class="card-footer">

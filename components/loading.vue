@@ -1,8 +1,8 @@
 <template>
-  <div class="progress bgChange" :style="{
-                              'width': percent+'%',
-                              'opacity': show ? 1 : 0
-                            }">
+  <div class="progress bg-change" :style="{
+                                  'width': percent+'%',
+                                  'opacity': show ? 1 : 0
+                                }">
   </div>
 </template>
 

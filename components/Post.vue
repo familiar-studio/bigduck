@@ -31,7 +31,7 @@
             </div>
 
             <h3 class="card-title">
-              <span class="underlineChange" v-if="entry.title.rendered" v-html="entry.title.rendered"></span><span class="underlineChange" v-else v-html="entry.title"></span>
+              <span class="underline-change" v-if="entry.title.rendered" v-html="entry.title.rendered"></span><span class="underline-change" v-else v-html="entry.title"></span>
             </h3>
             <div class="card-text" v-html="entry.acf.short_description"></div>
             <div class="card-footer">

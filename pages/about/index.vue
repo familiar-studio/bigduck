@@ -50,8 +50,8 @@
                 <div v-html="page.acf.we_believe_body"></div>
                 <h1>{{ page.our_clients_headline }}</h1>
               </article>
-
-              <article class="values bgChange break-container">
+  
+              <article class="values bg-change break-container">
                 <div>
                   <h1 id="values">{{ page.acf.values_headline }}</h1>
                   <div v-html="page.acf.values_body"></div>
@@ -68,7 +68,7 @@
                   </ul>
                 </div>
               </article>
-
+  
               <article v-if="openHouse" class="openHouse my-5">
                 <h1 id="open-house">Open House</h1>
                 <div v-html="page.acf.open_house_body"></div>
@@ -76,17 +76,17 @@
                   <Event :entry="event" :index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
                 </div>
               </article>
-
+  
               <article class="pb-5" v-if="sectorsByIndex" id="clients">
                 <h1 id="our-clients" v-html="page.acf.our_clients_headline"></h1>
                 <div v-html="page.acf.clients_body" class="mb-3"></div>
-
+  
                 <div class="collapse-block" v-for="(client, index) in page.acf.clients">
                   <div class="" v-if="client.client_category">
-                    <div class="media" :class="{ 'active': openCategory === client.client_category }" >
+                    <div class="media" :class="{ 'active': openCategory === client.client_category }">
                       <span class="svg" v-html="sectorsByIndex[client.client_category].icon"></span>
                       <h3>
-                        <a href="#" class="underlineChange" v-html="sectorsByIndex[client.client_category].name" @click.prevent="toggleClient(client.client_category)">
+                        <a href="#" class="underline-change" v-html="sectorsByIndex[client.client_category].name" @click.prevent="toggleClient(client.client_category)">
                         </a>
                       </h3>
                     </div>
@@ -100,27 +100,29 @@
                   </div>
                 </div>
               </article>
-
+  
               <article class="break-container bg-white team py-5">
                 <h1 id="team">{{page.acf.team_headline}}</h1>
                 <div v-html="page.acf.team_body" class="mb-4"></div>
-
+  
                 <div class="row">
                   <div v-for="member in page.acf.team" class="col-sm-6 col-lg-4">
                     <nuxt-link :key="member.id" :to=" {name: 'about-slug', params: {slug: member.team_member.user_nicename}}" class="team-member">
                       <div class="col-image">
-
+  
                         <div :style="{ 'background-image': 'url(' + teamMemberBySlug(member.team_member.user_nicename).headshot.url + ')' }" class="featured-image"></div>
                       </div>
                       <div>
-                        <h4 class="mt-3 mb-1"><span class="underlineChange">{{teamMemberBySlug(member.team_member.user_nicename).headshot.title}}</span></h4>
+                        <h4 class="mt-3 mb-1">
+                          <span class="underline-change">{{teamMemberBySlug(member.team_member.user_nicename).headshot.title}}</span>
+                        </h4>
                         <h6>{{ teamMemberBySlug(member.team_member.user_nicename).job_title }}</h6>
                       </div>
                     </nuxt-link>
                   </div>
                 </div>
               </article>
-
+  
               <article id="jobs" class="py-5">
                 <h1>{{ page.acf.jobs_headline }}</h1>
                 <div v-html="page.acf.jobs_body" class="mb-3"></div>
@@ -128,7 +130,7 @@
                   <div v-for="(job, index) in jobs" class="collapse-block">
                     <div :class="{'active': job.id === openJob}">
                       <h3>
-                        <a href="#" class="underlineChange" @click.prevent="toggleJob(job.id)">{{job.title.rendered}}</a>
+                        <a href="#" class="underline-change" @click.prevent="toggleJob(job.id)">{{job.title.rendered}}</a>
                       </h3>
                     </div>
                     <div class="collapse-content" :class="{'show': job.id === openJob}">
@@ -145,7 +147,7 @@
                   </div>
                 </div>
               </article>
-
+  
             </div>
           </div>
         </div>

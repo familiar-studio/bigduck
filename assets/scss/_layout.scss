@@ -16,7 +16,6 @@ body {
   // }
 }
 
-
 .subnav {
   // position: -webkit-sticky;
   // position: sticky;
@@ -29,12 +28,13 @@ body {
     font-size: 1.2rem;
     padding-bottom: 0.25rem;
     span {
-      @extend .underlineChange;
+      @extend .underline-change;
       background-size: 0% 1px !important;
       background-position: center 90% !important;
       transition: background-size .3s !important;
     }
-    &:hover, &.active {
+    &:hover,
+    &.active {
       span {
         background-size: 100% 1px !important;
       }
@@ -68,7 +68,7 @@ body {
     color: white;
     &:hover {
       background-color: white;
-      @extend .colorChange;
+      @extend .color-change;
     }
   }
 }
@@ -119,15 +119,17 @@ body {
       margin-right: 1.25rem;
     }
   }
-  h4, a {
+  h4,
+  a {
     color: $white;
   }
-  address, h4 {
+  address,
+  h4 {
     margin-bottom: 0;
   }
   a:hover {
-    @extend .colorChange;
-    @extend .fillChange;
+    @extend .color-change;
+    @extend .fill-change;
   }
 }
 
@@ -169,7 +171,7 @@ article.main {
     margin-left: 0px;
     margin-right: 0px;
   }
-  .badge-group  {
+  .badge-group {
     .badge {
       margin-bottom: 1rem;
     }
