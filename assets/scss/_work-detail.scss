@@ -98,5 +98,18 @@
   svg {
     position: static;
     margin-top: 4px;
+    min-width: 15px;
+    min-height: 15px;
+    // @media only screen
+    //   and (-webkit-min-device-pixel-ratio: 2)
+    //   and (max-device-width: ){
+    //   height: auto;
+    //   width: auto;
+    //   margin-top: 0;
+    // }
+    // @include media-breakpoint-down(sm) {
+    //   height: auto;
+    //   width: auto;
+    // }
   }
 }
