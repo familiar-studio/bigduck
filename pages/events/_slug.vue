@@ -31,14 +31,11 @@
                     <h4>
                       <span v-html="event.acf.subtitle"></span>
                     </h4>
-                    <div v-if="event.acf.is_webinar">
-                      <div v-if="formFilled || contentRefreshed">
-                        <div v-html="event.acf.post_registration_content"></div>
-                      </div>
-                    </div>
+  
                     <h6 class="mobile-event-date">{{month}} {{date}} {{start_time}}&ndash;{{end_time}}</h6>
                   </div>
                   <div v-html="event.acf.text"></div>
+  
                   <div v-if="event.related_team_members.data || event.acf.guest_speakers.length > 0" class="author-listing">
                     <div class="media speaker mt-3" v-if="event.related_team_members.data" v-for="team_member in event.related_team_members.data">
                       <img v-if="team_member.headshot" :src="team_member.headshot.sizes.thumbnail" class="round author-img mr-2">
@@ -96,12 +93,18 @@
   
             </article>
   
-            <div v-if="event.acf.is_webinar && !formFilled" class="form-light" id="register" :class="{'mb-5': !relatedInsights && !relatedEvents}">
-              <div v-if="!contentRefreshed">
+            <div v-if="event.acf.is_webinar" class="form-light" id="register" :class="{'mb-5': !relatedInsights && !relatedEvents}">
+  
+              <div v-if="!contentRefreshed && !formFilled">
                 <h3>Register for this event</h3>
                 <p>{{ eventRegistrationText }}</p>
               </div>
-              <GravityForm :formId=9 :showAll="true" :gatedContent="event.id" @submitted="refreshContent()" cookiePrefix="event-" :id="event.id" :title="event.title.rendered" :actonId="event.acf.acton_form_id"></GravityForm>
+              <GravityForm v-if="!formFilled" :formId=9 :showAll="true" @submitted="refreshContent()" cookiePrefix="event-" :id="event.id" :title="event.title.rendered" :actonId="event.acf.act_on_form_id"></GravityForm>
+  
+              <div v-if="formFilled || contentRefreshed">
+                <div v-html="event.acf.post_registration_content"></div>
+              </div>
+  
             </div>
   
             <div v-if="relatedEvents || relatedInsights">

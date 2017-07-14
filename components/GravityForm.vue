@@ -116,7 +116,9 @@ export default {
     cookiePrefix: {
       type: String
     },
-    acton_id: {},
+    actonId: {
+      type: String
+    },
     id: {
       type: Number
     },
@@ -173,18 +175,17 @@ export default {
 
 
       // fill in prefilled data!
-      if (this.acton_id) {
-        this.formData['input_19'] = this.title
-        this.formData['input_20'] = this.id
-        this.formData['input_22'] = this.acton_id
-        this.formData['input_23'] = this.acton_id
+      if (this.actonId) {
+        this.formData.input_19 = this.title
+        this.formData.input_20 = this.id
+        this.formData.input_22 = this.actonId
+        this.formData.input_23 = this.actonId
       }
 
       if (this.gatedContent) {
-        console.log('got here', this.formData)
+
         this.formData.input_19 = this.title
         this.formData.input_20 = this.gatedContent
-        console.log('got here', this.formData)
 
       }
 
@@ -196,9 +197,11 @@ export default {
 
 
 
-      if (this.gatedContent) {
+      if (this.gatedContent || this.actonId) {
+
+        var cookieId = this.gatedContent ? this.gatedContent : this.actionId
         if (process.BROWSER_BUILD) {
-          jscookie.set(this.cookiePrefix + this.gatedContent, "true", {
+          jscookie.set(this.cookiePrefix + cookieId, "true", {
             expires: 7
           });
         }

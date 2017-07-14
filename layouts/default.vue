@@ -7,12 +7,12 @@
             <button @click="toggleNav()" class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
-
+  
             <nuxt-link class="navbar-brand" to="/" @click="hideNav()">
               <Logo></Logo>
               <div class="label tagline hidden-xs-down">Smart communications for nonprofits</div>
             </nuxt-link>
-
+  
             <div class="navbar-collapse" id="main-menu">
               <div class="label tagline hidden-sm-up">Smart communications for nonprofits</div>
               <ul class="navbar-nav ml-auto">
@@ -64,13 +64,13 @@
           </nav>
         </div>
       </header>
-
+  
       <main id="main" :class="{ 'no-top-padding': noTopPadding }">
-
+  
         <nuxt/>
-
+  
       </main>
-
+  
       <footer id="footer">
         <div>
           <nuxt-link to="/" class="navbar-brand">
@@ -108,18 +108,18 @@
                 <address class="">
                   20 Jay Street, Suite 524
                   <br> Brooklyn, NY 11201
-
+  
                 </address>
               </h4>
             </div>
           </div>
         </div>
       </footer>
-
+  
       <SearchOverlay v-if="searchVisible" @hide="hideSearch()"></SearchOverlay>
-
+  
     </div>
-    <section id="footer-callout" v-if="chat && showFooter" class="bgChange text-white my-0 py-5">
+    <section id="footer-callout" v-if="chat && showFooter" class="bg-change text-white my-0 py-5">
       <div class="container">
         <div class="row">
           <div class="col-lg-8 offset-lg-2">
@@ -128,9 +128,9 @@
               <p>
                 {{ chat.description }}
               </p>
-
+  
               <GravityForm v-if="chat.formId" :formId="chat.formId" btnType="tertiary"></GravityForm>
-
+  
             </div>
           </div>
         </div>
