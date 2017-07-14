@@ -1,8 +1,6 @@
 <template>
-
   <div v-if="insight">
-
-
+  
     <div class="img-hero" v-if="insight && insight.acf.featured_image" :style=" { backgroundImage: 'url(' + insight.acf.featured_image + ')' }">
       <figcaption class="figure-caption">{{insight.acf.featured_image.caption}}</figcaption>
     </div>
@@ -36,37 +34,26 @@
                   {{ date }}
                 </div>
               </div>
-
+  
               <h1 v-html="insight.title.rendered">
               </h1>
               <div class="author-listing" v-if="insight.acf.author.length > 0">
-                  <div class="badge badge-default mb-3" v-if="insight.author_headshots" v-for="author in insight.acf.author">
-                    <img v-if="insight.author_headshots[author.user_nicename].sizes" :src="insight.author_headshots[author.user_nicename].sizes.thumbnail" class="round author-img mr-2">
-                    <div><nuxt-link :to="'/about/' + author.user_nicename">{{author.display_name}}</nuxt-link></div>
+                <div class="badge badge-default mb-3" v-if="insight.author_headshots" v-for="author in insight.acf.author">
+                  <img v-if="insight.author_headshots[author.user_nicename].sizes" :src="insight.author_headshots[author.user_nicename].sizes.thumbnail" class="round author-img mr-2">
+                  <div>
+                    <nuxt-link :to="'/about/' + author.user_nicename">{{author.display_name}}</nuxt-link>
                   </div>
-
+                </div>
+  
                 <div>
                   <div v-if="insight.acf.guest_author_name" class="badge badge-default mb-3 author-no-img" v-html="insight.acf.guest_author_name">
                   </div>
+                </div>
               </div>
-            </div>
               <div v-if="!insight.acf.guest_author_name && insight.acf.author.length < 1" class="badge badge-default mb-3 author-no-img">
                 <span>Big Duck</span>
               </div>
-              <div v-if="insight.acf.is_gated_content" >
-                <!-- <div v-if="contentRefreshed"> -->
-
-                <!-- </div> -->
-                <transition name="fade" appear>
-                  <div v-if="formFilled || contentRefreshed">
-                    <div v-html="insight.acf.gated_content_text"></div>
-                    <a :href="insight.acf.gated_download.url" v-if="insight.acf.gated_download.url" class="btn btn-primary">{{insight.acf.gated_download_button_text}}</a>
-                  </div>
-                  <div v-else>
-                  </div>
-                </transition>
-              </div>
-              <div v-else>
+  
               <div v-for="block in insight.acf.body" :class="['block-' + block.acf_fc_layout]">
                 <div v-if="block.acf_fc_layout == 'text'" v-html="block.text"></div>
                 <template v-if="block.acf_fc_layout == 'callout'">
@@ -75,17 +62,32 @@
                   <img :src="block.image" alt="callout image" v-if="block.image" />
                 </template>
               </div>
-            </div>
+  
               <div class="hidden-lg-up mt-4">
                 <Share></Share>
               </div>
             </article>
-              <div v-if="contentRefreshed || !formFilled" class="form-light">
-                <GravityForm :formId="insight.acf.gated_content_form" :viewAll="true" :gatedContent="insight.id" @submitted="refreshContent()" cookiePrefix="insight-"></GravityForm>
+            <div v-if="insight.acf.is_gated_content">
+  
+              <div class="form-light">
+                <GravityForm :formId="7" :showAll="true" :gatedContent="insight.id" :title="insight.title.rendered" @submitted="refreshContent()" cookiePrefix="insight-"></GravityForm>
+  
+                <div v-if="formFilled || contentRefreshed">
+                  <transition name="fade" appear>
+                    <div>
+                      <div v-html="insight.acf.gated_content_text"></div>
+                      <a :href="insight.acf.gated_download.url" v-if="insight.acf.gated_download.url" class="btn btn-primary" target="_blank">
+                        {{insight.acf.gated_download_button_text}}
+                      </a>
+                    </div>
+                  </transition>
+                </div>
+  
               </div>
-
+            </div>
+  
             <article class="mb-5 container">
-
+  
               <div v-if="insight.acf.author.length > 0" v-for="(author, index) in insight.acf.author">
                 <div class="author-bio">
                   <div class="row">
@@ -102,40 +104,40 @@
                         More about {{author.user_firstname}}
                       </nuxt-link>
                     </div>
-
+  
                   </div>
                 </div>
               </div>
             </article>
-
+  
             <div class="mb-5" v-if="relatedCaseStudies">
               <h2>Related Case Studies</h2>
               <!-- <div class="row"> -->
-                <div v-for="case_study in relatedCaseStudies" class="block-overlap">
-                  <nuxt-link :to="{name: 'work-slug', params: {slug: case_study.slug}}" :key="case_study.ID">
-                    <div class="col-image">
-                      <img v-if="case_study.acf.hero_image" :src="case_study.acf.hero_image.sizes.large" style="width:100%">
-                    </div>
-                    <div class="col-text">
-                      <div class="card">
-                        <div class="card-block">
+              <div v-for="case_study in relatedCaseStudies" class="block-overlap">
+                <nuxt-link :to="{name: 'work-slug', params: {slug: case_study.slug}}" :key="case_study.ID">
+                  <div class="col-image">
+                    <img v-if="case_study.acf.hero_image" :src="case_study.acf.hero_image.sizes.large" style="width:100%">
+                  </div>
+                  <div class="col-text">
+                    <div class="card">
+                      <div class="card-block">
                         <div class="badge-group" v-if="topics && types">
                           <div class="badge badge-default" v-for="topic in case_study.topic">
                             <div v-html="getTopicsIndexedById[topic].icon"></div>
                             <div v-html="getTopicsIndexedById[topic].name"></div>
                           </div>
                         </div>
-                          <h3 class="card-title">{{ case_study.title.rendered }}</h3>
-                          <div class="card-text" v-html="case_study.acf.short_description"></div>
-                        </div>
+                        <h3 class="card-title">{{ case_study.title.rendered }}</h3>
+                        <div class="card-text" v-html="case_study.acf.short_description"></div>
                       </div>
                     </div>
-                  </nuxt-link>
-
-                </div>
+                  </div>
+                </nuxt-link>
+  
+              </div>
               <!-- </div> -->
             </div>
-
+  
             <div class="mb-5" v-if="relatedInsights">
               <h2>Related Insights</h2>
               <div v-if="relatedInsights">

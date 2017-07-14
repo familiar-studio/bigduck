@@ -160,7 +160,8 @@ body {
   }
 }
 
-article.main {
+article.main,
+article.gated-content {
   background-color: white;
   padding: 2rem;
   margin-left: -$grid-gutter-width-base/2;
@@ -182,6 +183,11 @@ article.main {
   h1 {
     margin-bottom: 1rem;
   }
+}
+
+article.gated-content {
+  //padding-top: 0px;
+  border-top: 1px solid $gray-lightest;
 }
 
 .filter-list {

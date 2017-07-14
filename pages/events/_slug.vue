@@ -42,13 +42,15 @@
                   <div v-if="event.related_team_members.data || event.acf.guest_speakers.length > 0" class="author-listing">
                     <div class="media speaker mt-3" v-if="event.related_team_members.data" v-for="team_member in event.related_team_members.data">
                       <img v-if="team_member.headshot" :src="team_member.headshot.sizes.thumbnail" class="round author-img mr-2">
-                      <h6 class="align-self-center mb-0"><nuxt-link :to="'/about/' + team_member.member.user_nicename">{{ team_member.member.display_name}}</nuxt-link></h6>
+                      <h6 class="align-self-center mb-0">
+                        <nuxt-link :to="'/about/' + team_member.member.user_nicename">{{ team_member.member.display_name}}</nuxt-link>
+                      </h6>
                     </div>
-                    <div class="speaker media mt-3" v-for="speaker in event.acf.guest_speakers" v-if="event.acf.guest_speakers.length > 0" >
+                    <div class="speaker media mt-3" v-for="speaker in event.acf.guest_speakers" v-if="event.acf.guest_speakers.length > 0">
                       <!-- <img v-if="team_member.headshot" :src="team_member.headshot.sizes.thumbnail" class="round author-img mr-2"> -->
                       <h6 class="align-self-center mb-0">{{ speaker.speaker_name }}</h6>
                     </div>
-                </div>
+                  </div>
                   <h5 class="mt-3 location-name">
                     <span v-if="event.acf.external_location">
                       <a :href="event.acf.location_url">{{ event.acf.location_name }}</a>
@@ -78,7 +80,7 @@
                       </div>
                     </div>
                     <div class="">
-
+  
                       <div v-if="!formFilled && !contentRefreshed">
                         <a :href="event.acf.is_webinar !== 'false' ? '#register' : event.acf.registration_url" class="btn btn-primary my-3 event-registration" v-scroll-to="{ el:'#register'}">
                           Register
@@ -91,17 +93,17 @@
                   </aside>
                 </div>
               </div>
-
+  
             </article>
-
+  
             <div v-if="event.acf.is_webinar && !formFilled" class="form-light" id="register" :class="{'mb-5': !relatedInsights && !relatedEvents}">
               <div v-if="!contentRefreshed">
                 <h3>Register for this event</h3>
                 <p>{{ eventRegistrationText }}</p>
               </div>
-              <GravityForm :formId=9 :viewAll="true" :gatedContent="event.id" @submitted="refreshContent()" cookiePrefix="event-" :id="event.id" :title="event.title.rendered" :actonId="event.acf.acton_form_id"></GravityForm>
+              <GravityForm :formId=9 :showAll="true" :gatedContent="event.id" @submitted="refreshContent()" cookiePrefix="event-" :id="event.id" :title="event.title.rendered" :actonId="event.acf.acton_form_id"></GravityForm>
             </div>
-
+  
             <div v-if="relatedEvents || relatedInsights">
               <h2 class="mb-3 mt-5">Related Events &amp; Insights</h2>
               <div v-if="relatedEvents">

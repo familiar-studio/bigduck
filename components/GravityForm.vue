@@ -1,75 +1,74 @@
 <template>
   <div>
     <transition name="fade" appear>
-    <form v-if="!submitted && visibleFields">
-
-      <div v-for="field in visibleFields" class="form-group" :class="{'has-danger':errors.has(field.id.toString())}">
-
-        <label :for="field.id" v-if="field.type != 'hidden'">{{field.label}}</label>
-
-        <template v-if="field.type == 'select'">
-          <select v-model="formData['input_'+field.id]" class="custom-select form-control">
-            <option v-for="choice in field.choices" :value="choice.value">
-              {{ choice.text }}
-            </option>
-          </select>
-        </template>
-
-        <template v-else-if="field.type == 'checkbox'">
-          <div class="custom-controls-stacked">
-            <label class="custom-control custom-checkbox" v-for="choice in field.choices">
-              <input class="custom-control-input" type="checkbox" :name="field.id" v-model="formData['input_'+field.id]" :value="choice.value">
-              <span class="custom-control-indicator"></span>
-              <span class="custom-control-description">{{ choice.text }}</span>
-            </label>
-          </div>
-        </template>
-        <template v-else-if="field.type == 'radio'">
-          <div class="custom-controls-stacked">
-            <label class="custom-control custom-radio" v-for="choice in field.choices">
-              <input class="custom-control-input" type="radio" :name="field.id" v-model="formData['input_'+field.id]" :value="choice.value">
-              <span class="custom-control-indicator"></span>
-              <span class="custom-control-description">{{ choice.text }}</span>
-            </label>
-          </div>
-        </template>
-
-        <template v-else-if="field.type == 'email'">
-          <input v-model="formData['input_'+field.id]" type="email" :name="field.id" class="form-control" v-validate="{ rules: { required: field.isRequired, email: true } }" />
-        </template>
-
-        <template v-else-if="field.type == 'number'">
-          <input v-model="formData['input_'+field.id]" type="number" :name="field.id" class="form-control" v-validate="{ rules: { required: field.isRequired, numeric: true } }" />
-        </template>
-
-        <template v-else-if="field.type == 'hidden'">
+      <form v-if="!submitted && visibleFields">
+  
+        <div v-for="field in visibleFields" class="form-group" :class="{'has-danger':errors.has(field.id.toString())}">
+  
+          <label :for="field.id" v-if="field.type != 'hidden'">{{field.label}}</label>
+  
+          <template v-if="field.type == 'select'">
+            <select v-model="formData['input_'+field.id]" class="custom-select form-control">
+              <option v-for="choice in field.choices" :value="choice.value">
+                {{ choice.text }}
+              </option>
+            </select>
+          </template>
+  
+          <template v-else-if="field.type == 'checkbox'">
+            <div class="custom-controls-stacked">
+              <label class="custom-control custom-checkbox" v-for="choice in field.choices">
+                <input class="custom-control-input" type="checkbox" :name="field.id" v-model="formData['input_'+field.id]" :value="choice.value">
+                <span class="custom-control-indicator"></span>
+                <span class="custom-control-description">{{ choice.text }}</span>
+              </label>
+            </div>
+          </template>
+          <template v-else-if="field.type == 'radio'">
+            <div class="custom-controls-stacked">
+              <label class="custom-control custom-radio" v-for="choice in field.choices">
+                <input class="custom-control-input" type="radio" :name="field.id" v-model="formData['input_'+field.id]" :value="choice.value">
+                <span class="custom-control-indicator"></span>
+                <span class="custom-control-description">{{ choice.text }}</span>
+              </label>
+            </div>
+          </template>
+  
+          <template v-else-if="field.type == 'email'">
+            <input v-model="formData['input_'+field.id]" type="email" :name="field.id" class="form-control" v-validate="{ rules: { required: field.isRequired, email: true } }" />
+          </template>
+  
+          <template v-else-if="field.type == 'number'">
+            <input v-model="formData['input_'+field.id]" type="number" :name="field.id" class="form-control" v-validate="{ rules: { required: field.isRequired, numeric: true } }" />
+          </template>
+  
+          <template v-else-if="field.type == 'hidden'">
+            <input v-model="formData['input_'+field.id]" :name="field.id" type="hidden" />
+          </template>
+  
+          <template v-else-if="field.type == 'textarea'">
+            <textarea v-model="formData['input_'+field.id]" class="form-control" :name="field.id" v-validate="{ rules: { required: field.isRequired } }" />
+          </template>
+  
+          <template v-else>
+            <input v-model="formData['input_'+field.id]" type="text" class="form-control" :name="field.id" v-validate="{ rules: { required: field.isRequired } }" />
+          </template>
+  
+          <div class="form-control-feedback" v-show="errors.has(field.id.toString())">{{ errors.first(field.id.toString()) }}</div>
+  
+        </div>
+  
+        <div v-for="field in hiddenFields">
           <input v-model="formData['input_'+field.id]" :name="field.id" type="hidden" />
-        </template>
-
-        <template v-else-if="field.type == 'textarea'">
-          <textarea v-model="formData['input_'+field.id]" class="form-control" :name="field.id" v-validate="{ rules: { required: field.isRequired } }" />
-        </template>
-
-        <template v-else>
-          <input v-model="formData['input_'+field.id]" type="text" class="form-control" :name="field.id" v-validate="{ rules: { required: field.isRequired } }" />
-        </template>
-
-        <div class="form-control-feedback" v-show="errors.has(field.id.toString())">{{ errors.first(field.id.toString()) }}</div>
-
+        </div>
+  
+        <button type="submit" @click.prevent="submitEntry()" class="btn" :class="'btn-' + btnType">Submit</button>
+      </form>
+      <div v-else>
+        <h2>{{confirmation}}</h2>
+  
       </div>
-
-      <div v-for="field in hiddenFields">
-        <input v-model="formData['input_'+field.id]" :name="field.id" type="hidden" />
-      </div>
-
-      <button type="submit" @click.prevent="submitEntry()" class="btn" :class="'btn-' + btnType">Submit</button>
-    </form>
-    <div v-else>
-      <h2>{{confirmation}}</h2>
-
-
-    </div>
-  </transition>
+    </transition>
   </div>
 </template>
 
@@ -165,24 +164,40 @@ export default {
     async submitEntry() {
       var signature = this.CalculateSig('entries', 'POST')
       localStorage.formData = JSON.stringify(this.formData)
-      this.formData['form_id'] = this.formId
+      //this.formData['form_id'] = this.formId
       // this.formData['title'] = this.
-      this.formData['acton_id'] = this.acton_id
-      this.formData['webinar_title'] = this.title
-      this.formData['webinar_id'] = this.id
+
 
       var endpoint = this.baseUrl + 'forms/' + this.formId + '/submissions';
       console.log('endpoint', endpoint)
+
+
+      // fill in prefilled data!
+      if (this.acton_id) {
+        this.formData['input_19'] = this.title
+        this.formData['input_20'] = this.id
+        this.formData['input_22'] = this.acton_id
+        this.formData['input_23'] = this.acton_id
+      }
+
+      if (this.gatedContent) {
+        console.log('got here', this.formData)
+        this.formData.input_19 = this.title
+        this.formData.input_20 = this.gatedContent
+        console.log('got here', this.formData)
+
+      }
+
 
       await axios.post(this.baseUrl + 'forms/' + this.formId + '/submissions',
         { "input_values": this.formData },
         { params: { api_key: this.publicKey, signature: signature, expires: this.expires } })
 
+
+
+
       if (this.gatedContent) {
         if (process.BROWSER_BUILD) {
-
-          var gatedCookie = await axios.get(this.hostname + 'familiar/v1/gated', { params: { form_id: this.formId, post_id: this.gatedContent } })
-          console.log('setting this cookie', gatedCookie.data)
           jscookie.set(this.cookiePrefix + this.gatedContent, "true", {
             expires: 7
           });
@@ -191,9 +206,6 @@ export default {
 
       this.$emit('submitted')
       this.submitted = true
-
-      // create the gated content cookie
-      //gatedContent
     }
   },
   created() {
