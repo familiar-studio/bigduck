@@ -44,7 +44,7 @@ export default ({ app: { router }, store }) => {
           params: params
         })
         .then(response => {
-          console.log("page view", response);
+          // console.log("page view", response);
           jscookie.set("nfsession", response.data, {
             expires: 7,
             domain: "familiar.studio"

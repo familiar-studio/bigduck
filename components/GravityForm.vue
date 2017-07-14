@@ -136,24 +136,26 @@ export default {
     },
     visibleFields() {
       let fieldCount = 0
+      if (this.allFields) {
 
-      return this.allFields.filter((field, index) => {
-        // if checkboxes and not already has data initalize as array to make multi-select work properly
-        if (field.type === 'checkbox' && (!this.formData[field.id] || !Array.isArray(this.formData[field.id]))) {
-          this.formData['input_' + field.id] = []
-        }
-        // always include the first three
-        if (index < 3) {
-          return field
-        } else {
-          if ((!this.formData[field.id] && fieldCount < this.totalProfilingFields) || this.showAll) {
-            fieldCount++
-            return field
+        return this.allFields.filter((field, index) => {
+          // if checkboxes and not already has data initalize as array to make multi-select work properly
+          if (field.type === 'checkbox' && (!this.formData[field.id] || !Array.isArray(this.formData[field.id]))) {
+            this.formData['input_' + field.id] = []
           }
-        }
+          // always include the first three
+          if (index < 3) {
+            return field
+          } else {
+            if ((!this.formData[field.id] && fieldCount < this.totalProfilingFields) || this.showAll) {
+              fieldCount++
+              return field
+            }
+          }
 
-        this.hiddenFields.push(field)
-      })
+          this.hiddenFields.push(field)
+        })
+      }
     }
   },
   methods: {

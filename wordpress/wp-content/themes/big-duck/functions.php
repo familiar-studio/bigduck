@@ -600,26 +600,26 @@ class StarterSite extends TimberSite {
 			$fields = get_fields($rawInsight->ID);
 			$insightUser = $data->get_params('id')['id'];
 			if(isset($fields['author']) && is_array($fields['author'])){
-					foreach($fields['author'] as $a){
-						if ($a['user_nicename'] == $insightUser){
-							$authors_meta = array();
-							foreach($fields['author'] as $a2){
-								$author_meta = get_fields('user_' . $a2['ID']);
-								$author_data = $a2;
-								$author_data['meta'] = $author_meta;
-								$authors_meta[] = $author_data;
-							}
-							$insight_data = $rawInsight;
-							$insight_data->acf = $fields;
-							$insight_data->authors = $authors_meta;
-							$insight_data->type = wp_get_post_terms($rawInsight->ID, 'type');
-							$insight_data->topic = wp_get_post_terms($rawInsight->ID, 'topic');
-							$insight_data->title = get_the_title($rawInsight->ID);
-							$insights[] = $insight_data;
-							continue;
+				foreach($fields['author'] as $a){
+					if ($a['user_nicename'] == $insightUser){
+						$authors_meta = array();
+						foreach($fields['author'] as $a2){
+							$author_meta = get_fields('user_' . $a2['ID']);
+							$author_data = $a2;
+							$author_data['meta'] = $author_meta;
+							$authors_meta[] = $author_data;
 						}
+						$insight_data = $rawInsight;
+						$insight_data->acf = $fields;
+						$insight_data->authors = $authors_meta;
+						$insight_data->type = wp_get_post_terms($rawInsight->ID, 'type');
+						$insight_data->topic = wp_get_post_terms($rawInsight->ID, 'topic');
+						$insight_data->title = get_the_title($rawInsight->ID);
+						$insights[] = $insight_data;
+						continue;
 					}
 				}
+			}
 		}
 		return new WP_REST_Response($insights);
 	}
