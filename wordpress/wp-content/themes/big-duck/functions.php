@@ -561,9 +561,21 @@ class StarterSite extends TimberSite {
 			}
 		}
 
+		return new WP_REST_Response($team_member);
+	}
+
+	function insights_by_user($data) {
+		$per_page = $data->get_param( 'posts_per_page' );
+		$page = $data->get_param( 'page' );
+
+		$nicename = $data->get_params('id')['id'];
+		$user = get_user_by('slug', $nicename);
+
+
 		$rawInsights = get_posts(array(
 			'post_type' => 'bd_insight',
-			'posts_per_page' => 8,
+			'posts_per_page' => $per_page ?? -1,
+			'offset' => $page ?? 1,
 			'meta_query'	=> array(
 				array(
 					'key'	 	=> 'author',
@@ -572,52 +584,17 @@ class StarterSite extends TimberSite {
 				)
 			)
 		));
-
-		$team_member['insights'] = array();
-		foreach($rawInsights as $rawInsight){
-			$fields = get_fields($rawInsight->ID);
-			$authors = $fields['author'];
-			foreach($authors as $author){
-				$insight = get_post($rawInsight->ID);
-				$topics = wp_get_post_terms($rawInsight->ID, 'topic');
-				$insight->acf = $fields;
-				$insight->topic = array($topics[0]->term_id);
-				$team_member['insights'][] = $insight;
-			}
-		}
-
-		return new WP_REST_Response($team_member);
-	}
-
-	function insights_by_user($data) {
-		$rawInsights = get_posts(array(
-			'post_type' => 'bd_insight',
-			'posts_per_page' => -1
-			// 'fields' => 'all_with_meta'
-		));
 		$insights = array();
 		foreach($rawInsights as $rawInsight){
 			$fields = get_fields($rawInsight->ID);
-			$insightUser = $data->get_params('id')['id'];
-			if(isset($fields['author']) && is_array($fields['author'])){
-				foreach($fields['author'] as $a){
-					if ($a['user_nicename'] == $insightUser){
-						$authors_meta = array();
-						foreach($fields['author'] as $a2){
-							$author_meta = get_fields('user_' . $a2['ID']);
-							$author_data = $a2;
-							$author_data['meta'] = $author_meta;
-							$authors_meta[] = $author_data;
-						}
-						$insight_data = $rawInsight;
-						$insight_data->acf = $fields;
-						$insight_data->authors = $authors_meta;
-						$insight_data->type = wp_get_post_terms($rawInsight->ID, 'type');
-						$insight_data->topic = wp_get_post_terms($rawInsight->ID, 'topic');
-						$insight_data->title = get_the_title($rawInsight->ID);
-						$insights[] = $insight_data;
-						continue;
-					}
+			$authors = $fields['author'];
+			if ($authors) {
+				foreach($authors as $author){
+					$insight = get_post($rawInsight->ID);
+					$topics = wp_get_post_terms($rawInsight->ID, 'topic');
+					$insight->acf = $fields;
+					$insight->topic = array($topics[0]->term_id);
+					$insights[] = $insight;
 				}
 			}
 		}
