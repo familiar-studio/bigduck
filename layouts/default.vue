@@ -7,12 +7,12 @@
             <button @click="toggleNav()" class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
-  
+
             <nuxt-link class="navbar-brand" to="/" @click="hideNav()">
               <Logo></Logo>
               <div class="label tagline hidden-xs-down">Smart communications for nonprofits</div>
             </nuxt-link>
-  
+
             <div class="navbar-collapse" id="main-menu">
               <div class="label tagline hidden-sm-up">Smart communications for nonprofits</div>
               <ul class="navbar-nav ml-auto">
@@ -64,13 +64,13 @@
           </nav>
         </div>
       </header>
-  
+
       <main id="main" :class="{ 'no-top-padding': noTopPadding }">
-  
+
         <nuxt/>
-  
+
       </main>
-  
+
       <footer id="footer">
         <div>
           <nuxt-link to="/" class="navbar-brand">
@@ -97,27 +97,27 @@
                 </svg>
               </a>
             </ul>
-            <div>
+            <div v-if="footerMeta">
               <h4>
-                <a href="mailto:hello@bigducknyc.com">hello@bigducknyc.com</a>
+                <a :href="'mailto:' + footerMeta.email">{{footerMeta.email}}</a>
               </h4>
               <h4>
-                <a href="tel:1-718-237-9551">1 718-237-9551</a>
+                <a :href="'tel:' + footerMeta.phone">{{footerMeta.phone}}</a>
               </h4>
               <h4>
                 <address class="">
-                  20 Jay Street, Suite 524
-                  <br> Brooklyn, NY 11201
-  
+                  {{footerMeta.address_line_1}}
+                  <br> {{footerMeta.address_line_2}}
+
                 </address>
               </h4>
             </div>
           </div>
         </div>
       </footer>
-  
+
       <SearchOverlay v-if="searchVisible" @hide="hideSearch()"></SearchOverlay>
-  
+
     </div>
     <section id="footer-callout" v-if="chat && showFooter" class="bg-change text-white my-0 py-5">
       <div class="container">
@@ -128,9 +128,9 @@
               <p>
                 {{ chat.description }}
               </p>
-  
+
               <GravityForm v-if="chat.formId" :formId="chat.formId" btnType="tertiary"></GravityForm>
-  
+
             </div>
           </div>
         </div>
@@ -142,8 +142,9 @@
 </template>
 
 <script>
-import Logo from '~components/Logo.vue'
+import Axios from 'axios'
 import GravityForm from '~components/GravityForm.vue'
+import Logo from '~components/Logo.vue'
 import SearchOverlay from '~components/SearchOverlay.vue'
 
 
@@ -158,14 +159,14 @@ export default {
   },
   data() {
     return {
-      navVisible: false,
-      searchVisible: false,
-      haveScrolled: false,
-      totalColors: 7,
       currentColor: 1,
-      query: null,
       currentText: null,
-      hovering: false
+      haveScrolled: false,
+      hovering: false,
+      navVisible: false,
+      query: null,
+      searchVisible: false,
+      totalColors: 7
     }
   },
   head() {
@@ -176,7 +177,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['chat', 'menuCallouts']),
+    ...mapState(['chat', 'menuCallouts', 'footerMeta']),
     page() {
       if (this.$route.name === 'index') {
         return 'homepage'
@@ -243,7 +244,7 @@ export default {
 
       this.$store.dispatch('fetchPageCallouts', 'chat')
       this.$store.dispatch('fetchPageCallouts', 'inline')
-
+      this.$store.dispatch('fetchFooterMeta')
 
     }
   }

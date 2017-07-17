@@ -3,29 +3,31 @@ import axios from "axios";
 export const state = () => ({
   localHostname: "https://wordpress.bigduck.dev/wp-json/",
   remoteHostname: "http://bigduck-wordpress.familiar.studio/wp-json/",
+
   bareLocalHostname: "https://wordpress.bigduck.dev",
   bareRemoteHostname: "http://bigduck-wordpress.familiar.studio",
   callouts: null,
   categories: null,
-  previousQuery: "",
   categoriesPath: "wp/v2/categories/",
-  eventCategories: null,
-  sectors: null,
-  topics: null,
-  types: null,
-  postsPerPage: 8,
-  eventCategoriesPath: "wp/v2/event_category",
-  sectorsPath: "wp/v2/sector",
-  topicsPath: "wp/v2/topic",
-  typesPath: "wp/v2/type",
-  page: 1,
-  footer: null,
-  query: {},
   chat: {},
-  inline: {},
+  eventCategories: null,
+  eventCategoriesPath: "wp/v2/event_category",
+  footer: null,
+  footerMeta: null,
   form: null,
+  inline: {},
   menuCallouts: null,
-  relatedInsightsPerPage: 2
+  page: 1,
+  postsPerPage: 8,
+  previousQuery: "",
+  query: {},
+  relatedInsightsPerPage: 2,
+  sectors: null,
+  sectorsPath: "wp/v2/sector",
+  topics: null,
+  topicsPath: "wp/v2/topic",
+  types: null,
+  typesPath: "wp/v2/type"
 });
 
 export const mutations = {
@@ -98,6 +100,9 @@ export const mutations = {
     }
 
     state[data.slug] = callout;
+  },
+  setFooterMeta(state, data) {
+    state.footerMeta = data
   }
 };
 
@@ -212,6 +217,12 @@ export const actions = {
         html: response.data.widgets[0].rendered
       });
     }
+  },
+  async fetchFooterMeta({ rootGetters, commit }) {
+    let response = await axios.get(
+      rootGetters.hostname + 'wp/v2/pages?slug=footer'
+    )
+    commit("setFooterMeta", response.data[0].acf)
   }
 };
 
