@@ -85,7 +85,7 @@
         <button type="submit" @click.prevent="submitEntry()" class="btn" :class="'btn-' + btnType">Submit</button>
       </form>
       <div v-else :key="confirmation">
-        <h2>{{confirmation}}</h2>
+        <h1>{{confirmation}}</h1>
 
       </div>
       </transition>
