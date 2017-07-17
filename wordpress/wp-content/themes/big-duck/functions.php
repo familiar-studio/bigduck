@@ -561,32 +561,32 @@ class StarterSite extends TimberSite {
 			}
 		}
 
-		// $rawInsights = get_posts(array(
-		// 	'post_type' => 'bd_insight',
-		// 	'posts_per_page' => 8,
-		// 	'meta_query'	=> array(
-		// 		array(
-		// 			'key'	 	=> 'author',
-		// 			'value'	  	=> $user->ID,
-		// 			'compare' 	=> 'IN',
-		// 		)
-		// 	)
-		// ));
-		//
-		// $team_member['insights'] = array();
-		// foreach($rawInsights as $rawInsight){
-		// 	$fields = get_fields($rawInsight->ID);
-		// 	$authors = $fields['author'];
-		// 	foreach($authors as $author){
-		// 		$insight = get_post($rawInsight->ID);
-		// 		$topics = wp_get_post_terms($rawInsight->ID, 'topic');
-		// 		$insight->acf = $fields;
-		// 		$insight->topic = array($topics[0]->term_id);
-		// 		$team_member['insights'][] = $insight;
-		// 	}
-		// }
-		//
-		// return new WP_REST_Response($team_member);
+		$rawInsights = get_posts(array(
+			'post_type' => 'bd_insight',
+			'posts_per_page' => 8,
+			'meta_query'	=> array(
+				array(
+					'key'	 	=> 'author',
+					'value'	  	=> $user->ID,
+					'compare' 	=> 'IN',
+				)
+			)
+		));
+
+		$team_member['insights'] = array();
+		foreach($rawInsights as $rawInsight){
+			$fields = get_fields($rawInsight->ID);
+			$authors = $fields['author'];
+			foreach($authors as $author){
+				$insight = get_post($rawInsight->ID);
+				$topics = wp_get_post_terms($rawInsight->ID, 'topic');
+				$insight->acf = $fields;
+				$insight->topic = array($topics[0]->term_id);
+				$team_member['insights'][] = $insight;
+			}
+		}
+
+		return new WP_REST_Response($team_member);
 	}
 
 	function insights_by_user($data) {
