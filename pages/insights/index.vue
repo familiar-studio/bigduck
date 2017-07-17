@@ -1,5 +1,5 @@
  <template>
-  <div class="container-fluid">
+  <div class="">
     <div class="row">
       <div class="col-lg-3 col-xl-2">
         <div v-if="types && topics" class="filter-bar menu">
@@ -9,7 +9,8 @@
         </div>
       </div>
       <div class="col-xl-8 col-lg-9">
-        <h1>Insights</h1>
+        <div class="container" id="content">
+          <h1>Insights</h1>
           <div v-if="insights && insights.length > 0">
           <!-- <ListTransition :previous="previouslyLoadedInsights" :current="insights.length"> -->
           <!-- <transition-group name="fade" appear> -->
@@ -21,16 +22,17 @@
             </div>
           <!-- </transition-group> -->
           <!-- </ListTransition> -->
-          <div class="pager" v-if="insights.length < totalRecords">
-            <a class="btn btn-primary my-4" href="#" @click.prevent="nextPage">Load more</a>
+            <div class="pager" v-if="insights.length < totalRecords">
+              <a class="btn btn-primary my-4" href="#" @click.prevent="nextPage">Load more</a>
+            </div>
           </div>
-        </div>
-        <div v-else>
-          <div class="">
-            There are currently no
-            <span v-if="selectedTopic">{{getTopicsIndexedById[selectedTopic].name}}</span>
-            <span v-if="selectedTopic && selectedType"> or </span>
-            <span v-if="selectedType">{{getTypesIndexedById[selectedType].name}}</span> insights.
+          <div v-else>
+            <div class="">
+              There are currently no
+              <span v-if="selectedTopic">{{getTopicsIndexedById[selectedTopic].name}}</span>
+              <span v-if="selectedTopic && selectedType"> or </span>
+              <span v-if="selectedType">{{getTypesIndexedById[selectedType].name}}</span> insights.
+            </div>
           </div>
         </div>
       </div>

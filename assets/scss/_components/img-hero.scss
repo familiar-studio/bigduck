@@ -4,10 +4,12 @@
   background-position: center;
   background-size: cover;
   position: relative;
-  margin-top:-50px;
+  margin-top:-20px;
+
 
   @include media-breakpoint-up(md){
     height: 70vh;
+    margin-top:-50px;
   }
 
   &::before{

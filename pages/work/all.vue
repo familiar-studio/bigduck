@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="">
     <div class="row">
       <div class="col-lg-3 col-xl-2 hidden-md-down">
         <div v-if="topics" class="filter-bar menu">
@@ -16,7 +16,7 @@
             <div v-else>
               There are is currently no work in the
                 <span v-if="selectedTopic">{{getTopicsIndexedById[selectedTopic].name}}</span> topic
-              
+
             </div>
           </div>
         </div>

@@ -6,7 +6,7 @@
     <div class="chat-bubble">
       {{ chat.description }}
     </div>
-    <div class="chat-bubble chat-response bgChange">
+    <div class="chat-bubble chat-response bg-change">
       <a :href="chat.chat_link" v-if="chat.chat_link">
         {{ chat.chat_button_text }}
       </a>

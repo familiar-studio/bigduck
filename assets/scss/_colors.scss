@@ -11,17 +11,14 @@
 
     .color-change {
       transition: color 1s ease;
+      -webkit-font-smoothing: antialiased;
       color: nth($duck-colors, $i);
     }
     .underline-change {
-      transition: background-image 1s ease, background-size .3s ease;
       background-image: linear-gradient(
         nth($duck-colors, $i),
         nth($duck-colors, $i)
       );
-      background-position: center 90%;
-      background-repeat: no-repeat;
-      background-size: 100% 1px;
     }
     .border-change {
       transition: border 1s ease;
@@ -32,9 +29,16 @@
       transition: fill 1s ease;
       fill: nth($duck-colors, $i);
     }
-    a:hover .hover-color {
+    a:hover .hover-color, .hover-color a:hover {
       transition: color 1s ease;
       color: nth($duck-colors, $i);
     }
   }
+}
+
+.underline-change {
+  transition: background-image 1s ease, background-size .3s ease;
+  background-position: center 90%;
+  background-repeat: no-repeat;
+  background-size: 100% 1px;
 }

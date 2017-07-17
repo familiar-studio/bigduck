@@ -104,7 +104,7 @@
               <Service :entry="relatedService"></Service>
             </div>
 
-            <div class="callout-fullwidth text-white color bgChange work-cta">
+            <div class="callout-fullwidth text-white color bg-change work-cta">
               <div class="container">
                 <div class="row">
                   <div class="col-lg-10 offset-lg-1">

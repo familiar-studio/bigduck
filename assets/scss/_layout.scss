@@ -8,12 +8,12 @@ body {
   // overflow-x: visible;
 }
 #main {
-  padding-top: 180px;
+  padding-top: 150px;
   min-height: calc(100vh - 360px);
   overflow-x: hidden;
-  // @include media-breakpoint-down(md){
-  //   overflow-x: hidden;
-  // }
+  @include media-breakpoint-up(md){
+    padding-top: 180px;
+  }
 }
 
 .subnav {
@@ -21,6 +21,7 @@ body {
   // position: sticky;
   // top: 85px;
   margin-left: .5rem;
+  margin-top: 1rem;
 
   .nav-link {
     text-transform: inherit;
@@ -29,18 +30,22 @@ body {
     padding-bottom: 0.25rem;
     span {
       @extend .underline-change;
-      background-size: 0% 1px !important;
-      background-position: center 90% !important;
-      transition: background-size .3s !important;
+      background-size: 0% 1px;
+      background-position: center 94%;
+      transition: background-size .3s;
     }
     &:hover,
     &.active {
       span {
-        background-size: 100% 1px !important;
+        background-size: 100% 1px;
       }
+    }
+    &.active{
+      @extend .color-change;
     }
   }
 }
+
 
 #footer-callout {
   z-index: 0;
@@ -76,7 +81,7 @@ body {
 #footer {
   background-color: $inverse-bg;
   color: $white;
-  padding: 2rem 1rem;
+  padding: 2rem 1.25rem;
   -webkit-font-smoothing: antialiased;
   & > div {
     @include media-breakpoint-up(md) {
@@ -89,6 +94,13 @@ body {
     margin: 0;
     #logo {
       fill: white;
+    }
+    .tagline{
+      @include media-breakpoint-down(xs){
+        font-size: 1.2rem;
+        font-weight: 700;
+        max-width: 300px;
+      }
     }
   }
   .contact-info {
@@ -106,13 +118,19 @@ body {
     order: 2;
     margin-top: 1rem;
     @include media-breakpoint-up(md) {
-      margin-top: -3px;
+      margin-top: 2px;
       order: 0;
       flex-direction: column;
       justify-content: space-between;
     }
+    a{
+      display: block;
+      margin-bottom: 3px;
+
+    }
 
     svg {
+      display: block;
       fill: $white;
       width: 20px;
       height: 20px;

@@ -4,7 +4,7 @@
   display: none;
   // position: sticky;
   top: 100px;
-  margin-left: .75rem;
+  margin-left: 1.25rem;
 
   @include media-breakpoint-up(md) {
     display: block;
@@ -12,7 +12,7 @@
 
   .label-lg {
     color: $gray;
-    margin-bottom: .3rem;
+    margin-bottom: 1rem;
   }
   .media-list {
     margin: .5rem 0 2rem;
