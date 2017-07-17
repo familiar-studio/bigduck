@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="">
     <div class="row">
       <div class="col-lg-3 col-xl-2">
         <div v-if="topics && eventCategories" class="filter-bar menu">
@@ -11,12 +11,18 @@
       <div class="col-lg-9 col-xl-8">
         <div class="container">
           <div id="content">
-            <h1>Upcoming Events</h1>
             <div class="page-title">
+              <h1>Upcoming Events</h1>
+
               <h4>
                 <router-link :to="{name: 'events-speaking'}">
-                  <img src="/svgs/speaking-icon.svg" class="mr-2" />Interested in having Big Duck speak at your organization?<br class="hidden-xl-up"/>
-                  <span class="label color-change"> Learn more about our talks…</span>
+                  <div class="media">
+                    <img src="/svgs/speaking-icon.svg" class="d-flex mr-2" />
+                    <div class="media-body">
+                      Interested in having Big Duck speak at your organization?<br class="hidden-xl-up"/>
+                      <span class="label color-change"> Learn more about our talks…</span>
+                    </div>
+                  </div>
                 </router-link>
               </h4>
             </div>

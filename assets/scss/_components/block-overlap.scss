@@ -102,9 +102,8 @@
       @include media-breakpoint-up(sm) {
         position: absolute;
         width: 75%;
-        top: 3rem;
         right: 0;
-        // bottom: 4rem;
+        min-height: 0;
       }
 
       @include media-breakpoint-up(xl) {
@@ -128,7 +127,8 @@
   }
 
   .card-title {
-    margin-bottom: .25rem;
+    margin-top: .25rem;
+    margin-bottom: .5rem;
   }
 
   .card-block {
@@ -181,12 +181,17 @@
     }
   }
 }
-
-.card-block p,
-.card-block .card-text {
-  margin-bottom: 0;
-  font-size: .9rem;
+.card-block{
+  padding: 1rem;
+  @include media-breakpoint-up(lg){
+    padding: 1.5rem;
+  }
+  p, .card-text {
+    margin-bottom: 0;
+    font-size: .9rem;
+  }
 }
+
 
 .block-overlap.block-event {
   .card {
@@ -197,7 +202,10 @@
     flex-grow: 1;
   }
   .event-date {
-    margin: 1.5rem;
+    margin: 1rem;
+    @include media-breakpoint-up(lg){
+      margin: 1.5rem;
+    }
   }
   a:hover {
     .event-date {

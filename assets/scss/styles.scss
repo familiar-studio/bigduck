@@ -131,6 +131,10 @@ p {
   }
 }
 
+b, strong{
+  font-weight: 600;
+}
+
 //BUTTONS AND BADGES
 
 .badge {
@@ -274,8 +278,8 @@ label,
   mix-blend-mode: multiply;
 }
 .author-img {
-  width: 45px;
-  height: 45px;
+  width: 2.25rem;
+  height: 2.25rem;
 }
 .desaturate {
   filter: saturate(0%);
@@ -308,6 +312,7 @@ label,
 }
 
 .overview-link {
+  height: 1.2rem;
   @extend .underline-change;
   &:hover {
     @extend .color-change;

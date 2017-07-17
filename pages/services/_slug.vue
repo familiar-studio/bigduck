@@ -35,7 +35,7 @@
           <Work :work="relatedCaseStudies"></Work>
         </div>
 
-        <div class="callout-fullwidth text-white color bgChange">
+        <div class="callout-fullwidth text-white color bg-change">
           <div class="container">
             <div class="row">
               <div class="col-lg-8 offset-lg-2">
