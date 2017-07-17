@@ -16,6 +16,13 @@ body {
   }
 }
 
+.container{
+  @include media-breakpoint-down(xs){
+    width: 100%; //needed to add this for form elements on xs screens. bootstrap glitch?
+
+  }
+}
+
 .subnav {
   // position: -webkit-sticky;
   // position: sticky;
