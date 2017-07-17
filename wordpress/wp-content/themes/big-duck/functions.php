@@ -593,13 +593,17 @@ class StarterSite extends TimberSite {
 		$nicename = $data->get_params('id')['id'];
 		$per_page = $data->get_params()['posts_per_page'] ?? -1;
 		$page = $data->get_params()['page'] ?? 0;
-		$offset = $page * $per_page;
+		$offset = intval($page) * $per_page;
+
 		$user = get_user_by('slug', $nicename);
 		$fields = get_fields('user_' . $user->ID);
-		$rawInsights = get_posts(array(
+
+		$rawInsights = new WP_Query(array(
 			'post_type' => 'bd_insight',
 			'offset' => $offset,
 			'posts_per_page' => $per_page,
+			'paged' => true,
+
 			'meta_query' => array(
 				array(
 					'key' => 'author',
@@ -608,8 +612,9 @@ class StarterSite extends TimberSite {
 				)
 			)
 		));
+		$total = $rawInsights->max_num_pages;
 		$insights = array();
-		foreach($rawInsights as $rawInsight){
+		foreach($rawInsights->posts as $rawInsight){
 			$fields = get_fields($rawInsight->ID);
 			$insightUser = $data->get_params('id')['id'];
 				foreach($fields['author'] as $a){
@@ -630,7 +635,12 @@ class StarterSite extends TimberSite {
 						continue;
 				}
 		}
-		return new WP_REST_Response($insights);
+		$headers = $rawInsights->headers;
+		// $insights['headers'] = $total;
+		return new WP_REST_Response(array(
+				'data' =>$insights,
+				'pages' => $total
+		));
 	}
 
 	function events_by_user($data) {

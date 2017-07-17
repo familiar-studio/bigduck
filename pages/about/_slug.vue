@@ -67,7 +67,10 @@ export default {
   data () {
     return {
       relatedEvents: null,
-      relatedInsights: null
+      relatedInsights: null,
+      insightsPerPage: 2,
+      insightsPage: 1,
+      totalInsightsPages: null
     }
   },
   components: {
@@ -82,12 +85,6 @@ export default {
         return 0
       }
     }
-    // relatedEvents () {
-    //   return this.member.events
-    // },
-    // relatedInsights () {
-    //   return this.member.insights
-    // }
   },
   async created() {
     let relatedEventIds = this.member.events.map((event) => { return event.ID })
@@ -100,9 +97,11 @@ export default {
     // console.log(this.hostname + 'familiar/v1/insights/user/' + this.member.slug)
     // console.log('ids', relatedInsightIds)
     // if (relatedInsightIds && relatedInsightIds.length > 0 ) {
-      let response = await Axios.get(this.hostname + 'familiar/v1/insights/user/' + this.member.slug )
-      // debugger
-      this.relatedInsights = response.data
+    console.log(this.hostname + 'familiar/v1/insights/user/' + this.member.slug + '?posts_per_page=' + this.insightsPerPage + '&page=' + this.insightsPage )
+      let response = await Axios.get(this.hostname + 'familiar/v1/insights/user/' + this.member.slug + '?posts_per_page=' + this.insightsPerPage + '&page=' + this.insightsPage )
+      // let response = await Axios.get(this.hostname + 'familiar/v1/insights/user/' + this.member.slug )
+      this.totalInsightsPages = response.data.pages
+      this.relatedInsights = response.data.data
     // }
   },
   async asyncData({ store, params }) {
