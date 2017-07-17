@@ -1,8 +1,10 @@
 <template>
   <div>
         <transition name="fade" appear mode="out-in">
-
-      <div class="" v-if="loading" key="loading" class="loading">
+      <div class="error" key="error" v-if="error">
+        {{ error }}
+      </div>
+      <div v-else-if="loading" key="loading" class="loading">
         <div class="loader loader--style3" title="2">
           <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
              width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
@@ -111,8 +113,8 @@ export default {
       submitted: false,
       confirmation: 'Thanks, your the greatest!',
       hiddenFields: [],
-      loading: false
-
+      loading: false,
+      error: null
     }
   },
   props: {
@@ -186,6 +188,7 @@ export default {
     },
     async submitEntry() {
       this.loading = true
+      this.error = null
       var signature = this.CalculateSig('entries', 'POST')
       localStorage.formData = JSON.stringify(this.formData)
       //this.formData['form_id'] = this.formId
@@ -212,28 +215,33 @@ export default {
       }
 
 
-      await axios.post(this.baseUrl + 'forms/' + this.formId + '/submissions',
-        { "input_values": this.formData },
-        { params: { api_key: this.publicKey, signature: signature, expires: this.expires } })
+      try {
 
+        var response = await axios.post(this.baseUrl + 'forms/' + this.formId + '/submissions',
+          { "input_values": this.formData },
+          { params: { api_key: this.publicKey, signature: signature, expires: this.expires } })
+        if (this.gatedContent || this.actonId) {
 
-
-
-      if (this.gatedContent || this.actonId) {
-
-        var cookieId = this.gatedContent ? this.gatedContent : this.actionId
-        if (process.BROWSER_BUILD) {
-          jscookie.set(this.cookiePrefix + cookieId, "true", {
-            expires: 7
-          });
+          var cookieId = this.gatedContent ? this.gatedContent : this.actionId
+          if (process.BROWSER_BUILD) {
+            jscookie.set(this.cookiePrefix + cookieId, "true", {
+              expires: 7
+            });
+          }
         }
+
+        this.$emit('submitted')
+        this.submitted = true
+        this.loading = false
+      } catch(e) {
+        this.error = "An error occurred. Please try again later."
+        this.loading = false
       }
 
-      this.loading = false
-      this.$emit('submitted')
-      this.submitted = true
-    }
-  },
+
+
+  }
+},
   created() {
     var signature = this.CalculateSig('forms/' + this.formId, 'GET')
 
@@ -257,7 +265,7 @@ export default {
 }
 </script>
 <style>
-.loading {
+.loading, .error {
   display: flex;
   justify-content: center;
 }
