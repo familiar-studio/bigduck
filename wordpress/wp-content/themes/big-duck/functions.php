@@ -592,13 +592,14 @@ class StarterSite extends TimberSite {
 	function insights_by_user($data) {
 		$nicename = $data->get_params('id')['id'];
 		$per_page = $data->get_params()['posts_per_page'] ?? -1;
-		$page = $data->get_params('page') ?? 1;
+		$page = $data->get_params()['page'] ?? 0;
+		$offset = $page * $per_page;
 		$user = get_user_by('slug', $nicename);
 		$fields = get_fields('user_' . $user->ID);
 		$rawInsights = get_posts(array(
 			'post_type' => 'bd_insight',
+			'offset' => $offset,
 			'posts_per_page' => $per_page,
-			'page' => $page,
 			'meta_query' => array(
 				array(
 					'key' => 'author',
