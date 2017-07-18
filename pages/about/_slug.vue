@@ -46,7 +46,7 @@
         <h2 class="mt-5 mb-3">Events with {{member.name.split(" ")[0]}}</h2>
         <Event v-for="(event, index) in relatedEvents.events" :entry="event.data" :key="event.slug" :index="index" :relatedTeamMembers="event.team_meta"></Event>
       </div>
-      <div class="" v-if="relatedInsights && relatedInsights.length > 0">
+      <div class="mt-5" v-if="relatedInsights && relatedInsights.length > 0">
         <h2 :class="{'mt-5 mb-3': !relatedEvents }">Insights by {{ member.name.split(" ")[0]}}</h2>
 
         <Post v-for="(insight, index) in relatedInsights" :key="insight.id" :entry="insight" :index="index + relatedEventsLength"></Post>
