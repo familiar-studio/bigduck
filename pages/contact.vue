@@ -8,12 +8,45 @@ import Page from '~components/Page'
 
 export default {
   name: 'contact',
-  head() {
-    return {
-      title: this.title,
-      meta: [
-        { 'og:image': this.image }
-      ]
+  head () {
+    if (this.title && this.title) {
+      return {
+        title: this.title,
+        meta: [
+          {
+            'property': 'og:title',
+            'content': this.title
+          },
+          {
+            'property': 'twitter:title',
+            'content': this.title
+          },
+          {
+            'property': 'description',
+            'content': this.content
+          },
+          {
+            'property': 'og:description',
+            'content': this.content
+          },
+          {
+            'property': 'twitter:description',
+            'content': this.content
+          },
+          {
+            'property': 'image',
+            'content': this.image
+          },
+          {
+            'property': 'og:image',
+            'content': this.image
+          },
+          {
+            'property': 'twitter:image',
+            'content': this.image
+          }
+        ]
+      }
     }
   },
   async asyncData({ store }) {

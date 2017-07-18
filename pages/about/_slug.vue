@@ -65,42 +65,44 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'team-member',
   head () {
-    return {
-      title: this.member.name,
-      meta: [
-        {
-          'property': 'og:title',
-          'content': this.member.name
-        },
-        {
-          'property': 'twitter:title',
-          'content': this.member.name
-        },
-        {
-          'property': 'description',
-          'content': this.member.job_title
-        },
-        {
-          'property': 'og:description',
-          'content': this.member.job_title
-        },
-        {
-          'property': 'twitter:description',
-          'content': this.member.job_title
-        },
-        {
-          'property': 'image',
-          'content': this.member.headshot.url
-        },
-        {
-          'property': 'og:image',
-          'content': this.member.headshot.url
-        },
-        {
-          'property': 'twitter:image',
-          'content': this.member.headshot.url
-        }
-      ]
+    if (this.member) {
+      return {
+        title: this.member.name,
+        meta: [
+          {
+            'property': 'og:title',
+            'content': this.member.name
+          },
+          {
+            'property': 'twitter:title',
+            'content': this.member.name
+          },
+          {
+            'property': 'description',
+            'content': this.member.job_title
+          },
+          {
+            'property': 'og:description',
+            'content': this.member.job_title
+          },
+          {
+            'property': 'twitter:description',
+            'content': this.member.job_title
+          },
+          {
+            'property': 'image',
+            'content': this.member.headshot.url
+          },
+          {
+            'property': 'og:image',
+            'content': this.member.headshot.url
+          },
+          {
+            'property': 'twitter:image',
+            'content': this.member.headshot.url
+          }
+        ]
+      }
     }
   },
   data () {

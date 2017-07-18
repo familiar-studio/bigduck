@@ -71,13 +71,45 @@ export default {
     InlineCallout,
     Chat
   },
-  head() {
-    return {
-      title: 'Events',
-      meta: [
-        { description: 'Overview' },
-        { 'og:image': 'http://bigduck-wordpress.familiar.studio/wp-content/uploads/2017/07/logo.svg' }
-      ]
+  head () {
+    if (this.events) {
+      return {
+        title: "Upcoming Events",
+        meta: [
+          {
+            'property': 'og:title',
+            'content': 'Upcoming Events'
+          },
+          {
+            'property': 'twitter:title',
+            'content': 'Upcoming Events'
+          },
+          {
+            'property': 'description',
+            'content': 'Learn more about our upcoming events.'
+          },
+          {
+            'property': 'og:description',
+            'content': 'Learn more about our upcoming events.'
+          },
+          {
+            'property': 'twitter:description',
+            'content': 'Learn more about our upcoming events.'
+          },
+          {
+            'property': 'image',
+            'content': this.events[0].acf.featured_image.url
+          },
+          {
+            'property': 'og:image',
+            'content': this.events[0].acf.featured_image.url
+          },
+          {
+            'property': 'twitter:image',
+            'content': this.events[0].acf.featured_image.url
+          }
+        ]
+      }
     }
   },
   data() {

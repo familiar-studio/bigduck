@@ -71,13 +71,45 @@ import Post from '~components/Post.vue'
 
 export default {
   name: 'service',
-  head() {
-    return {
-      title: this.service.title.rendered,
-      meta: [
-        { description: this.service.acf.introduction },
-        { 'og:image': this.service.acf.featured_image.url }
-      ]
+  head () {
+    if (this.service) {
+      return {
+        title: this.service.title.rendered,
+        meta: [
+          {
+            'property': 'og:title',
+            'content': this.service.title.rendered
+          },
+          {
+            'property': 'twitter:title',
+            'content': this.service.title.rendered
+          },
+          {
+            'property': 'description',
+            'content': this.service.acf.introduction
+          },
+          {
+            'property': 'og:description',
+            'content': this.service.acf.introduction
+          },
+          {
+            'property': 'twitter:description',
+            'content': this.service.acf.introduction
+          },
+          {
+            'property': 'image',
+            'content': this.service.acf.featured_image.url
+          },
+          {
+            'property': 'og:image',
+            'content': this.service.acf.featured_image.url
+          },
+          {
+            'property': 'twitter:image',
+            'content': this.service.acf.featured_image.url
+          }
+        ]
+      }
     }
   },
   data() {

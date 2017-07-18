@@ -92,8 +92,38 @@ export default {
       title: 'Big Duck',
       titleTemplate: null,
       meta: [
-        { description: 'Developing the voices of determined nonprofits.' },
-        { 'og:image': 'http://bigduck-wordpress.familiar.studio/wp-content/uploads/2017/07/logo.svg' }
+        {
+          'property': 'og:title',
+          'content': 'Big Duck'
+        },
+        {
+          'property': 'twitter:title',
+          'content': 'Big Duck'
+        },
+        {
+          'property': 'description',
+          'content': "Developing the voices of determined nonprofits."
+        },
+        {
+          'property': 'og:description',
+          'content': "Developing the voices of determined nonprofits."
+        },
+        {
+          'property': 'twitter:description',
+          'content': "Developing the voices of determined nonprofits."
+        },
+        {
+          'property': 'image',
+          'content': 'http://bigduck-wordpress.familiar.studio/wp-content/uploads/2017/07/logo.svg'
+        },
+        {
+          'property': 'og:image',
+          'content': 'http://bigduck-wordpress.familiar.studio/wp-content/uploads/2017/07/logo.svg'
+        },
+        {
+          'property': 'twitter:image',
+          'content': 'http://bigduck-wordpress.familiar.studio/wp-content/uploads/2017/07/logo.svg'
+        }
       ]
     }
   },

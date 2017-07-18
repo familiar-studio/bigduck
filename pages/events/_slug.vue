@@ -160,13 +160,44 @@ export default {
       contentRefreshed: false
     }
   },
-  head() {
+  head () {
     if (this.event) {
+
       return {
         title: this.event.title.rendered,
         meta: [
-          { description: this.event.acf.subtitle },
-          { 'og:image': this.event.acf.featured_image.url }
+          {
+            'property': 'og:title',
+            'content': this.event.title.rendered
+          },
+          {
+            'property': 'twitter:title',
+            'content': this.event.title.rendered
+          },
+          {
+            'property': 'description',
+            'content': this.event.acf.subtitle
+          },
+          {
+            'property': 'og:description',
+            'content': this.event.acf.subtitle
+          },
+          {
+            'property': 'twitter:description',
+            'content': this.event.acf.subtitle
+          },
+          {
+            'property': 'image',
+            'content': this.event.acf.featured_image.url
+          },
+          {
+            'property': 'og:image',
+            'content': this.event.acf.featured_image.url
+          },
+          {
+            'property': 'twitter:image',
+            'content': this.event.acf.featured_image.url
+          }
         ]
       }
     }

@@ -195,14 +195,55 @@ export default {
     }
     return data
   },
-  head() {
-    return {
-      title: this.insight && this.insight.title.rendered ? this.insight.title.rendered : null,
-      meta: [
-        { description: 'Overview' },
-        { 'og:image': this.insight ? this.insight.acf.featured_image : 'http://bigduck-wordpress.familiar.studio/wp-content/uploads/2017/07/logo.svg' }
-      ]
-    }
+  head () {
+      if (this.insight) {
+        return {
+
+        title: this.insight.title.rendered,
+        meta: [
+          {
+            'property': 'og:title',
+            'content': this.insight.title.rendered
+          },
+          {
+            'property': 'twitter:title',
+            'content': this.insight.title.rendered
+          },
+          {
+            'property': 'description',
+            'content': this.firstTextBlock.text
+          },
+          {
+            'property': 'og:description',
+            'content': this.firstTextBlock.text
+          },
+          {
+            'property': 'twitter:description',
+            'content': this.firstTextBlock.text
+          },
+          {
+            'property': 'image',
+            'content': this.insight.acf.featured_image
+          },
+          {
+            'property': 'og:image',
+            'content': this.insight.acf.featured_image
+          },
+          {
+            'property': 'twitter:image',
+            'content': this.insight.acf.featured_image
+          },
+          {
+            'property': 'og:type',
+            'content': 'article'
+          },
+          {
+            'property': 'twitter:card',
+            'content': 'summary'
+          }
+        ]
+      }
+      }
   },
   computed: {
     ...mapState(['types', 'topics']),
@@ -247,6 +288,13 @@ export default {
           authorsById[author.id] = author
         })
         return authorsById
+      }
+    },
+    firstTextBlock() {
+      if (this.insight.body) {
+        return this.insight.acf.body.filter((block) => {return block.acf_fc_layout === 'text'})[0]
+      } else {
+        return this.insight.title.rendered
       }
     }
 

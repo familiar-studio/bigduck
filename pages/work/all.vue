@@ -8,7 +8,7 @@
         </div>
       </div>
       <div class='col-lg-9 col-xl-8'>
-  
+
         <div class="container" id="content">
           <div v-if="work">
             <h1>Work</h1>
@@ -16,11 +16,11 @@
             <div v-else>
               There are is currently no work in the
               <span v-if="selectedTopic">{{getTopicsIndexedById[selectedTopic].name}}</span> topic
-  
+
             </div>
           </div>
         </div>
-  
+
       </div>
       <div class="col-lg-2">
         <Chat></Chat>
@@ -73,13 +73,45 @@ export default {
       console.error(e)
     }
   },
-  head() {
-    return {
-      title: 'Work - All Projects',
-      meta: [
-        { description: '' },
-        { 'og:image': '' }
-      ]
+  head () {
+    if (this.work[0]) {
+      return {
+        title: 'Work - All Projects',
+        meta: [
+          {
+            'property': 'og:title',
+            'content': 'Work - All Projects'
+          },
+          {
+            'property': 'twitter:title',
+            'content': 'Work - All Projects'
+          },
+          {
+            'property': 'description',
+            'content': "All Projects"
+          },
+          {
+            'property': 'og:description',
+            'content': "All Projects"
+          },
+          {
+            'property': 'twitter:description',
+            'content': "All Projects"
+          },
+          {
+            'property': 'image',
+            'content': this.work[0].acf.hero_image.url
+          },
+          {
+            'property': 'og:image',
+            'content': this.work[0].acf.hero_image.url
+          },
+          {
+            'property': 'twitter:image',
+            'content': this.work[0].acf.hero_image.url
+          }
+        ]
+      }
     }
   },
   methods: {

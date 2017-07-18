@@ -45,12 +45,12 @@
 </template>
 <script>
 
-import Post from '~components/Post.vue'
+import axios from 'axios'
+import Chat from '~components/Chat.vue'
+import FilterList from '~components/FilterList.vue'
 import InlineCallout from '~components/InlineCallout.vue'
 import { mapState, mapGetters } from 'vuex'
-import axios from 'axios'
-import FilterList from '~components/FilterList.vue'
-import Chat from '~components/Chat.vue'
+import Post from '~components/Post.vue'
 
 export default {
   name: 'insights',
@@ -72,20 +72,52 @@ export default {
       previouslyLoadedInsights: 0
     }
   },
-  head() {
+  head () {
+    if (this.insights){
     return {
       title: 'Insights',
       meta: [
-        { description: '' },
-        { 'og:image': 'http://bigduck-wordpress.familiar.studio/wp-content/uploads/2017/07/logo.svg' }
+        {
+          'property': 'og:title',
+          'content': 'Insights'
+        },
+        {
+          'property': 'twitter:title',
+          'content': 'Insights'
+        },
+        {
+          'property': 'description',
+          'content': 'Read more about the results of our work.'
+        },
+        {
+          'property': 'og:description',
+          'content': 'Read more about the results of our work.'
+        },
+        {
+          'property': 'twitter:description',
+          'content': 'Read more about the results of our work.'
+        },
+        {
+          'property': 'image',
+          'content': this.insights[0].acf.featured_image.url
+        },
+        {
+          'property': 'og:image',
+          'content': this.insights[0].acf.featured_image.url
+        },
+        {
+          'property': 'twitter:image',
+          'content': this.insights[0].acf.featured_image.url
+        }
       ]
+    }
     }
   },
   components: {
+    Chat,
     FilterList,
-    Post,
     InlineCallout,
-    Chat
+    Post
   },
   computed: {
     ...mapState(['types', 'topics']),
