@@ -9,12 +9,12 @@
           <div class="menu subnav">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a data-scroll class="nav-link" :class="{ 'active': activeSection == 'we-believe' }" href="#" v-scroll-to="'#we-believe'">
+                <a class="nav-link" :class="{ 'active': activeSection == 'we-believe' }" href="#" v-scroll-to="'#we-believe'">
                   <span>{{ page.acf.we_believe_headline}}</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a data-scroll class="nav-link" href="#" v-scroll-to="'#values'">
+                <a class="nav-link" href="#" v-scroll-to="'#values'">
                   <span>{{ page.acf.values_headline}}</span>
                 </a>
               </li>
