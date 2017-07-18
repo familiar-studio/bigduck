@@ -29,6 +29,23 @@
               </li>
             </ul>
           </div>
+
+          <!-- TESTIMONIAL -->
+          <div v-if="block.acf_fc_layout == 'testimonial'" class="cs-block-testimonial testimonial break-container">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-8">
+                  <blockquote>
+                    <h3 v-html="block.quote"></h3>
+                    <footer class="label">&mdash; {{ block.credit }}</footer>
+                  </blockquote>
+                </div>
+                <div v-if="block.image" class="col-md-4">
+                  <img :src="block.image.sizes.cropped_400_square" alt="block.image.name" class="img-fluid">
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="container mt-5" v-if="relatedCaseStudies && relatedCaseStudies.length > 0">
           <h2>Related Case Studies</h2>
@@ -101,7 +118,7 @@ export default {
   async created() {
     let relatedWorkIds = this.service.acf.related_case_studies
     if (relatedWorkIds && typeof relatedWorkIds !== 'undefined') {
-      response = await Axios.get(this.$store.getters['hostname'] + 'wp/v2/bd_case_study?' + relatedWorkIds.map((obj) => 'include[]=' + obj.ID).join('&'))
+      let response = await Axios.get(this.$store.getters['hostname'] + 'wp/v2/bd_case_study?' + relatedWorkIds.map((obj) => 'include[]=' + obj.ID).join('&'))
       this.relatedCaseStudies = response.data
     }
   },
