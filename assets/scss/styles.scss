@@ -51,10 +51,8 @@
 
 .break-container {
   @include media-breakpoint-up(sm) {
-    padding-left: 5000px;
-    padding-right: 5000px;
-    margin-left: -5000px;
-    margin-right: -5000px;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
   }
   margin-left: -15px;
   margin-right: -15px;
@@ -131,7 +129,8 @@ p {
   }
 }
 
-b, strong{
+b,
+strong {
   font-weight: 600;
 }
 

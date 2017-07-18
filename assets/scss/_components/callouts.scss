@@ -1,12 +1,14 @@
-.callout-fullwidth{
-  padding: 3rem 5000px;
-  margin-left: -5000px;
-  margin-right: -5000px;
+.callout-fullwidth {
+  padding: 3rem;
+  margin: 0 calc(50% - 50vw);
   -webkit-font-smoothing: antialiased;
-
+  position: relative;
+  // z-index: -1;
 }
-.work-cta{
-  .btn-primary{
+
+//.bust-out { margin: 0 calc(50% - 50vw) }
+.work-cta {
+  .btn-primary {
     background-color: $gray-darker !important;
   }
 }

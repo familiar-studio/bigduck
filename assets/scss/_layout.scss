@@ -1,5 +1,5 @@
 body {
-  overflow-x: hidden;
+  //overflow-x: hidden;
 }
 .page-wrapper {
   position: relative;
@@ -10,25 +10,25 @@ body {
 #main {
   padding-top: 150px;
   min-height: calc(100vh - 360px);
-  overflow-x: hidden;
-  @include media-breakpoint-up(md){
+  //overflow-x: hidden;
+  @include media-breakpoint-up(md) {
     padding-top: 180px;
   }
 }
 
-.container{
-  @include media-breakpoint-down(xs){
+.container {
+  @include media-breakpoint-down(xs) {
     width: 100%; //needed to add this for form elements on xs screens. bootstrap glitch?
-
   }
 }
 
 .subnav {
-  // position: -webkit-sticky;
-  // position: sticky;
-  // top: 85px;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 85px;
   margin-left: .5rem;
   margin-top: 1rem;
+  z-index: 25;
 
   .nav-link {
     text-transform: inherit;
@@ -47,12 +47,11 @@ body {
         background-size: 100% 1px;
       }
     }
-    &.active{
+    &.active {
       @extend .color-change;
     }
   }
 }
-
 
 #footer-callout {
   z-index: 0;
@@ -102,8 +101,8 @@ body {
     #logo {
       fill: white;
     }
-    .tagline{
-      @include media-breakpoint-down(xs){
+    .tagline {
+      @include media-breakpoint-down(xs) {
         font-size: 1.2rem;
         font-weight: 700;
         max-width: 300px;
@@ -130,10 +129,9 @@ body {
       flex-direction: column;
       justify-content: space-between;
     }
-    a{
+    a {
       display: block;
       margin-bottom: 3px;
-
     }
 
     svg {

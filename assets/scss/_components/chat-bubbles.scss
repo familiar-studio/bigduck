@@ -31,10 +31,10 @@
   z-index: 10;
 
   margin-right: .5rem;
-  display: none;
+  //display: none;
 
   @include media-breakpoint-up(xl) {
-    display: block;
+    // display: block;
   }
 
   .chat-bubble {
@@ -68,7 +68,7 @@
       color: $white;
       display: inline-block;
       padding: .5rem .7rem;
-      &:hover{
+      &:hover {
         color: $gray-darker;
       }
     }

@@ -1,6 +1,6 @@
 <template>
   <div class="callout-fullwidth bg-inverse text-white" v-if="inline">
-    <div class="callout-content">
+    <div class="container">
   
       <h2 v-html="inline.title"></h2>
       <p>

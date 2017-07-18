@@ -52,7 +52,7 @@
               </article>
   
               <article class="values bg-change break-container">
-                <div>
+                <div class="container">
                   <h1 id="values">{{ page.acf.values_headline }}</h1>
                   <div v-html="page.acf.values_body"></div>
                   <ul class="list-unstyled">
@@ -102,23 +102,25 @@
               </article>
   
               <article class="break-container bg-white team py-5">
-                <h1 id="team">{{page.acf.team_headline}}</h1>
-                <div v-html="page.acf.team_body" class="mb-4"></div>
+                <div class="container">
+                  <h1 id="team">{{page.acf.team_headline}}</h1>
+                  <div v-html="page.acf.team_body" class="mb-4"></div>
   
-                <div class="row">
-                  <div v-for="member in page.acf.team" class="col-sm-6 col-lg-4">
-                    <nuxt-link :key="member.id" :to=" {name: 'about-slug', params: {slug: member.team_member.user_nicename}}" class="team-member">
-                      <div class="col-image">
+                  <div class="row">
+                    <div v-for="member in page.acf.team" class="col-sm-6 col-lg-4">
+                      <nuxt-link :key="member.id" :to=" {name: 'about-slug', params: {slug: member.team_member.user_nicename}}" class="team-member">
+                        <div class="col-image">
   
-                        <div :style="{ 'background-image': 'url(' + teamMemberBySlug(member.team_member.user_nicename).headshot.url + ')' }" class="featured-image"></div>
-                      </div>
-                      <div>
-                        <h4 class="mt-3 mb-1">
-                          <span class="underline-change">{{teamMemberBySlug(member.team_member.user_nicename).headshot.title}}</span>
-                        </h4>
-                        <h6>{{ teamMemberBySlug(member.team_member.user_nicename).job_title }}</h6>
-                      </div>
-                    </nuxt-link>
+                          <div :style="{ 'background-image': 'url(' + teamMemberBySlug(member.team_member.user_nicename).headshot.url + ')' }" class="featured-image"></div>
+                        </div>
+                        <div>
+                          <h4 class="mt-3 mb-1">
+                            <span class="underline-change">{{teamMemberBySlug(member.team_member.user_nicename).headshot.title}}</span>
+                          </h4>
+                          <h6>{{ teamMemberBySlug(member.team_member.user_nicename).job_title }}</h6>
+                        </div>
+                      </nuxt-link>
+                    </div>
                   </div>
                 </div>
               </article>

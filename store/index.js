@@ -99,10 +99,13 @@ export const mutations = {
       callout.description = descriptions[0].innerHTML;
     }
 
+    callout.title = "default cta";
+    callout.description = "this is the regular text that loads in here";
+
     state[data.slug] = callout;
   },
   setFooterMeta(state, data) {
-    state.footerMeta = data
+    state.footerMeta = data;
   }
 };
 
@@ -139,10 +142,11 @@ export const actions = {
       });
   },
   fetchMenuCallouts(context) {
-    return axios.get(context.getters['hostname'] + 'wp/v2/pages?slug=menu-callouts')
+    return axios
+      .get(context.getters["hostname"] + "wp/v2/pages?slug=menu-callouts")
       .then(response => {
-        context.commit("setMenuCallouts", response.data[0].acf)
-      })
+        context.commit("setMenuCallouts", response.data[0].acf);
+      });
   },
   fetchFooter(context) {
     return axios
@@ -220,9 +224,9 @@ export const actions = {
   },
   async fetchFooterMeta({ rootGetters, commit }) {
     let response = await axios.get(
-      rootGetters.hostname + 'wp/v2/pages?slug=footer'
-    )
-    commit("setFooterMeta", response.data[0].acf)
+      rootGetters.hostname + "wp/v2/pages?slug=footer"
+    );
+    commit("setFooterMeta", response.data[0].acf);
   }
 };
 
@@ -241,7 +245,7 @@ export const getters = {
     // if ((window.location.hostname.indexOf('localhost') > -1 || window.location.hostname.indexOf('.dev') > -1)) {
     //   return state.bareLocalHostname
     // } else {
-      // return state.bareRemoteHostname
+    // return state.bareRemoteHostname
     // }
 
     // return state.bareLocalHostname;
@@ -249,10 +253,10 @@ export const getters = {
     // return state.bareLocalHostname;
   },
   relatedInsightsPerPage: state => {
-    return state.relatedInsightsPerPage
+    return state.relatedInsightsPerPage;
   },
   previousQuery: state => {
-    return state.previousQuery
+    return state.previousQuery;
   },
   getTopicsIndexedById: state => {
     if (state.topics) {
