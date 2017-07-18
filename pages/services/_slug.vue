@@ -20,14 +20,7 @@
           </div>
           <h2 v-if="block.acf_fc_layout == 'heading'" class="mt-5" v-html="block.heading"></h2>
           <div v-if="block.acf_fc_layout == 'faq' && block.questions.length > 0">
-            <ul class="list-unstyled">
-              <li v-for="question in block.questions">
-                <h2>{{ question.question }}</h2>
-                <div class="" v-html="question.answer">
-
-                </div>
-              </li>
-            </ul>
+            <FAQ :questions="block.questions"></FAQ>
           </div>
 
           <!-- TESTIMONIAL -->
@@ -47,6 +40,7 @@
             </div>
           </div>
         </div>
+
         <div class="container mt-5" v-if="relatedCaseStudies && relatedCaseStudies.length > 0">
           <h2>Related Case Studies</h2>
           <Work :work="relatedCaseStudies"></Work>
@@ -70,6 +64,7 @@
 <script>
 import Axios from 'axios'
 import ColorCallout from '~components/ColorCallout.vue'
+import FAQ from '~components/FAQ.vue'
 import GravityForm from '~components/GravityForm.vue'
 import Work from '~components/Work.vue'
 import Post from '~components/Post.vue'
@@ -113,7 +108,7 @@ export default {
     }
   },
   components: {
-    Work, Post, GravityForm
+    Work, Post, GravityForm, FAQ
   },
   async created() {
     let relatedWorkIds = this.service.acf.related_case_studies
