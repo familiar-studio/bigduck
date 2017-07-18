@@ -4,13 +4,16 @@
     <div class="img-hero" v-if="insight && insight.acf.featured_image" :style=" { backgroundImage: 'url(' + insight.acf.featured_image + ')' }">
       <figcaption class="figure-caption">{{insight.acf.featured_image.caption}}</figcaption>
     </div>
+    <div class="img-hero" v-else :style=" { backgroundImage: 'url(' + backupImage + ')' }">
+      <figcaption class="figure-caption"></figcaption>
+    </div>
     <div>
       <div class="row">
         <div class="col-lg-1 hidden-md-down">
           <Share></Share>
         </div>
         <div class="col-lg-10">
-          <div class="container" :class="{'overlap':insight.acf.featured_image}">
+          <div class="container overlap" >
             <article class="main">
               <div class="badge-group">
                 <nuxt-link class="badge badge-default underline-change overview-link" :to="{name: 'insights'}">
@@ -246,8 +249,12 @@ export default {
       }
   },
   computed: {
-    ...mapState(['types', 'topics']),
+    ...mapState(['types', 'topics', 'backupImages']),
     ...mapGetters(['hostname', 'getTopicsIndexedById', 'getTypesIndexedById']),
+    backupImage() {
+      let images = this.backupImages['insights']
+      return images[this.insight.id % images.length].backup_insight_image
+    },
     formFilled() {
       let cookies = Cookies.get()
       if (this.insight && cookies) {

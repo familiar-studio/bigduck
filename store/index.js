@@ -4,6 +4,7 @@ export const state = () => ({
   localHostname: "https://wordpress.bigduck.dev/wp-json/",
   remoteHostname: "http://bigduck-wordpress.familiar.studio/wp-json/",
 
+  backupImages: null,
   bareLocalHostname: "https://wordpress.bigduck.dev",
   bareRemoteHostname: "http://bigduck-wordpress.familiar.studio",
   callouts: null,
@@ -106,6 +107,12 @@ export const mutations = {
   },
   setFooterMeta(state, data) {
     state.footerMeta = data;
+  },
+  setBackupImages(state, data) {
+    state.backupImages = {
+      author: data.acf.backup_author_image,
+      insights: data.acf.backup_insights_images
+    }
   }
 };
 
@@ -146,6 +153,7 @@ export const actions = {
       .get(context.getters["hostname"] + "wp/v2/pages?slug=menu-callouts")
       .then(response => {
         context.commit("setMenuCallouts", response.data[0].acf);
+        context.commit("setBackupImages", response.data[0]);
       });
   },
   fetchFooter(context) {

@@ -2,7 +2,10 @@
   <div v-once class="block-overlap" :class="blockClass" :type="types && entry.type && firstType ? getTypesIndexedById[firstType].slug : ''">
     <nuxt-link :to="{ name: 'insights-slug', params: { slug: slug }}" :key="entry.id">
       <div class="col-image">
-        <div :style="{ 'background-image': 'url(' + entry.acf.featured_image+ ')' }" class="featured-image"></div>
+        <div v-if="entry.acf.featured_image" :style="{ 'background-image': 'url(' + entry.acf.featured_image+ ')' }" class="featured-image"></div>
+        <div class="featured-image" v-else :style="{ 'background-image': 'url(' + backupImage + ')' }">
+
+        </div>
       </div>
       <div class="col-text">
         <div class="card">
@@ -19,11 +22,11 @@
 
               <div class="badge badge-default">
                 <span v-if="types && firstType">
-                  <span v-if="entry.calculated_reading_time && entry.calculated_reading_time.data && getTypesIndexedById[entry.type[0]].verb == 'Read'">
+                  <span v-if="entry.calculated_reading_time && entry.calculated_reading_time.data && getTypesIndexedById[firstType].verb == 'Read'">
                     {{entry.calculated_reading_time.data}} Read
                   </span>
-                  <span v-if="getTypesIndexedById[entry.type[0]].verb !== 'Read'">
-                    {{entry.acf.time}} {{entry.acf.time_interval}} {{ getTypesIndexedById[entry.type[0]].verb }}
+                  <span v-if="getTypesIndexedById[firstType].verb !== 'Read'">
+                    {{entry.acf.time}} {{entry.acf.time_interval}} {{ getTypesIndexedById[firstType].verb }}
                   </span>
 
                 </span>
@@ -92,8 +95,12 @@ export default {
   name: 'post',
   props: ['entry', 'categories', 'index', 'firstBlock'],
   computed: {
-    ...mapState(['types', 'topics']),
+    ...mapState(['backupImages', 'types', 'topics']),
     ...mapGetters(['getTopicsIndexedById', 'getTypesIndexedById']),
+    backupImage() {
+      let images = this.backupImages['insights']
+      return images[this.entry.id % images.length].backup_insight_image
+    },
     firstType () {
       return (this.entry.type[0] && this.entry.type[0].term_id) ? parseInt(this.entry.type[0].term_id) : this.entry.type[0]
     },

@@ -14,11 +14,11 @@
           <div v-if="insights && insights.length > 0">
           <!-- <ListTransition :previous="previouslyLoadedInsights" :current="insights.length"> -->
           <!-- <transition-group name="fade" appear> -->
-            <div v-for="(insight, index) in insights" :key="insight" :data-index="index">
-              <Post :entry="insight" :firstBlock="true" :index="index"></Post>
-              <transition name="list" appear>
+            <div v-for="(insight, index) in insights" :key="insight" :data-index="index" v-cloak>
+              <Post :entry="insight" :firstBlock="true" :index="index" v-once></Post>
+              <!-- <transition name="list" appear> -->
                 <InlineCallout class="mb-5" v-if="index % 5 == 1 && index < insights.length - 1"></InlineCallout>
-              </transition>
+              <!-- </transition> -->
             </div>
           <!-- </transition-group> -->
           <!-- </ListTransition> -->
@@ -162,6 +162,8 @@ export default {
       const response = await this.$store.dispatch('fetchByQuery', { isPaged: true, query: query, path: 'wp/v2/bd_insight' })
       this.insights = this.insights.concat(response.data)
     }
+  },
+  created () {
   }
 }
 </script>
