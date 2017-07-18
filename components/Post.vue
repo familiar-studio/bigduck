@@ -50,11 +50,13 @@
 
                   <div v-for="author in entry.authors" v-if="entry.authors.length > 0" class="media">
                     <img v-if="author.meta.headshot.sizes" :src="author.meta.headshot.sizes.thumbnail" class="round author-img mr-2">
+                    <img v-else :src="backupImages['author']" class="round author-img mr-2">
                     <h6 class="align-self-center mb-0">
                       <span v-html="author.display_name"></span>
                     </h6>
                   </div>
-                  <div v-if="entry.acf.guest_author_name" class="media author-no-img">
+                  <div v-if="entry.acf.guest_author_name" class="media ">
+                    <img :src="backupImages['author']" class="round author-img mr-2">
                     <h6 class="align-self-center mb-0">
                       <span>{{entry.acf.guest_author_name}}</span>
                     </h6>
@@ -63,17 +65,20 @@
               <div v-else class="author-listing">
                     <div v-if="entry.acf.author.length > 0" class="media" v-for="author in entry.acf.author">
                     <img v-if="entry.author_headshots && entry.author_headshots[author['user_nicename']] && entry.author_headshots[author['user_nicename']].sizes" :src="entry.author_headshots[author['user_nicename']].sizes.thumbnail" class="round author-img mr-2">
+                    <img v-else :src="backupImages['author']" class="round author-img mr-2">
                     <h6 class="align-self-center mb-0">
                       <span v-html="author.display_name"></span>
                     </h6>
                   </div>
-              <div v-if="entry.acf.guest_author_name" class="media author-no-img">
+              <div v-if="entry.acf.guest_author_name" class="media">
+                <img :src="backupImages['author']" class="round author-img mr-2">
                 <h6 class="align-self-center mb-0">
                   <span>{{entry.acf.guest_author_name}}</span>
                 </h6>
               </div>
               </div>
-              <div v-if="!entry.acf.guest_author_name && entry.acf.author.length < 1" class="media author-no-img">
+              <div v-if="!entry.acf.guest_author_name && entry.acf.author.length < 1" class="media">
+                <img :src="backupImages['author']" class="round author-img mr-2">
                 <h6 class="align-self-center mb-0">
                   <span>Big Duck</span>
                 </h6>
@@ -99,7 +104,8 @@ export default {
     ...mapGetters(['getTopicsIndexedById', 'getTypesIndexedById']),
     backupImage() {
       let images = this.backupImages['insights']
-      return images[this.entry.id % images.length].backup_insight_image
+      let id = this.entry.ID || this.entry.id
+      return images[id % images.length].backup_insight_image
     },
     firstType () {
       return (this.entry.type[0] && this.entry.type[0].term_id) ? parseInt(this.entry.type[0].term_id) : this.entry.type[0]
