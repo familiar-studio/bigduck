@@ -8,19 +8,19 @@
         </div>
       </div>
       <div class='col-lg-9 col-xl-8'>
-
+  
         <div class="container" id="content">
           <div v-if="work">
             <h1>Work</h1>
             <Work :work="work" v-if="work.length > 0"></Work>
             <div v-else>
               There are is currently no work in the
-                <span v-if="selectedTopic">{{getTopicsIndexedById[selectedTopic].name}}</span> topic
-
+              <span v-if="selectedTopic">{{getTopicsIndexedById[selectedTopic].name}}</span> topic
+  
             </div>
           </div>
         </div>
-
+  
       </div>
       <div class="col-lg-2">
         <Chat></Chat>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ul class="nav nav-pills" v-if="isListView">
+    <ul class="nav nav-pills nav-work" v-if="isListView">
       <li class="nav-item">
         <router-link :to="{ name: 'work'}" class="nav-link">Featured Work</router-link>
       </li>

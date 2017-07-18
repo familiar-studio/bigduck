@@ -1,6 +1,6 @@
 <template>
   <div>
-
+  
     <div class="img-hero" :style=" { backgroundImage: 'url(' + servicesPage.acf.featured_image.url + ')' }">
       <figcaption class="figure-caption">{{servicesPage.acf.featured_image.caption}}</figcaption>
     </div>
@@ -21,18 +21,20 @@
             <InlineCallout class="mt-5">
             </InlineCallout>
           </div>
-          <div class="testimonial">
-            <div class="row">
-              <div class="col-md-8">
-                <blockquote>
-                  <h3 v-html="servicesPage.acf.quote"></h3>
-                  <footer class="label">&mdash;
-                    <span v-html="servicesPage.acf.credit"></span>
-                  </footer>
-                </blockquote>
-              </div>
-              <div v-if="servicesPage.acf.image" class="col-md-4">
-                <img :src="servicesPage.acf.image.sizes.cropped_400_square" alt="block.image.name" class="img-fluid">
+          <div class="testimonial break-container">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-8">
+                  <blockquote>
+                    <h3 v-html="servicesPage.acf.quote"></h3>
+                    <footer class="label">&mdash;
+                      <span v-html="servicesPage.acf.credit"></span>
+                    </footer>
+                  </blockquote>
+                </div>
+                <div v-if="servicesPage.acf.image" class="col-md-4">
+                  <img :src="servicesPage.acf.image.sizes.cropped_400_square" alt="block.image.name" class="img-fluid">
+                </div>
               </div>
             </div>
           </div>
@@ -63,12 +65,12 @@ export default {
     }
   },
   computed: {
-    brandraisingBenchmark () {
-      return this.services.filter((service) => { return service.slug === 'brandraising-benchmark'})[0]
+    brandraisingBenchmark() {
+      return this.services.filter((service) => { return service.slug === 'brandraising-benchmark' })[0]
     },
 
-    otherServices () {
-      return this.services.filter((service) => { return service.slug !== 'brandraising-benchmark'})
+    otherServices() {
+      return this.services.filter((service) => { return service.slug !== 'brandraising-benchmark' })
     }
   },
   async asyncData({ store, query, state }) {

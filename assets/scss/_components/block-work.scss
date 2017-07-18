@@ -1,4 +1,11 @@
+.nav-work {
+  margin-left: -($grid-gutter-width-base / 2);
+  margin-right: -($grid-gutter-width-base / 2);
+}
+
 .block-work-featured {
+  margin-left: -($grid-gutter-width-base / 2);
+  margin-right: -($grid-gutter-width-base / 2);
   a {
     display: flex;
     padding: 1rem 0;
@@ -118,7 +125,7 @@
 .nav-pills {
   margin-top: -20px;
   background-color: rgba($white, .5);
-  @include media-breakpoint-up(md){
+  @include media-breakpoint-up(md) {
     margin-top: -50px;
   }
   .nav-item {

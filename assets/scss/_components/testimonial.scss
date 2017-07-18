@@ -1,21 +1,20 @@
-.testimonial{
+.testimonial {
   background-color: $white;
-  margin-right: -5000px;
-  margin-left: -5000px;
-  padding: 3rem 5000px;
-  .row{
+
+  padding: 3rem;
+  .row {
     align-items: center;
     justify-content: center;
   }
-  .col-md-8{
+  .col-md-8 {
     flex: 1 1;
     max-width: 100%;
   }
-  blockquote{
+  blockquote {
     position: relative;
     margin: auto;
-    &::before{
-      content:'\201C';
+    &::before {
+      content: '\201C';
       font-size: 200px;
       line-height: .5;
       display: block;
@@ -23,16 +22,16 @@
       font-weight: 700;
       font-family: $font-family-sans-serif;
     }
-    h3{
+    h3 {
       padding-top: 80px;
-      p{
+      p {
         font-size: inherit;
       }
     }
   }
-  img{
+  img {
     display: none;
-    @include media-breakpoint-up(md){
+    @include media-breakpoint-up(md) {
       display: block;
     }
   }
