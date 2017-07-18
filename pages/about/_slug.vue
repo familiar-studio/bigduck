@@ -50,6 +50,9 @@
         <h2 :class="{'mt-5 mb-3': !relatedEvents }">Insights by {{ member.name.split(" ")[0]}}</h2>
 
         <Post v-for="(insight, index) in relatedInsights" :key="insight.id" :entry="insight" :index="index + relatedEventsLength"></Post>
+        <div class="pager" v-if="insightsPage < totalInsightsPages">
+          <a class="btn btn-primary my-4" href="#" @click.prevent="nextPage">Load more</a>
+        </div>
 
       </div>
     </div>
@@ -134,15 +137,23 @@ export default {
       this.relatedEvents = response.data
     }
       let response = await Axios.get(this.hostname + 'familiar/v1/insights/user/' + this.member.slug + '?posts_per_page=' + this.insightsPerPage + '&page=' + this.insightsPage )
-      // let response = await Axios.get(this.hostname + 'familiar/v1/insights/user/' + this.member.slug )
       this.totalInsightsPages = response.data.pages
       this.relatedInsights = response.data.data
   },
   async asyncData({ store, params }) {
-    console.log(params)
     let response = await Axios.get(store.getters['hostname'] + 'familiar/v1/team/' + params.slug)
     return {
       member: response.data
+    }
+  },
+  methods: {
+    nextPage () {
+      this.insightsPage++
+      this.fetchMoreInsights()
+    },
+    async fetchMoreInsights() {
+      let response = await Axios.get(this.hostname + 'familiar/v1/insights/user/' + this.member.slug + '?posts_per_page=' + this.insightsPerPage + '&page=' + this.insightsPage)
+      this.relatedInsights = this.relatedInsights.concat(response.data.data)
     }
   }
 }
