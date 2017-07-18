@@ -40,7 +40,7 @@ export default {
             'content': this.featured[0].acf.hero_image.url
           },
           {
-            'property': 'og:image',
+            'property': 'og:image:url',
             'content': this.featured[0].acf.hero_image.url
           },
           {

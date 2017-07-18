@@ -191,7 +191,7 @@ export default {
             'content': this.event.acf.featured_image.url
           },
           {
-            'property': 'og:image',
+            'property': 'og:image:url',
             'content': this.event.acf.featured_image.url
           },
           {

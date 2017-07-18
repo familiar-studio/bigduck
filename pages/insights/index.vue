@@ -102,7 +102,7 @@ export default {
           'content': this.insights[0].acf.featured_image.url
         },
         {
-          'property': 'og:image',
+          'property': 'og:image:url',
           'content': this.insights[0].acf.featured_image.url
         },
         {

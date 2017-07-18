@@ -38,7 +38,7 @@ export default {
             'content': this.image
           },
           {
-            'property': 'og:image',
+            'property': 'og:image:url',
             'content': this.image
           },
           {

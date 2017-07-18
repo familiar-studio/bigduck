@@ -226,7 +226,7 @@ export default {
             'content': this.insight.acf.featured_image
           },
           {
-            'property': 'og:image',
+            'property': 'og:image:url',
             'content': this.insight.acf.featured_image
           },
           {

@@ -94,7 +94,7 @@ export default {
             'content': 'http://bigduck-wordpress.familiar.studio/wp-content/uploads/2017/07/logo.svg'
           },
           {
-            'property': 'og:image',
+            'property': 'og:image:url',
             'content': 'http://bigduck-wordpress.familiar.studio/wp-content/uploads/2017/07/logo.svg'
           },
           {

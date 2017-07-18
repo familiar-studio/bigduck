@@ -103,7 +103,7 @@ export default {
             'content': this.work[0].acf.hero_image.url
           },
           {
-            'property': 'og:image',
+            'property': 'og:image:url',
             'content': this.work[0].acf.hero_image.url
           },
           {

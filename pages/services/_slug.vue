@@ -101,7 +101,7 @@ export default {
             'content': this.service.acf.featured_image.url
           },
           {
-            'property': 'og:image',
+            'property': 'og:image:url',
             'content': this.service.acf.featured_image.url
           },
           {

@@ -94,7 +94,7 @@ export default {
             'content': this.member.headshot.url
           },
           {
-            'property': 'og:image',
+            'property': 'og:image:url',
             'content': this.member.headshot.url
           },
           {
