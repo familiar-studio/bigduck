@@ -26,7 +26,7 @@
                       {{insight.calculated_reading_time.data}} Read
                     </div>
                     <div v-if="getTypesIndexedById[insight.type[0]].verb !== 'Read'">
-                      {{insight.acf.time}} {{insight.acf.time_interval}} {{ getTypesIndexedById[entry.type[0]].verb }}
+                      {{insight.acf.time}} {{insight.acf.time_interval}} {{ getTypesIndexedById[insight.type[0]].verb }}
                     </div>
                   </span>
                 </div>
