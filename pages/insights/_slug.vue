@@ -93,70 +93,66 @@
   
               </div>
             </div>
-            <<<<<<< HEAD <article class="mb-5 container">
   
-              =======
+            <article class="mb-5">
   
-              <article class="mb-5">
-  
-                >>>>>>> ced892722795be58f6ed030029bb8c9bd3fa1e63
-                <div v-if="insight.acf.author.length > 0" v-for="(author, index) in insight.acf.author">
-                  <div class="author-bio">
-                    <div class="row">
-                      <div class="col-md-2 author-bio-pic">
-                        <img class="round" v-if="insight.author_headshots[author.user_nicename].sizes" :src="insight.author_headshots[author.user_nicename].sizes.thumbnail" alt="" />
-                      </div>
-                      <div class="col-md-10 author-bio-text" v-if="authorMetaById">
-                        <h3 v-if="authorMetaById[author.ID]">
-                          {{author.display_name}} is {{prependIndefiniteArticle(authorMetaById[author.ID].acf.job_title)}} at Big Duck
-                        </h3>
-                        <div v-html="authorMetaById[author.ID].acf.short_bio">
-                        </div>
-                        <nuxt-link class="btn btn-primary" :to="{name: 'about-slug', params: { slug: author.user_nicename}}">
-                          More about {{author.user_firstname}}
-                        </nuxt-link>
-                      </div>
-  
+              <div v-if="insight.acf.author.length > 0" v-for="(author, index) in insight.acf.author">
+                <div class="author-bio">
+                  <div class="row">
+                    <div class="col-md-2 author-bio-pic">
+                      <img class="round" v-if="insight.author_headshots[author.user_nicename].sizes" :src="insight.author_headshots[author.user_nicename].sizes.thumbnail" alt="" />
                     </div>
+                    <div class="col-md-10 author-bio-text" v-if="authorMetaById">
+                      <h3 v-if="authorMetaById[author.ID]">
+                        {{author.display_name}} is {{prependIndefiniteArticle(authorMetaById[author.ID].acf.job_title)}} at Big Duck
+                      </h3>
+                      <div v-html="authorMetaById[author.ID].acf.short_bio">
+                      </div>
+                      <nuxt-link class="btn btn-primary" :to="{name: 'about-slug', params: { slug: author.user_nicename}}">
+                        More about {{author.user_firstname}}
+                      </nuxt-link>
+                    </div>
+  
                   </div>
                 </div>
-              </article>
+              </div>
+            </article>
   
-              <div class="mb-5" v-if="relatedCaseStudies">
-                <h2>Related Case Studies</h2>
-                <div class="row">
-                  <div v-for="case_study in relatedCaseStudies" class="col-md-6">
-                    <nuxt-link :to="{name: 'work-slug', params: {slug: case_study.slug}}" :key="case_study.ID" class="block-work-small">
-                      <div v-if="case_study.acf.hero_image" class="img-wrapper">
-                        <img :src="case_study.acf.hero_image.sizes.cropped_rectangle" class="img-fluid" />
-                      </div>
-                      <div class="card">
-                        <div class="card-block">
-                          <div class="badge-group" v-if="topics && types">
-                            <div class="badge badge-default" v-for="topic in case_study.topic">
-                              <div v-html="getTopicsIndexedById[topic].icon" class="img-fluid"></div>
-                              <div v-html="getTopicsIndexedById[topic].name"></div>
-                            </div>
+            <div class="mb-5" v-if="relatedCaseStudies">
+              <h2>Related Case Studies</h2>
+              <div class="row">
+                <div v-for="case_study in relatedCaseStudies" class="col-md-6">
+                  <nuxt-link :to="{name: 'work-slug', params: {slug: case_study.slug}}" :key="case_study.ID" class="block-work-small">
+                    <div v-if="case_study.acf.hero_image" class="img-wrapper">
+                      <img :src="case_study.acf.hero_image.sizes.cropped_rectangle" class="img-fluid" />
+                    </div>
+                    <div class="card">
+                      <div class="card-block">
+                        <div class="badge-group" v-if="topics && types">
+                          <div class="badge badge-default" v-for="topic in case_study.topic">
+                            <div v-html="getTopicsIndexedById[topic].icon" class="img-fluid"></div>
+                            <div v-html="getTopicsIndexedById[topic].name"></div>
                           </div>
-                          <h3 class="card-title">
-                            <span class="underline-change hover-color">{{ case_study.acf.client_name }}</span>
-                          </h3>
-                          <div class="card-text" v-html="case_study.acf.short_description"></div>
                         </div>
+                        <h3 class="card-title">
+                          <span class="underline-change hover-color">{{ case_study.acf.client_name }}</span>
+                        </h3>
+                        <div class="card-text" v-html="case_study.acf.short_description"></div>
                       </div>
-                    </nuxt-link>
-                  </div>
+                    </div>
+                  </nuxt-link>
                 </div>
               </div>
+            </div>
   
-              <div class="mb-5" v-if="relatedInsights">
-                <h2>Related Insights</h2>
-                <div v-if="relatedInsights">
-                  <div v-for="(insight, index) in relatedInsights">
-                    <Post :entry="insight" :index="index"></Post>
-                  </div>
+            <div class="mb-5" v-if="relatedInsights">
+              <h2>Related Insights</h2>
+              <div v-if="relatedInsights">
+                <div v-for="(insight, index) in relatedInsights">
+                  <Post :entry="insight" :index="index"></Post>
                 </div>
               </div>
+            </div>
           </div>
         </div>
       </div>
