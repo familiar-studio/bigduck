@@ -126,17 +126,17 @@
       <SearchOverlay v-if="searchVisible" @hide="hideSearch()"></SearchOverlay>
   
     </div>
-    <section id="footer-callout" v-if="chat && showFooter" class="bg-change text-white my-0 py-5">
+    <section id="footer-callout" v-if="activeChat && activeChat.acf && showFooter" class="bg-change text-white my-0 py-5">
       <div class="container">
         <div class="row">
           <div class="col-lg-8 offset-lg-2">
             <div class="footer-content">
-              <h2>{{ chat.title }}</h2>
+              <h2>{{ activeChat.acf.intro }}</h2>
               <p>
-                {{ chat.description }}
+                {{ activeChat.acf.body }}
               </p>
   
-              <GravityForm v-if="chat.formId" :formId="chat.formId" btnType="tertiary"></GravityForm>
+              <GravityForm v-if="activeChat.acf" :formId="activeChat.acf.cta_form" btnType="tertiary"></GravityForm>
   
             </div>
           </div>
@@ -184,7 +184,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['chat', 'menuCallouts', 'footerMeta']),
+    ...mapState(['activeChat', 'menuCallouts', 'footerMeta']),
     page() {
       if (this.$route.name === 'index') {
         return 'homepage'
@@ -249,8 +249,7 @@ export default {
       setInterval(this.changeColor, 5000)
       window.addEventListener('scroll', this.handleScroll)
 
-      this.$store.dispatch('fetchPageCallouts', 'chat')
-      this.$store.dispatch('fetchPageCallouts', 'inline')
+      this.$store.dispatch('fetchPageCallouts')
       this.$store.dispatch('fetchFooterMeta')
 
     }

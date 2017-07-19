@@ -9,13 +9,15 @@ export const state = () => ({
   callouts: null,
   categories: null,
   categoriesPath: "wp/v2/categories/",
-  chat: {},
+  chat: [],
+  activeChat: null,
   eventCategories: null,
   eventCategoriesPath: "wp/v2/event_category",
   footer: null,
   footerMeta: null,
   form: null,
-  inline: {},
+  activeInline: null,
+  inline: [],
   menuCallouts: null,
   page: 1,
   postsPerPage: 8,
@@ -77,6 +79,25 @@ export const mutations = {
   },
   setEvents(state, data) {
     state.events = data;
+  },
+  setAllActiveCallouts(state, callouts) {
+    //state.chat = "something";
+    state.chat = [];
+    state.inline = [];
+    console.log(callouts);
+    callouts.forEach(callout => {
+      console.log(callout.acf.placement);
+      state[callout.acf.placement].push(callout);
+    });
+    // need to add check for cookies here to move to next one if already fileld out
+
+    if (state.chat.length > 0) {
+      state.activeChat = state.chat[0];
+    }
+
+    if (state.inline.length > 0) {
+      state.activeInline = state.inline[0];
+    }
   },
   setActiveCallout(state, data) {
     var parser = new DOMParser();
@@ -210,16 +231,11 @@ export const actions = {
     );
     return response.data;
   },
-  async fetchPageCallouts({ rootGetters, commit }, slug) {
-    let response = await axios.get(
-      rootGetters.hostname + "familiar/v1/sidebars/" + slug
-    );
-    if (response.data.widgets && response.data.widgets[0]) {
-      console.log("widgets", response.data.widgets);
-      commit("setActiveCallout", {
-        slug: slug,
-        html: response.data.widgets[0].rendered
-      });
+  async fetchPageCallouts({ rootGetters, commit }) {
+    let response = await axios.get(rootGetters.hostname + "wp/v2/sidebarcta");
+    if (response.data && response.data[0]) {
+      console.log("widgets", response.data);
+      commit("setAllActiveCallouts", response.data);
     }
   },
   async fetchFooterMeta({ rootGetters, commit }) {

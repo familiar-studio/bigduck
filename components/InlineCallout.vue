@@ -1,18 +1,18 @@
 <template>
-  <div class="callout-fullwidth bg-inverse text-white" v-if="inline">
+  <div class="callout-fullwidth bg-inverse text-white" v-if="activeInline && activeInline.acf">
     <div class="container">
   
-      <h2 v-html="inline.title"></h2>
+      <h2 v-html="activeInline.acf.intro"></h2>
       <p>
-        {{ inline.description }}
+        {{ activeInline.acf.body }}
       </p>
   
-      <a href="#" v-if="!formVisible" @click.prevent="toggleForm()" class="btn btn-primary">
+      <a href="#" v-if="!formVisible && activeInline.acf.cta_form" @click.prevent="toggleForm()" class="btn btn-primary">
         Sign up
       </a>
   
-      <div v-if="formVisible && inline.formId">
-        <GravityForm :formId="inline.formId"></GravityForm>
+      <div v-if="formVisible && activeInline.acf.cta_form">
+        <GravityForm :formId="activeInline.acf.cta_form"></GravityForm>
       </div>
   
     </div>
@@ -30,7 +30,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['inline'])
+    ...mapState(['activeInline'])
   },
   components: {
     GravityForm
