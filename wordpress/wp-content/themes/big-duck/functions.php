@@ -644,31 +644,35 @@ class StarterSite extends TimberSite {
 	}
 
 	function events_by_user($data) {
+		$nicename = $data->get_params('id')['id'];
+		$user = get_user_by('slug', $nicename);
+
 		$rawEvents = get_posts(array(
 				'post_type' => 'bd_event',
-				'posts_per_page' => -1
+				'posts_per_page' => -1,
+				'meta_query' => array(
+					array(
+						'key' => 'related_team_members',
+						'value' => $user->ID,
+						'compare' => 'IN'
+					)
+				)
 		));
 		$events = array();
 		foreach($rawEvents as $rawEvent){
 			$fields = get_fields($rawEvent->ID);
-			if(strtotime($fields['start_time']) > strtotime('now')){
-				$team = $fields['related_team_members'];
-				if (is_array($team)){
-
-					foreach($team as $member) {
-						// $events[] = $member['user_nicename'];
-						// $events[] = $data->get_params('id')['id'];
-						if ($member['user_nicename'] == $data->get_params('id')['id']){
-							// $team_meta = $team;
-							foreach($team as $member_data) {
-								// $team_meta[] = $included_member['ID'];
-								$included_member = get_fields('user_' . $member_data['ID']);
-								$included_member['display_name'] = $member_data['display_name'];
-								$team_meta[] = $included_member;
+		
+							$team = $fields['related_team_members'];
+							if (is_array($team)){
+								foreach($team as $member_data) {
+									// $team_meta[] = $included_member['ID'];
+									$included_member = get_fields('user_' . $member_data['ID']);
+									$included_member['display_name'] = $member_data['display_name'];
+									$team_meta[] = $included_member;
 
 
+								}
 							}
-							// $team_members_meta = get_fields($member->ID);
 							$event = get_post($rawEvent->ID);
 							$topics = wp_get_post_terms($rawEvent->ID, 'topic');
 							$eventCategories = wp_get_post_terms($rawEvent->ID, 'event_category');
@@ -678,11 +682,9 @@ class StarterSite extends TimberSite {
 							$event->event_category = $eventCategories;
 							$events[] = array('data' => $event, 'team_meta' => $team_meta);
 							continue;
-						}
-					}
-				}
+					
 			}
-		}
+		
 
 		return new WP_REST_Response(array('events' => $events));
 	}
