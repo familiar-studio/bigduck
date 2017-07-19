@@ -140,6 +140,13 @@
     position: relative;
   }
 
+  .author-listing .media{
+    margin-bottom: .5rem;
+    &:last-child{
+      margin-bottom: 0;
+    }
+  }
+
   .chat-bubble {
     position: absolute;
     bottom: 1.5rem;

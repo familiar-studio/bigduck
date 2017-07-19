@@ -6,9 +6,13 @@
   // z-index: -1;
 }
 
-//.bust-out { margin: 0 calc(50% - 50vw) }
-.work-cta {
-  .btn-primary {
-    background-color: $gray-darker !important;
+.events, .insights{
+  .callout-fullwidth{
+    @include media-breakpoint-only(lg){
+      padding-left: calc((50% - 75vw) * -1);
+      margin-left: calc(50% - 75vw);
+      padding-right: $grid-gutter-width-base/2;
+      margin-right: -($grid-gutter-width-base/2);
+    }
   }
 }

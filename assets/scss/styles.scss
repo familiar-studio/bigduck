@@ -43,9 +43,6 @@
   height: 100%;
   background-size: cover;
   background-position: 50% 50%;
-  // opacity: .8;
-  // transition: all .3s ease;
-  // filter: grayscale(0%);
 }
 .overflow-x-hidden{
   overflow-x: hidden;
@@ -57,16 +54,22 @@
   padding-right: calc((50% - 50vw)* -1);
 }
 @for $i from 1 through length($duck-colors) {
-  ::selection {
-    background-color: nth($duck-colors, $i);
-    color: white;
+  .color-#{$i}{
+    ::selection {
+      background-color: nth($duck-colors, $i);
+      color: white;
+    }
+    ::-moz-selection {
+      background-color: nth($duck-colors, $i);
+      color: white;
+    }
   }
 }
 
-::-moz-selection {
-  background-color: $gray-darker;
-  color: white;
-}
+// ::-moz-selection {
+//   background-color: $gray-darker;
+//   color: white;
+// }
 
 //TYPOGRAPHY
 html {
@@ -150,9 +153,9 @@ h1, h2, h3, h4{
     width: 24px;
     height: auto;
   }
-  .author-img {
-    width: 40px;
-  }
+  // .author-img {
+  //   width: 40px;
+  // }
 
   &.underline-change {
     // background-position: center 75% !important;
@@ -254,7 +257,7 @@ label,
   @include media-breakpoint-up(md) {
     padding: 3rem 3.75rem;
   }
-  .form-control {
+  .form-control, .custom-control-indicator {
     background-color: $gray-lightest;
   }
   .btn {
@@ -280,6 +283,7 @@ label,
 .author-img {
   width: 2.25rem;
   height: 2.25rem;
+  object-fit: cover;
 }
 .desaturate {
   filter: saturate(0%);
