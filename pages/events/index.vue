@@ -13,13 +13,14 @@
           <div id="content">
             <div class="page-title">
               <h1>Upcoming Events</h1>
-
+  
               <h4>
                 <router-link :to="{name: 'events-speaking'}">
                   <div class="media">
                     <img src="/svgs/speaking-icon.svg" class="d-flex mr-2" />
                     <div class="media-body">
-                      Interested in having Big Duck speak at your organization?<br class="hidden-xl-up"/>
+                      Interested in having Big Duck speak at your organization?
+                      <br class="hidden-xl-up" />
                       <span class="label color-change"> Learn more about our talks…</span>
                     </div>
                   </div>
@@ -27,14 +28,13 @@
               </h4>
             </div>
             <div v-if="events && events.length > 0">
-              <!-- <transition-group name="fade" appear> -->
-                <div v-for="(event, index) in events" :key="event">
-                  <Event :entry="event" :firstBlock="true" :index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
-                  <transition name="list" appear>
-                    <InlineCallout class="mb-5" v-if="index % 5 == 1 && index < events.length - 1"></InlineCallout>
-                  </transition>
-                </div>
-              <!-- </transition-group> -->
+              <div v-for="(event, index) in events" :key="event">
+                <Event :entry="event" :firstBlock="true" :index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
+  
+                <InlineCallout class="mb-5" v-if="index % 2 == 1 && index < events.length - 1" :callout="callout"></InlineCallout>
+  
+              </div>
+  
               <div class="pager" v-if="events.length < totalRecords">
                 <a class="btn btn-primary my-4" href="#" @click.prevent="nextPage">Load more</a>
               </div>
@@ -71,7 +71,7 @@ export default {
     InlineCallout,
     Chat
   },
-  head () {
+  head() {
     if (this.events) {
       return {
         title: "Upcoming Events",
@@ -170,6 +170,11 @@ export default {
       const response = await this.$store.dispatch('fetchByQuery', { isPaged: true, query: query, path: 'wp/v2/bd_event' })
       this.events = this.events.concat(response.data)
     }
+  },
+  async created() {
+    let response = await axios.get(this.hostname + 'wp/v2/pages?slug=events')
+    var data = response.data[0]
+    this.callout = data.acf;
   }
 }
 </script>

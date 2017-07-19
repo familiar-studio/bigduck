@@ -131,12 +131,14 @@
         <div class="row">
           <div class="col-lg-8 offset-lg-2">
             <div class="footer-content">
-              <h2>{{ activeChat.acf.intro }}</h2>
-              <p>
-                {{ activeChat.acf.body }}
-              </p>
+              <div v-if="!submittedForm">
+                <h2>{{ activeChat.acf.intro }}</h2>
+                <p>
+                  {{ activeChat.acf.body }}
+                </p>
+              </div>
   
-              <GravityForm v-if="activeChat.acf" :formId="activeChat.acf.cta_form" btnType="tertiary"></GravityForm>
+              <GravityForm v-if="activeChat.acf" :formId="activeChat.acf.cta_form" btnType="tertiary" @submitted="hideCallout()"></GravityForm>
   
             </div>
           </div>
@@ -173,7 +175,9 @@ export default {
       navVisible: false,
       query: null,
       searchVisible: false,
-      totalColors: 7
+      totalColors: 7,
+      submittedForm: false
+
     }
   },
   head() {
@@ -221,6 +225,9 @@ export default {
   methods: {
     toggleNav() {
       this.navVisible = !this.navVisible
+    },
+    hideCallout() {
+      this.submittedForm = true;
     },
     showSearch() {
       this.searchVisible = true

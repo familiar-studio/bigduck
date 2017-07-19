@@ -107,6 +107,8 @@ export default {
       confirmation: 'Thanks, your the greatest!',
       hiddenFields: [],
       loading: false,
+      headline: null,
+      body: null,
       error: null
     }
   },

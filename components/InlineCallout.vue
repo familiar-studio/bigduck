@@ -1,17 +1,19 @@
 <template>
-  <div class="callout-fullwidth bg-inverse text-white" v-if="activeInline && activeInline.acf">
+  <div class="callout-fullwidth bg-inverse text-white" v-if="callout">
     <div class="">
   
-      <h2 v-html="activeInline.acf.intro"></h2>
-      <p>
-        {{ activeInline.acf.body }}
-      </p>
-      <a href="#" v-if="!formVisible && activeInline.acf.cta_form" @click.prevent="toggleForm()" class="btn btn-primary">
-        Sign up
-      </a>
+      <div v-if="!submittedForm">
+        <h2 v-html="callout.inline_callout_headline"></h2>
+        <p>
+          {{ callout.inline_callout_body }}
+        </p>
+        <a href="#" v-if="!formVisible && callout.inline_callout_form" @click.prevent="toggleForm()" class="btn btn-primary">
+          Sign up
+        </a>
+      </div>
   
-      <div v-if="formVisible && activeInline.acf.cta_form">
-        <GravityForm :formId="activeInline.acf.cta_form"></GravityForm>
+      <div v-if="formVisible && callout.inline_callout_form">
+        <GravityForm :formId="callout.inline_callout_form" @submitted="hideCallout()"></GravityForm>
   
       </div>
   
@@ -26,9 +28,11 @@ import GravityForm from '~components/GravityForm.vue'
 export default {
   data() {
     return {
-      formVisible: false
+      formVisible: false,
+      submittedForm: false
     }
   },
+  props: ['callout'],
   computed: {
     ...mapState(['activeInline'])
   },
@@ -38,6 +42,9 @@ export default {
   methods: {
     toggleForm() {
       this.formVisible = !this.formVisible
+    },
+    hideCallout() {
+      this.submittedForm = true
     }
   }
 }

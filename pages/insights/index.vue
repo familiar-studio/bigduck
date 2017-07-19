@@ -12,16 +12,13 @@
         <div class="container" id="content">
           <h1>Insights</h1>
           <div v-if="insights && insights.length > 0">
-          <!-- <ListTransition :previous="previouslyLoadedInsights" :current="insights.length"> -->
-          <!-- <transition-group name="fade" appear> -->
+  
             <div v-for="(insight, index) in insights" :key="insight" :data-index="index" v-cloak>
               <Post :entry="insight" :firstBlock="true" :index="index" v-once></Post>
-              <!-- <transition name="list" appear> -->
-                <InlineCallout class="mb-5" v-if="index % 5 == 1 && index < insights.length - 1"></InlineCallout>
-              <!-- </transition> -->
+              <InlineCallout class="mb-5" v-if="index % 5 == 1 && index < insights.length - 1" :callout="callout"></InlineCallout>
+  
             </div>
-          <!-- </transition-group> -->
-          <!-- </ListTransition> -->
+  
             <div class="pager" v-if="insights.length < totalRecords">
               <a class="btn btn-primary my-4" href="#" @click.prevent="nextPage">Load more</a>
             </div>
@@ -36,7 +33,7 @@
           </div>
         </div>
       </div>
-
+  
       <div class="col-lg-2">
         <Chat></Chat>
       </div>
@@ -57,6 +54,7 @@ export default {
   async asyncData({ store, query }) {
     try {
       store.commit('resetPage')
+
       const response = await store.dispatch('fetchByQuery', { isPaged: true, query: query, path: 'wp/v2/bd_insight' })
       return {
         insights: response.data,
@@ -69,48 +67,49 @@ export default {
   },
   data() {
     return {
-      previouslyLoadedInsights: 0
+      previouslyLoadedInsights: 0,
+      callout: null
     }
   },
-  head () {
-    if (this.insights){
-    return {
-      title: 'Insights',
-      meta: [
-        {
-          'property': 'og:title',
-          'content': 'Insights'
-        },
-        {
-          'property': 'twitter:title',
-          'content': 'Insights'
-        },
-        {
-          'property': 'description',
-          'content': 'Read more about the results of our work.'
-        },
-        {
-          'property': 'og:description',
-          'content': 'Read more about the results of our work.'
-        },
-        {
-          'property': 'twitter:description',
-          'content': 'Read more about the results of our work.'
-        },
-        {
-          'property': 'image',
-          'content': this.insights[0].acf.featured_image.url
-        },
-        {
-          'property': 'og:image:url',
-          'content': this.insights[0].acf.featured_image.url
-        },
-        {
-          'property': 'twitter:image',
-          'content': this.insights[0].acf.featured_image.url
-        }
-      ]
-    }
+  head() {
+    if (this.insights) {
+      return {
+        title: 'Insights',
+        meta: [
+          {
+            'property': 'og:title',
+            'content': 'Insights'
+          },
+          {
+            'property': 'twitter:title',
+            'content': 'Insights'
+          },
+          {
+            'property': 'description',
+            'content': 'Read more about the results of our work.'
+          },
+          {
+            'property': 'og:description',
+            'content': 'Read more about the results of our work.'
+          },
+          {
+            'property': 'twitter:description',
+            'content': 'Read more about the results of our work.'
+          },
+          {
+            'property': 'image',
+            'content': this.insights[0].acf.featured_image.url
+          },
+          {
+            'property': 'og:image:url',
+            'content': this.insights[0].acf.featured_image.url
+          },
+          {
+            'property': 'twitter:image',
+            'content': this.insights[0].acf.featured_image.url
+          }
+        ]
+      }
     }
   },
   components: {
@@ -121,7 +120,7 @@ export default {
   },
   computed: {
     ...mapState(['types', 'topics']),
-    ...mapGetters(['getTopicsIndexedById', 'getTypesIndexedById']),
+    ...mapGetters(['getTopicsIndexedById', 'getTypesIndexedById', 'hostname']),
     selectedType() {
       return this.$route.query.type
     },
@@ -163,7 +162,10 @@ export default {
       this.insights = this.insights.concat(response.data)
     }
   },
-  created () {
+  async created() {
+    let response = await axios.get(this.hostname + 'wp/v2/pages?slug=insights')
+    var data = response.data[0]
+    this.callout = data.acf;
   }
 }
 </script>
