@@ -14,27 +14,27 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" v-scroll-to="'#values'">
+                <a class="nav-link" href="#" :class="{ 'active': activeSection == 'values' }" v-scroll-to="'#values'">
                   <span>{{ page.acf.values_headline}}</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" v-scroll-to="'#open-house'">
+                <a class="nav-link" href="#" :class="{ 'active': activeSection == 'open-house' }" v-scroll-to="'#open-house'">
                   <span>Open House</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" v-scroll-to="'#our-clients'">
+                <a class="nav-link" href="#" :class="{ 'active': activeSection == 'our-clients' }" v-scroll-to="'#our-clients'">
                   <span>{{ page.acf.our_clients_headline}}</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" v-scroll-to="'#team'">
+                <a class="nav-link" href="#" :class="{ 'active': activeSection == 'team' }" v-scroll-to="'#team'">
                   <span>{{ page.acf.team_headline}}</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" v-scroll-to="'#jobs'">
+                <a class="nav-link" href="#" :class="{ 'active': activeSection == 'jobs' }" v-scroll-to="'#jobs'">
                   <span>{{ page.acf.jobs_headline}}</span>
                 </a>
               </li>
@@ -221,6 +221,9 @@ export default {
     }
   },
   methods: {
+    activateSection(sectionName) {
+      this.activeSection = sectionName
+    },
     toggleClient(categoryId) {
       this.openCategory = this.openCategory === categoryId ? null : categoryId
     },
