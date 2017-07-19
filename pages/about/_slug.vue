@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="team">
-    <div class="img-hero" :style=" { backgroundImage: 'url(' + member.headshot.url + ')' }">
+    <div class="img-hero" :style=" { backgroundImage: 'url(' + member.headshot.url + ')' }" v-if="member.headshot">
       <figcaption class="figure-caption">{{member.headshot.caption}}</figcaption>
     </div>
     <div class="container overlap" id="content">
@@ -46,10 +46,13 @@
         <h2 class="mt-5 mb-3">Events with {{member.name.split(" ")[0]}}</h2>
         <Event v-for="(event, index) in relatedEvents.events" :entry="event.data" :key="event.slug" :index="index" :relatedTeamMembers="event.team_meta"></Event>
       </div>
-      <div class="" v-if="relatedInsights && relatedInsights.length > 0">
+      <div class="mt-5" v-if="relatedInsights && relatedInsights.length > 0">
         <h2 :class="{'mt-5 mb-3': !relatedEvents }">Insights by {{ member.name.split(" ")[0]}}</h2>
 
-        <Post v-for="(insight, index) in relatedInsights.slice(0, relatedInsightsPerPage)" :key="insight.id" :entry="insight" :index="index + relatedEventsLength"></Post>
+        <Post v-for="(insight, index) in relatedInsights" :key="insight.id" :entry="insight" :index="index + relatedEventsLength"></Post>
+        <div class="pager" v-if="insightsPage < totalInsightsPages">
+          <a class="btn btn-primary my-4" href="#" @click.prevent="nextPage">Load more</a>
+        </div>
 
       </div>
     </div>
@@ -64,12 +67,53 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'team-member',
+  head () {
+    if (this.member) {
+      return {
+        title: this.member.name,
+        meta: [
+          {
+            'property': 'og:title',
+            'content': this.member.name
+          },
+          {
+            'property': 'twitter:title',
+            'content': this.member.name
+          },
+          {
+            'property': 'description',
+            'content': this.member.job_title
+          },
+          {
+            'property': 'og:description',
+            'content': this.member.job_title
+          },
+          {
+            'property': 'twitter:description',
+            'content': this.member.job_title
+          },
+          {
+            'property': 'image',
+            'content': this.member.headshot.url
+          },
+          {
+            'property': 'og:image:url',
+            'content': this.member.headshot.url
+          },
+          {
+            'property': 'twitter:image',
+            'content': this.member.headshot.url
+          }
+        ]
+      }
+    }
+  },
   data () {
     return {
       relatedEvents: null,
       relatedInsights: null,
       insightsPerPage: 2,
-      insightsPage: 1,
+      insightsPage: 0,
       totalInsightsPages: null
     }
   },
@@ -89,26 +133,27 @@ export default {
   async created() {
     let relatedEventIds = this.member.events.map((event) => { return event.ID })
     if (relatedEventIds && relatedEventIds.length > 0 ) {
-      // debugger
       let response = await Axios.get(this.hostname + 'familiar/v1/events/user/' + this.member.slug )
       this.relatedEvents = response.data
     }
-    // let relatedInsightIds = this.member.insights.map((insight) => { return insight.ID })
-    // console.log(this.hostname + 'familiar/v1/insights/user/' + this.member.slug)
-    // console.log('ids', relatedInsightIds)
-    // if (relatedInsightIds && relatedInsightIds.length > 0 ) {
-    console.log(this.hostname + 'familiar/v1/insights/user/' + this.member.slug + '?posts_per_page=' + this.insightsPerPage + '&page=' + this.insightsPage )
       let response = await Axios.get(this.hostname + 'familiar/v1/insights/user/' + this.member.slug + '?posts_per_page=' + this.insightsPerPage + '&page=' + this.insightsPage )
-      // let response = await Axios.get(this.hostname + 'familiar/v1/insights/user/' + this.member.slug )
       this.totalInsightsPages = response.data.pages
       this.relatedInsights = response.data.data
-    // }
   },
   async asyncData({ store, params }) {
-
     let response = await Axios.get(store.getters['hostname'] + 'familiar/v1/team/' + params.slug)
     return {
       member: response.data
+    }
+  },
+  methods: {
+    nextPage () {
+      this.insightsPage++
+      this.fetchMoreInsights()
+    },
+    async fetchMoreInsights() {
+      let response = await Axios.get(this.hostname + 'familiar/v1/insights/user/' + this.member.slug + '?posts_per_page=' + this.insightsPerPage + '&page=' + this.insightsPage)
+      this.relatedInsights = this.relatedInsights.concat(response.data.data)
     }
   }
 }

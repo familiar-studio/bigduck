@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="">
     <div class="img-hero" :style=" { backgroundImage: 'url(' + caseStudy.acf.hero_image.url + ')' }">
       <figcaption class="figure-caption">{{caseStudy.acf.hero_image.caption}}</figcaption>
     </div>
@@ -15,7 +15,7 @@
                 <nuxt-link class="badge badge-default underline-change overview-link" :to="{name: 'work'}">Work</nuxt-link>
                 <div class="badge badge-default" v-html="caseStudy.acf.client_name"></div>
               </div>
-  
+
               <h1>{{ caseStudy.title.rendered }}</h1>
               <div class="badge-group" v-if="topics">
                 <div class="badge badge-default" v-for="topic in caseStudy.topic">
@@ -27,12 +27,12 @@
                   <div v-html="sectorsIndexedById[sector].name"></div>
                 </div>
               </div>
-  
+
               <div class="row cs-intro">
                 <div class="col-lg-9">
                   <h5 v-html="caseStudy.acf.introduction" class="mb-4"></h5>
                   <div v-html="caseStudy.acf.article_text"></div>
-  
+
                 </div>
                 <div class="col-lg-3">
                   <aside>
@@ -47,36 +47,36 @@
                 </div>
               </div>
             </article>
-  
+
             <div v-for="(block, index) in caseStudy.acf.body">
-  
+
               <!-- TEXT  -->
               <div v-if="block.acf_fc_layout == 'text'" class="cs-block-text">
                 <h2 class="mb-3 mt-5" v-html="block.heading"></h2>
                 <div v-html="block.text"></div>
               </div>
-  
+
               <!-- GALLERY  -->
               <div v-if="block.acf_fc_layout == 'gallery'" class="cs-block-gallery break-container">
                 <div class="container">
                   <flickity :images="block.gallery"></flickity>
                 </div>
               </div>
-  
+
               <!-- CALLOUT  -->
               <div v-if="block.acf_fc_layout == 'callout'" class="cs-block-callout break-container" :style="{ backgroundColor: caseStudy.acf.primary_color }">
                 <div class="row">
-                  <div class="col-md-6 push-md-6 col-img">
+                  <div class="col-md-6 col-img">
                     <div :style=" { backgroundImage: 'url(' + block.image.url + ')' }" class="bg-img"></div>
                   </div>
-                  <div class="col-md-6 pull-md-6 col-text">
+                  <div class="col-md-6 col-text">
                     <h2 v-html="block.headline"></h2>
                     <div v-html="block.text"></div>
                     <a :href="block.website" v-if="block.website" class="btn btn-info" target="_blank">Visit Site</a>
                   </div>
                 </div>
               </div>
-  
+
               <!-- TESTIMONIAL -->
               <div v-if="block.acf_fc_layout == 'testimonial'" class="cs-block-testimonial testimonial break-container">
                 <div class="container">
@@ -93,34 +93,33 @@
                   </div>
                 </div>
               </div>
-  
+
               <!-- FACTOID -->
               <div v-if="block.acf_fc_layout == 'factoid'" class="cs-block-factoid">
                 <h1 class="display-1">{{block.number}}</h1>
                 <h6 v-html="block.description"></h6>
               </div>
             </div>
-  
+
             <div v-if="relatedService" class="my-5">
               <h2 class="mb-3">Related Service</h2>
               <Service :entry="relatedService"></Service>
             </div>
-  
-            <div class="callout-fullwidth text-white color bg-change work-cta">
-              <div class="container">
-                <div class="row">
-                  <div class="col-lg-10 offset-lg-1">
-                    <h2 class="mb-4">{{ caseStudy.acf.cta_text }}</h2>
-                    <GravityForm :formId="formId" :showAll="true"></GravityForm>
-                  </div>
-                </div>
-              </div>
-            </div>
-  
+
           </div>
-  
         </div>
       </div>
+      <div class="callout-fullwidth text-white color bg-change work-cta">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-10 offset-lg-1">
+              <h2 class="mb-4">{{ caseStudy.acf.cta_text }}</h2>
+              <GravityForm :formId="formId" :showAll="true"></GravityForm>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
@@ -135,13 +134,45 @@ import flickity from '~components/Flickity.vue'
 
 export default {
   name: 'case_study',
-  head() {
-    return {
-      title: this.caseStudy.title.rendered,
-      meta: [
-        { description: this.caseStudy.client_name },
-        { 'og:image': this.caseStudy.acf.hero_image.url }
-      ]
+  head () {
+    if (this.caseStudy) {
+      return {
+        title: this.caseStudy.title.rendered,
+        meta: [
+          {
+            'property': 'og:title',
+            'content': this.caseStudy.title.rendered
+          },
+          {
+            'property': 'twitter:title',
+            'content': this.caseStudy.title.rendered
+          },
+          {
+            'property': 'description',
+            'content': this.caseStudy.acf.introduction
+          },
+          {
+            'property': 'og:description',
+            'content': this.caseStudy.acf.introduction
+          },
+          {
+            'property': 'twitter:description',
+            'content': this.caseStudy.acf.introduction
+          },
+          {
+            'property': 'image',
+            'content': this.caseStudy.acf.hero_image.url
+          },
+          {
+            'property': 'og:image:url',
+            'content': this.caseStudy.acf.hero_image.url
+          },
+          {
+            'property': 'twitter:image',
+            'content': this.caseStudy.acf.hero_image.url
+          }
+        ]
+      }
     }
   },
   data() {

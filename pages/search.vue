@@ -65,13 +65,44 @@ export default {
     }
   },
   head() {
-    return {
-      title: 'Search',
-      meta: [
-        { description: '' },
-        { 'og:image': 'http://bigduck-wordpress.familiar.studio/wp-content/uploads/2017/07/logo.svg' }
-      ]
-    }
+
+      return {
+        title: 'Search',
+        meta: [
+          {
+            'property': 'og:title',
+            'content': 'Search'
+          },
+          {
+            'property': 'twitter:title',
+            'content': 'Search'
+          },
+          {
+            'property': 'description',
+            'content': 'Find anything on our site.'
+          },
+          {
+            'property': 'og:description',
+            'content': 'Find anything on our site.'
+          },
+          {
+            'property': 'twitter:description',
+            'content': 'Find anything on our site.'
+          },
+          {
+            'property': 'image',
+            'content': 'http://bigduck-wordpress.familiar.studio/wp-content/uploads/2017/07/logo.svg'
+          },
+          {
+            'property': 'og:image:url',
+            'content': 'http://bigduck-wordpress.familiar.studio/wp-content/uploads/2017/07/logo.svg'
+          },
+          {
+            'property': 'twitter:image',
+            'content': 'http://bigduck-wordpress.familiar.studio/wp-content/uploads/2017/07/logo.svg'
+          }
+        ]
+      }
   },
   async asyncData({ route, store }) {
     // let response = await Axios.get(store.getters.hostname + 'wp/v2/bd_insight?filter[s]=' + route.query.query)

@@ -2,8 +2,8 @@
   margin-bottom: 2rem;
   min-height: 310px;
 
-  margin-left: -($grid-gutter-width-base/2);
-  margin-right: -($grid-gutter-width-base/2);
+  margin-left: -($grid-gutter-width-base);
+  margin-right: -($grid-gutter-width-base);
   @include media-breakpoint-up(sm) {
     margin: 0;
     margin-bottom: 6rem;

@@ -1,6 +1,6 @@
 <template>
   <div>
-  
+
     <div class="img-hero" :style=" { backgroundImage: 'url(' + servicesPage.acf.featured_image.url + ')' }">
       <figcaption class="figure-caption">{{servicesPage.acf.featured_image.caption}}</figcaption>
     </div>
@@ -22,19 +22,17 @@
             </InlineCallout>
           </div>
           <div class="testimonial break-container">
-            <div class="container">
-              <div class="row">
-                <div class="col-md-8">
-                  <blockquote>
-                    <h3 v-html="servicesPage.acf.quote"></h3>
-                    <footer class="label">&mdash;
-                      <span v-html="servicesPage.acf.credit"></span>
-                    </footer>
-                  </blockquote>
-                </div>
-                <div v-if="servicesPage.acf.image" class="col-md-4">
-                  <img :src="servicesPage.acf.image.sizes.cropped_400_square" alt="block.image.name" class="img-fluid">
-                </div>
+            <div class="row">
+              <div class="col-md-8">
+                <blockquote>
+                  <h3 v-html="servicesPage.acf.quote"></h3>
+                  <footer class="label">&mdash;
+                    <span v-html="servicesPage.acf.credit"></span>
+                  </footer>
+                </blockquote>
+              </div>
+              <div v-if="servicesPage.acf.image" class="col-md-4">
+                <img :src="servicesPage.acf.image.sizes.cropped_400_square" alt="block.image.name" class="img-fluid">
               </div>
             </div>
           </div>
@@ -55,13 +53,45 @@ import Service from '~components/Service.vue'
 export default {
   name: 'services',
   components: { Chat, InlineCallout, Service },
-  head() {
-    return {
-      title: 'Services',
-      meta: [
-        { description: this.servicesPage.acf.services_heading },
-        { 'og:image': this.servicesPage.acf.featured_image.url }
-      ]
+  head () {
+    if (this.servicesPage) {
+      return {
+        title: 'Services',
+        meta: [
+          {
+            'property': 'og:title',
+            'content': 'Services'
+          },
+          {
+            'property': 'twitter:title',
+            'content': 'Services'
+          },
+          {
+            'property': 'description',
+            'content': this.servicesPage.acf.text
+          },
+          {
+            'property': 'og:description',
+            'content': this.servicesPage.acf.text
+          },
+          {
+            'property': 'twitter:description',
+            'content': this.servicesPage.acf.text
+          },
+          {
+            'property': 'image',
+            'content': this.servicesPage.acf.featured_image.url
+          },
+          {
+            'property': 'og:image:url',
+            'content': this.servicesPage.acf.featured_image.url
+          },
+          {
+            'property': 'twitter:image',
+            'content': this.servicesPage.acf.featured_image.url
+          }
+        ]
+      }
     }
   },
   computed: {

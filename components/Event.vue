@@ -34,11 +34,13 @@
                 <div v-for="team_member in relatedTeamMembers" class="media">
                   <!-- <div class="media" > -->
                     <img v-if="team_member.headshot" :src="team_member.headshot.sizes.thumbnail" class="round author-img mr-2">
+                    <img v-else :src="backupAuthorImage" class="round author-img mr-2">
                     <h6 v-if="team_member.member" class="align-self-center mb-0">{{ team_member.member.display_name}}</h6>
                     <h6 v-else-if="team_member.display_name" class="align-self-center mb-0">{{ team_member.display_name }}</h6>
                   <!-- </div> -->
                 </div>
-                <div class="media author-no-img" v-for="guest in entry.acf.guest_speakers">
+                <div class="media" v-for="guest in entry.acf.guest_speakers">
+                  <img :src="backupAuthorImage" class="round author-img mr-2">
                   <h6 class="align-self-center mb-0">{{guest.speaker_name}}</h6>
                 </div>
               </div>
@@ -66,7 +68,7 @@ export default {
   name: 'featured',
   props: ['entry', 'index', 'relatedTeamMembers', 'firstBlock'],
   computed: {
-    ...mapState(['topics', 'eventCategories']),
+    ...mapState(['backupImages', 'topics', 'eventCategories']),
     ...mapGetters(['getTopicsIndexedById', 'getEventCategoriesIndexedById']),
     blockClass() {
       if (this.index === 0 && this.firstBlock) {
@@ -91,6 +93,9 @@ export default {
     },
     date() {
       return dateFns.format(this.entry.acf.start_time, 'D')
+    },
+    backupAuthorImage() {
+      return this.backupImages['author']
     }
   }
 }

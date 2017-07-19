@@ -2,7 +2,10 @@
   <div v-once class="block-overlap" :class="blockClass" :type="types && entry.type && firstType ? getTypesIndexedById[firstType].slug : ''">
     <nuxt-link :to="{ name: 'insights-slug', params: { slug: slug }}" :key="entry.id">
       <div class="col-image">
-        <div :style="{ 'background-image': 'url(' + entry.acf.featured_image+ ')' }" class="featured-image"></div>
+        <div v-if="entry.acf.featured_image" :style="{ 'background-image': 'url(' + entry.acf.featured_image+ ')' }" class="featured-image"></div>
+        <div class="featured-image" v-else :style="{ 'background-image': 'url(' + backupImage + ')' }">
+
+        </div>
       </div>
       <div class="col-text">
         <div class="card">
@@ -19,11 +22,11 @@
 
               <div class="badge badge-default">
                 <span v-if="types && firstType">
-                  <span v-if="entry.calculated_reading_time && entry.calculated_reading_time.data && getTypesIndexedById[entry.type[0]].verb == 'Read'">
+                  <span v-if="entry.calculated_reading_time && entry.calculated_reading_time.data && getTypesIndexedById[firstType].verb == 'Read'">
                     {{entry.calculated_reading_time.data}} Read
                   </span>
-                  <span v-if="getTypesIndexedById[entry.type[0]].verb !== 'Read'">
-                    {{entry.acf.time}} {{entry.acf.time_interval}} {{ getTypesIndexedById[entry.type[0]].verb }}
+                  <span v-if="getTypesIndexedById[firstType].verb !== 'Read'">
+                    {{entry.acf.time}} {{entry.acf.time_interval}} {{ getTypesIndexedById[firstType].verb }}
                   </span>
 
                 </span>
@@ -47,11 +50,13 @@
 
                   <div v-for="author in entry.authors" v-if="entry.authors.length > 0" class="media">
                     <img v-if="author.meta.headshot.sizes" :src="author.meta.headshot.sizes.thumbnail" class="round author-img mr-2">
+                    <img v-else :src="backupImages['author']" class="round author-img mr-2">
                     <h6 class="align-self-center mb-0">
                       <span v-html="author.display_name"></span>
                     </h6>
                   </div>
-                  <div v-if="entry.acf.guest_author_name" class="media author-no-img">
+                  <div v-if="entry.acf.guest_author_name" class="media ">
+                    <img :src="backupImages['author']" class="round author-img mr-2">
                     <h6 class="align-self-center mb-0">
                       <span>{{entry.acf.guest_author_name}}</span>
                     </h6>
@@ -60,17 +65,20 @@
               <div v-else class="author-listing">
                     <div v-if="entry.acf.author.length > 0" class="media" v-for="author in entry.acf.author">
                     <img v-if="entry.author_headshots && entry.author_headshots[author['user_nicename']] && entry.author_headshots[author['user_nicename']].sizes" :src="entry.author_headshots[author['user_nicename']].sizes.thumbnail" class="round author-img mr-2">
+                    <img v-else :src="backupImages['author']" class="round author-img mr-2">
                     <h6 class="align-self-center mb-0">
                       <span v-html="author.display_name"></span>
                     </h6>
                   </div>
-              <div v-if="entry.acf.guest_author_name" class="media author-no-img">
+              <div v-if="entry.acf.guest_author_name" class="media">
+                <img :src="backupImages['author']" class="round author-img mr-2">
                 <h6 class="align-self-center mb-0">
                   <span>{{entry.acf.guest_author_name}}</span>
                 </h6>
               </div>
               </div>
-              <div v-if="!entry.acf.guest_author_name && entry.acf.author.length < 1" class="media author-no-img">
+              <div v-if="!entry.acf.guest_author_name && entry.acf.author.length < 1" class="media">
+                <img :src="backupImages['author']" class="round author-img mr-2">
                 <h6 class="align-self-center mb-0">
                   <span>Big Duck</span>
                 </h6>
@@ -92,8 +100,13 @@ export default {
   name: 'post',
   props: ['entry', 'categories', 'index', 'firstBlock'],
   computed: {
-    ...mapState(['types', 'topics']),
+    ...mapState(['backupImages', 'types', 'topics']),
     ...mapGetters(['getTopicsIndexedById', 'getTypesIndexedById']),
+    backupImage() {
+      let images = this.backupImages['insights']
+      let id = this.entry.ID || this.entry.id
+      return images[id % images.length].backup_insight_image
+    },
     firstType () {
       return (this.entry.type[0] && this.entry.type[0].term_id) ? parseInt(this.entry.type[0].term_id) : this.entry.type[0]
     },

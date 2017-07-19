@@ -65,8 +65,8 @@
   display: flex;
   flex-direction: column;
   margin-bottom: 2rem;
-  margin-left: -$grid-gutter-width-base/2;
-  margin-right: -$grid-gutter-width-base/2;
+  margin-left: -$grid-gutter-width-base;
+  margin-right: -$grid-gutter-width-base;
   @include media-breakpoint-up(md) {
     margin-left: 0;
     margin-right: 0;

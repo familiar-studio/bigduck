@@ -39,12 +39,13 @@
                   <div v-if="event.related_team_members.data || event.acf.guest_speakers.length > 0" class="author-listing">
                     <div class="media speaker mt-3" v-if="event.related_team_members.data" v-for="team_member in event.related_team_members.data">
                       <img v-if="team_member.headshot" :src="team_member.headshot.sizes.thumbnail" class="round author-img mr-2">
+                      <img v-else :src="backupImages['author']" class="round author-img mr-2">
                       <h6 class="align-self-center mb-0">
                         <nuxt-link :to="'/about/' + team_member.member.user_nicename">{{ team_member.member.display_name}}</nuxt-link>
                       </h6>
                     </div>
                     <div class="speaker media mt-3" v-for="speaker in event.acf.guest_speakers" v-if="event.acf.guest_speakers.length > 0">
-                      <!-- <img v-if="team_member.headshot" :src="team_member.headshot.sizes.thumbnail" class="round author-img mr-2"> -->
+                      <img :src="backupImages['author']" class="round author-img mr-2">
                       <h6 class="align-self-center mb-0">{{ speaker.speaker_name }}</h6>
                     </div>
                   </div>
@@ -160,13 +161,44 @@ export default {
       contentRefreshed: false
     }
   },
-  head() {
+  head () {
     if (this.event) {
+
       return {
         title: this.event.title.rendered,
         meta: [
-          { description: this.event.acf.subtitle },
-          { 'og:image': this.event.acf.featured_image.url }
+          {
+            'property': 'og:title',
+            'content': this.event.title.rendered
+          },
+          {
+            'property': 'twitter:title',
+            'content': this.event.title.rendered
+          },
+          {
+            'property': 'description',
+            'content': this.event.acf.subtitle
+          },
+          {
+            'property': 'og:description',
+            'content': this.event.acf.subtitle
+          },
+          {
+            'property': 'twitter:description',
+            'content': this.event.acf.subtitle
+          },
+          {
+            'property': 'image',
+            'content': this.event.acf.featured_image.url
+          },
+          {
+            'property': 'og:image:url',
+            'content': this.event.acf.featured_image.url
+          },
+          {
+            'property': 'twitter:image',
+            'content': this.event.acf.featured_image.url
+          }
         ]
       }
     }
@@ -195,7 +227,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['callouts', 'topics']),
+    ...mapState(['backupImages', 'callouts', 'topics']),
     ...mapGetters(['hostname', 'getTopicsIndexedById', 'getEventCategoriesIndexedById']),
     eventRegistrationText() {
       return this.$store.state.menuCallouts.event_registration_text

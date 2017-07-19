@@ -1,18 +1,18 @@
 <template>
   <div class="callout-fullwidth bg-inverse text-white" v-if="activeInline && activeInline.acf">
-    <div class="container">
+    <div class="">
   
       <h2 v-html="activeInline.acf.intro"></h2>
       <p>
         {{ activeInline.acf.body }}
       </p>
-  
       <a href="#" v-if="!formVisible && activeInline.acf.cta_form" @click.prevent="toggleForm()" class="btn btn-primary">
         Sign up
       </a>
   
       <div v-if="formVisible && activeInline.acf.cta_form">
         <GravityForm :formId="activeInline.acf.cta_form"></GravityForm>
+  
       </div>
   
     </div>

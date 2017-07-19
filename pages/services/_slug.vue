@@ -20,16 +20,25 @@
           </div>
           <h2 v-if="block.acf_fc_layout == 'heading'" class="mt-5" v-html="block.heading"></h2>
           <div v-if="block.acf_fc_layout == 'faq' && block.questions.length > 0">
-            <ul class="list-unstyled">
-              <li v-for="question in block.questions">
-                <h2>{{ question.question }}</h2>
-                <div class="" v-html="question.answer">
+            <FAQ :questions="block.questions"></FAQ>
+          </div>
 
-                </div>
-              </li>
-            </ul>
+          <!-- TESTIMONIAL -->
+          <div v-if="block.acf_fc_layout == 'testimonial'" class="cs-block-testimonial testimonial break-container">
+            <div class="row">
+              <div class="col-md-8">
+                <blockquote>
+                  <h3 v-html="block.quote"></h3>
+                  <footer class="label">&mdash; {{ block.credit }}</footer>
+                </blockquote>
+              </div>
+              <div v-if="block.image" class="col-md-4">
+                <img :src="block.image.sizes.cropped_400_square" alt="block.image.name" class="img-fluid">
+              </div>
+            </div>
           </div>
         </div>
+
         <div class="container mt-5" v-if="relatedCaseStudies && relatedCaseStudies.length > 0">
           <h2>Related Case Studies</h2>
           <Work :work="relatedCaseStudies"></Work>
@@ -53,19 +62,52 @@
 <script>
 import Axios from 'axios'
 import ColorCallout from '~components/ColorCallout.vue'
+import FAQ from '~components/FAQ.vue'
 import GravityForm from '~components/GravityForm.vue'
 import Work from '~components/Work.vue'
 import Post from '~components/Post.vue'
 
 export default {
   name: 'service',
-  head() {
-    return {
-      title: this.service.title.rendered,
-      meta: [
-        { description: this.service.acf.introduction },
-        { 'og:image': this.service.acf.featured_image.url }
-      ]
+  head () {
+    if (this.service) {
+      return {
+        title: this.service.title.rendered,
+        meta: [
+          {
+            'property': 'og:title',
+            'content': this.service.title.rendered
+          },
+          {
+            'property': 'twitter:title',
+            'content': this.service.title.rendered
+          },
+          {
+            'property': 'description',
+            'content': this.service.acf.introduction
+          },
+          {
+            'property': 'og:description',
+            'content': this.service.acf.introduction
+          },
+          {
+            'property': 'twitter:description',
+            'content': this.service.acf.introduction
+          },
+          {
+            'property': 'image',
+            'content': this.service.acf.featured_image.url
+          },
+          {
+            'property': 'og:image:url',
+            'content': this.service.acf.featured_image.url
+          },
+          {
+            'property': 'twitter:image',
+            'content': this.service.acf.featured_image.url
+          }
+        ]
+      }
     }
   },
   data() {
@@ -96,12 +138,12 @@ export default {
     }
   },
   components: {
-    Work, Post, GravityForm
+    Work, Post, GravityForm, FAQ
   },
   async created() {
     let relatedWorkIds = this.service.acf.related_case_studies
     if (relatedWorkIds && typeof relatedWorkIds !== 'undefined') {
-      response = await Axios.get(this.$store.getters['hostname'] + 'wp/v2/bd_case_study?' + relatedWorkIds.map((obj) => 'include[]=' + obj.ID).join('&'))
+      let response = await Axios.get(this.$store.getters['hostname'] + 'wp/v2/bd_case_study?' + relatedWorkIds.map((obj) => 'include[]=' + obj.ID).join('&'))
       this.relatedCaseStudies = response.data
     }
   },

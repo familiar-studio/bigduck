@@ -30,14 +30,19 @@
 }
 .cs-block-callout{
   margin-top: 3rem;
-  // margin-bottom: 3rem;
   align-items: center;
+  @include media-breakpoint-up(lg){
+    min-height: 700px;
+  }
   h2, p{
     color: $white;
     -webkit-font-smoothing: antialiased;
   }
   .col-img{
     min-height: 400px;
+    @include media-breakpoint-up(md){
+      order:2;
+    }
     @include media-breakpoint-up(lg){
       min-height: 700px;
     }
@@ -48,27 +53,26 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    @include media-breakpoint-up(sm){
+      // padding-left: 2rem;
+      // margin-left: calc(50% - 50vw);
+      // padding-left: 100vw;
+      // padding-left: 50vw;
+      // padding-left: 0;
+      // margin-left: 0;
+    }
+    @include media-breakpoint-up(md){
+      order:1;
+      // padding-left: 5rem;
+    }
   }
   .bg-img{
     height: 100%;
-    padding-left: 2rem;
-    padding-right: 2rem;
-    margin-right: -2rem;
-    margin-left: -2rem;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
     @include media-breakpoint-up(md){
-      padding-right: 250px;
-      margin-right: -250px;
-      padding-left: 0;
-      margin-left: 0;
-    }
-    @include media-breakpoint-up(xl){
-      margin-left: 2rem;
-      padding-right: 350px;
-      margin-right: -350px;
-    }
-    @media (min-width:1600px){
-      padding-right: 500px;
-      margin-right: -500px;
+      margin-left:0;
+      margin-right: calc(100% - 50vw + 15px); //calc for image to just bust out on 1 side
     }
   }
 }

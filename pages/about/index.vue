@@ -50,7 +50,7 @@
                 <div v-html="page.acf.we_believe_body"></div>
                 <h1>{{ page.our_clients_headline }}</h1>
               </article>
-  
+
               <article class="values bg-change break-container">
                 <div class="container">
                   <h1 id="values">{{ page.acf.values_headline }}</h1>
@@ -68,7 +68,7 @@
                   </ul>
                 </div>
               </article>
-  
+
               <article v-if="openHouse" class="openHouse my-5">
                 <h1 id="open-house">Open House</h1>
                 <div v-html="page.acf.open_house_body"></div>
@@ -76,11 +76,11 @@
                   <Event :entry="event" :index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
                 </div>
               </article>
-  
+
               <article class="pb-5" v-if="sectorsByIndex" id="clients">
                 <h1 id="our-clients" v-html="page.acf.our_clients_headline"></h1>
                 <div v-html="page.acf.clients_body" class="mb-3"></div>
-  
+
                 <div class="collapse-block" v-for="(client, index) in page.acf.clients">
                   <div class="" v-if="client.client_category">
                     <div class="media" :class="{ 'active': openCategory === client.client_category }">
@@ -100,17 +100,17 @@
                   </div>
                 </div>
               </article>
-  
+
               <article class="break-container bg-white team py-5">
                 <div class="container">
                   <h1 id="team">{{page.acf.team_headline}}</h1>
                   <div v-html="page.acf.team_body" class="mb-4"></div>
-  
+
                   <div class="row">
                     <div v-for="member in page.acf.team" class="col-sm-6 col-lg-4">
                       <nuxt-link :key="member.id" :to=" {name: 'about-slug', params: {slug: member.team_member.user_nicename}}" class="team-member">
                         <div class="col-image">
-  
+
                           <div :style="{ 'background-image': 'url(' + teamMemberBySlug(member.team_member.user_nicename).headshot.url + ')' }" class="featured-image"></div>
                         </div>
                         <div>
@@ -124,7 +124,7 @@
                   </div>
                 </div>
               </article>
-  
+
               <article id="jobs" class="py-5">
                 <h1>{{ page.acf.jobs_headline }}</h1>
                 <div v-html="page.acf.jobs_body" class="mb-3"></div>
@@ -149,7 +149,7 @@
                   </div>
                 </div>
               </article>
-  
+
             </div>
           </div>
         </div>
@@ -171,6 +171,47 @@ export default {
   components: {
     Event,
     Chat
+  },
+  head () {
+    if (this.page) {
+      return {
+        title: this.page.acf.we_believe_headline,
+        meta: [
+          {
+            'property': 'og:title',
+            'content': this.page.acf.we_believe_headline
+          },
+          {
+            'property': 'twitter:title',
+            'content': this.page.acf.we_believe_headline
+          },
+          {
+            'property': 'description',
+            'content': this.page.acf.we_believe_body
+          },
+          {
+            'property': 'og:description',
+            'content': this.page.acf.we_believe_body
+          },
+          {
+            'property': 'twitter:description',
+            'content': this.page.acf.we_believe_body
+          },
+          {
+            'property': 'image',
+            'content': this.page.acf.featured_image.url
+          },
+          {
+            'property': 'og:image:url',
+            'content': this.page.acf.featured_image.url
+          },
+          {
+            'property': 'twitter:image',
+            'content': this.page.acf.featured_image.url
+          }
+        ]
+      }
+    }
   },
   data() {
     return {
@@ -234,15 +275,6 @@ export default {
       return this.team.filter((teamMember) => {
         return teamMember.slug === slug
       })[0]
-    }
-  },
-  head() {
-    return {
-      title: 'About',
-      meta: [
-        { description: this.page.acf.we_believe_body },
-        { 'og:image': this.page.acf.featured_image.url }
-      ]
     }
   }
 }

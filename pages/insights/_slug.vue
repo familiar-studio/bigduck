@@ -4,13 +4,16 @@
     <div class="img-hero" v-if="insight && insight.acf.featured_image" :style=" { backgroundImage: 'url(' + insight.acf.featured_image + ')' }">
       <figcaption class="figure-caption">{{insight.acf.featured_image.caption}}</figcaption>
     </div>
+    <div class="img-hero" v-else :style=" { backgroundImage: 'url(' + backupImage + ')' }">
+      <figcaption class="figure-caption"></figcaption>
+    </div>
     <div>
       <div class="row">
         <div class="col-lg-1 hidden-md-down">
           <Share></Share>
         </div>
         <div class="col-lg-10">
-          <div class="container" :class="{'overlap':insight.acf.featured_image}">
+          <div class="container overlap">
             <article class="main">
               <div class="badge-group">
                 <nuxt-link class="badge badge-default underline-change overview-link" :to="{name: 'insights'}">
@@ -26,7 +29,7 @@
                       {{insight.calculated_reading_time.data}} Read
                     </div>
                     <div v-if="getTypesIndexedById[insight.type[0]].verb !== 'Read'">
-                      {{insight.acf.time}} {{insight.acf.time_interval}} {{ getTypesIndexedById[entry.type[0]].verb }}
+                      {{insight.acf.time}} {{insight.acf.time_interval}} {{ getTypesIndexedById[insight.type[0]].verb }}
                     </div>
                   </span>
                 </div>
@@ -40,13 +43,18 @@
               <div class="author-listing" v-if="insight.acf.author.length > 0">
                 <div class="badge badge-default mb-3" v-if="insight.author_headshots" v-for="author in insight.acf.author">
                   <img v-if="insight.author_headshots[author.user_nicename].sizes" :src="insight.author_headshots[author.user_nicename].sizes.thumbnail" class="round author-img mr-2">
+                  <img v-else :src="backupImages['author']" class="round author-img mr-2">
                   <div>
                     <nuxt-link :to="'/about/' + author.user_nicename">{{author.display_name}}</nuxt-link>
                   </div>
                 </div>
   
                 <div>
-                  <div v-if="insight.acf.guest_author_name" class="badge badge-default mb-3 author-no-img" v-html="insight.acf.guest_author_name">
+                  <div v-if="insight.acf.guest_author_name" class="badge badge-default mb-3">
+                    <img :src="backupImages['author']" class="round author-img mr-2">
+                    <div>
+                      {{insight.acf.guest_author_name}}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -85,70 +93,70 @@
   
               </div>
             </div>
+            <<<<<<< HEAD <article class="mb-5 container">
   
-            <article class="mb-5 container">
+              =======
   
-              <div v-if="insight.acf.author.length > 0" v-for="(author, index) in insight.acf.author">
-                <div class="author-bio">
-                  <div class="row">
-                    <div class="col-md-2 author-bio-pic">
-                      <img class="round" v-if="insight.author_headshots[author.user_nicename].sizes" :src="insight.author_headshots[author.user_nicename].sizes.thumbnail" alt="" />
-                    </div>
-                    <div class="col-md-10 author-bio-text" v-if="authorMetaById">
-                      <h3 v-if="authorMetaById[author.ID]">
-                        {{author.display_name}} is {{prependIndefiniteArticle(authorMetaById[author.ID].acf.job_title)}} at Big Duck
-                      </h3>
-                      <div v-html="authorMetaById[author.ID].acf.short_bio">
+              <article class="mb-5">
+  
+                >>>>>>> ced892722795be58f6ed030029bb8c9bd3fa1e63
+                <div v-if="insight.acf.author.length > 0" v-for="(author, index) in insight.acf.author">
+                  <div class="author-bio">
+                    <div class="row">
+                      <div class="col-md-2 author-bio-pic">
+                        <img class="round" v-if="insight.author_headshots[author.user_nicename].sizes" :src="insight.author_headshots[author.user_nicename].sizes.thumbnail" alt="" />
                       </div>
-                      <nuxt-link class="btn btn-primary" :to="{name: 'about-slug', params: { slug: author.user_nicename}}">
-                        More about {{author.user_firstname}}
-                      </nuxt-link>
-                    </div>
+                      <div class="col-md-10 author-bio-text" v-if="authorMetaById">
+                        <h3 v-if="authorMetaById[author.ID]">
+                          {{author.display_name}} is {{prependIndefiniteArticle(authorMetaById[author.ID].acf.job_title)}} at Big Duck
+                        </h3>
+                        <div v-html="authorMetaById[author.ID].acf.short_bio">
+                        </div>
+                        <nuxt-link class="btn btn-primary" :to="{name: 'about-slug', params: { slug: author.user_nicename}}">
+                          More about {{author.user_firstname}}
+                        </nuxt-link>
+                      </div>
   
+                    </div>
                   </div>
                 </div>
-              </div>
-            </article>
+              </article>
   
-            <div class="mb-5" v-if="relatedCaseStudies">
-              <h2>Related Case Studies</h2>
-              <div class="row">
-                <div v-for="case_study in relatedCaseStudies" class="col-md-6">
-                  <nuxt-link :to="{name: 'work-slug', params: {slug: case_study.slug}}" :key="case_study.ID">
-                    <!-- <div class="col-image"> -->
-                    <img v-if="case_study.acf.hero_image" :src="case_study.acf.hero_image.sizes.large" style="width:100%;">
-                    <!-- </div> -->
-                    <div class="col-text">
-                      <div class="card two-up-card mx-4">
+              <div class="mb-5" v-if="relatedCaseStudies">
+                <h2>Related Case Studies</h2>
+                <div class="row">
+                  <div v-for="case_study in relatedCaseStudies" class="col-md-6">
+                    <nuxt-link :to="{name: 'work-slug', params: {slug: case_study.slug}}" :key="case_study.ID" class="block-work-small">
+                      <div v-if="case_study.acf.hero_image" class="img-wrapper">
+                        <img :src="case_study.acf.hero_image.sizes.cropped_rectangle" class="img-fluid" />
+                      </div>
+                      <div class="card">
                         <div class="card-block">
-                          <div class="card-header">
-  
-                            <div class="badge-group" v-if="topics && types">
-                              <div class="badge badge-default" v-for="topic in case_study.topic">
-                                <div v-html="getTopicsIndexedById[topic].icon"></div>
-                                <div v-html="getTopicsIndexedById[topic].name"></div>
-                              </div>
+                          <div class="badge-group" v-if="topics && types">
+                            <div class="badge badge-default" v-for="topic in case_study.topic">
+                              <div v-html="getTopicsIndexedById[topic].icon" class="img-fluid"></div>
+                              <div v-html="getTopicsIndexedById[topic].name"></div>
                             </div>
                           </div>
-                          <h3 class="card-title">{{ case_study.title.rendered }}</h3>
+                          <h3 class="card-title">
+                            <span class="underline-change hover-color">{{ case_study.acf.client_name }}</span>
+                          </h3>
                           <div class="card-text" v-html="case_study.acf.short_description"></div>
                         </div>
                       </div>
-                    </div>
-                  </nuxt-link>
-  
+                    </nuxt-link>
+                  </div>
                 </div>
               </div>
-            </div>
   
-            <div class="mb-5" v-if="relatedInsights">
-              <h2>Related Insights</h2>
-              <div v-if="relatedInsights">
-                <div v-for="(insight, index) in relatedInsights">
-                  <Post :entry="insight" :index="index"></Post>
+              <div class="mb-5" v-if="relatedInsights">
+                <h2>Related Insights</h2>
+                <div v-if="relatedInsights">
+                  <div v-for="(insight, index) in relatedInsights">
+                    <Post :entry="insight" :index="index"></Post>
+                  </div>
                 </div>
               </div>
-            </div>
           </div>
         </div>
       </div>
@@ -196,17 +204,62 @@ export default {
     return data
   },
   head() {
-    return {
-      title: this.insight && this.insight.title.rendered ? this.insight.title.rendered : null,
-      meta: [
-        { description: 'Overview' },
-        { 'og:image': this.insight ? this.insight.acf.featured_image : 'http://bigduck-wordpress.familiar.studio/wp-content/uploads/2017/07/logo.svg' }
-      ]
+    if (this.insight) {
+      return {
+
+        title: this.insight.title.rendered,
+        meta: [
+          {
+            'property': 'og:title',
+            'content': this.insight.title.rendered
+          },
+          {
+            'property': 'twitter:title',
+            'content': this.insight.title.rendered
+          },
+          {
+            'property': 'description',
+            'content': this.firstTextBlock.text
+          },
+          {
+            'property': 'og:description',
+            'content': this.firstTextBlock.text
+          },
+          {
+            'property': 'twitter:description',
+            'content': this.firstTextBlock.text
+          },
+          {
+            'property': 'image',
+            'content': this.insight.acf.featured_image
+          },
+          {
+            'property': 'og:image:url',
+            'content': this.insight.acf.featured_image
+          },
+          {
+            'property': 'twitter:image',
+            'content': this.insight.acf.featured_image
+          },
+          {
+            'property': 'og:type',
+            'content': 'article'
+          },
+          {
+            'property': 'twitter:card',
+            'content': 'summary'
+          }
+        ]
+      }
     }
   },
   computed: {
-    ...mapState(['types', 'topics']),
+    ...mapState(['types', 'topics', 'backupImages']),
     ...mapGetters(['hostname', 'getTopicsIndexedById', 'getTypesIndexedById']),
+    backupImage() {
+      let images = this.backupImages['insights']
+      return images[this.insight.id % images.length].backup_insight_image
+    },
     formFilled() {
       let cookies = Cookies.get()
       if (this.insight && cookies) {
@@ -247,6 +300,13 @@ export default {
           authorsById[author.id] = author
         })
         return authorsById
+      }
+    },
+    firstTextBlock() {
+      if (this.insight.body) {
+        return this.insight.acf.body.filter((block) => { return block.acf_fc_layout === 'text' })[0]
+      } else {
+        return this.insight.title.rendered
       }
     }
 

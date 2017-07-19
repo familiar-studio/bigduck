@@ -14,11 +14,11 @@
           <div v-if="insights && insights.length > 0">
           <!-- <ListTransition :previous="previouslyLoadedInsights" :current="insights.length"> -->
           <!-- <transition-group name="fade" appear> -->
-            <div v-for="(insight, index) in insights" :key="insight" :data-index="index">
-              <Post :entry="insight" :firstBlock="true" :index="index"></Post>
-              <transition name="list" appear>
+            <div v-for="(insight, index) in insights" :key="insight" :data-index="index" v-cloak>
+              <Post :entry="insight" :firstBlock="true" :index="index" v-once></Post>
+              <!-- <transition name="list" appear> -->
                 <InlineCallout class="mb-5" v-if="index % 5 == 1 && index < insights.length - 1"></InlineCallout>
-              </transition>
+              <!-- </transition> -->
             </div>
           <!-- </transition-group> -->
           <!-- </ListTransition> -->
@@ -45,12 +45,12 @@
 </template>
 <script>
 
-import Post from '~components/Post.vue'
+import axios from 'axios'
+import Chat from '~components/Chat.vue'
+import FilterList from '~components/FilterList.vue'
 import InlineCallout from '~components/InlineCallout.vue'
 import { mapState, mapGetters } from 'vuex'
-import axios from 'axios'
-import FilterList from '~components/FilterList.vue'
-import Chat from '~components/Chat.vue'
+import Post from '~components/Post.vue'
 
 export default {
   name: 'insights',
@@ -72,20 +72,52 @@ export default {
       previouslyLoadedInsights: 0
     }
   },
-  head() {
+  head () {
+    if (this.insights){
     return {
       title: 'Insights',
       meta: [
-        { description: '' },
-        { 'og:image': 'http://bigduck-wordpress.familiar.studio/wp-content/uploads/2017/07/logo.svg' }
+        {
+          'property': 'og:title',
+          'content': 'Insights'
+        },
+        {
+          'property': 'twitter:title',
+          'content': 'Insights'
+        },
+        {
+          'property': 'description',
+          'content': 'Read more about the results of our work.'
+        },
+        {
+          'property': 'og:description',
+          'content': 'Read more about the results of our work.'
+        },
+        {
+          'property': 'twitter:description',
+          'content': 'Read more about the results of our work.'
+        },
+        {
+          'property': 'image',
+          'content': this.insights[0].acf.featured_image.url
+        },
+        {
+          'property': 'og:image:url',
+          'content': this.insights[0].acf.featured_image.url
+        },
+        {
+          'property': 'twitter:image',
+          'content': this.insights[0].acf.featured_image.url
+        }
       ]
+    }
     }
   },
   components: {
+    Chat,
     FilterList,
-    Post,
     InlineCallout,
-    Chat
+    Post
   },
   computed: {
     ...mapState(['types', 'topics']),
@@ -130,6 +162,8 @@ export default {
       const response = await this.$store.dispatch('fetchByQuery', { isPaged: true, query: query, path: 'wp/v2/bd_insight' })
       this.insights = this.insights.concat(response.data)
     }
+  },
+  created () {
   }
 }
 </script>
