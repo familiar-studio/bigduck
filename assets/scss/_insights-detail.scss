@@ -12,6 +12,9 @@
       @extend .color-change;
     }
   }
+  li {
+    margin-bottom: 1rem;
+  }
 }
 .block-callout {
   margin: 2rem 0;

@@ -1,6 +1,6 @@
  <template>
   <div class="">
-    <div class="row">
+    <div class="row no-gutters">
       <div class="col-lg-3 col-xl-2">
         <div v-if="types && topics" class="filter-bar menu">
           <FilterList label="Topics" taxonomy="topic" :terms="topics" :selected="selectedTopic" v-on:clicked="toggleTaxonomy($event)"></FilterList>

@@ -1,9 +1,9 @@
 .block-overlap {
   margin-bottom: 2rem;
-  min-height: 310px;
+  min-height: 250px;
 
-  margin-left: -($grid-gutter-width-base);
-  margin-right: -($grid-gutter-width-base);
+  margin-left: -($grid-gutter-width-base/2);
+  margin-right: -($grid-gutter-width-base/2);
   @include media-breakpoint-up(sm) {
     margin: 0;
     margin-bottom: 6rem;
@@ -48,7 +48,7 @@
       position: relative;
     }
     @include media-breakpoint-up(md) {
-      min-height: 310px;
+      min-height: 250px;
     }
   }
 

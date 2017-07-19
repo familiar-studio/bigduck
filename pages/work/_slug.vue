@@ -4,13 +4,13 @@
       <figcaption class="figure-caption">{{caseStudy.acf.hero_image.caption}}</figcaption>
     </div>
     <div>
-      <div class="row">
+      <div class="row no-gutters">
         <div class="col-lg-1 hidden-md-down">
           <share></share>
         </div>
         <div class="col-lg-10">
           <div class="container overlap ">
-            <article class="main overflow-x-hidden" id="content">
+            <article class="main" id="content">
               <div class="badge-group">
                 <nuxt-link class="badge badge-default underline-change overview-link" :to="{name: 'work'}">Work</nuxt-link>
                 <div class="badge badge-default" v-html="caseStudy.acf.client_name"></div>
@@ -57,8 +57,8 @@
               </div>
 
               <!-- GALLERY  -->
-              <div v-if="block.acf_fc_layout == 'gallery'" class="cs-block-gallery break-container">
-                <div class="container">
+              <div v-if="block.acf_fc_layout == 'gallery'" class="cs-block-gallery break-container overflow-x-hidden">
+                <div class="">
                   <flickity :images="block.gallery"></flickity>
                 </div>
               </div>
@@ -79,7 +79,7 @@
 
               <!-- TESTIMONIAL -->
               <div v-if="block.acf_fc_layout == 'testimonial'" class="cs-block-testimonial testimonial break-container">
-                <div class="container">
+                <div class="">
                   <div class="row">
                     <div class="col-md-8">
                       <blockquote>

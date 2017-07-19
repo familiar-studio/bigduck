@@ -4,7 +4,7 @@
       <figcaption class="figure-caption">{{event.acf.featured_image.caption}}</figcaption>
     </div>
     <div id="content">
-      <div class="row">
+      <div class="row no-gutters">
         <div class="col-lg-2 hidden-md-down">
           <share></share>
         </div>

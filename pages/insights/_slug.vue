@@ -8,7 +8,7 @@
       <figcaption class="figure-caption"></figcaption>
     </div>
     <div>
-      <div class="row">
+      <div class="row no-gutters">
         <div class="col-lg-1 hidden-md-down">
           <Share></Share>
         </div>
