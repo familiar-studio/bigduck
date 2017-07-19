@@ -1,6 +1,6 @@
 .cs-block-gallery {
   margin-top: 2rem;
-  margin-bottom: 6rem;
+  margin-bottom: 2rem;
   * {
     outline: none;
   }
@@ -16,7 +16,11 @@
 .flickity-viewport {
   width: 100%;
   overflow: visible;
-  height: 300px;
+  height: 210px;
+  margin-bottom: 3rem;
+  @include media-breakpoint-up(sm) {
+    height: 300px;
+  }
   @include media-breakpoint-up(md) {
     height: 400px;
   }
@@ -25,25 +29,27 @@
 .carousel-cell {
   display: inline-block;
   width: auto;
-  height: 300px;
   max-width: calc(100vw - 30px);
-
   margin-right: 1.5rem;
+  height: 210px;
+  @include media-breakpoint-up(sm) {
+    height: 300px;
+  }
   @include media-breakpoint-up(md) {
     height: 400px;
   }
   cursor: zoom-in;
   img {
     max-width: 100%;
-    min-height: 100px;
-    @include media-breakpoint-up(sm) {
-      height: 300px;
-    }
+    height: 100%;
+    // @include media-breakpoint-up(sm) {
+    //   height: 300px;
+    // }
 
     object-fit: cover;
-    @include media-breakpoint-up(md) {
-      height: 400px;
-    }
+    // @include media-breakpoint-up(md) {
+    //   height: 400px;
+    // }
   }
 }
 
@@ -80,8 +86,11 @@
   .arrow {
     fill: white;
   }
-  &:hover {
+  &:hover{
     @extend .bg-change;
+  }
+  &:focus{
+    box-shadow: none;
   }
   &:disabled {
     opacity: .05;

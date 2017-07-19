@@ -1,5 +1,5 @@
 <template>
-  <div class="overflow-x-hidden services-index">
+  <div class="services-index">
     <div class="img-hero" :style=" { backgroundImage: 'url(' + service.acf.featured_image.url + ')' }">
       <figcaption class="figure-caption">{{service.acf.featured_image.caption}}</figcaption>
     </div>
@@ -39,18 +39,16 @@
           </div>
         </div>
 
-        <div class="container mt-5" v-if="relatedCaseStudies && relatedCaseStudies.length > 0">
+        <div class="mt-5" v-if="relatedCaseStudies && relatedCaseStudies.length > 0">
           <h2>Related Case Studies</h2>
           <Work :work="relatedCaseStudies"></Work>
         </div>
 
         <div class="callout-fullwidth text-white color bg-change">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-8 offset-lg-2">
-                <h3>{{ service.acf.cta_text }}</h3>
-                <GravityForm :formId="5" :showAll="true"></GravityForm>
-              </div>
+          <div class="row">
+            <div class="col-lg-10 offset-lg-1">
+              <h2 class="mb-4">{{ service.acf.cta_text }}</h2>
+              <GravityForm :formId="5" :showAll="true" btnType="info"></GravityForm>
             </div>
           </div>
         </div>

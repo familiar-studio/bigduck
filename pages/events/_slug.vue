@@ -4,7 +4,7 @@
       <figcaption class="figure-caption">{{event.acf.featured_image.caption}}</figcaption>
     </div>
     <div id="content">
-      <div class="row">
+      <div class="row no-gutters">
         <div class="col-lg-2 hidden-md-down">
           <share></share>
         </div>
@@ -31,11 +31,11 @@
                     <h4>
                       <span v-html="event.acf.subtitle"></span>
                     </h4>
-  
+
                     <h6 class="mobile-event-date">{{month}} {{date}} {{start_time}}&ndash;{{end_time}}</h6>
                   </div>
                   <div v-html="event.acf.text"></div>
-  
+
                   <div v-if="event.related_team_members.data || event.acf.guest_speakers.length > 0" class="author-listing">
                     <div class="media speaker mt-3" v-if="event.related_team_members.data" v-for="team_member in event.related_team_members.data">
                       <img v-if="team_member.headshot" :src="team_member.headshot.sizes.thumbnail" class="round author-img mr-2">
@@ -74,11 +74,11 @@
                         <h2>{{date}}</h2>
                       </div>
                       <div class="event-time mt-2">
-                        <h6>{{ start_time }}&ndash;{{ end_time }}</h6>
+                        <h6 class="text-center">{{ start_time }}&ndash;{{ end_time }}</h6>
                       </div>
                     </div>
                     <div class="">
-  
+
                       <div v-if="!formFilled && !contentRefreshed">
                         <a :href="event.acf.is_webinar !== 'false' ? '#register' : event.acf.registration_url" class="btn btn-primary my-3 event-registration" v-scroll-to="{ el:'#register'}">
                           Register
@@ -91,23 +91,23 @@
                   </aside>
                 </div>
               </div>
-  
+
             </article>
-  
+
             <div v-if="event.acf.is_webinar" class="form-light" id="register" :class="{'mb-5': !relatedInsights && !relatedEvents}">
-  
+
               <div v-if="!contentRefreshed && !formFilled">
                 <h3>Register for this event</h3>
                 <p>{{ eventRegistrationText }}</p>
               </div>
               <GravityForm v-if="!formFilled" :formId=9 @submitted="refreshContent()" cookiePrefix="event-" :id="event.id" :title="event.title.rendered" :actonId="event.acf.act_on_form_id"></GravityForm>
-  
+
               <div v-if="formFilled || contentRefreshed">
                 <div v-html="event.acf.post_registration_content"></div>
               </div>
-  
+
             </div>
-  
+
             <div v-if="relatedEvents || relatedInsights">
               <h2 class="mb-3 mt-5">Related Events &amp; Insights</h2>
               <div v-if="relatedEvents">

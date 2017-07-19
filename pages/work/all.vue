@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <div class="row">
+    <div class="row no-gutters">
       <div class="col-lg-3 col-xl-2 hidden-md-down">
         <div v-if="topics" class="filter-bar menu">
           <FilterList label="Topics" taxonomy="topic" :terms="topics" :selected="selectedTopic" v-on:clicked="toggleTaxonomy($event)"></FilterList>
@@ -14,8 +14,8 @@
             <h1>Work</h1>
             <Work :work="work" v-if="work.length > 0"></Work>
             <div v-else>
-              There are is currently no work in the
-              <span v-if="selectedTopic">{{getTopicsIndexedById[selectedTopic].name}}</span> topic
+              There is currently no work in
+              <span v-if="selectedTopic">{{getTopicsIndexedById[selectedTopic].name}}</span>
 
             </div>
           </div>

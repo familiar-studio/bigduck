@@ -28,7 +28,7 @@
 
 
     <Featured v-for="(caseStudy, index) in relatedCaseStudies" :work="caseStudy" :index="index" :key="caseStudy"></Featured>
-    <div class="testimonial mb-5">
+    <div class="testimonial break-container mb-5">
       <div class="container">
         <blockquote>
           <h3 v-html="page.acf.testimonial"></h3>
@@ -38,11 +38,11 @@
         </blockquote>
       </div>
     </div>
-    <div class="row">
+    <div class="row no-gutters">
 
       <div class="col-lg-8 offset-lg-2">
         <div class="container">
-          <div v-if="upcomingEvents" class="mt-5">
+          <div v-if="upcomingEvents" class="">
             <h2 class="mb-3">Featured Events</h2>
 
             <div class="" v-for="(event, index) in upcomingEvents">

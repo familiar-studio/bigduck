@@ -4,7 +4,7 @@
     <div class="img-hero" :style=" { backgroundImage: 'url(' + servicesPage.acf.featured_image.url + ')' }">
       <figcaption class="figure-caption">{{servicesPage.acf.featured_image.caption}}</figcaption>
     </div>
-    <div class="row">
+    <div class="row no-gutters">
       <div class="col-lg-1 col-xl-2">
       </div>
       <div class="col-lg-10 col-xl-8">

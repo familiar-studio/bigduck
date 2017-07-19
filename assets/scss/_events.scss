@@ -4,14 +4,14 @@
     h1 {
       margin-bottom: 1rem;
     }
-    .label {
-      @include media-breakpoint-up(xl){
-        margin-left: .5rem;
-      }
-    }
+    // .label {
+    //   @include media-breakpoint-up(xl){
+    //     margin-left: .5rem;
+    //   }
+    // }
     .media{
       @include media-breakpoint-up(sm){
-        align-items: center;
+        // align-items: center;
       }
     }
   }
@@ -41,7 +41,7 @@
   .event-title {
     margin-bottom: 2rem;
     h1 {
-      margin-bottom: 0;
+      margin-bottom: .5rem;
     }
   }
   aside {

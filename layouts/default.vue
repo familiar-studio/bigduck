@@ -7,12 +7,12 @@
             <button @click="toggleNav()" class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
-  
+
             <nuxt-link class="navbar-brand" to="/" @click="hideNav()">
               <Logo></Logo>
               <div class="label tagline hidden-xs-down">Smart communications for nonprofits</div>
             </nuxt-link>
-  
+
             <div class="navbar-collapse" id="main-menu">
               <div class="label tagline hidden-sm-up">Smart communications for nonprofits</div>
               <ul class="navbar-nav ml-auto">
@@ -64,14 +64,14 @@
           </nav>
         </div>
       </header>
-  
+
       <main id="main" :class="{ 'no-top-padding': noTopPadding }">
-        <div class="container-fluid">
+        <div class="">
           <nuxt/>
         </div>
-  
+
       </main>
-  
+
       <footer id="footer">
         <div>
           <nuxt-link to="/" class="navbar-brand">
@@ -115,22 +115,23 @@
                 <address class="">
                   {{footerMeta.address_line_1}}
                   <br> {{footerMeta.address_line_2}}
-  
+
                 </address>
               </h4>
             </div>
           </div>
         </div>
       </footer>
-  
+
       <SearchOverlay v-if="searchVisible" @hide="hideSearch()"></SearchOverlay>
-  
+
     </div>
     <section id="footer-callout" v-if="activeCta && activeCta.acf && activeCta.acf.cta_type == 'Form' && showFooter" class="bg-change text-white my-0 py-5">
       <div class="container">
         <div class="row">
-          <div class="col-lg-8 offset-lg-2">
+          <div class="col-lg-10 offset-lg-1">
             <div class="footer-content">
+<<<<<<< HEAD
               <div v-if="!submittedForm">
                 <h2>{{ activeCta.acf.headline }}</h2>
                 <p>
@@ -140,6 +141,15 @@
   
               <GravityForm :formId="activeCta.acf.cta_form" btnType="tertiary" @submitted="hideCallout()"></GravityForm>
   
+=======
+              <h2>{{ activeChat.acf.intro }}</h2>
+              <p>
+                {{ activeChat.acf.body }}
+              </p>
+
+              <GravityForm v-if="activeChat.acf" :formId="activeChat.acf.cta_form" btnType="tertiary"></GravityForm>
+
+>>>>>>> 105bfc1408798995073a65ed5470c0bfae7154fa
             </div>
           </div>
         </div>

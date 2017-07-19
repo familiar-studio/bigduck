@@ -75,7 +75,7 @@ body {
     right: 20px;
   }
   .btn-tertiary {
-    background-color: black;
+    background-color: $gray-darker;
     color: white;
     &:hover {
       background-color: white;
@@ -156,11 +156,6 @@ body {
   }
 }
 
-.two-up-card {
-  position: relative;
-  top: -50px;
-}
-
 .round {
   border-radius: 50%;
 }
@@ -186,9 +181,9 @@ body {
 article.main,
 article.gated-content {
   background-color: white;
-  padding: 2rem;
-  margin-left: -$grid-gutter-width-base;
-  margin-right: -$grid-gutter-width-base;
+  padding: 1.5rem;
+  margin-left: -($grid-gutter-width-base/2);
+  margin-right: -($grid-gutter-width-base/2);
 
   @include media-breakpoint-up(md) {
     padding: 3rem 3.75rem;
