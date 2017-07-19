@@ -94,7 +94,7 @@
               </div>
             </div>
 
-            <article class="mb-5 container">
+            <article class="mb-5">
 
               <div v-if="insight.acf.author.length > 0" v-for="(author, index) in insight.acf.author">
                 <div class="author-bio">
@@ -122,29 +122,25 @@
               <h2>Related Case Studies</h2>
               <div class="row">
                 <div v-for="case_study in relatedCaseStudies" class="col-md-6">
-                  <nuxt-link :to="{name: 'work-slug', params: {slug: case_study.slug}}" :key="case_study.ID">
-                    <!-- <div class="col-image"> -->
-                      <img v-if="case_study.acf.hero_image" :src="case_study.acf.hero_image.sizes.large" style="width:100%;">
-                    <!-- </div> -->
-                    <div class="col-text">
-                      <div class="card two-up-card mx-4">
+                  <nuxt-link :to="{name: 'work-slug', params: {slug: case_study.slug}}" :key="case_study.ID" class="block-work-small">
+                    <div v-if="case_study.acf.hero_image" class="img-wrapper">
+                      <img :src="case_study.acf.hero_image.sizes.cropped_rectangle" class="img-fluid" />
+                    </div>
+                      <div class="card">
                         <div class="card-block">
-                          <div class="card-header">
-
                             <div class="badge-group" v-if="topics && types">
                               <div class="badge badge-default" v-for="topic in case_study.topic">
-                                <div v-html="getTopicsIndexedById[topic].icon"></div>
+                                <div v-html="getTopicsIndexedById[topic].icon" class="img-fluid"></div>
                                 <div v-html="getTopicsIndexedById[topic].name"></div>
                               </div>
                             </div>
-                          </div>
-                        <h3 class="card-title">{{ case_study.title.rendered }}</h3>
+                        <h3 class="card-title">
+                          <span class="underline-change hover-color">{{ case_study.acf.client_name  }}</span>
+                          </h3>
                         <div class="card-text" v-html="case_study.acf.short_description"></div>
                       </div>
                     </div>
-                  </div>
                 </nuxt-link>
-
               </div>
               </div>
             </div>

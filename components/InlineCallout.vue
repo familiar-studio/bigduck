@@ -1,20 +1,20 @@
 <template>
   <div class="callout-fullwidth bg-inverse text-white" v-if="inline">
-    <div class="container">
-  
+    <div class="">
+
       <h2 v-html="inline.title"></h2>
       <p>
         {{ inline.description }}
       </p>
-  
+
       <a href="#" v-if="!formVisible" @click.prevent="toggleForm()" class="btn btn-primary">
         Sign up
       </a>
-  
+
       <div v-if="formVisible && inline.formId">
         <GravityForm :formId="inline.formId"></GravityForm>
       </div>
-  
+
     </div>
   </div>
 </template>

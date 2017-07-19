@@ -22,19 +22,17 @@
             </InlineCallout>
           </div>
           <div class="testimonial break-container">
-            <div class="container">
-              <div class="row">
-                <div class="col-md-8">
-                  <blockquote>
-                    <h3 v-html="servicesPage.acf.quote"></h3>
-                    <footer class="label">&mdash;
-                      <span v-html="servicesPage.acf.credit"></span>
-                    </footer>
-                  </blockquote>
-                </div>
-                <div v-if="servicesPage.acf.image" class="col-md-4">
-                  <img :src="servicesPage.acf.image.sizes.cropped_400_square" alt="block.image.name" class="img-fluid">
-                </div>
+            <div class="row">
+              <div class="col-md-8">
+                <blockquote>
+                  <h3 v-html="servicesPage.acf.quote"></h3>
+                  <footer class="label">&mdash;
+                    <span v-html="servicesPage.acf.credit"></span>
+                  </footer>
+                </blockquote>
+              </div>
+              <div v-if="servicesPage.acf.image" class="col-md-4">
+                <img :src="servicesPage.acf.image.sizes.cropped_400_square" alt="block.image.name" class="img-fluid">
               </div>
             </div>
           </div>

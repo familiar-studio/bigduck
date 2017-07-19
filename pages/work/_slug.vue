@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="">
     <div class="img-hero" :style=" { backgroundImage: 'url(' + caseStudy.acf.hero_image.url + ')' }">
       <figcaption class="figure-caption">{{caseStudy.acf.hero_image.caption}}</figcaption>
     </div>
@@ -66,10 +66,10 @@
               <!-- CALLOUT  -->
               <div v-if="block.acf_fc_layout == 'callout'" class="cs-block-callout break-container" :style="{ backgroundColor: caseStudy.acf.primary_color }">
                 <div class="row">
-                  <div class="col-md-6 push-md-6 col-img">
+                  <div class="col-md-6 col-img">
                     <div :style=" { backgroundImage: 'url(' + block.image.url + ')' }" class="bg-img"></div>
                   </div>
-                  <div class="col-md-6 pull-md-6 col-text">
+                  <div class="col-md-6 col-text">
                     <h2 v-html="block.headline"></h2>
                     <div v-html="block.text"></div>
                     <a :href="block.website" v-if="block.website" class="btn btn-info" target="_blank">Visit Site</a>
@@ -106,21 +106,20 @@
               <Service :entry="relatedService"></Service>
             </div>
 
-            <div class="callout-fullwidth text-white color bg-change work-cta">
-              <div class="container">
-                <div class="row">
-                  <div class="col-lg-10 offset-lg-1">
-                    <h2 class="mb-4">{{ caseStudy.acf.cta_text }}</h2>
-                    <GravityForm :formId="formId" :showAll="true"></GravityForm>
-                  </div>
-                </div>
-              </div>
-            </div>
-
           </div>
-
         </div>
       </div>
+      <div class="callout-fullwidth text-white color bg-change work-cta">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-10 offset-lg-1">
+              <h2 class="mb-4">{{ caseStudy.acf.cta_text }}</h2>
+              <GravityForm :formId="formId" :showAll="true"></GravityForm>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>

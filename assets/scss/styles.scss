@@ -48,16 +48,20 @@
   // transition: all .3s ease;
   // filter: grayscale(0%);
 }
-
+.overflow-x-hidden{
+  overflow-x: hidden;
+}
 .break-container {
-  @include media-breakpoint-up(sm) {
+  // margin-left: -15px;
+  // margin-right: -15px;
+  // padding-left: 15px;
+  // padding-right: 15px;
+  // @include media-breakpoint-up(sm) {
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
-  }
-  margin-left: -15px;
-  margin-right: -15px;
-  padding-left: 15px;
-  padding-right: 15px;
+    padding-left: calc((50% - 50vw)* -1);
+    padding-right: calc((50% - 50vw)* -1);
+  // }
 }
 @for $i from 1 through length($duck-colors) {
   ::selection {
@@ -132,6 +136,12 @@ p {
 b,
 strong {
   font-weight: 600;
+}
+h1, h2, h3, h4{
+  b,
+  strong {
+    font-weight: 700;
+  }
 }
 
 //BUTTONS AND BADGES

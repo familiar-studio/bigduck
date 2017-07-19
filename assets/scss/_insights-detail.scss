@@ -32,25 +32,28 @@
 
 .author-bio {
   margin-top: 3rem;
-  @include media-breakpoint-up(md) {
-    padding: 0 1.0625rem 0 0;
-  }
-  padding: 0 1.0625rem;
+
   .media {
     align-items: center;
   }
   img {
-    margin-right: 2rem;
+    margin-right: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .btn{
+    margin-top: .5rem;
   }
 }
 
 .author-bio-text {
-  // margin-top: 3rem;
-  padding: 0rem;
-  margin-top: 3rem;
-  @include media-breakpoint-up(md) {
-    margin-top: 0rem;
-    padding: 0 0 0 1.0625rem;
+  // margin-top: 1rem;
+  // @include media-breakpoint-up(md) {
+  //   margin-top: 0rem;
+  //   padding-left: 1rem;
+  // }
+  .btn{
+    margin-top: .5rem;
   }
 }
 

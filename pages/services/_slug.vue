@@ -25,17 +25,15 @@
 
           <!-- TESTIMONIAL -->
           <div v-if="block.acf_fc_layout == 'testimonial'" class="cs-block-testimonial testimonial break-container">
-            <div class="container">
-              <div class="row">
-                <div class="col-md-8">
-                  <blockquote>
-                    <h3 v-html="block.quote"></h3>
-                    <footer class="label">&mdash; {{ block.credit }}</footer>
-                  </blockquote>
-                </div>
-                <div v-if="block.image" class="col-md-4">
-                  <img :src="block.image.sizes.cropped_400_square" alt="block.image.name" class="img-fluid">
-                </div>
+            <div class="row">
+              <div class="col-md-8">
+                <blockquote>
+                  <h3 v-html="block.quote"></h3>
+                  <footer class="label">&mdash; {{ block.credit }}</footer>
+                </blockquote>
+              </div>
+              <div v-if="block.image" class="col-md-4">
+                <img :src="block.image.sizes.cropped_400_square" alt="block.image.name" class="img-fluid">
               </div>
             </div>
           </div>
