@@ -1,17 +1,14 @@
 <template>
-  <div class="chat-group" v-if="activeChat && activeChat.acf">
+  <div class="chat-group" v-if="activeCta && activeCta.acf">
     <div class="chat-bubble">
-      {{ activeChat.acf.intro }}
+      {{ activeCta.acf.headline }}
     </div>
     <div class="chat-bubble">
-      {{ activeChat.acf.body }}
+      {{ activeCta.acf.body }}
     </div>
     <div class="chat-bubble chat-response bg-change">
-      <a :href="activeChat.acf.link" v-if="activeChat.acf.link">
-        {{ activeChat.acf.button_text }}
-      </a>
-      <a href="#" v-else v-scroll-to="{ el:'#footer-callout', offset:50}">
-        {{ activeChat.acf.button_text }}
+      <a href="#" @click.prevent="visitLink(activeCta)">
+        {{ activeCta.acf.button_text }}
       </a>
     </div>
   </div>
@@ -19,7 +16,7 @@
 
 <script>
 import axios from 'axios'
-import { mapState } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   data() {
@@ -27,8 +24,43 @@ export default {
 
     }
   },
+  methods: {
+    ...mapMutations(['nextCTA']),
+    visitLink() {
+
+      if (this.activeCta.acf.cta_type == 'Linked Content') {
+        if (this.activeCta.acf.linked_content.post_type == 'bd_insight') {
+          // link to the insight
+          this.$router.push('/insights/' + this.activeCta.acf.linked_content.post_name);
+        } else {
+          // link to the event
+          this.$router.push('/events/' + this.activeCta.acf.linked_content.post_name);
+        }
+
+        setTimeout(() => {
+          this.nextCTA()
+        }, 500);
+      } else if (this.activeCta.acf.cta_type == 'Custom Link') {
+        location.href = this.activeCta.acf.custom_link;
+        // go to the external link
+        setTimeout(() => {
+          this.nextCTA()
+        }, 500);
+
+      } else {
+        // scroll down to the form
+
+        this.$scrollTo('#footer-callout', 500, { offset: 50 })
+      }
+
+
+
+
+
+    }
+  },
   computed: {
-    ...mapState(['activeChat'])
+    ...mapGetters(['activeCta'])
   },
 
 }

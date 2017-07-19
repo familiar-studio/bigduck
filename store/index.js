@@ -7,18 +7,15 @@ export const state = () => ({
   backupImages: null,
   bareLocalHostname: "https://wordpress.bigduck.dev",
   bareRemoteHostname: "http://bigduck-wordpress.familiar.studio",
-  callouts: null,
   categories: null,
   categoriesPath: "wp/v2/categories/",
-  chat: [],
-  activeChat: null,
+  ctas: [],
+  activeCtaIndex: 0,
   eventCategories: null,
   eventCategoriesPath: "wp/v2/event_category",
   footer: null,
   footerMeta: null,
   form: null,
-  inline: [],
-  activeInline: null,
   menuCallouts: null,
   page: 1,
   postsPerPage: 8,
@@ -84,50 +81,14 @@ export const mutations = {
   updateProfile(state, data) {
     state.userProfile = data;
   },
-  setAllActiveCallouts(state, callouts) {
+  setCTAs(state, callouts) {
     //state.chat = "something";
-    state.chat = [];
-    state.inline = [];
-    console.log(callouts);
-    callouts.forEach(callout => {
-      console.log(callout.acf.placement);
-      state[callout.acf.placement].push(callout);
-    });
+    state.ctas = callouts;
     // need to add check for cookies here to move to next one if already fileld out
-
-    if (state.chat.length > 0) {
-      state.activeChat = state.chat[0];
-    }
-
-    if (state.inline.length > 0) {
-      state.activeInline = state.inline[0];
-    }
+    state.activeCtaIndex = 0;
   },
-  setActiveCallout(state, data) {
-    var parser = new DOMParser();
-    var doc = parser.parseFromString(data.html, "text/html");
-
-    var callout = {};
-    var forms = doc.getElementsByTagName("form");
-    var titles = doc.getElementsByClassName("gform_title");
-    var descriptions = doc.getElementsByClassName("gform_description");
-
-    if (forms.length > 0) {
-      var form = forms[0];
-      callout.formId = Number(form.id.split("_")[1]);
-    }
-
-    if (titles.length > 0) {
-      callout.title = titles[0].innerHTML;
-    }
-    if (descriptions.length > 0) {
-      callout.description = descriptions[0].innerHTML;
-    }
-
-    callout.title = "default cta";
-    callout.description = "this is the regular text that loads in here";
-
-    state[data.slug] = callout;
+  nextCTA(state, callouts) {
+    state.activeCtaIndex++;
   },
   setFooterMeta(state, data) {
     state.footerMeta = data;
@@ -147,7 +108,6 @@ export const actions = {
   },
   loadAppInitNeed({ dispatch }) {
     return Promise.all([
-      dispatch("fetchCallouts"),
       dispatch("fetchFooter"),
       dispatch("fetchTopics"),
       dispatch("fetchTypes"),
@@ -165,13 +125,7 @@ export const actions = {
   fetch(context, path) {
     return axios.get(context.getters["hostname"] + path);
   },
-  fetchCallouts(context) {
-    return axios
-      .get(context.getters.hostname + "wp/v2/bd_callout")
-      .then(response => {
-        context.commit("setCallouts", response.data);
-      });
-  },
+
   fetchMenuCallouts(context) {
     return axios
       .get(context.getters["hostname"] + "wp/v2/pages?slug=menu-callouts")
@@ -242,11 +196,10 @@ export const actions = {
     );
     return response.data;
   },
-  async fetchPageCallouts({ rootGetters, commit }) {
+  async fetchCTAs({ rootGetters, commit }) {
     let response = await axios.get(rootGetters.hostname + "wp/v2/sidebarcta");
     if (response.data && response.data[0]) {
-      console.log("widgets", response.data);
-      commit("setAllActiveCallouts", response.data);
+      commit("setCTAs", response.data);
     }
   },
   async fetchFooterMeta({ rootGetters, commit }) {
@@ -258,6 +211,13 @@ export const actions = {
 };
 
 export const getters = {
+  activeCta: state => {
+    if (state.ctas.length > state.activeCtaIndex) {
+      return state.ctas[state.activeCtaIndex];
+    } else {
+      return null;
+    }
+  },
   hostname: state => {
     // if ((window.location.hostname.indexOf('localhost') > -1 || window.location.hostname.indexOf('.dev') > -1)) {
     //   return state.localHostname

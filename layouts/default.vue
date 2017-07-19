@@ -126,19 +126,19 @@
       <SearchOverlay v-if="searchVisible" @hide="hideSearch()"></SearchOverlay>
   
     </div>
-    <section id="footer-callout" v-if="activeChat && activeChat.acf && showFooter" class="bg-change text-white my-0 py-5">
+    <section id="footer-callout" v-if="activeCta && activeCta.acf && activeCta.acf.cta_type == 'Form' && showFooter" class="bg-change text-white my-0 py-5">
       <div class="container">
         <div class="row">
           <div class="col-lg-8 offset-lg-2">
             <div class="footer-content">
               <div v-if="!submittedForm">
-                <h2>{{ activeChat.acf.intro }}</h2>
+                <h2>{{ activeCta.acf.headline }}</h2>
                 <p>
-                  {{ activeChat.acf.body }}
+                  {{ activeCta.acf.body }}
                 </p>
               </div>
   
-              <GravityForm v-if="activeChat.acf" :formId="activeChat.acf.cta_form" btnType="tertiary" @submitted="hideCallout()"></GravityForm>
+              <GravityForm :formId="activeCta.acf.cta_form" btnType="tertiary" @submitted="hideCallout()"></GravityForm>
   
             </div>
           </div>
@@ -157,7 +157,7 @@ import Logo from '~components/Logo.vue'
 import SearchOverlay from '~components/SearchOverlay.vue'
 
 
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapGetters, mapMutations } from 'vuex'
 
 export default {
   components: {
@@ -188,7 +188,8 @@ export default {
     }
   },
   computed: {
-    ...mapState(['activeChat', 'menuCallouts', 'footerMeta']),
+    ...mapState(['menuCallouts', 'footerMeta']),
+    ...mapGetters(['activeCta']),
     page() {
       if (this.$route.name === 'index') {
         return 'homepage'
@@ -256,7 +257,7 @@ export default {
       setInterval(this.changeColor, 5000)
       window.addEventListener('scroll', this.handleScroll)
 
-      this.$store.dispatch('fetchPageCallouts')
+      this.$store.dispatch('fetchCTAs')
       this.$store.dispatch('fetchFooterMeta')
 
     }
