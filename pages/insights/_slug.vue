@@ -1,6 +1,6 @@
 <template>
   <div v-if="insight">
-
+  
     <div class="img-hero" v-if="insight && insight.acf.featured_image" :style=" { backgroundImage: 'url(' + insight.acf.featured_image + ')' }">
       <figcaption class="figure-caption">{{insight.acf.featured_image.caption}}</figcaption>
     </div>
@@ -13,7 +13,7 @@
           <Share></Share>
         </div>
         <div class="col-lg-10">
-          <div class="container overlap" >
+          <div class="container overlap">
             <article class="main">
               <div class="badge-group">
                 <nuxt-link class="badge badge-default underline-change overview-link" :to="{name: 'insights'}">
@@ -37,7 +37,7 @@
                   {{ date }}
                 </div>
               </div>
-
+  
               <h1 v-html="insight.title.rendered">
               </h1>
               <div class="author-listing" v-if="insight.acf.author.length > 0">
@@ -48,7 +48,7 @@
                     <nuxt-link :to="'/about/' + author.user_nicename">{{author.display_name}}</nuxt-link>
                   </div>
                 </div>
-
+  
                 <div>
                   <div v-if="insight.acf.guest_author_name" class="badge badge-default mb-3">
                     <img :src="backupImages['author']" class="round author-img mr-2">
@@ -61,7 +61,7 @@
               <div v-if="!insight.acf.guest_author_name && insight.acf.author.length < 1" class="badge badge-default mb-3 author-no-img">
                 <span>Big Duck</span>
               </div>
-
+  
               <div v-for="block in insight.acf.body" :class="['block-' + block.acf_fc_layout]">
                 <div v-if="block.acf_fc_layout == 'text'" v-html="block.text"></div>
                 <template v-if="block.acf_fc_layout == 'callout'">
@@ -70,16 +70,16 @@
                   <img :src="block.image" alt="callout image" v-if="block.image" />
                 </template>
               </div>
-
+  
               <div class="hidden-lg-up mt-4">
                 <Share></Share>
               </div>
             </article>
             <div v-if="insight.acf.is_gated_content">
-
+  
               <div class="form-light">
-                <GravityForm :formId="7" :showAll="true" :gatedContent="insight.id" :title="insight.title.rendered" @submitted="refreshContent()" cookiePrefix="insight-"></GravityForm>
-
+                <GravityForm :formId="7" :gatedContent="insight.id" :title="insight.title.rendered" @submitted="refreshContent()" cookiePrefix="insight-"></GravityForm>
+  
                 <div v-if="formFilled || contentRefreshed">
                   <transition name="fade" appear>
                     <div>
@@ -90,12 +90,12 @@
                     </div>
                   </transition>
                 </div>
-
+  
               </div>
             </div>
-
+  
             <article class="mb-5">
-
+  
               <div v-if="insight.acf.author.length > 0" v-for="(author, index) in insight.acf.author">
                 <div class="author-bio">
                   <div class="row">
@@ -112,12 +112,12 @@
                         More about {{author.user_firstname}}
                       </nuxt-link>
                     </div>
-
+  
                   </div>
                 </div>
               </div>
             </article>
-
+  
             <div class="mb-5" v-if="relatedCaseStudies">
               <h2>Related Case Studies</h2>
               <div class="row">
@@ -126,25 +126,25 @@
                     <div v-if="case_study.acf.hero_image" class="img-wrapper">
                       <img :src="case_study.acf.hero_image.sizes.cropped_rectangle" class="img-fluid" />
                     </div>
-                      <div class="card">
-                        <div class="card-block">
-                            <div class="badge-group" v-if="topics && types">
-                              <div class="badge badge-default" v-for="topic in case_study.topic">
-                                <div v-html="getTopicsIndexedById[topic].icon" class="img-fluid"></div>
-                                <div v-html="getTopicsIndexedById[topic].name"></div>
-                              </div>
-                            </div>
+                    <div class="card">
+                      <div class="card-block">
+                        <div class="badge-group" v-if="topics && types">
+                          <div class="badge badge-default" v-for="topic in case_study.topic">
+                            <div v-html="getTopicsIndexedById[topic].icon" class="img-fluid"></div>
+                            <div v-html="getTopicsIndexedById[topic].name"></div>
+                          </div>
+                        </div>
                         <h3 class="card-title">
-                          <span class="underline-change hover-color">{{ case_study.acf.client_name  }}</span>
-                          </h3>
+                          <span class="underline-change hover-color">{{ case_study.acf.client_name }}</span>
+                        </h3>
                         <div class="card-text" v-html="case_study.acf.short_description"></div>
                       </div>
                     </div>
-                </nuxt-link>
-              </div>
+                  </nuxt-link>
+                </div>
               </div>
             </div>
-
+  
             <div class="mb-5" v-if="relatedInsights">
               <h2>Related Insights</h2>
               <div v-if="relatedInsights">
@@ -199,9 +199,9 @@ export default {
     }
     return data
   },
-  head () {
-      if (this.insight) {
-        return {
+  head() {
+    if (this.insight) {
+      return {
 
         title: this.insight.title.rendered,
         meta: [
@@ -247,7 +247,7 @@ export default {
           }
         ]
       }
-      }
+    }
   },
   computed: {
     ...mapState(['types', 'topics', 'backupImages']),
@@ -300,7 +300,7 @@ export default {
     },
     firstTextBlock() {
       if (this.insight.body) {
-        return this.insight.acf.body.filter((block) => {return block.acf_fc_layout === 'text'})[0]
+        return this.insight.acf.body.filter((block) => { return block.acf_fc_layout === 'text' })[0]
       } else {
         return this.insight.title.rendered
       }
