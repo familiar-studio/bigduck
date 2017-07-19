@@ -1,32 +1,25 @@
 <template>
   <div>
-        <transition name="fade" appear mode="out-in">
+    <transition name="fade" appear mode="out-in">
       <div class="error" key="error" v-if="error">
         {{ error }}
       </div>
       <div v-else-if="loading" key="loading" class="loading">
         <div class="loader loader--style3" title="2">
-          <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-             width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
-          <path fill="#fff" d="M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z">
-            <animateTransform attributeType="xml"
-              attributeName="transform"
-              type="rotate"
-              from="0 25 25"
-              to="360 25 25"
-              dur="0.6s"
-              repeatCount="indefinite"/>
+          <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+            <path fill="#fff" d="M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z">
+              <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite" />
             </path>
           </svg>
         </div>
       </div>
-
+  
       <form v-else-if="!submitted && visibleFields" key="form">
-
+  
         <div v-for="field in visibleFields" class="form-group" :class="{'has-danger':errors.has(field.id.toString())}">
-
+  
           <label :for="field.id" v-if="field.type != 'hidden'">{{field.label}}</label>
-
+  
           <template v-if="field.type == 'select'">
             <select v-model="formData['input_'+field.id]" class="custom-select form-control">
               <option v-for="choice in field.choices" :value="choice.value">
@@ -34,7 +27,7 @@
               </option>
             </select>
           </template>
-
+  
           <template v-else-if="field.type == 'checkbox'">
             <div class="custom-controls-stacked">
               <label class="custom-control custom-checkbox" v-for="choice in field.choices">
@@ -53,49 +46,49 @@
               </label>
             </div>
           </template>
-
+  
           <template v-else-if="field.type == 'email'">
             <input v-model="formData['input_'+field.id]" type="email" :name="field.id" class="form-control" v-validate="{ rules: { required: field.isRequired, email: true } }" />
           </template>
-
+  
           <template v-else-if="field.type == 'number'">
             <input v-model="formData['input_'+field.id]" type="number" :name="field.id" class="form-control" v-validate="{ rules: { required: field.isRequired, numeric: true } }" />
           </template>
-
+  
           <template v-else-if="field.type == 'hidden'">
             <input v-model="formData['input_'+field.id]" :name="field.id" type="hidden" />
           </template>
-
+  
           <template v-else-if="field.type == 'textarea'">
             <textarea v-model="formData['input_'+field.id]" class="form-control" :name="field.id" v-validate="{ rules: { required: field.isRequired } }" />
           </template>
-
+  
           <template v-else>
             <input v-model="formData['input_'+field.id]" type="text" class="form-control" :name="field.id" v-validate="{ rules: { required: field.isRequired } }" />
           </template>
-
+  
           <div class="form-control-feedback" v-show="errors.has(field.id.toString())">{{ errors.first(field.id.toString()) }}</div>
-
+  
         </div>
-
+  
         <div v-for="field in hiddenFields">
           <input v-model="formData['input_'+field.id]" :name="field.id" type="hidden" />
         </div>
-
+  
         <button type="submit" @click.prevent="submitEntry()" class="btn" :class="'btn-' + btnType">Submit</button>
       </form>
       <div v-else :key="confirmation">
         <h1>{{confirmation}}</h1>
-
+  
       </div>
-      </transition>
+    </transition>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
 import CryptoJS from 'crypto-js'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 if (process.BROWSER_BUILD) {
   var jscookie = require("js-cookie")
@@ -161,8 +154,14 @@ export default {
 
         return this.allFields.filter((field, index) => {
           // if checkboxes and not already has data initalize as array to make multi-select work properly
-          if (field.type === 'checkbox' && (!this.formData[field.id] || !Array.isArray(this.formData[field.id]))) {
-            this.formData['input_' + field.id] = []
+          if (field.type === 'checkbox') {
+            console.log('checkboxes', this.formData[field.id])
+
+            if (!this.formData[field.id] || !Array.isArray(this.formData[field.id])) {
+              this.formData['input_' + field.id] = []
+            } else {
+              this.formData['input_' + field.id] = this.formData[field.id]
+            }
           }
           // always include the first three
           if (index < 3) {
@@ -191,6 +190,8 @@ export default {
       this.error = null
       var signature = this.CalculateSig('entries', 'POST')
       localStorage.formData = JSON.stringify(this.formData)
+      this.updateProfile(this.formData)
+
       //this.formData['form_id'] = this.formId
       // this.formData['title'] = this.
 
@@ -233,20 +234,22 @@ export default {
         this.$emit('submitted')
         this.submitted = true
         this.loading = false
-      } catch(e) {
+      } catch (e) {
         this.error = "An error occurred. Please try again later."
         this.loading = false
       }
 
 
 
-  }
-},
+    },
+    ...mapMutations(['updateProfile'])
+  },
   created() {
     var signature = this.CalculateSig('forms/' + this.formId, 'GET')
 
     if (process.BROWSER_BUILD && localStorage.formData) {
       this.formData = JSON.parse(localStorage.formData)
+      this.updateProfile(this.formData);
     }
 
     axios.get(this.baseUrl + 'forms/' + this.formId + '/', { params: { api_key: this.publicKey, signature: signature, expires: this.expires } }).then(
@@ -265,7 +268,8 @@ export default {
 }
 </script>
 <style>
-.loading, .error {
+.loading,
+.error {
   display: flex;
   justify-content: center;
 }
