@@ -29,7 +29,7 @@
 .carousel-cell {
   display: inline-block;
   width: auto;
-  max-width: calc(100vw - 30px);
+  max-width: calc(100vw - 60px);
   margin-right: 1.5rem;
   height: 210px;
   @include media-breakpoint-up(sm) {
@@ -86,10 +86,10 @@
   .arrow {
     fill: white;
   }
-  &:hover{
+  &:hover {
     @extend .bg-change;
   }
-  &:focus{
+  &:focus {
     box-shadow: none;
   }
   &:disabled {

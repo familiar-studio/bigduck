@@ -39,12 +39,16 @@
   }
 }
 
+.mb-4-5 {
+  margin-bottom: 2rem;
+}
+
 .featured-image {
   height: 100%;
   background-size: cover;
   background-position: 50% 50%;
 }
-.overflow-x-hidden{
+.overflow-x-hidden {
   overflow-x: hidden;
 }
 .break-container {
@@ -54,7 +58,7 @@
   padding-right: calc((50% - 50vw)* -1);
 }
 @for $i from 1 through length($duck-colors) {
-  .color-#{$i}{
+  .color-#{$i} {
     ::selection {
       background-color: nth($duck-colors, $i);
       color: white;
@@ -111,7 +115,6 @@ h6,
   letter-spacing: 1px;
 }
 
-
 .display-2 {
   @include media-breakpoint-down(lg) {
     font-size: 3.5rem;
@@ -131,7 +134,10 @@ b,
 strong {
   font-weight: 600;
 }
-h1, h2, h3, h4{
+h1,
+h2,
+h3,
+h4 {
   b,
   strong {
     font-weight: 700;
@@ -257,7 +263,8 @@ label,
   @include media-breakpoint-up(md) {
     padding: 3rem 3.75rem;
   }
-  .form-control, .custom-control-indicator {
+  .form-control,
+  .custom-control-indicator {
     background-color: $gray-lightest;
   }
   .btn {

@@ -8,7 +8,7 @@
         </div>
       </div>
       <div class='col-lg-9 col-xl-8'>
-
+  
         <div class="container" id="content">
           <div v-if="work">
             <h1>Work</h1>
@@ -16,11 +16,11 @@
             <div v-else>
               There is currently no work in
               <span v-if="selectedTopic">{{getTopicsIndexedById[selectedTopic].name}}</span>
-
+  
             </div>
           </div>
         </div>
-
+  
       </div>
       <div class="col-lg-2">
         <Chat></Chat>
@@ -73,7 +73,7 @@ export default {
       console.error(e)
     }
   },
-  head () {
+  head() {
     if (this.work[0]) {
       return {
         title: 'Work - All Projects',
