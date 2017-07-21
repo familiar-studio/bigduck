@@ -1,5 +1,7 @@
 import axios from "axios";
-
+if (process.BROWSER_BUILD) {
+  var jscookie = require("js-cookie");
+}
 export const state = () => ({
   userProfile: null,
   localHostname: "https://wordpress.bigduck.dev/wp-json/",
@@ -82,17 +84,36 @@ export const mutations = {
   updateProfile(state, data) {
     state.userProfile = data;
   },
-  setCTAs(state, callouts) {
+  setCTAs(state, ctas) {
     //state.chat = "something";
-    state.ctas = callouts;
     // need to add check for cookies here to move to next one if already fileld out
+    const filteredCtas = ctas.filter(cta => {
+      if (jscookie) {
+        const cookie = jscookie.get("cta-" + cta.id);
+        console.log("cookie", cookie);
+        if (cookie) {
+          return false;
+        }
+      }
+      return true;
+    });
+
+    state.ctas = filteredCtas;
     state.activeCtaIndex = 0;
   },
-  nextCTA(state) {
+  nextCTA(state, cta) {
     state.nextCTAFlag = true;
+
+    // create cookie for that cta
+    if (jscookie) {
+      jscookie.set("cta-" + cta.id, "true", {
+        expires: 7
+      });
+    }
   },
   incrementCTA(state) {
     state.activeCtaIndex++;
+    state.nextCTAFlag = false;
   },
   setFooterMeta(state, data) {
     state.footerMeta = data;

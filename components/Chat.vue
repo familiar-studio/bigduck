@@ -27,7 +27,7 @@ export default {
   methods: {
     ...mapMutations(['nextCTA']),
     visitLink() {
-      this.nextCTA()
+      this.nextCTA(this.activeCta)
 
       if (this.activeCta.acf.cta_type == 'Linked Content') {
         if (this.activeCta.acf.linked_content.post_type == 'bd_insight') {

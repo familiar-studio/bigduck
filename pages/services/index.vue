@@ -1,6 +1,6 @@
 <template>
   <div>
-
+  
     <div class="img-hero" :style=" { backgroundImage: 'url(' + servicesPage.acf.featured_image.url + ')' }">
       <figcaption class="figure-caption">{{servicesPage.acf.featured_image.caption}}</figcaption>
     </div>
@@ -18,7 +18,7 @@
               <h2 v-html="servicesPage.acf.brandraising_benchmark_heading" class="mt-5 mb-3"></h2>
               <Service :entry="brandraisingBenchmark" :index="otherServices.length"></Service>
             </div>
-            <InlineCallout class="mt-5">
+            <InlineCallout class="mt-5" v-if="servicesPage && servicesPage.acf" :callout="servicesPage.acf">
             </InlineCallout>
           </div>
           <div class="testimonial break-container">
@@ -39,21 +39,20 @@
         </div>
       </div>
       <div class="col-xl-2">
-        <Chat></Chat>
+  
       </div>
     </div>
   </div>
 </template>
 <script>
-import Chat from '~components/Chat.vue'
 import InlineCallout from '~components/InlineCallout.vue'
 import Service from '~components/Service.vue'
 
 
 export default {
   name: 'services',
-  components: { Chat, InlineCallout, Service },
-  head () {
+  components: { InlineCallout, Service },
+  head() {
     if (this.servicesPage) {
       return {
         title: 'Services',
