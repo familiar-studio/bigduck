@@ -224,9 +224,7 @@ export default {
         var response = await axios.post(this.baseUrl + 'forms/' + this.formId + '/submissions',
           { "input_values": this.formData },
           { params: { api_key: this.publicKey, signature: signature, expires: this.expires } })
-        if (this.gatedContent || this.actonId) {
-
-
+        if (this.id) {
           if (process.BROWSER_BUILD) {
             jscookie.set(this.cookiePrefix + this.id, "true", {
               expires: 7

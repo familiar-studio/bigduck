@@ -101,6 +101,7 @@ export const mutations = {
     state.ctas = filteredCtas;
     state.activeCtaIndex = 0;
   },
+
   nextCTA(state, cta) {
     state.nextCTAFlag = true;
 

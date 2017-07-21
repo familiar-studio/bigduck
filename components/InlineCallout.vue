@@ -1,5 +1,5 @@
 <template>
-  <div class="callout-fullwidth bg-inverse text-white" v-if="callout">
+  <div class="callout-fullwidth bg-inverse text-white" v-if="callout && showCallout">
     <div class="">
   
       <div v-if="!submittedForm">
@@ -25,11 +25,16 @@
 import { mapState } from 'vuex'
 import GravityForm from '~components/GravityForm.vue'
 
+if (process.BROWSER_BUILD) {
+  var jscookie = require("js-cookie");
+}
+
 export default {
   data() {
     return {
       formVisible: false,
-      submittedForm: false
+      submittedForm: false,
+      showCallout: true
     }
   },
   props: ['callout'],
@@ -39,12 +44,27 @@ export default {
   components: {
     GravityForm
   },
+  watch: {
+    callout() {
+      if (jscookie) {
+        if (jscookie.get("callout-" + this.callout.post_name)) {
+          this.showCallout = false;
+        }
+      }
+    }
+  },
   methods: {
     toggleForm() {
       this.formVisible = !this.formVisible
     },
     hideCallout() {
+      if (jscookie) {
+        jscookie.set("callout-" + this.callout.post_name, "true", {
+          expires: 7
+        });
+      }
       this.submittedForm = true
+
     }
   }
 }
