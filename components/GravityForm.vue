@@ -226,9 +226,9 @@ export default {
           { params: { api_key: this.publicKey, signature: signature, expires: this.expires } })
         if (this.gatedContent || this.actonId) {
 
-          var cookieId = this.gatedContent ? this.gatedContent : this.actionId
+
           if (process.BROWSER_BUILD) {
-            jscookie.set(this.cookiePrefix + cookieId, "true", {
+            jscookie.set(this.cookiePrefix + this.id, "true", {
               expires: 7
             });
           }

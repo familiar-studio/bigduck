@@ -78,7 +78,7 @@
             <div v-if="insight.acf.is_gated_content">
   
               <div class="form-light">
-                <GravityForm :formId="7" :gatedContent="insight.id" :title="insight.title.rendered" @submitted="refreshContent()" cookiePrefix="insight-"></GravityForm>
+                <GravityForm v-if="!formFilled" :formId="7" :gatedContent="insight.id" :title="insight.title.rendered" :id="insight.id" @submitted="refreshContent()" cookiePrefix="insight-"></GravityForm>
   
                 <div v-if="formFilled || contentRefreshed">
                   <transition name="fade" appear>
@@ -165,7 +165,7 @@
 <script>
 
 import Axios from 'axios'
-import Cookies from 'js-cookie'
+import jscookie from 'js-cookie'
 import dateFns from 'date-fns'
 import GravityForm from '~components/GravityForm.vue'
 import { mapState, mapGetters, mapActions } from 'vuex'
@@ -263,11 +263,9 @@ export default {
       return images[this.insight.id % images.length].backup_insight_image
     },
     formFilled() {
-      let cookies = Cookies.get()
-      if (this.insight && cookies) {
+      if (this.insight && jscookie) {
         // figure out whether the user has filled out the form from the cookie
-
-        return cookies['insight-' + this.insight.id] === "true"
+        return jscookie.get('insight-' + this.insight.id)
       }
     },
     date() {

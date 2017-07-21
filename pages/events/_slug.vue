@@ -10,7 +10,7 @@
         </div>
         <div class="col-lg-8">
           <div class="container overlap">
-            <article class="main" :class="{ 'mb-5': !event.acf.is_webinar || formFilled }">
+            <article class="main" :class="{ 'mb-5': !event.acf.is_webinar }">
               <div class="row">
                 <div class="col-lg-9">
                   <div class="badge-group">
@@ -31,11 +31,11 @@
                     <h4>
                       <span v-html="event.acf.subtitle"></span>
                     </h4>
-
+  
                     <h6 class="mobile-event-date">{{month}} {{date}} {{start_time}}&ndash;{{end_time}}</h6>
                   </div>
                   <div v-html="event.acf.text"></div>
-
+  
                   <div v-if="event.related_team_members.data || event.acf.guest_speakers.length > 0" class="author-listing">
                     <div class="media speaker mt-3" v-if="event.related_team_members.data" v-for="team_member in event.related_team_members.data">
                       <img v-if="team_member.headshot" :src="team_member.headshot.sizes.thumbnail" class="round author-img mr-2">
@@ -78,7 +78,7 @@
                       </div>
                     </div>
                     <div class="">
-
+  
                       <div v-if="!formFilled && !contentRefreshed">
                         <a :href="event.acf.is_webinar !== 'false' ? '#register' : event.acf.registration_url" class="btn btn-primary my-3 event-registration" v-scroll-to="{ el:'#register'}">
                           Register
@@ -91,23 +91,23 @@
                   </aside>
                 </div>
               </div>
-
+  
             </article>
-
+  
             <div v-if="event.acf.is_webinar" class="form-light" id="register" :class="{'mb-5': !relatedInsights && !relatedEvents}">
-
+  
               <div v-if="!contentRefreshed && !formFilled">
                 <h3>Register for this event</h3>
                 <p>{{ eventRegistrationText }}</p>
               </div>
               <GravityForm v-if="!formFilled" :formId=9 @submitted="refreshContent()" cookiePrefix="event-" :id="event.id" :title="event.title.rendered" :actonId="event.acf.act_on_form_id"></GravityForm>
-
+  
               <div v-if="formFilled || contentRefreshed">
                 <div v-html="event.acf.post_registration_content"></div>
               </div>
-
+  
             </div>
-
+  
             <div v-if="relatedEvents || relatedInsights">
               <h2 class="mb-3 mt-5">Related Events &amp; Insights</h2>
               <div v-if="relatedEvents">
@@ -133,7 +133,7 @@
 <script>
 import Axios from 'axios'
 import Chat from '~components/Chat.vue'
-import Cookies from 'js-cookie'
+import jscookie from 'js-cookie'
 import dateFns from 'date-fns'
 import Event from '~components/Event.vue'
 import GravityForm from '~components/GravityForm.vue'
@@ -161,7 +161,7 @@ export default {
       contentRefreshed: false
     }
   },
-  head () {
+  head() {
     if (this.event) {
 
       return {
@@ -233,11 +233,9 @@ export default {
       return this.$store.state.menuCallouts.event_registration_text
     },
     formFilled() {
-      let cookies = Cookies.get()
-      if (this.event && cookies) {
+      if (this.event && jscookie) {
         // figure out whether the user has filled out the form from the cookie
-
-        return cookies['event-' + this.event.id] === "true"
+        return jscookie.get('event-' + this.event.id)
       }
     },
     month() {
