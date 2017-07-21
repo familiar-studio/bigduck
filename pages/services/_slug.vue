@@ -15,9 +15,6 @@
 
         <div v-for="block in service.acf.service_body">
           <div v-if="block.acf_fc_layout == 'text'" v-html="block.text" class="mb-5 block-text"></div>
-          <div v-if="block.acf_fc_layout == 'image'" class="mb-5">
-            <img class="img-fluid img-multiply" :src="block.image.url" />
-          </div>
           <h2 v-if="block.acf_fc_layout == 'heading'" class="mt-5" v-html="block.heading"></h2>
           <div v-if="block.acf_fc_layout == 'faq' && block.questions.length > 0">
             <FAQ :questions="block.questions"></FAQ>
