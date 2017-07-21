@@ -11,27 +11,17 @@
         <div class="card">
           <div class="card-block" v-if="entry.type">
             <div class="badge-group" v-if="entry.type">
-<<<<<<< HEAD
-              <div class="badge badge-default" v-for="topic in entry.topic">
-                <div v-if="entry['topic'][0] && entry['topic'][0]['term_id']" v-html="getTopicsIndexedById[entry['topic'][0]['term_id']].icon"></div>
-                <div v-else v-html="getTopicsIndexedById[entry['topic'][0]].icon"></div>
-                <div v-if="entry['topic'][0] && entry['topic'][0]['term_id']" v-html="getTopicsIndexedById[entry['topic'][0]['term_id']].name"></div>
-                <div v-else v-html="getTopicsIndexedById[entry['topic'][0]].name"></div>
-              </div>
-              <div class="badge badge-default badge-type" v-for="type in entry.type">
-                <div v-if="entry['type'][0] && entry['type'][0]['term_id']" v-html="getTypesIndexedById[entry['type'][0]['term_id']].icon"></div>
-                <div v-else v-html="getTypesIndexedById[entry['type'][0]].icon"></div>
-                <div v-if="entry['type'][0] && entry['type'][0]['term_id']" v-html="getTypesIndexedById[entry['type'][0]['term_id']].name"></div>
-                <div v-else v-html="getTypesIndexedById[entry['type'][0]].name"></div>
-=======
               <div class="badge badge-default" v-for="(topic, index) in entry.topic">
-                <div v-if="entry['topic'][index] && entry['topic'][index]['term_id']" v-html="getTopicsIndexedById[entry['topic'][index]['term_id']].icon"></div><div v-else v-html="getTopicsIndexedById[entry['topic'][index]].icon"></div>
-                <div v-if="entry['topic'][index] && entry['topic'][index]['term_id']" v-html="getTopicsIndexedById[entry['topic'][index]['term_id']].name"></div><div v-else v-html="getTopicsIndexedById[entry['topic'][index]].name"></div>
+                <div v-if="entry['topic'][index] && entry['topic'][index]['term_id']" v-html="getTopicsIndexedById[entry['topic'][index]['term_id']].icon"></div>
+                <div v-else v-html="getTopicsIndexedById[entry['topic'][index]].icon"></div>
+                <div v-if="entry['topic'][index] && entry['topic'][index]['term_id']" v-html="getTopicsIndexedById[entry['topic'][index]['term_id']].name"></div>
+                <div v-else v-html="getTopicsIndexedById[entry['topic'][index]].name"></div>
               </div>
               <div class="badge badge-default badge-type" v-for="(type, index) in entry.type">
-                <div v-if="entry['type'][index] && entry['type'][index]['term_id']" v-html="getTypesIndexedById[entry['type'][index]['term_id']].icon"></div><div v-else v-html="getTypesIndexedById[entry['type'][index]].icon"></div>
-                <div v-if="entry['type'][index] && entry['type'][index]['term_id']" v-html="getTypesIndexedById[entry['type'][index]['term_id']].name"></div><div v-else v-html="getTypesIndexedById[entry['type'][index]].name"></div>
->>>>>>> b3e9da078e1eda58e8c91e4c79eace7a7e5a1b5d
+                <div v-if="entry['type'][index] && entry['type'][index]['term_id']" v-html="getTypesIndexedById[entry['type'][index]['term_id']].icon"></div>
+                <div v-else v-html="getTypesIndexedById[entry['type'][index]].icon"></div>
+                <div v-if="entry['type'][index] && entry['type'][index]['term_id']" v-html="getTypesIndexedById[entry['type'][index]['term_id']].name"></div>
+                <div v-else v-html="getTypesIndexedById[entry['type'][index]].name"></div>
               </div>
   
               <div class="badge badge-default">
