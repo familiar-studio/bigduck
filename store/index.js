@@ -18,6 +18,7 @@ export const state = () => ({
   form: null,
   menuCallouts: null,
   page: 1,
+  nextCTAFlag: false,
   postsPerPage: 8,
   previousQuery: "",
   query: {},
@@ -87,7 +88,10 @@ export const mutations = {
     // need to add check for cookies here to move to next one if already fileld out
     state.activeCtaIndex = 0;
   },
-  nextCTA(state, callouts) {
+  nextCTA(state) {
+    state.nextCTAFlag = true;
+  },
+  incrementCTA(state) {
     state.activeCtaIndex++;
   },
   setFooterMeta(state, data) {

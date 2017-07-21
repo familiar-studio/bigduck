@@ -1,9 +1,9 @@
 <template>
   <div>
-
+  
     <div class="jumbotron" id="hero-animation">
       <div class="container">
-
+  
         <h1 class="display-2">
           <span>
             Developing
@@ -25,48 +25,47 @@
       </div>
     </div>
     <div id="below-hero-animation">
-
-
-    <Featured v-for="(caseStudy, index) in relatedCaseStudies" :work="caseStudy" :index="index" :key="caseStudy"></Featured>
-    <div class="testimonial break-container mb-5">
-      <div class="container">
-        <blockquote>
-          <h3 v-html="page.acf.testimonial"></h3>
-          <footer class="label">&mdash;
-            <span v-html="page.acf.citation"></span>
-          </footer>
-        </blockquote>
-      </div>
-    </div>
-    <div class="row no-gutters">
-
-      <div class="col-lg-8 offset-lg-2">
+  
+      <Featured v-for="(caseStudy, index) in relatedCaseStudies" :work="caseStudy" :index="index" :key="caseStudy"></Featured>
+      <div class="testimonial break-container mb-5">
         <div class="container">
-          <div v-if="upcomingEvents" class="">
-            <h2 class="mb-3">Featured Events</h2>
-
-            <div class="" v-for="(event, index) in upcomingEvents">
-              <Event :entry="event" index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
-            </div>
-            <nuxt-link class="btn btn-primary" to="/events">View All Events</nuxt-link>
-          </div>
-        </div>
-
-        <div class="container">
-          <div v-if="latestInsights" class="my-5">
-            <h2 class="mb-3">Recent Insights</h2>
-
-            <div class="" v-for="(insight, index) in latestInsights">
-              <Post :entry="insight" :index="index + latestInsights.length"></Post>
-            </div>
-            <nuxt-link class="btn btn-primary" to="/insights">View All Insights</nuxt-link>
-          </div>
+          <blockquote>
+            <h3 v-html="page.acf.testimonial"></h3>
+            <footer class="label">&mdash;
+              <span v-html="page.acf.citation"></span>
+            </footer>
+          </blockquote>
         </div>
       </div>
-      <div class="col-lg-2">
-        <Chat></Chat>
+      <div class="row no-gutters">
+  
+        <div class="col-lg-8 offset-lg-2">
+          <div class="container">
+            <div v-if="upcomingEvents" class="">
+              <h2 class="mb-3">Featured Events</h2>
+  
+              <div class="" v-for="(event, index) in upcomingEvents">
+                <Event :entry="event" index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
+              </div>
+              <nuxt-link class="btn btn-primary" to="/events">View All Events</nuxt-link>
+            </div>
+          </div>
+  
+          <div class="container">
+            <div v-if="latestInsights" class="my-5">
+              <h2 class="mb-3">Recent Insights</h2>
+  
+              <div class="" v-for="(insight, index) in latestInsights">
+                <Post :entry="insight" :index="index + latestInsights.length"></Post>
+              </div>
+              <nuxt-link class="btn btn-primary" to="/insights">View All Insights</nuxt-link>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2">
+          <Chat></Chat>
+        </div>
       </div>
-    </div>
     </div>
   </div>
 </template>
@@ -129,7 +128,7 @@ export default {
   },
   async asyncData({ store }) {
     let data = {}
-    let response =  await Axios.get(store.getters['hostname'] + 'wp/v2/pages/37')
+    let response = await Axios.get(store.getters['hostname'] + 'wp/v2/pages/37')
     let page = response.data
     if (page && page.acf) {
       data.relatedWorkIds = page.acf.featured_case_studies.map((work) => { return work.ID })
@@ -189,8 +188,6 @@ export default {
   },
   created() {
     this.interval = setInterval(this.nextFrame, this.frameInterval)
-    this.$store.dispatch('fetchPageCallouts', 'insights')
-
 
     if (this.upcomingEventIds) {
       Axios.get(this.hostname + 'wp/v2/bd_event', { params: { include: this.upcomingEventIds } }).then(

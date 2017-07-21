@@ -161,11 +161,6 @@ export default {
       const response = await this.$store.dispatch('fetchByQuery', { isPaged: true, query: query, path: 'wp/v2/bd_insight' })
       this.insights = this.insights.concat(response.data)
     }
-  },
-  async created() {
-    let response = await axios.get(this.hostname + 'wp/v2/pages?slug=insights')
-    var data = response.data[0]
-    this.callout = data.acf;
   }
 }
 </script>

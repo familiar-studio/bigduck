@@ -27,6 +27,7 @@ export default {
   methods: {
     ...mapMutations(['nextCTA']),
     visitLink() {
+      this.nextCTA()
 
       if (this.activeCta.acf.cta_type == 'Linked Content') {
         if (this.activeCta.acf.linked_content.post_type == 'bd_insight') {
@@ -36,22 +37,13 @@ export default {
           // link to the event
           this.$router.push('/events/' + this.activeCta.acf.linked_content.post_name);
         }
-
-        setTimeout(() => {
-          this.nextCTA()
-        }, 500);
       } else if (this.activeCta.acf.cta_type == 'Custom Link') {
         location.href = this.activeCta.acf.custom_link;
-        // go to the external link
-        setTimeout(() => {
-          this.nextCTA()
-        }, 500);
-
       } else {
         // scroll down to the form
-
         this.$scrollTo('#footer-callout', 500, { offset: 50 })
       }
+
 
 
 

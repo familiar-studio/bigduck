@@ -9,10 +9,10 @@
     </div>
     <div>
       <div class="row no-gutters">
-        <div class="col-lg-1 hidden-md-down">
+        <div class="col-lg-3 col-xl-2 hidden-md-down">
           <Share></Share>
         </div>
-        <div class="col-lg-10">
+        <div class="col-xl-8 col-lg-9">
           <div class="container overlap">
             <article class="main">
               <div class="badge-group">
@@ -155,6 +155,9 @@
             </div>
           </div>
         </div>
+        <div class="col-lg-2">
+          <Chat></Chat>
+        </div>
       </div>
     </div>
   </div>
@@ -168,13 +171,16 @@ import GravityForm from '~components/GravityForm.vue'
 import { mapState, mapGetters, mapActions } from 'vuex'
 import Post from '~components/Post.vue'
 import Share from '~components/Share.vue'
+import Chat from '~components/Chat.vue'
+
 
 export default {
   name: 'insight',
   components: {
     Share,
     GravityForm,
-    Post
+    Post,
+    Chat
   },
   data() {
     return {
