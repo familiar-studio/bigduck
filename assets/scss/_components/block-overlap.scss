@@ -1,6 +1,7 @@
 .block-overlap {
   margin-bottom: 2rem;
   min-height: 250px;
+  transform: translateZ(0);
 
   margin-left: -($grid-gutter-width-base/2);
   margin-right: -($grid-gutter-width-base/2);

@@ -1,17 +1,12 @@
 @for $i from 1 through length($duck-colors) {
   .color-#{$i} {
-    transition: background-color 1s ease;
     background-color: nth($duck-colors, $i);
 
     .bg-change {
-      //background-color: blue;
-      transition: background-color 1s ease;
       background-color: nth($duck-colors, $i);
     }
 
     .color-change {
-      transition: color 1s ease;
-      -webkit-font-smoothing: antialiased;
       color: nth($duck-colors, $i);
     }
     .underline-change {
@@ -21,24 +16,45 @@
       );
     }
     .border-change {
-      transition: border 1s ease;
       border-color: nth($duck-colors, $i);
     }
 
     .fill-change path {
-      transition: fill 1s ease;
       fill: nth($duck-colors, $i);
     }
     a:hover .hover-color, .hover-color a:hover {
-      transition: color 1s ease;
       color: nth($duck-colors, $i);
     }
   }
 }
+.bg-change, html {
+  transition: background-color 1s ease;
+  will-change: background-color;
+}
 
+.color-change {
+  transition: color 1s ease;
+  -webkit-font-smoothing: antialiased;
+  will-change: color;
+}
+
+.border-change {
+  transition: border 1s ease;
+}
 .underline-change {
-  transition: background-image 1s ease, background-size .3s ease;
+  transition: background-size .3s ease;
   background-position: center 90%;
   background-repeat: no-repeat;
   background-size: 100% 1px;
+}
+
+.fill-change path {
+  transition: fill 1s ease;
+  will-change: fill;
+}
+a:hover .hover-color, .hover-color a:hover {
+  transition: color 1s ease;
+}
+.hover-color{
+  will-change: color;
 }
