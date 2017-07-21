@@ -36,7 +36,7 @@
               <h3><span class="underline-change hover-color" v-html="result.title.rendered"></span></h3>
               <div class="card-text" v-html="result.acf.short_description"></div>
             </router-link>
-            <router-link v-else :to="{name: 'services-slug', params: {slug: result.slug}}" href="">
+            <router-link v-else :to="{name: 'insights-slug', params: {slug: result.slug}}" href="">
               <h6>Insight</h6>
               <h3><span class="underline-change hover-color" v-html="result.title.rendered"></span></h3>
               <div class="card-text" v-html="result.acf.short_description"></div>
@@ -47,7 +47,7 @@
         </li>
       </ul>
 
-      <h3 v-else class="mt-5">We couldn’t find any search results for &ldquo;{{query}}&rdquo;.</h3>
+      <h3 v-else class="mt-5">We couldn’t find any search results for &ldquo;{{query}}.&rdquo;</h3>
 
     </div>
   </div>
