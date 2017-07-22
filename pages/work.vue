@@ -15,7 +15,7 @@
 export default {
   computed: {
     isListView() {
-      return this.$route.name !== 'work-id'
+      return this.$route.name !== 'work-slug'
     }
   }
 }
