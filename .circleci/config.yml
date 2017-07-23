@@ -35,8 +35,9 @@ jobs:
         
       # run tests!
       - run: yarn test
-
-
       - deploy:
+          name: master
           command: |
-            rsync -a -z -e "ssh -p 22" ./.nuxt "forge@bigduck.familiar.studio:/home/forge/test" --progress
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              rsync -a -z -e "ssh -p 22" ./.nuxt "forge@bigduck.familiar.studio:/home/forge/test" --progress
+            fi
