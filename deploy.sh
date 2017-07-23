@@ -1,1 +1,1 @@
-rsync -a -z -e "ssh -o StrictHostKeyChecking=no" ./.nuxt "forge@67.205.162.117:/home/forge/test" --progress
+rsync -a -z -e "ssh -o StrictHostKeyChecking=no" ./ "forge@67.205.162.117:/home/forge/test" --progress
