@@ -1,6 +1,8 @@
 # bigduck-nuxt
+[![CircleCI](https://circleci.com/gh/familiar-studio/bigduck.svg?style=svg)](https://circleci.com/gh/familiar-studio/bigduck)
 
 > Nuxt.js project
+
 
 ## Build Setup
 
