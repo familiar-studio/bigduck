@@ -37,8 +37,6 @@ jobs:
       - run: yarn test
 
 
-deployment:
-  master:
-    branch: master
-    commands:
-    - ./deploy.sh
+      - deploy:
+          commands:
+          - ./deploy.sh
