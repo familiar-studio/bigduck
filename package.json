@@ -17,6 +17,7 @@
     "lodash": "^4.17.4",
     "node-sass": "^4.5.3",
     "nuxt": "latest",
+    "pm2": "^2.6.1",
     "sass-loader": "^6.0.5",
     "sass-resources-loader": "^1.2.1",
     "vee-validate": "^2.0.0-rc.5",
