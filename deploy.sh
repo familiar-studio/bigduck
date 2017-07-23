@@ -1,0 +1,1 @@
+rsync -a -z -e "ssh -p 22" ./.nuxt "forge@bigduck.familiar.studio:/home/forge/test" --progress
