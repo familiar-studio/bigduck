@@ -39,5 +39,6 @@ jobs:
           name: master
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              apt-get -y install rsync
               rsync -a -z -e "ssh -p 22" ./.nuxt "forge@bigduck.familiar.studio:/home/forge/test" --progress
             fi
