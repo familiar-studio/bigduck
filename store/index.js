@@ -5,10 +5,10 @@ if (process.BROWSER_BUILD) {
 export const state = () => ({
   userProfile: null,
   localHostname: "https://wordpress.bigduck.dev/wp-json/",
-  remoteHostname: "http://bigduck-wordpress.familiar.studio/wp-json/",
+  remoteHostname: "http://bigduck.familiar.studio/wordpress/wp-json/",
   backupImages: null,
   bareLocalHostname: "https://wordpress.bigduck.dev",
-  bareRemoteHostname: "http://bigduck-wordpress.familiar.studio",
+  bareRemoteHostname: "http://bigduck.familiar.studio/wordpress",
   categories: null,
   categoriesPath: "wp/v2/categories/",
   ctas: [],
