@@ -21,7 +21,7 @@ jobs:
 
     steps:
       - checkout
-      - run: apt-get update && apt-get install -y rsync
+      - run: sudo apt-get update && apt-get install -y rsync
 
       # Download and cache dependencies
       - restore_cache:
