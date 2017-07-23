@@ -5,10 +5,10 @@ if (process.BROWSER_BUILD) {
 export const state = () => ({
   userProfile: null,
   localHostname: "https://wordpress.bigduck.dev/wp-json/",
-  remoteHostname: "http://bigduck.familiar.studio/wordpress/wp-json/",
+  remoteHostname: "http://bigduck-wordpress.familiar.studio/wp-json/",
   backupImages: null,
-  bareLocalHostname: "https://wordpress.bigduck.dev",
-  bareRemoteHostname: "http://bigduck.familiar.studio/wordpress",
+  bareLocalHostname: "https://wordpress.bigduck.dev/",
+  bareRemoteHostname: "http://bigduck-wordpress.familiar.studio/",
   categories: null,
   categoriesPath: "wp/v2/categories/",
   ctas: [],
@@ -120,10 +120,12 @@ export const mutations = {
     state.footerMeta = data;
   },
   setBackupImages(state, data) {
-    state.backupImages = {
-      author: data.acf.backup_author_image,
-      insights: data.acf.backup_insights_images
-    };
+    if (data && data.acf) {
+      state.backupImages = {
+        author: data.acf.backup_author_image,
+        insights: data.acf.backup_insights_images
+      };
+    }
   }
 };
 
