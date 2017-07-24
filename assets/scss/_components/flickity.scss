@@ -70,6 +70,8 @@
 .flickity-prev-next-button {
   top: inherit;
   bottom: -100px;
+  position: static;
+  margin-right: 0.5rem;
   border-radius: 0;
   background-color: $gray-darker;
   opacity: 1;
@@ -82,7 +84,10 @@
     right: inherit;
     left: 60px;
   }
-
+  svg {
+    position: relative;
+    display: block;
+  }
   .arrow {
     fill: white;
   }

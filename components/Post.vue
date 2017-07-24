@@ -4,7 +4,7 @@
       <div class="col-image">
         <div v-if="entry.acf.featured_image" :style="{ 'background-image': 'url(' + entry.acf.featured_image+ ')' }" class="featured-image"></div>
         <div class="featured-image" v-else :style="{ 'background-image': 'url(' + backupImage + ')' }">
-  
+
         </div>
       </div>
       <div class="col-text">
@@ -23,7 +23,7 @@
                 <div v-if="entry['type'][index] && entry['type'][index]['term_id']" v-html="getTypesIndexedById[entry['type'][index]['term_id']].name"></div>
                 <div v-else v-html="getTypesIndexedById[entry['type'][index]].name"></div>
               </div>
-  
+
               <div class="badge badge-default">
                 <span v-if="types && firstType">
                   <span v-if="entry.calculated_reading_time && entry.calculated_reading_time.data && getTypesIndexedById[firstType].verb == 'Read'">
@@ -32,11 +32,11 @@
                   <span v-if="getTypesIndexedById[firstType].verb !== 'Read'">
                     {{entry.acf.time}} {{entry.acf.time_interval}} {{ getTypesIndexedById[firstType].verb }}
                   </span>
-  
+
                 </span>
               </div>
             </div>
-  
+
             <h3 class="card-title">
               <span class="underline-change" v-if="entry.title.rendered" v-html="entry.title.rendered"></span>
               <span class="underline-change" v-else v-html="entry.title"></span>
@@ -52,7 +52,7 @@
                 </span>
               </div>
               <div class="author-listing" v-if="entry.authors">
-  
+
                 <div v-for="author in entry.authors" v-if="entry.authors.length > 0" class="media">
                   <img v-if="author.meta.headshot.sizes" :src="author.meta.headshot.sizes.thumbnail" class="round author-img mr-2">
                   <img v-else :src="backupImages['author']" class="round author-img mr-2">
@@ -88,7 +88,7 @@
                   <span>Big Duck</span>
                 </h6>
               </div>
-  
+
             </div>
           </div>
         </div>

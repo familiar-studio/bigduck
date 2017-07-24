@@ -144,6 +144,20 @@ h4 {
   }
 }
 
+//inline text links
+.block-text, .cs-block-text, .main p{
+  a {
+    @extend .underline-change;
+    color: $gray-dark;
+    background-position: center 100%;
+    background-size: 100% 2px;
+    &:hover {
+      transition: color .3s ease !important;
+      @extend .color-change;
+    }
+  }
+}
+
 //BUTTONS AND BADGES
 
 .badge {
@@ -155,7 +169,7 @@ h4 {
   align-items: center;
   img,
   svg {
-    margin-right: .5rem;
+    margin-right: .3rem;
     width: 24px;
     height: auto;
   }

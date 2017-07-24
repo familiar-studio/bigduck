@@ -13,9 +13,9 @@
           <div id="content">
             <div class="page-title">
               <h1>Upcoming Events</h1>
-  
+
               <h5>
-  
+
                 <router-link :to="{name: 'events-speaking'}">
                   <div class="media">
                     <img src="/svgs/speaking-icon.svg" class="d-flex mr-2" />
@@ -30,12 +30,12 @@
             </div>
             <div v-if="events && events.length > 0">
               <div v-for="(event, index) in events" :key="event">
-                <Event :entry="event" :firstBlock="true" :index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
-  
+                <Event :entry="event" :index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
+
                 <InlineCallout class="mb-5" v-if="index % 2 == 1 && index < events.length - 1" :callout="callout"></InlineCallout>
-  
+
               </div>
-  
+
               <div class="pager" v-if="events.length < totalRecords">
                 <a class="btn btn-primary my-4" href="#" @click.prevent="nextPage">Load more</a>
               </div>
