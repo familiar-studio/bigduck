@@ -17,7 +17,7 @@
 
     <h3>H3. Block Title</h3>
     <div class="card p-2 mb-4">
-      <div class="label">Calibre Bold, 38px</div>
+      <div class="label">Calibre Bold, 38px. Used for all events, services, insights and work listing blocks</div>
     </div>
 
     <h4>H4. Subhead sans-serif</h4>
