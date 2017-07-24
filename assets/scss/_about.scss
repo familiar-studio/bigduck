@@ -63,9 +63,7 @@
       @extend .color-change;
     }
   }
-  .underline-change {
-    background-size: 0 1px !important;
-  }
+
   .svg {
     margin-right: 20px;
   }
@@ -97,9 +95,7 @@
     h3 a {
       @extend .color-change;
     }
-    .underline-change {
-      background-size: 100% 1px !important;
-    }
+
   }
 
   .collapse-content.show {
