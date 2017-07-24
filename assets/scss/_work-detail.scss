@@ -37,11 +37,17 @@
   }
   .col-img{
     min-height: 400px;
+    .bg-img{
+      min-height: 400px; //needed to add this due to flexbox bug in safari with child having 100% height
+    }
     @include media-breakpoint-up(md){
       order:2;
     }
     @include media-breakpoint-up(lg){
       min-height: 700px;
+      .bg-img{
+        min-height: 700px; //needed to add this due to flexbox bug in safari with child having 100% height
+      }
     }
   }
   .col-text{
