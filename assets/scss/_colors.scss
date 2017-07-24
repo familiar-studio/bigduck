@@ -15,6 +15,13 @@
         nth($duck-colors, $i)
       );
     }
+
+    .underline-change-thick {
+      background-image: linear-gradient(
+        rgba(nth($duck-colors, $i), 0) 25%,
+        nth($duck-colors, $i) 25%
+      ); //set up to make the thickness of the line look like a subpixel amount
+    }
     .border-change {
       border-color: nth($duck-colors, $i);
     }
@@ -35,17 +42,25 @@
 .color-change {
   transition: color 1s ease;
   -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
   will-change: color;
 }
 
 .border-change {
   transition: border 1s ease;
 }
-.underline-change {
+.underline-change{
   transition: background-size .3s ease;
   background-position: center 90%;
   background-repeat: no-repeat;
   background-size: 100% 1px;
+}
+
+.underline-change-thick{
+  transition: background-size .3s ease;
+  background-position: center 95%;
+  background-repeat: no-repeat;
+  background-size: 100% 2px;
 }
 
 .fill-change path {

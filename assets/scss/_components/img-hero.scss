@@ -33,6 +33,7 @@
     color: $white;
     font-size: 13px;
     -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
     text-shadow: 2px 2px 2px rgba($black, .2);
     transform: rotate(90deg);
     transform-origin: bottom right;

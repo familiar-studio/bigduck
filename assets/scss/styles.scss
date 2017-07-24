@@ -144,13 +144,17 @@ h4 {
   }
 }
 
+.lead p{
+  font-size: inherit !important;
+}
+
 //inline text links
 .block-text, .cs-block-text, .main p{
   a {
-    @extend .underline-change;
+    @extend .underline-change-thick;
     color: $gray-dark;
-    background-position: center 100%;
-    background-size: 100% 2px;
+    // background-position: center 100%;
+    // background-size: 100% 2px;
     &:hover {
       transition: color .3s ease !important;
       @extend .color-change;
@@ -218,6 +222,7 @@ label,
   text-transform: uppercase;
   letter-spacing: 1px;
   -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
   transition: all .3s ease;
   cursor: pointer;
 }
@@ -226,6 +231,7 @@ label,
   @extend .bg-change;
   background-color: nth($duck-colors, 1);
   -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
   &:hover {
     transition: background-color .3s ease, color 1s ease, border 1s ease !important;
     background-color: $white;

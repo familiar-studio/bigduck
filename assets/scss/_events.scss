@@ -26,6 +26,7 @@
   text-align: center;
   background-color: $gray-darker;
   -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
   padding: .75rem;
   h2,
   h6 {
@@ -52,6 +53,9 @@
       margin-right: 0;
       margin-left: auto;
     }
+  }
+  .event-date{
+    width: 125px; //this was added to make it the same width as the register button
   }
 }
 

@@ -30,7 +30,7 @@
 
               <div class="row cs-intro">
                 <div class="col-lg-9">
-                  <h5 v-html="caseStudy.acf.introduction" class="mb-4 lead"></h5>
+                  <div v-html="caseStudy.acf.introduction" class="mb-4 lead"></div>
                   <div v-html="caseStudy.acf.article_text"></div>
 
                 </div>

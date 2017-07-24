@@ -31,6 +31,7 @@
     @extend .color-change;
     color: nth($duck-colors, 1);
     -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
     margin-top: .2rem;
     font-size: 18px;
   }
@@ -196,6 +197,7 @@ header.hovering #main-menu {
   background-color: nth($duck-colors, 1);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
   .navbar-toggler-icon {
     background-color: transparent;
     &::before {

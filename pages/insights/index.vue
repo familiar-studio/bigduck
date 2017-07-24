@@ -34,7 +34,7 @@
         </div>
       </div>
 
-      <div class="col-lg-2">
+      <div class="col-xl-2">
         <Chat></Chat>
       </div>
     </div>
