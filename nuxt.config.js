@@ -20,7 +20,7 @@ module.exports = {
         content: "@bigduck"
       }
     ],
-    link: [{ rel: "apple-touch-icon", sizes="152x152", href="favicon.png" }]
+    link: [{ rel: "apple-touch-icon", sizes:"152x152", href:"/favicon.png" }]
   },
   cache: false,
   transition: {
