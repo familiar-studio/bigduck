@@ -40,7 +40,7 @@ module.exports = {
   */
   loading: "components/loading.vue",
   router: {
-    middleware: "nextCta",
+    middleware: ["nextCta", "redirects"],
     scrollBehavior: function(to, from, savedPosition) {
       return { x: 0, y: 0 };
     }
