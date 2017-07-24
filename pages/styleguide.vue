@@ -46,7 +46,7 @@
         <div class="label">Tiempos Text Regular, 20px (Bold is Tiempos Text Semibold)</div>
       </div>
 
-      <p class="small">Small copy looks like this. It is used in all cards description, and for secondary paragraphs in the case study description.<strong>Bold</strong> looks like this, and <em>italics</em> look like this. <a href="/">Links</a> look this.</p>
+      <p class="small">Small copy looks like this. It is used in all cards description, and for secondary paragraphs in the case study description. <strong>Bold</strong> looks like this, and <em>italics</em> look like this. <a href="/">Links</a> look this.</p>
       <div class="card p-2 mb-4">
         <div class="label">Tiempos Text Regular, 18px (Bold is Tiempos Text Semibold)</div>
       </div>
