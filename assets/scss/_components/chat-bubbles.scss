@@ -31,7 +31,7 @@
   top: 60vh;
   z-index: 10;
 
-  margin: 0 .75rem;
+  margin: 2rem .75rem;
   display: none;
 
   @include media-breakpoint-up(xl) {
@@ -53,7 +53,7 @@
     opacity: 0;
     @for $i from 1 through 4 {
       &:nth-of-type(#{$i}) {
-        animation-delay: 0.4s * $i +1.8s;
+        animation-delay: 0.8s * $i +1.5s;
       }
     }
   }
