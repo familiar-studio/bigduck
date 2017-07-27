@@ -64,7 +64,7 @@ test("Route /about exits and render HTML", async t => {
   let context = {};
   const { html } = await nuxt.renderRoute("/about", context);
   t.true(html.includes("about"));
-  t.true(html.includes("our-clients"));
+  t.true(html.includes("clients"));
 });
 
 test("Route /contact exits and render HTML", async t => {
