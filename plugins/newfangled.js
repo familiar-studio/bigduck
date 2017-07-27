@@ -12,10 +12,10 @@ export default ({ app: { router }, store }) => {
       */
       var externalID;
       if (ActOn && Acton.Beacon) {
-        ActOn.Beacon.track();
+        //ActOn.Beacon.track();
 
       if (typeof ActOn.Beacon.cookie !== "undefined") {
-        externalID = ActOn.Beacon.cookie["4852"];
+        //externalID = ActOn.Beacon.cookie["4852"];
       }
       }
 
