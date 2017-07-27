@@ -12,14 +12,14 @@
           <h1>{{ service.title.rendered }}</h1>
           <div v-html="service.acf.introduction"></div>
         </article>
-
+  
         <div v-for="block in service.acf.service_body">
           <div v-if="block.acf_fc_layout == 'text'" v-html="block.text" class="mb-5 block-text"></div>
           <h2 v-if="block.acf_fc_layout == 'heading'" class="mt-5" v-html="block.heading"></h2>
           <div v-if="block.acf_fc_layout == 'faq' && block.questions.length > 0">
             <FAQ :questions="block.questions"></FAQ>
           </div>
-
+  
           <!-- TESTIMONIAL -->
           <div v-if="block.acf_fc_layout == 'testimonial'" class="cs-block-testimonial testimonial break-container">
             <div class="row">
@@ -35,23 +35,23 @@
             </div>
           </div>
         </div>
-
+  
         <div class="mt-5" v-if="relatedCaseStudies && relatedCaseStudies.length > 0">
           <h2>Related Case Studies</h2>
           <Work :work="relatedCaseStudies"></Work>
         </div>
-
+  
         <div class="callout-fullwidth text-white color bg-change">
           <div class="row">
             <div class="col-lg-10 offset-lg-1">
-              <h2 class="mb-4">{{ service.acf.cta_text }}</h2>
-              <GravityForm :formId="5" :showAll="true" btnType="info"></GravityForm>
+              <h2 class="mb-4" v-if="!submittedForm">{{ service.acf.cta_text }}</h2>
+              <GravityForm :formId="5" :showAll="true" btnType="info" @submitted="hideCallout()"></GravityForm>
             </div>
           </div>
         </div>
       </div>
     </div>
-
+  
   </div>
 </template>
 <script>
@@ -64,7 +64,7 @@ import Post from '~components/Post.vue'
 
 export default {
   name: 'service',
-  head () {
+  head() {
     if (this.service) {
       return {
         title: this.service.title.rendered,
@@ -109,7 +109,8 @@ export default {
     return {
       service: null,
       relatedCaseStudies: null,
-      relatedInsights: null
+      relatedInsights: null,
+      submittedForm: false
     }
   },
   computed: {
@@ -134,6 +135,11 @@ export default {
   },
   components: {
     Work, Post, GravityForm, FAQ
+  },
+  methods: {
+    hideCallout() {
+      this.submittedForm = true
+    }
   },
   async created() {
     let relatedWorkIds = this.service.acf.related_case_studies
