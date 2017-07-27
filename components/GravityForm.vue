@@ -31,8 +31,9 @@
 
         <template v-else-if="field.type == 'checkbox'">
           <div class="custom-controls-stacked">
+            {{formData['input_' + field.id]}}
             <label class="custom-control custom-checkbox" v-for="choice in field.choices">
-              <input class="custom-control-input" type="checkbox" :name="field.id" v-model="formData['input_'+field.id]" :value="choice.value">
+              <input class="custom-control-input" type="checkbox" :name="field.id" v-model="formData['input_'+field.id]" :value="choice.value" >
               <span class="custom-control-indicator"></span>
               <span class="custom-control-description">{{ choice.text }}</span>
             </label>
@@ -167,7 +168,6 @@ export default {
       if (this.allFields) {
 
         this.visibleFields = this.allFields.filter((field, index) => {
-          // if checkboxes and not already has data initalize as array to make multi-select work properly
           if (field.type === 'checkbox') {
             console.log('checkboxes', this.formData[field.id])
 
@@ -225,17 +225,17 @@ export default {
         this.formData.input_20 = this.gatedContent
 
       }
-
-
-      try {
-
         var response = await axios.post(this.baseUrl + 'forms/' + this.formId + '/submissions',
           { "input_values": this.formData },
           { params: { api_key: this.publicKey, signature: signature, expires: this.expires } })
           console.log(response)
-          // if (!response.data.response.is_valid){
-          //   debugger
-          // } else {
+          if (!response.data.response.is_valid){
+            var errors = response.data.response.validation_messages
+            var first = Object.keys(errors)[0]
+            this.error = "Field " + first + ": " + errors[first]
+            debugger
+            this.loading = false
+          } else {
 
             if (this.id) {
               if (process.BROWSER_BUILD) {
@@ -247,15 +247,9 @@ export default {
 
             this.$emit('submitted')
             this.submitted = true
-          // }
-        this.loading = false
-      } catch (e) {
-        this.error = "An error occurred. Please try again later."
+          }
         this.loading = false
       }
-
-
-  } 
 })}, ...mapMutations(['updateProfile'])
 
   },
