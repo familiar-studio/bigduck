@@ -107,6 +107,7 @@ export default {
       submitted: false,
       confirmation: 'Thanks, your the greatest!',
       hiddenFields: [],
+      visibleFields: [],
       loading: false,
       headline: null,
       body: null,
@@ -151,11 +152,21 @@ export default {
       var unixtime = parseInt(d.getTime() / 1000)
       return unixtime + expiration
     },
-    visibleFields() {
+
+  },
+  methods: {
+    CalculateSig(route, method) {
+      var stringToSign = this.publicKey + ':' + method + ':' + route + ':' + this.expires
+      var hash = CryptoJS.HmacSHA1(stringToSign, this.privateKey)
+      var base64 = hash.toString(CryptoJS.enc.Base64)
+      return encodeURIComponent(base64)
+    },
+    setupVisibleFields() {
       let fieldCount = 0
+      console.log('setup all fields')
       if (this.allFields) {
 
-        return this.allFields.filter((field, index) => {
+        this.visibleFields = this.allFields.filter((field, index) => {
           // if checkboxes and not already has data initalize as array to make multi-select work properly
           if (field.type === 'checkbox') {
             console.log('checkboxes', this.formData[field.id])
@@ -170,8 +181,10 @@ export default {
           if (index < 3) {
             return field
           } else {
-            if ((!this.formData[field.id] && fieldCount < this.totalProfilingFields) || this.showAll) {
+            if ((!this.formData['input_' + field.id] && fieldCount < this.totalProfilingFields) || this.showAll) {
               fieldCount++
+
+              console.log('data', this.formData[field.id])
               return field
             }
           }
@@ -179,14 +192,6 @@ export default {
           this.hiddenFields.push(field)
         })
       }
-    }
-  },
-  methods: {
-    CalculateSig(route, method) {
-      var stringToSign = this.publicKey + ':' + method + ':' + route + ':' + this.expires
-      var hash = CryptoJS.HmacSHA1(stringToSign, this.privateKey)
-      var base64 = hash.toString(CryptoJS.enc.Base64)
-      return encodeURIComponent(base64)
     },
     async submitEntry() {
       this.loading = true
@@ -262,6 +267,8 @@ export default {
           }
 
           this.allFields = response.data.response.fields
+          this.setupVisibleFields();
+
         }
       }
     )

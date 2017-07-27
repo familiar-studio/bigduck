@@ -12,13 +12,13 @@
         <div class="container" id="content">
           <h1>Insights</h1>
           <div v-if="insights && insights.length > 0">
-
+  
             <div v-for="(insight, index) in insights" :key="insight" :data-index="index" v-cloak>
               <Post :entry="insight" :index="index" v-once></Post>
               <InlineCallout class="mb-5" v-if="index % 5 == 1 && index < insights.length - 1" :callout="callout"></InlineCallout>
-
+  
             </div>
-
+  
             <div class="pager" v-if="insights.length < totalRecords">
               <a class="btn btn-primary my-4" href="#" @click.prevent="nextPage">Load more</a>
             </div>
@@ -33,7 +33,7 @@
           </div>
         </div>
       </div>
-
+  
       <div class="col-xl-2">
         <Chat></Chat>
       </div>
@@ -51,7 +51,7 @@ import Post from '~components/Post.vue'
 
 export default {
   name: 'insights',
-  async asyncData({ store, query }) {
+  async asyncData({ store, query, errro }) {
     try {
       store.commit('resetPage')
 
@@ -62,7 +62,7 @@ export default {
         totalRecords: response.headers['x-wp-total']
       }
     } catch (e) {
-      console.error(e)
+      error({ statusCode: 404, message: 'Post not found' })
     }
   },
   data() {

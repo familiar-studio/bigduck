@@ -1,6 +1,6 @@
 <template>
   <div v-if="insight">
-
+  
     <div class="img-hero" v-if="insight && insight.acf.featured_image" :style=" { backgroundImage: 'url(' + insight.acf.featured_image + ')' }">
       <figcaption class="figure-caption">{{insight.acf.featured_image.caption}}</figcaption>
     </div>
@@ -37,7 +37,7 @@
                   {{ date }}
                 </div>
               </div>
-
+  
               <h1 v-html="insight.title.rendered">
               </h1>
               <div class="author-listing" v-if="insight.acf.author.length > 0">
@@ -48,7 +48,7 @@
                     <nuxt-link :to="'/about/' + author.user_nicename">{{author.display_name}}</nuxt-link>
                   </div>
                 </div>
-
+  
                 <div>
                   <div v-if="insight.acf.guest_author_name" class="badge badge-default mb-3">
                     <img :src="backupImages['author']" class="round author-img mr-2">
@@ -61,7 +61,7 @@
               <div v-if="!insight.acf.guest_author_name && insight.acf.author.length < 1" class="badge badge-default mb-3 author-no-img">
                 <span>Big Duck</span>
               </div>
-
+  
               <div v-for="block in insight.acf.body" :class="['block-' + block.acf_fc_layout]">
                 <div v-if="block.acf_fc_layout == 'text'" v-html="block.text"></div>
                 <template v-if="block.acf_fc_layout == 'callout'">
@@ -70,16 +70,16 @@
                   <img :src="block.image" alt="callout image" v-if="block.image" />
                 </template>
               </div>
-
+  
               <div class="hidden-lg-up mt-4">
                 <Share></Share>
               </div>
             </article>
             <div v-if="insight.acf.is_gated_content">
-
+  
               <div class="form-light">
                 <GravityForm v-if="!formFilled" :formId="7" :gatedContent="insight.id" :title="insight.title.rendered" :id="insight.id" @submitted="refreshContent()" cookiePrefix="insight-"></GravityForm>
-
+  
                 <div v-if="formFilled || contentRefreshed">
                   <transition name="fade" appear>
                     <div>
@@ -90,12 +90,12 @@
                     </div>
                   </transition>
                 </div>
-
+  
               </div>
             </div>
-
+  
             <article class="mb-5">
-
+  
               <div v-if="insight.acf.author.length > 0" v-for="(author, index) in insight.acf.author">
                 <div class="author-bio">
                   <div class="row">
@@ -112,12 +112,12 @@
                         More about {{author.user_firstname}}
                       </nuxt-link>
                     </div>
-
+  
                   </div>
                 </div>
               </div>
             </article>
-
+  
             <div class="mb-5" v-if="relatedCaseStudies">
               <h2>Related Case Studies</h2>
               <div class="row">
@@ -144,7 +144,7 @@
                 </div>
               </div>
             </div>
-
+  
             <div class="mb-5" v-if="relatedInsights">
               <h2>Related Insights</h2>
               <div v-if="relatedInsights">
@@ -190,20 +190,25 @@ export default {
       contentRefreshed: false
     }
   },
-  async asyncData({ state, params, store }) {
+  async asyncData({ state, params, store, error }) {
     let data = {}
-    let response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_insight', { params: { slug: params.slug } })
-    data.insight = response.data[0]
-    if (data.insight.acf.related_case_studies) {
-      data.relatedWorkIds = data.insight.acf.related_case_studies.map((caseStudy) => { return caseStudy.ID })
+    try {
+
+      let response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_insight', { params: { slug: params.slug } })
+      data.insight = response.data[0]
+      if (data.insight.acf.related_case_studies) {
+        data.relatedWorkIds = data.insight.acf.related_case_studies.map((caseStudy) => { return caseStudy.ID })
+      }
+      if (data.insight.acf.related_insights) {
+        data.relatedInsightIds = data.insight.acf.related_insights.map((insight) => { return insight.ID })
+      }
+      if (data.insight.acf.author.length > 0) {
+        data.authorIds = data.insight.acf.author.map((author) => { return author.ID })
+      }
+      return data
+    } catch (e) {
+      error({ statusCode: 404, message: 'Post not found' })
     }
-    if (data.insight.acf.related_insights) {
-      data.relatedInsightIds = data.insight.acf.related_insights.map((insight) => { return insight.ID })
-    }
-    if (data.insight.acf.author.length > 0) {
-      data.authorIds = data.insight.acf.author.map((author) => { return author.ID })
-    }
-    return data
   },
   head() {
     if (this.insight) {
