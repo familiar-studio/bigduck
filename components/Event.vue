@@ -10,13 +10,13 @@
           <div class="card">
             <div class="card-block">
               <div class="badge-group" v-if="topics && eventCategories">
-                <div class="badge badge-default" v-if="topics && entry['topic'].length > 0" v-for="topic in entry.topic">
-                  <div v-if="entry['topic'][0]['term_id']" v-html="getTopicsIndexedById[entry['topic'][0]['term_id']].icon"></div><div v-else v-html="getTopicsIndexedById[entry['topic'][0]].icon"></div>
-                  <div v-if="entry['topic'][0]['term_id']" v-html="getTopicsIndexedById[entry['topic'][0]['term_id']].name"></div><div v-else v-html="getTopicsIndexedById[entry['topic'][0]].name"></div>
+                <div class="badge badge-default" v-if="topics && entry['topic'].length > 0" v-for="(topic, index) in entry.topic">
+                  <div v-if="entry['topic'][index]['term_id']" v-html="getTopicsIndexedById[entry['topic'][index]['term_id']].icon"></div><div v-else v-html="getTopicsIndexedById[entry['topic'][index]].icon"></div>
+                  <div v-if="entry['topic'][index]['term_id']" v-html="getTopicsIndexedById[entry['topic'][index]['term_id']].name"></div><div v-else v-html="getTopicsIndexedById[entry['topic'][index]].name"></div>
                 </div>
-                <div class="badge badge-default badge-type" v-if="eventCategories && entry['event_category'].length > 0">
-                  <div v-if="entry['event_category'][0]['term_id']" v-html="getEventCategoriesIndexedById[entry['event_category'][0]['term_id']].icon"></div><div v-else v-html="getEventCategoriesIndexedById[entry['event_category'][0]].icon"></div>
-                  <div v-if="entry['event_category'][0]['term_id']" v-html="getEventCategoriesIndexedById[entry['event_category'][0]['term_id']].name"></div><div v-else v-html="getEventCategoriesIndexedById[entry['event_category'][0]].name"></div>
+                <div class="badge badge-default badge-type" v-if="eventCategories && entry['event_category'].length > 0" v-for="(category, index) in entry.event_category">
+                  <div v-if="entry['event_category'][index]['term_id']" v-html="getEventCategoriesIndexedById[entry['event_category'][index]['term_id']].icon"></div><div v-else v-html="getEventCategoriesIndexedById[entry['event_category'][index]].icon"></div>
+                  <div v-if="entry['event_category'][index]['term_id']" v-html="getEventCategoriesIndexedById[entry['event_category'][index]['term_id']].name"></div><div v-else v-html="getEventCategoriesIndexedById[entry['event_category'][index]].name"></div>
                 </div>
               </div>
               <h3 class="card-title">
