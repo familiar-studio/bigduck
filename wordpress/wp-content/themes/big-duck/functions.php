@@ -661,7 +661,7 @@ class StarterSite extends TimberSite {
 		$events = array();
 		foreach($rawEvents as $rawEvent){
 			$fields = get_fields($rawEvent->ID);
-		
+
 							$team = $fields['related_team_members'];
 							if (is_array($team)){
 								foreach($team as $member_data) {
@@ -682,9 +682,9 @@ class StarterSite extends TimberSite {
 							$event->event_category = $eventCategories;
 							$events[] = array('data' => $event, 'team_meta' => $team_meta);
 							continue;
-					
+
 			}
-		
+
 
 		return new WP_REST_Response(array('events' => $events));
 	}
@@ -1061,20 +1061,6 @@ class StarterSite extends TimberSite {
 					'show_in_rest' => true,
 				)
 			);
-			register_post_type( 'bd_client',
-				array(
-					'labels' => array(
-						'name' => __( 'Clients' ),
-						'singular_name' => __( 'Client' )
-					),
-					'public' => true,
-					'show_ui' => true,
-					'show_in_menu' => true,
-					'has_archive' => true,
-					'rewrite' => array('slug' => 'clients'),
-					'show_in_rest' => true,
-				)
-			);
 
 			register_post_type( 'bd_job',
 				array(
@@ -1207,7 +1193,7 @@ class StarterSite extends TimberSite {
 
 		register_taxonomy(
 			'sector',
-			array('bd_case_study', 'bd_client'),
+			array('bd_case_study'),
 			$args
 		);
 
