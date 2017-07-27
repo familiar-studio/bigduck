@@ -91,15 +91,15 @@ export default {
           },
           {
             'property': 'image',
-            'content': 'http://bigduck-wordpress.familiar.studio/wp-content/uploads/2017/07/logo.svg'
+            'content': 'http://bigduck.familiar.studio/wordpress/wp-content/uploads/2017/07/28546982-bf3e1ad0-709a-11e7-9b12-3b5d1238669f.png'
           },
           {
             'property': 'og:image:url',
-            'content': 'http://bigduck-wordpress.familiar.studio/wp-content/uploads/2017/07/logo.svg'
+            'content': 'http://bigduck.familiar.studio/wordpress/wp-content/uploads/2017/07/28546982-bf3e1ad0-709a-11e7-9b12-3b5d1238669f.png'
           },
           {
             'property': 'twitter:image',
-            'content': 'http://bigduck-wordpress.familiar.studio/wp-content/uploads/2017/07/logo.svg'
+            'content': 'http://bigduck.familiar.studio/wordpress/wp-content/uploads/2017/07/28546982-bf3e1ad0-709a-11e7-9b12-3b5d1238669f.png'
           }
         ]
       }

@@ -8,7 +8,7 @@
         </div>
       </div>
       <div class='col-lg-9 col-xl-8'>
-  
+
         <div class="container" id="content">
           <div v-if="work">
             <h1>Work</h1>
@@ -16,11 +16,11 @@
             <div v-else>
               There is currently no work in
               <span v-if="selectedTopic">{{getTopicsIndexedById[selectedTopic].name}}</span>
-  
+
             </div>
           </div>
         </div>
-  
+
       </div>
       <div class="col-lg-2">
         <Chat></Chat>
@@ -100,15 +100,15 @@ export default {
           },
           {
             'property': 'image',
-            'content': this.work[0].acf.hero_image.url
+            'content': 'http://bigduck.familiar.studio/wordpress/wp-content/uploads/2017/07/28546982-bf3e1ad0-709a-11e7-9b12-3b5d1238669f.png'
           },
           {
             'property': 'og:image:url',
-            'content': this.work[0].acf.hero_image.url
+            'content': 'http://bigduck.familiar.studio/wordpress/wp-content/uploads/2017/07/28546982-bf3e1ad0-709a-11e7-9b12-3b5d1238669f.png'
           },
           {
             'property': 'twitter:image',
-            'content': this.work[0].acf.hero_image.url
+            'content': 'http://bigduck.familiar.studio/wordpress/wp-content/uploads/2017/07/28546982-bf3e1ad0-709a-11e7-9b12-3b5d1238669f.png'
           }
         ]
       }
