@@ -55,7 +55,7 @@
               <article class="my-5" v-if="sectorsByIndex" id="clients">
                 <h1 v-html="page.acf.our_clients_headline"></h1>
                 <div v-html="page.acf.clients_body" class="mb-4-5"></div>
-  
+
                 <div class="collapse-block" v-for="(client, index) in page.acf.clients">
                   <div class="" v-if="client.client_category">
                     <div class="media" :class="{ 'active': openCategory === client.client_category }">
@@ -92,16 +92,16 @@
                 </ul>
               </article>
               <v-waypoint @waypoint-in="activateSection('team')"></v-waypoint>
-  
+
               <article class="break-container bg-white team py-5">
                 <h1 id="team">{{page.acf.team_headline}}</h1>
                 <div v-html="page.acf.team_body" class="mb-4-5"></div>
-  
+
                 <div class="row">
                   <div v-for="member in page.acf.team" class="col-sm-6 col-lg-4">
                     <nuxt-link :key="member.id" :to=" {name: 'about-slug', params: {slug: member.team_member.user_nicename}}" class="team-member">
                       <div class="col-image">
-  
+
                         <div :style="{ 'background-image': 'url(' + teamMemberBySlug(member.team_member.user_nicename).headshot.url + ')' }" class="featured-image"></div>
                       </div>
                       <div>
@@ -115,7 +115,7 @@
                 </div>
               </article>
               <v-waypoint @waypoint-in="activateSection('open-house')"></v-waypoint>
-  
+
               <article v-if="openHouse" class="openHouse my-5">
                 <h1 id="open-house">Open House</h1>
                 <div v-html="page.acf.open_house_body" class="mb-5"></div>
@@ -124,7 +124,7 @@
                 </div>
               </article>
               <v-waypoint @waypoint-in="activateSection('jobs')"></v-waypoint>
-  
+
               <article id="jobs" class="mb-5">
                 <h1>{{ page.acf.jobs_headline }}</h1>
                 <div v-html="page.acf.jobs_body" class="mb-3"></div>
@@ -149,7 +149,7 @@
                   </div>
                 </div>
               </article>
-  
+
             </div>
           </div>
         </div>
@@ -225,10 +225,9 @@ export default {
     let data = {}
     let page = await Axios.get(store.getters['hostname'] + 'wp/v2/pages?slug=about')
     data['pageObject'] = page.data
-    let [team, jobs, clients, openHouse] = await Promise.all([
+    let [team, jobs, openHouse] = await Promise.all([
       store.dispatch('fetch', 'familiar/v1/team'),
       store.dispatch('fetch', 'wp/v2/bd_job'),
-      store.dispatch('fetch', 'wp/v2/bd_client'),
       store.dispatch('fetch', 'wp/v2/bd_event?event_category=31')
     ])
     data['team'] = team.data
