@@ -194,6 +194,9 @@ export default {
       }
     },
     async submitEntry() {
+      this.$validator.validateAll().then(async result => {
+
+        if (result){
       this.loading = true
       this.error = null
       var signature = this.CalculateSig('entries', 'POST')
@@ -252,9 +255,9 @@ export default {
       }
 
 
+  } 
+})}, ...mapMutations(['updateProfile'])
 
-    },
-    ...mapMutations(['updateProfile'])
   },
   created() {
     var signature = this.CalculateSig('forms/' + this.formId, 'GET')
