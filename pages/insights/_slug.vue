@@ -62,13 +62,15 @@
                 <span>Big Duck</span>
               </div>
 
-              <div v-for="block in insight.acf.body" :class="['block-' + block.acf_fc_layout]">
-                <div v-if="block.acf_fc_layout == 'text'" v-html="block.text"></div>
-                <template v-if="block.acf_fc_layout == 'callout'">
-                  <div v-html="block.text">
-                  </div>
-                  <div><img :src="block.image.url" alt="callout image" v-if="block.image" style="width:100%;"/></div>
-                </template>
+              <div v-for="block in insight.acf.body">
+
+                <div v-if="block.acf_fc_layout == 'text'" v-html="block.text" :class="['block-' + block.acf_fc_layout]"></div>
+                  <template v-if="block.acf_fc_layout == 'callout' && block.text.length > 0" :class="['block-' + block.acf_fc_layout]">
+                    <div v-html="block.text">
+                    </div>
+                  </template>
+                <div><img :src="block.image.url" alt="callout image" v-if="block.acf_fc_layout == 'callout' && block.image" style="width:100%;" class="my-5"/></div>
+
               </div>
 
               <div class="hidden-lg-up mt-4">
