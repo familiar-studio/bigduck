@@ -14,7 +14,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" :class="{ 'active': activeSection == 'our-clients' }" v-scroll-to="'#our-clients'">
+                <a class="nav-link" href="#" :class="{ 'active': activeSection == 'clients' }" v-scroll-to="'#clients'">
                   <span>{{ page.acf.our_clients_headline}}</span>
                 </a>
               </li>
@@ -45,16 +45,17 @@
           <div class="container">
             <!-- <div v-scroll-spy="scrollPos" :steps="30" :time="200"> -->
             <div>
-              <article class="main overlap">
-                <h1 id="we-believe">{{ page.acf.we_believe_headline }}</h1>
+              <v-waypoint @waypoint-in="activateSection('we-believe')"></v-waypoint>
+              <article id="we-believe" class="main overlap">
+                <h1>{{ page.acf.we_believe_headline }}</h1>
                 <div v-html="page.acf.we_believe_body"></div>
                 <h1>{{ page.our_clients_headline }}</h1>
               </article>
-
+              <v-waypoint @waypoint-in="activateSection('clients')"></v-waypoint>
               <article class="my-5" v-if="sectorsByIndex" id="clients">
-                <h1 id="our-clients" v-html="page.acf.our_clients_headline"></h1>
+                <h1 v-html="page.acf.our_clients_headline"></h1>
                 <div v-html="page.acf.clients_body" class="mb-4-5"></div>
-
+  
                 <div class="collapse-block" v-for="(client, index) in page.acf.clients">
                   <div class="" v-if="client.client_category">
                     <div class="media" :class="{ 'active': openCategory === client.client_category }">
@@ -74,7 +75,7 @@
                   </div>
                 </div>
               </article>
-
+              <v-waypoint @waypoint-in="activateSection('values')"></v-waypoint>
               <article class="values bg-change break-container">
                 <h1 id="values">{{ page.acf.values_headline }}</h1>
                 <div v-html="page.acf.values_body"></div>
@@ -90,16 +91,17 @@
                   </li>
                 </ul>
               </article>
-
+              <v-waypoint @waypoint-in="activateSection('team')"></v-waypoint>
+  
               <article class="break-container bg-white team py-5">
                 <h1 id="team">{{page.acf.team_headline}}</h1>
                 <div v-html="page.acf.team_body" class="mb-4-5"></div>
-
+  
                 <div class="row">
                   <div v-for="member in page.acf.team" class="col-sm-6 col-lg-4">
                     <nuxt-link :key="member.id" :to=" {name: 'about-slug', params: {slug: member.team_member.user_nicename}}" class="team-member">
                       <div class="col-image">
-
+  
                         <div :style="{ 'background-image': 'url(' + teamMemberBySlug(member.team_member.user_nicename).headshot.url + ')' }" class="featured-image"></div>
                       </div>
                       <div>
@@ -112,7 +114,8 @@
                   </div>
                 </div>
               </article>
-
+              <v-waypoint @waypoint-in="activateSection('open-house')"></v-waypoint>
+  
               <article v-if="openHouse" class="openHouse my-5">
                 <h1 id="open-house">Open House</h1>
                 <div v-html="page.acf.open_house_body" class="mb-5"></div>
@@ -120,7 +123,8 @@
                   <Event :entry="event" :index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
                 </div>
               </article>
-
+              <v-waypoint @waypoint-in="activateSection('jobs')"></v-waypoint>
+  
               <article id="jobs" class="mb-5">
                 <h1>{{ page.acf.jobs_headline }}</h1>
                 <div v-html="page.acf.jobs_body" class="mb-3"></div>
@@ -145,7 +149,7 @@
                   </div>
                 </div>
               </article>
-
+  
             </div>
           </div>
         </div>
@@ -260,6 +264,7 @@ export default {
   methods: {
     activateSection(sectionName) {
       this.activeSection = sectionName
+      console.log('activate', sectionName)
     },
     toggleClient(categoryId) {
       this.openCategory = this.openCategory === categoryId ? null : categoryId
