@@ -20,7 +20,8 @@ module.exports = {
         content: "@bigduck"
       }
     ],
-    link: [{ rel: "apple-touch-icon", sizes:"152x152", href:"/favicon.png" }]
+    link: [{ rel: "apple-touch-icon", sizes:"152x152", href:"/favicon.png" }],
+    script: [{ src:"http://hi.bigducknyc.com/cdnr/30/acton/bn/tracker/4852"}]
   },
   cache: false,
   transition: {
