@@ -1076,20 +1076,6 @@ class StarterSite extends TimberSite {
 					'show_in_rest' => true,
 				)
 			);
-			register_post_type( 'bd_callout',
-				array(
-					'labels' => array(
-						'name' => __( 'Callouts' ),
-						'singular_name' => __( 'Callout' )
-					),
-					'public' => true,
-					'show_ui' => true,
-					'show_in_menu' => true,
-					'has_archive' => true,
-					'rewrite' => array('slug' => 'callouts'),
-					'show_in_rest' => true
-				)
-			);
 
 			register_post_type( 'sidebarcta',
 				array(
