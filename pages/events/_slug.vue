@@ -80,9 +80,8 @@
                     <div class="">
 
                       <div v-if="!formFilled && !contentRefreshed">
-                        <a :href="event.acf.is_webinar ? '#register' : event.acf.registration_url" class="btn btn-primary my-3 event-registration" v-scroll-to="{ el:'#register'}">
-                          Register
-                        </a>
+                        <a href="#register" v-if="event.acf.is_webinar" class="btn btn-primary my-3 event-registration" v-scroll-to="{ el:'#register'}">Register</a>
+                        <a :href="event.acf.registration_url" v-else class="btn btn-primary my-3 event-registration" >Register</a>
                       </div>
                     </div>
                     <div class="hidden-lg-up">
