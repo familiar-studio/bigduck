@@ -31,7 +31,6 @@
 
         <template v-else-if="field.type == 'checkbox'">
           <div class="custom-controls-stacked">
-            {{formData['input_' + field.id]}}
             <label class="custom-control custom-checkbox" v-for="choice in field.choices">
               <input class="custom-control-input" type="checkbox" :name="field.id" v-model="formData['input_'+field.id]" :value="choice.value" >
               <span class="custom-control-indicator"></span>
