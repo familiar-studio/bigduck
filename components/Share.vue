@@ -22,10 +22,13 @@
 </template>
 <script>
 export default {
-  computed: {
-    path() {
-      console.log(this.$route.fullPath)
-      return this.$route.fullPath
+   computed: {
+    path () {
+      if (process.BROWSER_BUILD){
+        return window.location.href
+      } else {
+        return "https://bigducknyc.org" + this.$route.fullPath
+      }
     }
   }
 }
