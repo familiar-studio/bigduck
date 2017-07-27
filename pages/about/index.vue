@@ -235,20 +235,6 @@ export default {
 
     // arrange clients into sectors:
     const sectors = store.state.sectors.sort()
-    let clientsBySector = {}
-    sectors.forEach((sector) => {
-      clientsBySector[sector.id] = []
-    })
-    clients.data.forEach((client) => {
-      if (client.sector.length > 0) {
-        let clientSector = clientsBySector[client.sector[0]]
-        clientSector = clientSector.push(client)
-      }
-    })
-    // sectors.forEach((sector) => {
-    //   clientsBySector[sector] = clientsBySector[sector].sort((a, b) => {})
-    // })
-    data['clientsBySector'] = clientsBySector
     data['openHouse'] = openHouse.data
     return data
   },
@@ -263,7 +249,6 @@ export default {
   methods: {
     activateSection(sectionName) {
       this.activeSection = sectionName
-      console.log('activate', sectionName)
     },
     toggleClient(categoryId) {
       this.openCategory = this.openCategory === categoryId ? null : categoryId
