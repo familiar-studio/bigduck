@@ -12,14 +12,19 @@
           <h1>{{ service.title.rendered }}</h1>
           <div v-html="service.acf.introduction"></div>
         </article>
-  
+
         <div v-for="block in service.acf.service_body">
           <div v-if="block.acf_fc_layout == 'text'" v-html="block.text" class="mb-5 block-text"></div>
           <h2 v-if="block.acf_fc_layout == 'heading'" class="mt-5" v-html="block.heading"></h2>
           <div v-if="block.acf_fc_layout == 'faq' && block.questions.length > 0">
             <FAQ :questions="block.questions"></FAQ>
           </div>
-  
+
+          <div class="" v-if="block.acf_fc_layout == 'image'" class="mb-5">
+            <img :src="block.image.url"  style="width: 100%;">
+            <figcaption v-if="block.caption" class="figure-caption mt-1">{{ block.caption }}</figcaption>
+          </div>
+
           <!-- TESTIMONIAL -->
           <div v-if="block.acf_fc_layout == 'testimonial'" class="cs-block-testimonial testimonial break-container">
             <div class="row">
@@ -35,12 +40,12 @@
             </div>
           </div>
         </div>
-  
+
         <div class="mt-5" v-if="relatedCaseStudies && relatedCaseStudies.length > 0">
           <h2>Related Case Studies</h2>
           <Work :work="relatedCaseStudies"></Work>
         </div>
-  
+
         <div class="callout-fullwidth text-white color bg-change">
           <div class="row">
             <div class="col-lg-10 offset-lg-1">
@@ -51,7 +56,7 @@
         </div>
       </div>
     </div>
-  
+
   </div>
 </template>
 <script>
