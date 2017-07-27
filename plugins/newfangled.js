@@ -11,13 +11,13 @@ export default ({ app: { router }, store }) => {
       ** Send the pageview
       */
       var externalID;
-      // if (ActOn && Acton.Beacon) {
-      //   ActOn.Beacon.track();
-      //
-      // if (typeof ActOn.Beacon.cookie !== "undefined") {
-      //   externalID = ActOn.Beacon.cookie["4852"];
-      // }
-      // }
+      if (ActOn && Acton.Beacon) {
+        ActOn.Beacon.track();
+
+      if (typeof ActOn.Beacon.cookie !== "undefined") {
+        externalID = ActOn.Beacon.cookie["4852"];
+      }
+      }
 
       var sessionId = jscookie.get("nfsession") || 0;
       var pageLink = window.location.href;
