@@ -1,16 +1,5 @@
 <?php
 
-if ( ! class_exists( 'Timber' ) ) {
-	add_action( 'admin_notices', function() {
-		echo '<div class="error"><p>Timber not activated. Make sure you activate the plugin in <a href="' . esc_url( admin_url( 'plugins.php#timber' ) ) . '">' . esc_url( admin_url( 'plugins.php') ) . '</a></p></div>';
-	});
-
-	add_filter('template_include', function($template) {
-		return get_stylesheet_directory() . '/static/no-timber.html';
-	});
-
-	return;
-}
 
 function bd_pre_get_posts( $query ) {
 	// if( is_admin() ) {
@@ -158,39 +147,25 @@ function cc_mime_types($mimes) {
 }
 
 add_filter( 'upload_mimes', 'cc_mime_types');
-
-Timber::$dirname = array('templates', 'views');
-
-class StarterSite extends TimberSite {
-
-	function __construct() {
-		add_theme_support( 'post-formats' );
-		add_theme_support( 'post-thumbnails' );
-		add_theme_support( 'menus' );
-		add_filter( 'timber_context', array( $this, 'add_to_context' ) );
-		add_filter( 'get_twig', array( $this, 'add_to_twig' ) );
-		add_action( 'init', array( $this, 'register_post_types' ) );
-		add_action( 'init', array( $this, 'register_taxonomies' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_bootstrap' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_bundles'));
-		add_action( 'rest_api_init', array( $this, 'add_rest_fields'));
-		add_action( 'rest_api_init', array( $this, 'register_routes') );
-		add_action( 'init', array( $this, 'add_rest_to_cpts'));
-		add_action( 'init', array( $this, 'add_image_sizes'));
-		parent::__construct();
-		// add_filter( 'allowed_http_origin', '__return_true' );
-		add_action( 'init', array( $this, 'handle_preflight'));
-
-		// add_action( 'rest_api_init', function() {
-
-		// 	remove_filter( 'rest_pre_serve_request', 'rest_send_cors_headers' );
-
-		// }, 15 );
-
-				parent::__construct();
+add_theme_support( 'post-formats' );
+add_theme_support( 'post-thumbnails' );
+add_theme_support( 'menus' );
+add_action( 'init', array( $this, 'register_post_types' ) );
+add_action( 'init', array( $this, 'register_taxonomies' ) );
+add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_bootstrap' ) );
+add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_bundles'));
+add_action( 'rest_api_init', array( $this, 'add_rest_fields'));
+add_action( 'rest_api_init', array( $this, 'register_routes') );
+add_action( 'init', array( $this, 'add_rest_to_cpts'));
+add_action( 'init', array( $this, 'add_image_sizes'));
+parent::__construct();
+add_action( 'init', array( $this, 'handle_preflight'));
 
 
-	}
+	
+
+
+
 
 
 
@@ -526,64 +501,6 @@ class StarterSite extends TimberSite {
 			$fields['email'] = $user->user_email;
 			// add name, email, and slug to $fields
 			$team_member = $fields;
-		}
-		$rawEvents = get_posts(array(
-				'post_type' => 'bd_event',
-				'posts_per_page' => 8,
-				'meta_query'	=> array(
-					array(
-						'key'	 	=> 'author',
-						'value'	  	=> $user->ID,
-						'compare' 	=> 'IN',
-					)
-				)
-		));
-		$team_member['events'] = array();
-		foreach($rawEvents as $rawEvent){
-			$fields = get_fields($rawEvent->ID);
-			$events[] = $fields;
-			$events[] = strtotime($fields['start_time']);
-			if(strtotime($fields['start_time']) > strtotime('now')){
-				$team = $fields['related_team_members'];
-				if (is_array($team)){
-					foreach($team as $member) {
-						$topics = wp_get_post_terms($rawEvent->ID, 'topic');
-						$eventCategories = wp_get_post_terms($rawEvent->ID, 'event_category');
-						$data = get_post($rawEvent->ID);
-						$postContent = $data->post_content;
-						$data->acf = $fields;
-						$data->event_category = array($eventCategories[0]->term_id);
-						$data->topic = array($topics[0]->term_id);
-						$data->title = array('rendered' => get_the_title($rawEvent->ID));
-						$team_member['events'][] = $data;
-					}
-				}
-			}
-		}
-
-		$rawInsights = get_posts(array(
-			'post_type' => 'bd_insight',
-			'posts_per_page' => 8,
-			'meta_query'	=> array(
-				array(
-					'key'	 	=> 'author',
-					'value'	  	=> $user->ID,
-					'compare' 	=> 'IN',
-				)
-			)
-		));
-
-		$team_member['insights'] = array();
-		foreach($rawInsights as $rawInsight){
-			$fields = get_fields($rawInsight->ID);
-			$authors = $fields['author'];
-			foreach($authors as $author){
-				$insight = get_post($rawInsight->ID);
-				$topics = wp_get_post_terms($rawInsight->ID, 'topic');
-				$insight->acf = $fields;
-				$insight->topic = array($topics[0]->term_id);
-				$team_member['insights'][] = $insight;
-			}
 		}
 
 		return new WP_REST_Response($team_member);
@@ -1262,14 +1179,7 @@ class StarterSite extends TimberSite {
 		);
 	}
 
-	function add_to_context( $context ) {
-		$context['foo'] = 'bar';
-		$context['stuff'] = 'I am a value set in your functions.php file';
-		$context['notes'] = 'These values are available everytime you call Timber::get_context();';
-		$context['menu'] = new TimberMenu();
-		$context['site'] = $this;
-		return $context;
-	}
+
 
 	function myfoo( $text ) {
 		$text .= ' bar!';
