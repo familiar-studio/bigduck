@@ -77,17 +77,7 @@ function bd_cpt_search( $query ) {
 
 }
 
-register_sidebar( array(
-	'id' => 'chat',
-	'name' => __( 'Chat & Footer', $text_domain ),
-	'description' => __( 'This is the chat and footer Smart CTA' ),
-));
 
-register_sidebar( array(
-	'id' => 'inline',
-	'name' => __( 'Inline', $text_domain ),
-	'description' => __( 'This is the Smart CTA for Inline CTAs' ),
-));
 
 add_filter( 'acf/fields/wysiwyg/toolbars' , 'my_toolbars'  );
 
@@ -158,16 +148,7 @@ add_action( 'rest_api_init', array( $this, 'add_rest_fields'));
 add_action( 'rest_api_init', array( $this, 'register_routes') );
 add_action( 'init', array( $this, 'add_rest_to_cpts'));
 add_action( 'init', array( $this, 'add_image_sizes'));
-parent::__construct();
 add_action( 'init', array( $this, 'handle_preflight'));
-
-
-	
-
-
-
-
-
 
 	function handle_preflight() {
 		// Set the domain that's allowed to make the API call.
@@ -195,14 +176,6 @@ add_action( 'init', array( $this, 'handle_preflight'));
 		register_rest_route( 'familiar/v1/', '/widgets/(?P<id_base>[\w-]+)/(?P<instance_id>[\w-]+)', array(
 			'methods' => 'GET',
 			'callback' => array($this, 'get_item_instance')
-		));
-		register_rest_route( 'familiar/v1', '/sidebars', array(
-			'methods' => 'GET',
-			'callback' => array($this, 'sidebars')
-		));
-		register_rest_route( 'familiar/v1', '/sidebars/(?P<id>[\w-]+)', array(
-			'methods' => 'GET',
-			'callback' => array($this, 'sidebar')
 		));
 		register_rest_route( 'familiar/v1', '/featured-work', array(
 			'methods' => 'GET',
@@ -247,228 +220,6 @@ add_action( 'init', array( $this, 'handle_preflight'));
 		return new WP_REST_Response( $id, 200 );
 
 	}
-
-	function get_items( $request ){
-		// do type checking here as the method declaration must be compatible with parent
-	 if ( ! $request instanceof WP_REST_Request ) {
-			 throw new InvalidArgumentException( __METHOD__ . ' expects an instance of WP_REST_Request' );
-	 }
-	 global $wp_registered_widgets;
-	 $widgets = [];
-	 foreach ( (array) $wp_registered_widgets as $key => $widget ) {
-			 if ( isset( $widget['callback'][0] ) && $widget['callback'][0] instanceof WP_Widget ) {
-					 $widget_instance = $widget['callback'][0];
-					 $unique_widget = ! in_array( $widget_instance->id_base, array_map( function ( $widget ) {
-							 return $widget['id_base'];
-					 }, $widgets ) );
-					 // only push unique widgets as we are not interested in the instances
-					 if ( $unique_widget ) {
-							 $widget['name'] = $widget_instance->name;
-							 $widget['id_base'] = $widget_instance->id_base;
-							 $widget['option_name'] = $widget_instance->option_name;
-							 $widget['instances'] = 0;
-							 $widget['sidebars'] = [];
-							 // list the sidebars this widget has instances in, and the instance id's
-							 foreach ( (array) wp_get_sidebars_widgets() as $sidebar_id => $sidebar_widgets ) {
-									 foreach ( $sidebar_widgets as $widget_id ) {
-											 if ( preg_match( "/({$widget['id_base']}-\d)/", $widget_id, $match ) ) {
-													 if ( ! isset( $widget['sidebars'][ $sidebar_id ] ) ) {
-															 $widget['sidebars'][ $sidebar_id ] = [];
-													 }
-													 ++$widget['instances'];
-													 $widget['sidebars'][ $sidebar_id ][] = $widget_id;
-											 }
-									 }
-							 }
-							 unset( $widget['id'] );
-							 unset( $widget['params'] );
-							 unset( $widget['callback'] );
-							 $widgets[] = $widget;
-					 }
-			 }
-	 }
-	 return new WP_REST_Response( $widgets, 200 );
-	}
-
-	function get_item( $request ){
-		// do type checking here as the method declaration must be compatible with parent
-		if ( ! $request instanceof WP_REST_Request ) {
-				throw new InvalidArgumentException( __METHOD__ . ' expects an instance of WP_REST_Request' );
-		}
-		$widget = self::get_widget( $request->get_param( 'id_base' ) );
-		return new WP_REST_Response( $widget, 200 );
-	}
-
-	function get_item_instance( $request ){
-		// do type checking here as the method declaration must be compatible with parent
-        if ( ! $request instanceof WP_REST_Request ) {
-            throw new InvalidArgumentException( __METHOD__ . ' expects an instance of WP_REST_Request' );
-        }
-        $widget_instance = self::get_widget_instance( $request->get_param( 'instance_id' ) );
-        return new WP_REST_Response( $widget_instance, 200 );
-	}
-
-	public static function get_widget( $id_base ) {
-        global $wp_registered_widgets;
-        foreach ( (array) $wp_registered_widgets as $id => $widget ) {
-            if ( isset( $widget['callback'][0] ) && $widget['callback'][0] instanceof WP_Widget ) {
-                $widget_instance = $widget['callback'][0];
-                if ( $widget_instance->id_base === $id_base ) {
-                    $widget['name'] = $widget_instance->name;
-                    $widget['id_base'] = $widget_instance->id_base;
-                    $widget['option_name'] = $widget_instance->option_name;
-                    $widget['instances'] = 0;
-                    $widget['sidebars'] = [];
-                    // list the sidebars this widget has instances in, and the instance id's
-                    foreach ( (array) wp_get_sidebars_widgets() as $sidebar_id => $sidebar_widgets ) {
-                        foreach ( $sidebar_widgets as $widget_id ) {
-                            if ( preg_match( "/({$widget['id_base']}-\d)/", $widget_id, $match ) ) {
-                                if ( ! isset( $widget['sidebars'][ $sidebar_id ] ) ) {
-                                    $widget['sidebars'][ $sidebar_id ] = [];
-                                }
-                                ++$widget['instances'];
-                                $widget['sidebars'][ $sidebar_id ][] = $widget_id;
-                            }
-                        }
-                    }
-                    unset( $widget['id'] );
-                    unset( $widget['params'] );
-                    unset( $widget['callback'] );
-                    return $widget;
-                }
-            }
-        }
-        return null;
-    }
-    /**
-     * Returns a widget instance based on the given id or null if not found
-     *
-     * @global array $wp_registered_widgets
-     *
-     * @param string $instance_id
-     *
-     * @return WP_Widget|null
-     */
-    public static function get_widget_instance( $instance_id ) {
-        global $wp_registered_widgets;
-        foreach ( (array) $wp_registered_widgets as $id => $widget ) {
-            if (
-                $instance_id === $id &&
-                isset( $widget['callback'][0] ) &&
-                $widget['callback'][0] instanceof WP_Widget
-            ) {
-                // @todo: format the widget object
-                return $widget['callback'][0];
-            }
-        }
-        return null;
-    }
-
-	function sidebars( $request ){
-		if ( ! $request instanceof WP_REST_Request ) {
-					 throw new InvalidArgumentException( __METHOD__ . ' expects an instance of WP_REST_Request' );
-			 }
-			 global $wp_registered_sidebars;
-			 $sidebars = [];
-			 foreach ( (array) wp_get_sidebars_widgets() as $id => $widgets ) {
-					 $sidebar = compact( 'id', 'widgets' );
-					 if ( isset( $wp_registered_sidebars[ $id ] ) ) {
-							 $registered_sidebar = $wp_registered_sidebars[ $id ];
-							 $sidebar['status'] = 'active';
-							 $sidebar['name'] = $registered_sidebar['name'];
-							 $sidebar['description'] = $registered_sidebar['description'];
-					 } else {
-							 $sidebar['status'] = 'inactive';
-					 }
-					 $sidebars[] = $sidebar;
-			 }
-			 return new WP_REST_Response( $sidebars, 200 );
-	}
-
-	function sidebar( $request ){
-		if ( ! $request instanceof WP_REST_Request ) {
-				throw new InvalidArgumentException( __METHOD__ . ' expects an instance of WP_REST_Request' );
-		}
-		ob_start();
-		gravity_form(3);
-		$sidebar = self::get_sidebar( $request->get_param( 'id' ) );
-		$sidebar['widgets'] = self::get_widgets( $sidebar['id'] );
-		$sidebar['rendered'] = ob_get_clean();
-		return new WP_REST_Response( $sidebar, 200 );
-	}
-
-	public static function get_sidebar( $id ) {
-        global $wp_registered_sidebars;
-        if ( is_int( $id ) ) {
-            $id = 'sidebar-' . $id;
-        } else {
-            $id = sanitize_title( $id );
-            foreach ( (array) $wp_registered_sidebars as $key => $sidebar ) {
-                if ( sanitize_title( $sidebar['name'] ) == $id ) {
-                    return $sidebar;
-                }
-            }
-        }
-        foreach ( (array) $wp_registered_sidebars as $key => $sidebar ) {
-            if ( $key === $id ) {
-                return $sidebar;
-            }
-        }
-        return null;
-    }
-    /**
-     * Returns a list of widgets for the given sidebar id
-     *
-     * @global array $wp_registered_widgets
-     * @global array $wp_registered_sidebars
-     *
-     * @param string $sidebar_id
-     *
-     * @return array
-     */
-    public static function get_widgets( $sidebar_id ) {
-        global $wp_registered_widgets, $wp_registered_sidebars;
-        $widgets = [];
-        $sidebars_widgets = (array) wp_get_sidebars_widgets();
-        if ( isset( $wp_registered_sidebars[ $sidebar_id ] ) && isset( $sidebars_widgets[ $sidebar_id ] ) ) {
-            foreach ( $sidebars_widgets[ $sidebar_id ] as $widget_id ) {
-                // just to be sure
-                if ( isset( $wp_registered_widgets[ $widget_id ] ) ) {
-                    $widget = $wp_registered_widgets[ $widget_id ];
-                    // get the widget output
-                    if ( is_callable( $widget['callback'] ) ) {
-                        // @note: everything up to ob_start is taken from the dynamic_sidebar function
-                        $widget_parameters = array_merge(
-                            [
-                                array_merge( $wp_registered_sidebars[ $sidebar_id ], [
-                                    'widget_id' => $widget_id,
-                                    'widget_name' => $widget['name'],
-                                ] )
-                            ],
-                            (array) $widget['params']
-                        );
-                        $classname = '';
-                        foreach ( (array) $widget['classname'] as $cn ) {
-                            if ( is_string( $cn ) )
-                                $classname .= '_' . $cn;
-                            elseif ( is_object( $cn ) )
-                                $classname .= '_' . get_class( $cn );
-                        }
-                        $classname = ltrim( $classname, '_' );
-                        $widget_parameters[0]['before_widget'] = sprintf( $widget_parameters[0]['before_widget'], $widget_id, $classname );
-                        ob_start();
-                        call_user_func_array( $widget['callback'], $widget_parameters );
-                        $widget['rendered'] = ob_get_clean();
-                    }
-                    unset( $widget['callback'] );
-                    unset( $widget['params'] );
-                    $widgets[] = $widget;
-                }
-            }
-        }
-        return $widgets;
-    }
-
 
 	function team($object) {
 		$users = get_users(array(
@@ -1186,12 +937,6 @@ add_action( 'init', array( $this, 'handle_preflight'));
 		return $text;
 	}
 
-	function add_to_twig( $twig ) {
-		/* this is where you can add your own functions to twig */
-		$twig->addExtension( new Twig_Extension_StringLoader() );
-		$twig->addFilter('myfoo', new Twig_SimpleFilter('myfoo', array($this, 'myfoo')));
-		return $twig;
-	}
 
 	function get_events( $data ){
 		$events = get_posts(array(
@@ -1227,6 +972,3 @@ add_action( 'init', array( $this, 'handle_preflight'));
 		return new WP_REST_Response(array( 'insights' => $insights, 'categories' => $categories), 200);
 	}
 
-}
-
-new StarterSite();
