@@ -358,14 +358,17 @@ class StarterSite  {
 	
 
 		$events = array();
+		
 		foreach($rawEvents as $rawEvent){
 			$fields = get_fields($rawEvent->ID);
-			
+				$team_meta = array();
 		
 							$team = $fields['related_team_members'];
 							$isOnTeam = false;
+						
 							if (is_array($team)){
 								foreach($team as $member_data) {
+						
 									// $team_meta[] = $included_member['ID'];
 									$included_member = get_fields('user_' . $member_data['ID']);
 									$included_member['display_name'] = $member_data['display_name'];
@@ -380,6 +383,7 @@ class StarterSite  {
 								}
 							}
 
+						
 
 
 							if ($isOnTeam) {
@@ -391,7 +395,11 @@ class StarterSite  {
 								$event->slug = $event->post_name;
 								$event->topic = $topics;
 								$event->event_category = $eventCategories;
-								$events[] = array('data' => $event, 'team_meta' => $team_meta);
+								$event->related_team_members = ['data'=>$team_meta];
+								$events[] = $event;
+
+									
+
 							}
 							
 
