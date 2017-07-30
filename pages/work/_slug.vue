@@ -16,7 +16,7 @@
                 <div class="badge badge-default" v-html="caseStudy.acf.client_name"></div>
               </div>
   
-              <h1>{{ caseStudy.title.rendered }}</h1>
+              <h1 v-html="caseStudy.title.rendered"></h1>
               <div class="badge-group" v-if="topics">
                 <div class="badge badge-default" v-for="topic in caseStudy.topic">
                   <div v-html="topicsIndexedById[topic].icon"></div>
