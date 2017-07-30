@@ -1,6 +1,6 @@
 <template>
   <div v-if="insight">
-
+  
     <div class="img-hero" v-if="insight && insight.acf.featured_image" :style=" { backgroundImage: 'url(' + insight.acf.featured_image + ')' }">
       <figcaption class="figure-caption">{{insight.acf.featured_image.caption}}</figcaption>
     </div>
@@ -37,7 +37,7 @@
                   {{ date }}
                 </div>
               </div>
-
+  
               <h1 v-html="insight.title.rendered">
               </h1>
               <div class="author-listing" v-if="insight.acf.author.length > 0">
@@ -48,7 +48,7 @@
                     <nuxt-link :to="'/about/' + author.user_nicename">{{author.display_name}}</nuxt-link>
                   </div>
                 </div>
-
+  
                 <div>
                   <div v-if="insight.acf.guest_author_name" class="badge badge-default mb-3">
                     <img :src="backupImages['author']" class="round author-img mr-2">
@@ -61,27 +61,59 @@
               <div v-if="!insight.acf.guest_author_name && insight.acf.author.length < 1" class="badge badge-default mb-3 author-no-img">
                 <span>Big Duck</span>
               </div>
-
+  
               <div v-for="block in insight.acf.body">
-
+  
                 <div v-if="block.acf_fc_layout == 'text'" v-html="block.text" :class="['block-' + block.acf_fc_layout]"></div>
-                  <template v-if="block.acf_fc_layout == 'callout' && block.text.length > 0" :class="['block-' + block.acf_fc_layout]">
-                    <div v-html="block.text">
+                <div v-if="block.acf_fc_layout == 'quote'" :class="['block-' + block.acf_fc_layout]">
+                  <blockquote>
+  
+                    <h3 v-html="block.quote"></h3>
+  
+                    <footer class="label">
+                      — {{block.credit}}
+                    </footer>
+                  </blockquote>
+                </div>
+  
+                <div v-if="block.acf_fc_layout == 'video'" :class="['block-' + block.acf_fc_layout]" class="embed-responsive embed-responsive-16by9" v-html="block.video">
+                </div>
+  
+                <div v-if="block.acf_fc_layout == 'callout'">
+                  <div class="row">
+                    <div class="col-md-6 col-img">
+                      <div :style=" { backgroundImage: 'url(' + block.image + ')' }" class="bg-img"></div>
                     </div>
-                  </template>
-                <div><img :src="block.image.url" alt="callout image" v-if="block.acf_fc_layout == 'callout' && block.image" style="width:100%;" class="my-5"/></div>
-
+                    <div class="col-md-6 col-text">
+  
+                      <div v-html="block.text"></div>
+                      <a :href="block.website" v-if="block.website" class="btn btn-info" target="_blank">Visit Site</a>
+                    </div>
+                  </div>
+                </div>
+  
+                <!-- GALLERY  -->
+                <div v-if="block.acf_fc_layout == 'gallery'" class="cs-block-gallery break-container overflow-x-hidden">
+                  <div class="">
+                    <flickity :images="block.gallery"></flickity>
+                  </div>
+                </div>
+                <div class="" v-if="block.acf_fc_layout == 'image'" class="mb-5">
+  
+                  <img :src="block.image" style="width: 100%;">
+                  <figcaption v-if="block.caption" class="figure-caption mt-1">{{ block.caption }}</figcaption>
+                </div>
               </div>
-
+  
               <div class="hidden-lg-up mt-4">
                 <Share></Share>
               </div>
             </article>
             <div v-if="insight.acf.is_gated_content">
-
+  
               <div class="form-light">
                 <GravityForm v-if="!formFilled" :formId="7" :gatedContent="insight.id" :title="insight.title.rendered" :id="insight.id" @submitted="refreshContent()" cookiePrefix="insight-"></GravityForm>
-
+  
                 <div v-if="formFilled || contentRefreshed">
                   <transition name="fade" appear>
                     <div>
@@ -92,12 +124,12 @@
                     </div>
                   </transition>
                 </div>
-
+  
               </div>
             </div>
-
+  
             <article class="mb-5">
-
+  
               <div v-if="insight.acf.author.length > 0" v-for="(author, index) in insight.acf.author">
                 <div class="author-bio">
                   <div class="row">
@@ -114,12 +146,12 @@
                         More about {{author.user_firstname}}
                       </nuxt-link>
                     </div>
-
+  
                   </div>
                 </div>
               </div>
             </article>
-
+  
             <div class="mb-5" v-if="relatedCaseStudies">
               <h2>Related Case Studies</h2>
               <div class="row">
@@ -146,7 +178,7 @@
                 </div>
               </div>
             </div>
-
+  
             <div class="mb-5" v-if="relatedInsights">
               <h2>Related Insights</h2>
               <div v-if="relatedInsights">
@@ -174,6 +206,8 @@ import { mapState, mapGetters, mapActions } from 'vuex'
 import Post from '~components/Post.vue'
 import Share from '~components/Share.vue'
 import Chat from '~components/Chat.vue'
+import flickity from '~components/Flickity.vue'
+
 
 
 export default {
@@ -182,7 +216,8 @@ export default {
     Share,
     GravityForm,
     Post,
-    Chat
+    Chat,
+    flickity
   },
   data() {
     return {

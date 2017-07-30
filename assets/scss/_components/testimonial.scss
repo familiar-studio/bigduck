@@ -10,30 +10,32 @@
     flex: 1 1;
     max-width: 100%;
   }
-  blockquote {
-    position: relative;
-    margin: auto;
-    &::before {
-      content: '\201C';
-      font-size: 200px;
-      line-height: .5;
-      display: block;
-      position: absolute;
-      font-weight: 700;
-      font-family: $font-family-sans-serif;
-    }
-    h3 {
-      padding-top: 80px;
-      margin-bottom: .75rem;
-      p {
-        font-size: inherit;
-      }
-    }
-  }
+
   img {
     display: none;
     @include media-breakpoint-up(md) {
       display: block;
+    }
+  }
+}
+
+blockquote {
+  position: relative;
+  margin: auto;
+  &::before {
+    content: '\201C';
+    font-size: 200px;
+    line-height: .5;
+    display: block;
+    position: absolute;
+    font-weight: 700;
+    font-family: $font-family-sans-serif;
+  }
+  h3 {
+    padding-top: 80px;
+    margin-bottom: .75rem;
+    p {
+      font-size: inherit;
     }
   }
 }

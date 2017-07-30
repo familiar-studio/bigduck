@@ -2,10 +2,11 @@
   h5 {
     line-height: 1.4;
   }
-  h3, h5{
+  h3,
+  h5 {
     margin-top: 2.5rem;
   }
-  ul{
+  ul {
     padding-left: 1rem;
   }
   li {
@@ -30,6 +31,11 @@
   }
 }
 
+.block-quote,
+.block-video {
+  margin: 2rem 0;
+}
+
 .author-bio {
   margin-top: 3rem;
 
@@ -41,7 +47,7 @@
     margin-bottom: 1rem;
   }
 
-  .btn{
+  .btn {
     margin-top: .5rem;
   }
 }
@@ -52,7 +58,7 @@
   //   margin-top: 0rem;
   //   padding-left: 1rem;
   // }
-  .btn{
+  .btn {
     margin-top: .5rem;
   }
 }

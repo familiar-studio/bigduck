@@ -61,7 +61,7 @@ body {
   align-items: center;
   justify-content: center;
   -webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+  -moz-osx-font-smoothing: grayscale;
   .footer-content {
     padding: 5rem 0;
     margin: 0 auto;
@@ -90,7 +90,7 @@ body {
   color: $white;
   padding: 2rem 1.25rem;
   -webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+  -moz-osx-font-smoothing: grayscale;
   -moz-osx-font-smoothing: grayscale;
   & > div {
     @include media-breakpoint-up(md) {
@@ -187,6 +187,7 @@ article.gated-content {
   padding: 1.5rem;
   margin-left: -($grid-gutter-width-base/2);
   margin-right: -($grid-gutter-width-base/2);
+  overflow: hidden;
 
   @include media-breakpoint-up(md) {
     padding: 3rem 3.75rem;
