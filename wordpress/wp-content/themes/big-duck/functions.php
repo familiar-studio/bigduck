@@ -596,7 +596,7 @@ class StarterSite extends TimberSite {
 		$offset = intval($page) * $per_page;
 
 		$user = get_user_by('slug', $nicename);
-		$fields = get_fields('user_' . $user->ID);
+
 
 		$rawInsights = new WP_Query(array(
 			'post_type' => 'bd_insight',
@@ -647,41 +647,59 @@ class StarterSite extends TimberSite {
 		$nicename = $data->get_params('id')['id'];
 		$user = get_user_by('slug', $nicename);
 
+
 		$rawEvents = get_posts(array(
 				'post_type' => 'bd_event',
-				'posts_per_page' => -1,
-				'meta_query' => array(
-					array(
-						'key' => 'related_team_members',
-						'value' => $user->ID,
-						'compare' => 'IN'
-					)
+				'posts_per_page' => 10,
+					'paged' => true,
+					'meta_query' => array(
+				array(
+					'key' => 'related_team_members',
+					'value' => $user->ID,
+					'compare' => 'IN'
 				)
+			)
 		));
+
+	
+
 		$events = array();
 		foreach($rawEvents as $rawEvent){
 			$fields = get_fields($rawEvent->ID);
-
+			
+		
 							$team = $fields['related_team_members'];
+							$isOnTeam = false;
 							if (is_array($team)){
 								foreach($team as $member_data) {
 									// $team_meta[] = $included_member['ID'];
 									$included_member = get_fields('user_' . $member_data['ID']);
 									$included_member['display_name'] = $member_data['display_name'];
-									$team_meta[] = $included_member;
+									$included_member['ID'] = $member_data['ID'];
+									$included_member['userId'] = $user->ID;
 
+									$team_meta[] = $included_member;
+									if ($member_data['ID']==$user->ID ) {
+										$isOnTeam = true;
+									}
 
 								}
 							}
-							$event = get_post($rawEvent->ID);
-							$topics = wp_get_post_terms($rawEvent->ID, 'topic');
-							$eventCategories = wp_get_post_terms($rawEvent->ID, 'event_category');
-							$event->acf = $fields;
-							$event->slug = $event->post_name;
-							$event->topic = $topics;
-							$event->event_category = $eventCategories;
-							$events[] = array('data' => $event, 'team_meta' => $team_meta);
-							continue;
+
+
+
+							if ($isOnTeam) {
+	
+								$event = get_post($rawEvent->ID);
+								$topics = wp_get_post_terms($rawEvent->ID, 'topic');
+								$eventCategories = wp_get_post_terms($rawEvent->ID, 'event_category');
+								$event->acf = $fields;
+								$event->slug = $event->post_name;
+								$event->topic = $topics;
+								$event->event_category = $eventCategories;
+								$events[] = array('data' => $event, 'team_meta' => $team_meta);
+							}
+							
 
 			}
 

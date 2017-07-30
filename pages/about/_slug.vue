@@ -44,7 +44,7 @@
       </article>
       <div v-if="relatedEvents && relatedEvents.events.length > 0">
         <h2 class="mt-5 mb-3">Events with {{member.name.split(" ")[0]}}</h2>
-        <Event v-for="(event, index) in relatedEvents.events" :entry="event.data" :key="event.slug" :index="index" :relatedTeamMembers="event.team_meta"></Event>
+        <Event v-for="(event, index) in relatedEvents.events" :entry="event.data" :key="event.slug" :index="index"></Event>
       </div>
       <div class="mt-5" v-if="relatedInsights && relatedInsights.length > 0">
         <h2 :class="{'mt-5 mb-3': !relatedEvents }">Insights by {{ member.name.split(" ")[0]}}</h2>
@@ -67,7 +67,7 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'team-member',
-  head () {
+  head() {
     if (this.member) {
       return {
         title: this.member.name,
@@ -108,7 +108,7 @@ export default {
       }
     }
   },
-  data () {
+  data() {
     return {
       relatedEvents: null,
       relatedInsights: null,
@@ -122,7 +122,7 @@ export default {
   },
   computed: {
     ...mapGetters(['hostname', 'relatedInsightsPerPage']),
-    relatedEventsLength () {
+    relatedEventsLength() {
       if (this.relatedEvents && this.relatedEvents.events) {
         return this.relatedEvents.events.length
       } else {
@@ -132,13 +132,13 @@ export default {
   },
   async created() {
     let relatedEventIds = this.member.events.map((event) => { return event.ID })
-    if (relatedEventIds && relatedEventIds.length > 0 ) {
-      let response = await Axios.get(this.hostname + 'familiar/v1/events/user/' + this.member.slug )
+    if (relatedEventIds && relatedEventIds.length > 0) {
+      let response = await Axios.get(this.hostname + 'familiar/v1/events/user/' + this.member.slug)
       this.relatedEvents = response.data
     }
-      let response = await Axios.get(this.hostname + 'familiar/v1/insights/user/' + this.member.slug + '?posts_per_page=' + this.insightsPerPage + '&page=' + this.insightsPage )
-      this.totalInsightsPages = response.data.pages
-      this.relatedInsights = response.data.data
+    let response = await Axios.get(this.hostname + 'familiar/v1/insights/user/' + this.member.slug + '?posts_per_page=' + this.insightsPerPage + '&page=' + this.insightsPage)
+    this.totalInsightsPages = response.data.pages
+    this.relatedInsights = response.data.data
   },
   async asyncData({ store, params }) {
     let response = await Axios.get(store.getters['hostname'] + 'familiar/v1/team/' + params.slug)
@@ -147,7 +147,7 @@ export default {
     }
   },
   methods: {
-    nextPage () {
+    nextPage() {
       this.insightsPage++
       this.fetchMoreInsights()
     },

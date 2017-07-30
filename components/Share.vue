@@ -22,9 +22,9 @@
 </template>
 <script>
 export default {
-   computed: {
-    path () {
-      if (process.BROWSER_BUILD){
+  computed: {
+    path() {
+      if (process.BROWSER_BUILD) {
         return window.location.href
       } else {
         return "https://bigducknyc.org" + this.$route.fullPath
