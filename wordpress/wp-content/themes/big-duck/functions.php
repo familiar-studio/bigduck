@@ -157,12 +157,6 @@ if( function_exists('acf_add_options_page') ) {
 			'post_id'		=> 'globals'
 	));
 
-	
-	acf_add_options_sub_page(array(
-		'page_title' 	=> 'Footer',
-		'menu_title'	=> 'Footer',
-		'parent_slug'	=> 'globals',
-	));
 
 }
 

@@ -20,37 +20,37 @@
                   <nuxt-link @click="hideNav()" class="nav-link" to="/services">
                     <span>Services</span>
                   </nuxt-link>
-                  <div class="nav-text" :class="{ 'show': currentText === 'services'}" v-html="menuCallouts['services']"></div>
+                  <div class="nav-text" :class="{ 'show': currentText === 'services'}" v-html="globals.services"></div>
                 </li>
                 <li class="nav-item" @mouseover="hover('work')" @mouseleave="hovering = false">
                   <nuxt-link @click="hideNav()" class="nav-link" to="/work">
                     <span>Work</span>
                   </nuxt-link>
-                  <div class="nav-text" :class="{ 'show': currentText === 'work'}" v-html="menuCallouts['work']"></div>
+                  <div class="nav-text" :class="{ 'show': currentText === 'work'}" v-html="globals.work"></div>
                 </li>
                 <li class="nav-item" @mouseover="hover('events')" @mouseleave="hovering = false">
                   <nuxt-link @click="hideNav()" class="nav-link" to="/events">
                     <span>Events</span>
                   </nuxt-link>
-                  <div class="nav-text" :class="{ 'show': currentText === 'events'}" v-html="menuCallouts['events']"></div>
+                  <div class="nav-text" :class="{ 'show': currentText === 'events'}" v-html="globals.events"></div>
                 </li>
                 <li class="nav-item" @mouseover="hover('insights')" @mouseleave="hovering = false">
                   <nuxt-link @click="hideNav()" class="nav-link" to="/insights">
                     <span>Insights</span>
                   </nuxt-link>
-                  <div class="nav-text" :class="{ 'show': currentText === 'insights'}" v-html="menuCallouts['insights']"></div>
+                  <div class="nav-text" :class="{ 'show': currentText === 'insights'}" v-html="globals.insights"></div>
                 </li>
                 <li class="nav-item" @mouseover="hover('about')" @mouseleave="hovering = false">
                   <nuxt-link @click="hideNav()" class="nav-link" to="/about">
                     <span>About</span>
                   </nuxt-link>
-                  <div class="nav-text" :class="{ 'show': currentText === 'about'}" v-html="menuCallouts['about']"></div>
+                  <div class="nav-text" :class="{ 'show': currentText === 'about'}" v-html="globals.about"></div>
                 </li>
                 <li class="nav-item" @mouseover="hover('contact')" @mouseleave="hovering = false">
                   <nuxt-link class="nav-link" to="/contact">
                     <span>Contact</span>
                   </nuxt-link>
-                  <div class="nav-text" :class="{ 'show': currentText === 'contact'}" v-html="menuCallouts['contact']"></div>
+                  <div class="nav-text" :class="{ 'show': currentText === 'contact'}" v-html="globals.contact"></div>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link float-left" href="#" @click.prevent="showSearch()">
@@ -104,17 +104,17 @@
                 </a>
               </li>
             </ul>
-            <div v-if="footerMeta">
+            <div v-if="globals">
               <h4>
-                <a :href="'mailto:' + footerMeta.email">{{footerMeta.email}}</a>
+                <a :href="'mailto:' + globals.email">{{globals.email}}</a>
               </h4>
               <h4>
-                <a :href="'tel:' + footerMeta.phone">{{footerMeta.phone}}</a>
+                <a :href="'tel:' + globals.phone">{{globals.phone}}</a>
               </h4>
               <h4>
                 <address class="">
-                  {{footerMeta.address_line_1}}
-                  <br> {{footerMeta.address_line_2}}
+                  {{globals.address_line_1}}
+                  <br> {{globals.address_line_2}}
   
                 </address>
               </h4>
@@ -147,7 +147,7 @@
       <nuxt-link to="/privacy" class="link-privacy">Privacy Policy</nuxt-link>
     </section>
     <!--
-      <script src="http://hi.bigducknyc.com/cdnr/30/acton/bn/tracker/4852"></script>-->
+                      <script src="http://hi.bigducknyc.com/cdnr/30/acton/bn/tracker/4852"></script>-->
   </div>
 </template>
 
@@ -189,7 +189,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['menuCallouts', 'footerMeta']),
+    ...mapState(['globals']),
     ...mapGetters(['activeCta']),
     page() {
       if (this.$route.name === 'index') {
@@ -259,7 +259,7 @@ export default {
       window.addEventListener('scroll', this.handleScroll)
 
       this.$store.dispatch('fetchCTAs')
-      this.$store.dispatch('fetchFooterMeta')
+
 
     }
   }

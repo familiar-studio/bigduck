@@ -15,8 +15,7 @@ export const state = () => ({
   activeCtaIndex: 0,
   eventCategories: null,
   eventCategoriesPath: "wp/v2/event_category",
-  footer: null,
-  footerMeta: null,
+  globals: null,
   form: null,
   menuCallouts: null,
   page: 1,
@@ -60,9 +59,7 @@ export const mutations = {
   setMenuCallouts(state, data) {
     state.menuCallouts = data;
   },
-  setFooter(state, data) {
-    state.footer = data;
-  },
+
   setEventCategories(state, data) {
     state.eventCategories = data;
   },
@@ -116,8 +113,8 @@ export const mutations = {
     state.activeCtaIndex++;
     state.nextCTAFlag = false;
   },
-  setFooterMeta(state, data) {
-    state.footerMeta = data;
+  setGlobals(state, data) {
+    state.globals = data;
   },
   setBackupImages(state, data) {
     if (data && data.acf) {
@@ -136,12 +133,11 @@ export const actions = {
   },
   loadAppInitNeed({ dispatch }) {
     return Promise.all([
-      dispatch("fetchFooter"),
+      dispatch("fetchGlobals"),
       dispatch("fetchTopics"),
       dispatch("fetchTypes"),
       dispatch("fetchSectors"),
-      dispatch("fetchEventCategories"),
-      dispatch("fetchMenuCallouts")
+      dispatch("fetchEventCategories")
     ]);
   },
   formInjection(context, body) {
@@ -154,19 +150,11 @@ export const actions = {
     return axios.get(context.getters["hostname"] + path);
   },
 
-  fetchMenuCallouts(context) {
-    return axios
-      .get(context.getters["hostname"] + "wp/v2/pages?slug=menu-callouts")
-      .then(response => {
-        context.commit("setMenuCallouts", response.data[0].acf);
-        context.commit("setBackupImages", response.data[0]);
-      });
-  },
-  fetchFooter(context) {
+  fetchGlobals(context) {
     return axios
       .get(context.getters.hostname + "acf/v3/options/globals")
       .then(response => {
-        context.commit("setFooterMeta", response.data.acf);
+        context.commit("setGlobals", response.data.acf);
       });
   },
   fetchTopics(context) {
