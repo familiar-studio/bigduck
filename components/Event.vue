@@ -73,7 +73,7 @@ export default {
   name: 'featured',
   props: ['entry', 'index', 'relatedTeamMembers', 'firstBlock'],
   computed: {
-    ...mapState(['backupImages', 'topics', 'eventCategories']),
+    ...mapState(['globals', 'topics', 'eventCategories']),
     ...mapGetters(['getTopicsIndexedById', 'getEventCategoriesIndexedById']),
     blockClass() {
       if (this.index === 0 && this.firstBlock) {
@@ -100,7 +100,7 @@ export default {
       return dateFns.format(this.entry.acf.start_time, 'D')
     },
     backupAuthorImage() {
-      return this.backupImages['author']
+      return this.globals.backup_author_image
     }
   }
 }

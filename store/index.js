@@ -6,7 +6,6 @@ export const state = () => ({
   userProfile: null,
   localHostname: "https://wordpress.bigduck.dev/wp-json/",
   remoteHostname: "http://bigduck-wordpress.familiar.studio/wp-json/",
-  backupImages: null,
   bareLocalHostname: "https://wordpress.bigduck.dev/",
   bareRemoteHostname: "http://bigduck-wordpress.familiar.studio/",
   categories: null,
@@ -115,14 +114,6 @@ export const mutations = {
   },
   setGlobals(state, data) {
     state.globals = data;
-  },
-  setBackupImages(state, data) {
-    if (data && data.acf) {
-      state.backupImages = {
-        author: data.acf.backup_author_image,
-        insights: data.acf.backup_insights_images
-      };
-    }
   }
 };
 

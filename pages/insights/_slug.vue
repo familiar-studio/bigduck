@@ -43,7 +43,7 @@
               <div class="author-listing" v-if="insight.acf.author.length > 0">
                 <div class="badge badge-default mb-3" v-if="insight.author_headshots" v-for="author in insight.acf.author">
                   <img v-if="insight.author_headshots[author.user_nicename].sizes" :src="insight.author_headshots[author.user_nicename].sizes.thumbnail" class="round author-img mr-2">
-                  <img v-else :src="backupImages['author']" class="round author-img mr-2">
+                  <img v-else :src="globals.backup_author_image" class="round author-img mr-2">
                   <div>
                     <nuxt-link :to="'/about/' + author.user_nicename">{{author.display_name}}</nuxt-link>
                   </div>
@@ -51,7 +51,7 @@
   
                 <div>
                   <div v-if="insight.acf.guest_author_name" class="badge badge-default mb-3">
-                    <img :src="backupImages['author']" class="round author-img mr-2">
+                    <img :src="globals.backup_author_image" class="round author-img mr-2">
                     <div>
                       {{insight.acf.guest_author_name}}
                     </div>
@@ -298,10 +298,10 @@ export default {
     }
   },
   computed: {
-    ...mapState(['types', 'topics', 'backupImages']),
+    ...mapState(['types', 'topics', 'globals']),
     ...mapGetters(['hostname', 'getTopicsIndexedById', 'getTypesIndexedById']),
     backupImage() {
-      let images = this.backupImages['insights']
+      let images = this.globals.backup_insights_images
       return images[this.insight.id % images.length].backup_insight_image
     },
     formFilled() {
