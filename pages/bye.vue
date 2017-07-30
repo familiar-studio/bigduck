@@ -3,6 +3,7 @@
     <article class="main">
       <div class="" v-html="data.content.rendered"></div>
     </article>
+  
   </div>
 </template>
 <script>
