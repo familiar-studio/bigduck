@@ -20,8 +20,8 @@ module.exports = {
         content: "@bigduck"
       }
     ],
-    link: [{ rel: "apple-touch-icon", sizes:"152x152", href:"/favicon.png" }],
-    script: [{ src:"http://hi.bigducknyc.com/cdnr/30/acton/bn/tracker/4852"}]
+    link: [{ rel: "apple-touch-icon", sizes: "152x152", href: "/favicon.png" }],
+    script: [{ src: "http://hi.bigducknyc.com/cdnr/30/acton/bn/tracker/4852" }]
   },
   cache: false,
   transition: {
@@ -32,7 +32,7 @@ module.exports = {
   plugins: [
     { src: "~plugins/vue-validate", ssr: false },
     { src: "~plugins/newfangled.js", ssr: false },
-    //{ src: "~plugins/ga.js", ssr: false },
+    { src: "~plugins/ga.js", ssr: false },
     { src: "~plugins/scrollto.js", ssr: false },
     { src: "~plugins/waypoint.js", ssr: false }
   ],

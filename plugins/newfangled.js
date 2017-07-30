@@ -11,12 +11,12 @@ export default ({ app: { router }, store }) => {
       ** Send the pageview
       */
       var externalID;
-      if (ActOn && Acton.Beacon) {
-        //ActOn.Beacon.track();
+      if (ActOn && ActOn.Beacon) {
+        ActOn.Beacon.track();
 
-      if (typeof ActOn.Beacon.cookie !== "undefined") {
-        //externalID = ActOn.Beacon.cookie["4852"];
-      }
+        if (typeof ActOn.Beacon.cookie !== "undefined") {
+          externalID = ActOn.Beacon.cookie["4852"];
+        }
       }
 
       var sessionId = jscookie.get("nfsession") || 0;
@@ -38,18 +38,24 @@ export default ({ app: { router }, store }) => {
         external_id: externalID,
         external_source: "acton"
       };
-
-      axios
-        .get("https://insight-engine.newfangled.com/api/v1/pagehit", {
-          params: params
-        })
-        .then(response => {
-          // console.log("page view", response);
-          jscookie.set("nfsession", response.data, {
-            expires: 7,
-            domain: "familiar.studio"
+      try {
+        axios
+          .get("https://insight-engine.newfangled.com/api/v1/pagehit", {
+            params: params
+          })
+          .then(response => {
+            // console.log("page view", response);
+            jscookie.set("nfsession", response.data, {
+              expires: 7,
+              domain: "familiar.studio"
+            });
+          })
+          .catch(response => {
+            console.error("tracking error", response);
           });
-        });
+      } catch (exception) {
+        console.error("tracking exception", exception);
+      }
     });
   }
 };

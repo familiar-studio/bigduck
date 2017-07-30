@@ -27,6 +27,9 @@ export default {
   methods: {
     ...mapMutations(['nextCTA']),
     visitLink() {
+
+
+
       this.nextCTA(this.activeCta)
 
       if (this.activeCta.acf.cta_type == 'Linked Content') {
@@ -42,6 +45,16 @@ export default {
       } else {
         // scroll down to the form
         this.$scrollTo('#footer-callout', 500, { offset: 50 })
+      }
+
+      if (ga) {
+        //console.log('ga', ga)
+        ga('send', {
+          hitType: 'event',
+          eventCategory: 'Smart CTA',
+          eventAction: 'click',
+          eventLabel: this.activeCta.title.rendered
+        });
       }
 
 
