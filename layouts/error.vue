@@ -27,6 +27,9 @@ export default {
     goback() {
       this.$router.go(-1)
     }
+  },
+  created() {
+    //if not an insights url redirect to insight url with same slug
   }
 }
 </script>
