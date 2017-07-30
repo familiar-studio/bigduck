@@ -50,11 +50,11 @@ export default {
     }
   },
   async asyncData({ store }) {
-    let response = await Axios.get(store.getters['hostname'] + 'wp/v2/pages?slug=bye')
-    var data = response.data[0]
-    return {
-      data: data
-    }
+    //let response = await Axios.get(store.getters['hostname'] + 'wp/v2/pages?slug=bye')
+    // var data = response.data[0]
+    // return {
+    //  data: data
+    // }
   }
 }
 </script>

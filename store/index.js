@@ -164,11 +164,9 @@ export const actions = {
   },
   fetchFooter(context) {
     return axios
-      .get(
-        context.getters.bareHostname + "/wp-json/familiar/v1/sidebars/footer"
-      )
+      .get(context.getters.hostname + "acf/v3/options/globals")
       .then(response => {
-        context.commit("setFooter", response.data);
+        context.commit("setFooterMeta", response.data.acf);
       });
   },
   fetchTopics(context) {
@@ -229,12 +227,6 @@ export const actions = {
     if (response.data && response.data[0]) {
       commit("setCTAs", response.data);
     }
-  },
-  async fetchFooterMeta({ rootGetters, commit }) {
-    let response = await axios.get(
-      rootGetters.hostname + "wp/v2/pages?slug=footer"
-    );
-    commit("setFooterMeta", response.data[0].acf);
   }
 };
 

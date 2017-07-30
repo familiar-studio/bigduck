@@ -138,6 +138,34 @@ function cc_mime_types($mimes) {
 
 add_filter( 'upload_mimes', 'cc_mime_types');
 
+function remove_menus() {
+	remove_menu_page( 'edit.php' );  
+  remove_menu_page( 'edit-comments.php' ); 
+	remove_menu_page( 'themes.php' );
+	remove_menu_page( 'tools.php' );  
+}
+add_action( 'admin_menu', 'remove_menus' );
+
+if( function_exists('acf_add_options_page') ) {
+
+	acf_add_options_page(array(
+			'page_title' 	=> 'Globals',
+			'menu_title'	=> 'Globals',
+			'menu_slug' 	=> 'globals',
+			'capability'	=> 'edit_posts',
+			'redirect'		=> false,
+			'post_id'		=> 'globals'
+	));
+
+	
+	acf_add_options_sub_page(array(
+		'page_title' 	=> 'Footer',
+		'menu_title'	=> 'Footer',
+		'parent_slug'	=> 'globals',
+	));
+
+}
+
 
 class StarterSite  {
 
@@ -692,6 +720,8 @@ class StarterSite  {
 		wp_enqueue_style('bootstrap', get_stylesheet_directory_uri() . '/css/bootstrap.min.css' );
 	}
 
+	
+
 	function register_post_types() {
 		//this is where you can register custom post types
 			register_post_type( 'bd_event',
@@ -703,6 +733,7 @@ class StarterSite  {
 					'public' => true,
 					'show_ui' => true,
 					'show_in_menu' => true,
+					'menu_icon' => 'dashicons-calendar',
 					'has_archive' => true,
 					'rewrite' => array('slug' => 'events'),
 					'show_in_rest' => true,
@@ -717,6 +748,7 @@ class StarterSite  {
 		      'public' => true,
 					'show_ui' => true,
 					'show_in_menu' => true,
+					'menu_icon' => 'dashicons-format-quote',
 		      'has_archive' => true,
 					'rewrite' => array('slug' => 'insights'),
 					'show_in_rest' => true,
@@ -732,6 +764,7 @@ class StarterSite  {
 		      'public' => true,
 					'show_ui' => true,
 					'show_in_menu' => true,
+					'menu_icon' => 'dashicons-admin-tools',
 		      'has_archive' => true,
 					'rewrite' => array('slug' => 'services'),
 					'show_in_rest' => true
@@ -746,6 +779,7 @@ class StarterSite  {
 					'public' => true,
 					'show_ui' => true,
 					'show_in_menu' => true,
+					'menu_icon' => 'dashicons-media-document',
 					'has_archive' => true,
 					'rewrite' => array('slug' => 'work'),
 					'show_in_rest' => true,
@@ -761,6 +795,7 @@ class StarterSite  {
 					'public' => true,
 					'show_ui' => true,
 					'show_in_menu' => true,
+					'menu_icon' => 'dashicons-hammer',
 					'has_archive' => true,
 					'rewrite' => array('slug' => 'jobs'),
 					'show_in_rest' => true,
@@ -776,6 +811,7 @@ class StarterSite  {
 					'public' => true,
 					'show_ui' => true,
 					'show_in_menu' => true,
+					'menu_icon' => 'dashicons-megaphone',
 					'has_archive' => true,
 					'rewrite' => array('slug' => 'sidebarcta'),
 					'show_in_rest' => true
