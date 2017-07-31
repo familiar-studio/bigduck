@@ -10,13 +10,15 @@ function bd_pre_get_posts( $query ) {
 		$query->set('orderby', 'meta_value');
 		$query->set('meta_key', 'start_time');
 		$query->set('order', 'ASC');
-		$query->set('meta_query', array(
-			array(
-				'key' => 'start_time',
-				'value' => $today,
-				'compare' => '>'
-			)
-		));
+		if(!is_admin){
+			$query->set('meta_query', array(
+				array(
+					'key' => 'start_time',
+					'value' => $today,
+					'compare' => '>'
+				)
+			));
+		}
 	}
 
 	return $query;
@@ -139,10 +141,10 @@ function cc_mime_types($mimes) {
 add_filter( 'upload_mimes', 'cc_mime_types');
 
 function remove_menus() {
-	remove_menu_page( 'edit.php' );  
-  remove_menu_page( 'edit-comments.php' ); 
+	remove_menu_page( 'edit.php' );
+  remove_menu_page( 'edit-comments.php' );
 	remove_menu_page( 'themes.php' );
-	remove_menu_page( 'tools.php' );  
+	remove_menu_page( 'tools.php' );
 }
 add_action( 'admin_menu', 'remove_menus' );
 
@@ -176,11 +178,11 @@ class StarterSite  {
 		add_action( 'rest_api_init', array( $this, 'register_routes') );
 		add_action( 'init', array( $this, 'add_rest_to_cpts'));
 		add_action( 'init', array( $this, 'add_image_sizes'));
-		
+
 		add_action( 'init', array( $this, 'handle_preflight'));
 
 
-			
+
 
 
 	}
@@ -202,7 +204,7 @@ class StarterSite  {
 	}
 
 	function register_routes() {
-	
+
 		register_rest_route( 'familiar/v1', '/featured-work', array(
 			'methods' => 'GET',
 			'callback' => array($this, 'featured_work')
@@ -355,20 +357,20 @@ class StarterSite  {
 			)
 		));
 
-	
+
 
 		$events = array();
-		
+
 		foreach($rawEvents as $rawEvent){
 			$fields = get_fields($rawEvent->ID);
 				$team_meta = array();
-		
+
 							$team = $fields['related_team_members'];
 							$isOnTeam = false;
-						
+
 							if (is_array($team)){
 								foreach($team as $member_data) {
-						
+
 									// $team_meta[] = $included_member['ID'];
 									$included_member = get_fields('user_' . $member_data['ID']);
 									$included_member['display_name'] = $member_data['display_name'];
@@ -383,11 +385,11 @@ class StarterSite  {
 								}
 							}
 
-						
+
 
 
 							if ($isOnTeam) {
-	
+
 								$event = get_post($rawEvent->ID);
 								$topics = wp_get_post_terms($rawEvent->ID, 'topic');
 								$eventCategories = wp_get_post_terms($rawEvent->ID, 'event_category');
@@ -398,10 +400,10 @@ class StarterSite  {
 								$event->related_team_members = ['data'=>$team_meta];
 								$events[] = $event;
 
-									
+
 
 							}
-							
+
 
 			}
 
@@ -722,7 +724,7 @@ class StarterSite  {
 		wp_enqueue_style('bootstrap', get_stylesheet_directory_uri() . '/css/bootstrap.min.css' );
 	}
 
-	
+
 
 	function register_post_types() {
 		//this is where you can register custom post types
