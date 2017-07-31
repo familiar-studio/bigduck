@@ -248,30 +248,32 @@ export default {
     }
   },
   head() {
-    if (this.insight) {
+    if (this.insight && this.insight.acf) {
       return {
 
-        title: this.insight.title.rendered,
+        title: this.title,
         meta: [
           {
             'property': 'og:title',
-            'content': this.insight.title.rendered
+            'content': this.title
           },
           {
             'property': 'twitter:title',
-            'content': this.insight.title.rendered
+            'content': this.title
           },
           {
+            hid: "description",
+
             'property': 'description',
-            'content': this.firstTextBlock.text
+            'content': this.description
           },
           {
             'property': 'og:description',
-            'content': this.firstTextBlock.text
+            'content': this.description
           },
           {
             'property': 'twitter:description',
-            'content': this.firstTextBlock.text
+            'content': this.description
           },
           {
             'property': 'image',
@@ -344,12 +346,11 @@ export default {
         return authorsById
       }
     },
-    firstTextBlock() {
-      if (this.insight.body) {
-        return this.insight.acf.body.filter((block) => { return block.acf_fc_layout === 'text' })[0]
-      } else {
-        return this.insight.title.rendered
-      }
+    description() {
+      return this.insight.acf.meta_description ? this.insight.acf.meta_description : this.insight.acf.short_description
+    },
+    title() {
+      return this.insight.acf.meta_title ? this.insight.acf.meta_title : this.insight.title.renderd
     }
 
   },
