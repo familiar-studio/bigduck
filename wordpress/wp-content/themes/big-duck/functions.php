@@ -10,7 +10,7 @@ function bd_pre_get_posts( $query ) {
 		$query->set('orderby', 'meta_value');
 		$query->set('meta_key', 'start_time');
 		$query->set('order', 'ASC');
-		if(!is_admin){
+		// if(!is_admin){
 			$query->set('meta_query', array(
 				array(
 					'key' => 'start_time',
@@ -18,7 +18,7 @@ function bd_pre_get_posts( $query ) {
 					'compare' => '>'
 				)
 			));
-		}
+		// }
 	}
 
 	return $query;
