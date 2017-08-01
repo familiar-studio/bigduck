@@ -22,7 +22,7 @@
   
     <form v-if="!submitted && visibleFields" key="form">
   
-      <div v-for="field in visibleFields" class="form-group" :class="{'has-danger':errors.has(field.id.toString())}">
+      <div v-for="field in visibleFields" class="form-group" :class="{'has-danger':errors && errors.has(field.id.toString())}">
   
         <label :for="field.id" v-if="field.type != 'hidden'">{{field.label}}</label>
   
@@ -73,7 +73,7 @@
           <input v-model="formData['input_'+field.id]" type="text" class="form-control" :name="field.id" v-validate="{ rules: { required: true } }" />
         </template>
   
-        <div class="form-control-feedback" v-if=" errors.has(field.id.toString())">{{ errors.first(field.id.toString()) }}</div>
+        <div class="form-control-feedback" v-if="errors && errors.has(field.id.toString())">{{ errors.first(field.id.toString()) }}</div>
   
       </div>
   
