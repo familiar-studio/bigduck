@@ -141,8 +141,7 @@
                       <h3 v-if="authorMetaById[author.ID]">
                         {{author.display_name}} is {{prependIndefiniteArticle(authorMetaById[author.ID].acf.job_title)}} at Big Duck
                       </h3>
-                      <div v-html="authorMetaById[author.ID].acf.short_bio">
-                      </div>
+  
                       <nuxt-link class="btn btn-primary" :to="{name: 'about-slug', params: { slug: author.user_nicename}}">
                         More about {{author.user_firstname}}
                       </nuxt-link>

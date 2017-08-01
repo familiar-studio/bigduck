@@ -22,14 +22,14 @@
       </div>
     </div>
   
-    <form v-if="!submitted && visibleFields" key="form">
+    <form v-if="!submitted && visibleFields && errors" key="form">
   
       <div v-for="field in visibleFields" class="form-group" :class="{'has-danger':errors.has(field.id.toString())}">
   
         <label :for="field.id" v-if="field.type != 'hidden'">{{field.label}}</label>
   
         <template v-if="field.type == 'select'">
-          <select v-model="formData['input_'+field.id]" class="custom-select form-control" v-validate="{ rules: { required: true } }">
+          <select v-model="formData['input_'+field.id]" :name="field.id" class="custom-select form-control" v-validate="{ rules: { required: true } }">
             <option v-for="choice in field.choices" :value="choice.value">
               {{ choice.text }}
             </option>
@@ -75,7 +75,7 @@
           <input v-model="formData['input_'+field.id]" type="text" class="form-control" :name="field.id" v-validate="{ rules: { required: true } }" />
         </template>
   
-        <div class="form-control-feedback" v-show="errors.has(field.id.toString())">{{ errors.first(field.id.toString()) }}</div>
+        <div class="form-control-feedback" v-if="errors && errors.has(field.id.toString())">{{ errors.first(field.id.toString()) }}</div>
   
       </div>
   
@@ -204,65 +204,66 @@ export default {
       }
     },
     async submitEntry() {
-      this.$validator.validateAll().then(async result => {
+      //this.$validator.validateAll().then(async result => {
 
-        if (result) {
-          this.loading = true
+      // if (result) {
+      this.loading = true
 
-          this.error = null
-          var signature = this.CalculateSig('entries', 'POST')
-          localStorage.formData = JSON.stringify(this.formData)
-          this.updateProfile(this.formData)
+      this.error = null
+      var signature = this.CalculateSig('entries', 'POST')
+      localStorage.formData = JSON.stringify(this.formData)
+      this.updateProfile(this.formData)
 
-          //this.formData['form_id'] = this.formId
-          // this.formData['title'] = this.
-
-
-          var endpoint = this.baseUrl + 'forms/' + this.formId + '/submissions';
-          console.log('endpoint', endpoint)
+      //this.formData['form_id'] = this.formId
+      // this.formData['title'] = this.
 
 
-          // fill in prefilled data!
-          if (this.actonId) {
-            this.formData.input_19 = this.title
-            this.formData.input_20 = this.id
-            this.formData.input_22 = this.actonId
-            this.formData.input_23 = this.actonId
+      var endpoint = this.baseUrl + 'forms/' + this.formId + '/submissions';
+      console.log('endpoint', endpoint)
+
+
+      // fill in prefilled data!
+      if (this.actonId) {
+        this.formData.input_19 = this.title
+        this.formData.input_20 = this.id
+        this.formData.input_22 = this.actonId
+        this.formData.input_23 = this.actonId
+      }
+
+      if (this.gatedContent) {
+
+        this.formData.input_19 = this.title
+        this.formData.input_20 = this.gatedContent
+
+      }
+      var response = await axios.post(this.baseUrl + 'forms/' + this.formId + '/submissions',
+        { "input_values": this.formData },
+        { params: { api_key: this.publicKey, signature: signature, expires: this.expires } })
+      console.log(response)
+      if (!response.data.response.is_valid) {
+        var errors = response.data.response.validation_messages
+        var first = Object.keys(errors)[0]
+        this.error = "Field " + first + ": " + errors[first]
+        debugger
+        this.loading = false
+      } else {
+
+        if (this.id) {
+          if (process.BROWSER_BUILD) {
+            jscookie.set(this.cookiePrefix + this.id, "true", {
+              expires: 7
+            });
           }
-
-          if (this.gatedContent) {
-
-            this.formData.input_19 = this.title
-            this.formData.input_20 = this.gatedContent
-
-          }
-          var response = await axios.post(this.baseUrl + 'forms/' + this.formId + '/submissions',
-            { "input_values": this.formData },
-            { params: { api_key: this.publicKey, signature: signature, expires: this.expires } })
-          console.log(response)
-          if (!response.data.response.is_valid) {
-            var errors = response.data.response.validation_messages
-            var first = Object.keys(errors)[0]
-            this.error = "Field " + first + ": " + errors[first]
-            debugger
-            this.loading = false
-          } else {
-
-            if (this.id) {
-              if (process.BROWSER_BUILD) {
-                jscookie.set(this.cookiePrefix + this.id, "true", {
-                  expires: 7
-                });
-              }
-            }
-
-            this.$emit('submitted')
-            this.submitted = true
-          }
-          this.loading = false
         }
-      })
-    }, ...mapMutations(['updateProfile'])
+
+        this.$emit('submitted')
+        this.submitted = true
+      }
+      this.loading = false
+      //}
+      //})
+    },
+    ...mapMutations(['updateProfile'])
 
   },
   created() {
