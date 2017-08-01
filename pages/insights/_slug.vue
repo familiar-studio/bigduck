@@ -109,24 +109,12 @@
                 <Share></Share>
               </div>
             </article>
-            <div v-if="insight && insight.acf.is_gated_content">
+            <div v-if="insight.acf.is_gated_content">
   
               <div class="form-light">
-                <GravityForm v-if="!completedGate" :formId="7" :gatedContent="insight.id" :title="insight.title.rendered" :id="insight.id" @submitted="refreshContent()" cookiePrefix="insight-"></GravityForm>
-  
-                <div v-if="completedGate || contentRefreshed">
-  
-                  <transition name="fade" appear>
-                    <div>
-                      <div v-html="insight.acf.gated_content_text"></div>
-  
-                      <a :href="downloadUrl" v-if="downloadUrl" class="btn btn-primary" target="_blank">
-                        {{insight.acf.gated_download_button_text}}
-                      </a>
-                    </div>
-                  </transition>
-                </div>
-  
+                <template v-if="viewGatedContent">
+                  <h1>TEST</h1>
+                </template>
               </div>
             </div>
   
@@ -369,6 +357,12 @@ export default {
 
       return null;
 
+    },
+    viewGatedContent() {
+      if (this.completedGate || this.contentRefreshed) {
+        return true
+      }
+      return false
     }
 
   },
@@ -394,10 +388,9 @@ export default {
 
       if (this.insight && jscookie) {
         //figure out whether the user has filled out the form from the cookie
-        //this.formFilled = jscookie.get('insight-' + this.insight.id)
-        this.completedGate = true;
-      } else {
-        this.completedGate = false;
+        if (jscookie.get('insight-' + this.insight.id)) {
+          this.completedGate = true;
+        }
       }
 
     }
