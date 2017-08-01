@@ -3,15 +3,13 @@
   
     <div v-if="heading && !submitted">
       <h2>{{ heading }}</h2>
-      <p v-if="body">
-        {{ body }}
-      </p>
+      <div v-if="body" v-html="body"></div>
     </div>
-    <transition name="fade" appear mode="out-in">
-      <div class="error" key="error" v-if="error">
-        {{ error }}
-      </div>
-    </transition>
+    <div class="error" key="error" v-if="error">
+      {{ error }}
+  
+    </div>
+  
     <div v-if="loading" key="loading" class="loading">
       <div class="loader loader--style3" title="2">
         <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
@@ -22,7 +20,7 @@
       </div>
     </div>
   
-    <form v-if="!submitted && visibleFields && errors" key="form">
+    <form v-if="!submitted && visibleFields" key="form">
   
       <div v-for="field in visibleFields" class="form-group" :class="{'has-danger':errors.has(field.id.toString())}">
   
@@ -75,7 +73,7 @@
           <input v-model="formData['input_'+field.id]" type="text" class="form-control" :name="field.id" v-validate="{ rules: { required: true } }" />
         </template>
   
-        <div class="form-control-feedback" v-if="errors && errors.has(field.id.toString())">{{ errors.first(field.id.toString()) }}</div>
+        <div class="form-control-feedback" v-if=" errors.has(field.id.toString())">{{ errors.first(field.id.toString()) }}</div>
   
       </div>
   
@@ -87,7 +85,6 @@
     </form>
     <div v-else :key="confirmation">
       <h1>{{confirmation}}</h1>
-  
     </div>
   
   </div>

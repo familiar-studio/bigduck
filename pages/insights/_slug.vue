@@ -109,12 +109,13 @@
                 <Share></Share>
               </div>
             </article>
-            <div v-if="insight.acf.is_gated_content">
+            <div v-if="insight && insight.acf.is_gated_content">
   
               <div class="form-light">
-                <GravityForm v-if="!formFilled" :formId="7" :gatedContent="insight.id" :title="insight.title.rendered" :id="insight.id" @submitted="refreshContent()" cookiePrefix="insight-"></GravityForm>
+                <GravityForm v-if="!completedGate" :formId="7" :gatedContent="insight.id" :title="insight.title.rendered" :id="insight.id" @submitted="refreshContent()" cookiePrefix="insight-"></GravityForm>
   
-                <div v-if="formFilled || contentRefreshed">
+                <div v-if="completedGate || contentRefreshed">
+  
                   <transition name="fade" appear>
                     <div>
                       <div v-html="insight.acf.gated_content_text"></div>
@@ -228,7 +229,8 @@ export default {
       relatedCaseStudies: null,
       relatedInsights: null,
       authors: null,
-      contentRefreshed: false
+      contentRefreshed: false,
+      completedGate: false
     }
   },
   async asyncData({ state, params, store, error }) {
@@ -310,13 +312,6 @@ export default {
       let images = this.globals.backup_insights_images
       return images[this.insight.id % images.length].backup_insight_image
     },
-    formFilled() {
-      if (this.insight && jscookie) {
-        //figure out whether the user has filled out the form from the cookie
-        return jscookie.get('insight-' + this.insight.id)
-      }
-      return false
-    },
     date() {
       return dateFns.format(this.insight.date, 'MMM D, YYYY')
     },
@@ -357,12 +352,18 @@ export default {
     title() {
       return this.insight.acf.meta_title ? this.insight.acf.meta_title : this.insight.title.rendered
     },
+    clientSide() {
+      if (process.BROWSER_BUILD) {
+        return true
+      }
+      return false
+    },
     downloadUrl() {
       if (this.insight.acf.gated_content_download_url) {
         return this.insight.acf.gated_content_download_url;
       } else {
         if (this.insight.acf.gated_download) {
-          return this.insight.acf.gated_download;
+          return this.insight.acf.gated_download.url;
         }
       }
 
@@ -387,6 +388,18 @@ export default {
       Axios.get(this.hostname + 'acf/v3/users', { params: { include: this.authorIds } }).then((response) => {
         this.authors = response.data
       })
+    }
+
+    if (process.BROWSER_BUILD) {
+
+      if (this.insight && jscookie) {
+        //figure out whether the user has filled out the form from the cookie
+        //this.formFilled = jscookie.get('insight-' + this.insight.id)
+        this.completedGate = true;
+      } else {
+        this.completedGate = false;
+      }
+
     }
   },
   // mounted if form exists in dom mounted then change action
