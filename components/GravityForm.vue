@@ -29,7 +29,7 @@
         <label :for="field.id" v-if="field.type != 'hidden'">{{field.label}}</label>
   
         <template v-if="field.type == 'select'">
-          <select v-model="formData['input_'+field.id]" class="custom-select form-control">
+          <select v-model="formData['input_'+field.id]" class="custom-select form-control" v-validate="{ rules: { required: true } }">
             <option v-for="choice in field.choices" :value="choice.value">
               {{ choice.text }}
             </option>
@@ -39,7 +39,7 @@
         <template v-else-if="field.type == 'checkbox'">
           <div class="custom-controls-stacked">
             <label class="custom-control custom-checkbox" v-for="choice in field.choices">
-              <input class="custom-control-input" type="checkbox" :name="field.id" v-model="formData['input_'+field.id]" :value="choice.value">
+              <input class="custom-control-input" type="checkbox" :name="field.id" v-model="formData['input_'+field.id]" :value="choice.value" v-validate="{ rules: { required: true } }">
               <span class="custom-control-indicator"></span>
               <span class="custom-control-description">{{ choice.text }}</span>
             </label>
@@ -48,7 +48,7 @@
         <template v-else-if="field.type == 'radio'">
           <div class="custom-controls-stacked">
             <label class="custom-control custom-radio" v-for="choice in field.choices">
-              <input class="custom-control-input" type="radio" :name="field.id" v-model="formData['input_'+field.id]" :value="choice.value">
+              <input class="custom-control-input" type="radio" :name="field.id" v-model="formData['input_'+field.id]" :value="choice.value" v-validate="{ rules: { required: true || !showAll } }">
               <span class="custom-control-indicator"></span>
               <span class="custom-control-description">{{ choice.text }}</span>
             </label>
@@ -56,11 +56,11 @@
         </template>
   
         <template v-else-if="field.type == 'email'">
-          <input v-model="formData['input_'+field.id]" type="email" :name="field.id" class="form-control" v-validate="{ rules: { required: field.isRequired, email: true } }" />
+          <input v-model="formData['input_'+field.id]" type="email" :name="field.id" class="form-control" v-validate="{ rules: { required: true, email: true } }" />
         </template>
   
         <template v-else-if="field.type == 'number'">
-          <input v-model="formData['input_'+field.id]" type="number" :name="field.id" class="form-control" v-validate="{ rules: { required: field.isRequired, numeric: true } }" />
+          <input v-model="formData['input_'+field.id]" type="number" :name="field.id" class="form-control" v-validate="{ rules: { required: true, numeric: true } }" />
         </template>
   
         <template v-else-if="field.type == 'hidden'">
@@ -68,11 +68,11 @@
         </template>
   
         <template v-else-if="field.type == 'textarea'">
-          <textarea v-model="formData['input_'+field.id]" class="form-control" :name="field.id" v-validate="{ rules: { required: field.isRequired } }" />
+          <textarea v-model="formData['input_'+field.id]" class="form-control" :name="field.id" v-validate="{ rules: { required:true } }" />
         </template>
   
         <template v-else>
-          <input v-model="formData['input_'+field.id]" type="text" class="form-control" :name="field.id" v-validate="{ rules: { required: field.isRequired } }" />
+          <input v-model="formData['input_'+field.id]" type="text" class="form-control" :name="field.id" v-validate="{ rules: { required:true } }" />
         </template>
   
         <div class="form-control-feedback" v-show="errors.has(field.id.toString())">{{ errors.first(field.id.toString()) }}</div>
@@ -204,10 +204,10 @@ export default {
       }
     },
     async submitEntry() {
-      this.loading = true
       this.$validator.validateAll().then(async result => {
 
         if (result) {
+          this.loading = true
 
           this.error = null
           var signature = this.CalculateSig('entries', 'POST')
