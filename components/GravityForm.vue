@@ -48,7 +48,7 @@
         <template v-else-if="field.type == 'radio'">
           <div class="custom-controls-stacked">
             <label class="custom-control custom-radio" v-for="choice in field.choices">
-              <input class="custom-control-input" type="radio" :name="field.id" v-model="formData['input_'+field.id]" :value="choice.value" v-validate="{ rules: { required: true || !showAll } }">
+              <input class="custom-control-input" type="radio" :name="field.id" v-model="formData['input_'+field.id]" :value="choice.value" v-validate="{ rules: { required: true } }">
               <span class="custom-control-indicator"></span>
               <span class="custom-control-description">{{ choice.text }}</span>
             </label>
@@ -68,11 +68,11 @@
         </template>
   
         <template v-else-if="field.type == 'textarea'">
-          <textarea v-model="formData['input_'+field.id]" class="form-control" :name="field.id" v-validate="{ rules: { required:true } }" />
+          <textarea v-model="formData['input_'+field.id]" class="form-control" :name="field.id" v-validate="{ rules: { required: true } }" />
         </template>
   
         <template v-else>
-          <input v-model="formData['input_'+field.id]" type="text" class="form-control" :name="field.id" v-validate="{ rules: { required:true } }" />
+          <input v-model="formData['input_'+field.id]" type="text" class="form-control" :name="field.id" v-validate="{ rules: { required: true } }" />
         </template>
   
         <div class="form-control-feedback" v-show="errors.has(field.id.toString())">{{ errors.first(field.id.toString()) }}</div>
