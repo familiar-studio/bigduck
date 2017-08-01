@@ -131,14 +131,8 @@
         <div class="row">
           <div class="col-lg-10 offset-lg-1">
             <div class="footer-content">
-              <div v-if="!submittedForm">
-                <h2>{{ activeCta.acf.headline }}</h2>
-                <p>
-                  {{ activeCta.acf.body }}
-                </p>
-              </div>
   
-              <GravityForm :formId="activeCta.acf.cta_form" btnType="tertiary" @submitted="hideCallout()"></GravityForm>
+              <GravityForm :formId="activeCta.acf.cta_form" btnType="tertiary" :heading="activeCta.acf.headline" :body="activeCta.acf.body"></GravityForm>
   
             </div>
           </div>
@@ -147,7 +141,7 @@
       <nuxt-link to="/privacy" class="link-privacy">Privacy Policy</nuxt-link>
     </section>
     <!--
-                      <script src="http://hi.bigducknyc.com/cdnr/30/acton/bn/tracker/4852"></script>-->
+                          <script src="http://hi.bigducknyc.com/cdnr/30/acton/bn/tracker/4852"></script>-->
   </div>
 </template>
 
@@ -176,9 +170,7 @@ export default {
       navVisible: false,
       query: null,
       searchVisible: false,
-      totalColors: 7,
-      submittedForm: false
-
+      totalColors: 7
     }
   },
   head() {
@@ -228,9 +220,7 @@ export default {
     toggleNav() {
       this.navVisible = !this.navVisible
     },
-    hideCallout() {
-      this.submittedForm = true;
-    },
+
     showSearch() {
       this.searchVisible = true
     },

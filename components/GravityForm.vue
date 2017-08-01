@@ -1,5 +1,12 @@
 <template>
-  <div>
+  <div class="gravityforms-wrapper">
+  
+    <div v-if="heading && !submitted">
+      <h2>{{ heading }}</h2>
+      <p v-if="body">
+        {{ body }}
+      </p>
+    </div>
     <transition name="fade" appear mode="out-in">
       <div class="error" key="error" v-if="error">
         {{ error }}
@@ -14,13 +21,13 @@
         </svg>
       </div>
     </div>
-
-    <form v-else-if="!submitted && visibleFields" key="form">
-
+  
+    <form v-if="!submitted && visibleFields" key="form">
+  
       <div v-for="field in visibleFields" class="form-group" :class="{'has-danger':errors.has(field.id.toString())}">
-
+  
         <label :for="field.id" v-if="field.type != 'hidden'">{{field.label}}</label>
-
+  
         <template v-if="field.type == 'select'">
           <select v-model="formData['input_'+field.id]" class="custom-select form-control">
             <option v-for="choice in field.choices" :value="choice.value">
@@ -28,11 +35,11 @@
             </option>
           </select>
         </template>
-
+  
         <template v-else-if="field.type == 'checkbox'">
           <div class="custom-controls-stacked">
             <label class="custom-control custom-checkbox" v-for="choice in field.choices">
-              <input class="custom-control-input" type="checkbox" :name="field.id" v-model="formData['input_'+field.id]" :value="choice.value" >
+              <input class="custom-control-input" type="checkbox" :name="field.id" v-model="formData['input_'+field.id]" :value="choice.value">
               <span class="custom-control-indicator"></span>
               <span class="custom-control-description">{{ choice.text }}</span>
             </label>
@@ -47,42 +54,42 @@
             </label>
           </div>
         </template>
-
+  
         <template v-else-if="field.type == 'email'">
           <input v-model="formData['input_'+field.id]" type="email" :name="field.id" class="form-control" v-validate="{ rules: { required: field.isRequired, email: true } }" />
         </template>
-
+  
         <template v-else-if="field.type == 'number'">
           <input v-model="formData['input_'+field.id]" type="number" :name="field.id" class="form-control" v-validate="{ rules: { required: field.isRequired, numeric: true } }" />
         </template>
-
+  
         <template v-else-if="field.type == 'hidden'">
           <input v-model="formData['input_'+field.id]" :name="field.id" type="hidden" />
         </template>
-
+  
         <template v-else-if="field.type == 'textarea'">
           <textarea v-model="formData['input_'+field.id]" class="form-control" :name="field.id" v-validate="{ rules: { required: field.isRequired } }" />
         </template>
-
+  
         <template v-else>
           <input v-model="formData['input_'+field.id]" type="text" class="form-control" :name="field.id" v-validate="{ rules: { required: field.isRequired } }" />
         </template>
-
+  
         <div class="form-control-feedback" v-show="errors.has(field.id.toString())">{{ errors.first(field.id.toString()) }}</div>
-
+  
       </div>
-
+  
       <div v-for="field in hiddenFields">
         <input v-model="formData['input_'+field.id]" :name="field.id" type="hidden" />
       </div>
-
+  
       <button type="submit" @click.prevent="submitEntry()" class="btn" :class="'btn-' + btnType">Submit</button>
     </form>
     <div v-else :key="confirmation">
       <h1>{{confirmation}}</h1>
-
+  
     </div>
-
+  
   </div>
 </template>
 
@@ -109,8 +116,6 @@ export default {
       hiddenFields: [],
       visibleFields: [],
       loading: false,
-      headline: null,
-      body: null,
       error: null
     }
   },
@@ -141,6 +146,12 @@ export default {
       type: Number
     },
     title: {
+      type: String
+    },
+    heading: {
+      type: String
+    },
+    body: {
       type: String
     }
   },
@@ -193,42 +204,43 @@ export default {
       }
     },
     async submitEntry() {
+      this.loading = true
       this.$validator.validateAll().then(async result => {
 
-        if (result){
-      this.loading = true
-      this.error = null
-      var signature = this.CalculateSig('entries', 'POST')
-      localStorage.formData = JSON.stringify(this.formData)
-      this.updateProfile(this.formData)
+        if (result) {
 
-      //this.formData['form_id'] = this.formId
-      // this.formData['title'] = this.
+          this.error = null
+          var signature = this.CalculateSig('entries', 'POST')
+          localStorage.formData = JSON.stringify(this.formData)
+          this.updateProfile(this.formData)
 
-
-      var endpoint = this.baseUrl + 'forms/' + this.formId + '/submissions';
-      console.log('endpoint', endpoint)
+          //this.formData['form_id'] = this.formId
+          // this.formData['title'] = this.
 
 
-      // fill in prefilled data!
-      if (this.actonId) {
-        this.formData.input_19 = this.title
-        this.formData.input_20 = this.id
-        this.formData.input_22 = this.actonId
-        this.formData.input_23 = this.actonId
-      }
+          var endpoint = this.baseUrl + 'forms/' + this.formId + '/submissions';
+          console.log('endpoint', endpoint)
 
-      if (this.gatedContent) {
 
-        this.formData.input_19 = this.title
-        this.formData.input_20 = this.gatedContent
+          // fill in prefilled data!
+          if (this.actonId) {
+            this.formData.input_19 = this.title
+            this.formData.input_20 = this.id
+            this.formData.input_22 = this.actonId
+            this.formData.input_23 = this.actonId
+          }
 
-      }
-        var response = await axios.post(this.baseUrl + 'forms/' + this.formId + '/submissions',
-          { "input_values": this.formData },
-          { params: { api_key: this.publicKey, signature: signature, expires: this.expires } })
+          if (this.gatedContent) {
+
+            this.formData.input_19 = this.title
+            this.formData.input_20 = this.gatedContent
+
+          }
+          var response = await axios.post(this.baseUrl + 'forms/' + this.formId + '/submissions',
+            { "input_values": this.formData },
+            { params: { api_key: this.publicKey, signature: signature, expires: this.expires } })
           console.log(response)
-          if (!response.data.response.is_valid){
+          if (!response.data.response.is_valid) {
             var errors = response.data.response.validation_messages
             var first = Object.keys(errors)[0]
             this.error = "Field " + first + ": " + errors[first]
@@ -247,9 +259,10 @@ export default {
             this.$emit('submitted')
             this.submitted = true
           }
-        this.loading = false
-      }
-})}, ...mapMutations(['updateProfile'])
+          this.loading = false
+        }
+      })
+    }, ...mapMutations(['updateProfile'])
 
   },
   created() {

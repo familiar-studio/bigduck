@@ -113,8 +113,8 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-10 offset-lg-1">
-              <h2 class="mb-4" v-if="!submittedForm">{{ caseStudy.acf.cta_text }}</h2>
-              <GravityForm :formId="formId" :showAll="true" btnType="info"></GravityForm>
+  
+              <GravityForm :formId="formId" :showAll="true" :heading="caseStudy.acf.cta_text" btnType="info"></GravityForm>
             </div>
           </div>
         </div>

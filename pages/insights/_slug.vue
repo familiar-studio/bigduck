@@ -118,7 +118,8 @@
                   <transition name="fade" appear>
                     <div>
                       <div v-html="insight.acf.gated_content_text"></div>
-                      <a :href="insight.acf.gated_download.url" v-if="insight.acf.gated_download.url" class="btn btn-primary" target="_blank">
+  
+                      <a :href="downloadUrl" v-if="downloadUrl" class="btn btn-primary" target="_blank">
                         {{insight.acf.gated_download_button_text}}
                       </a>
                     </div>
@@ -199,7 +200,7 @@
 <script>
 
 import Axios from 'axios'
-import jscookie from 'js-cookie'
+
 import dateFns from 'date-fns'
 import GravityForm from '~components/GravityForm.vue'
 import { mapState, mapGetters, mapActions } from 'vuex'
@@ -207,6 +208,10 @@ import Post from '~components/Post.vue'
 import Share from '~components/Share.vue'
 import Chat from '~components/Chat.vue'
 import flickity from '~components/Flickity.vue'
+
+if (process.BROWSER_BUILD) {
+  var jscookie = require("js-cookie")
+}
 
 
 
@@ -308,9 +313,10 @@ export default {
     },
     formFilled() {
       if (this.insight && jscookie) {
-        // figure out whether the user has filled out the form from the cookie
+        //figure out whether the user has filled out the form from the cookie
         return jscookie.get('insight-' + this.insight.id)
       }
+      return false
     },
     date() {
       return dateFns.format(this.insight.date, 'MMM D, YYYY')
@@ -350,7 +356,19 @@ export default {
       return this.insight.acf.meta_description ? this.insight.acf.meta_description : this.insight.acf.short_description
     },
     title() {
-      return this.insight.acf.meta_title ? this.insight.acf.meta_title : this.insight.title.renderd
+      return this.insight.acf.meta_title ? this.insight.acf.meta_title : this.insight.title.rendered
+    },
+    downloadUrl() {
+      if (this.insight.acf.gated_content_download_url) {
+        return this.insight.acf.gated_content_download_url;
+      } else {
+        if (this.insight.acf.gated_download) {
+          return this.insight.acf.gated_download;
+        }
+      }
+
+      return null;
+
     }
 
   },
