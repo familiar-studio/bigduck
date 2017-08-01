@@ -109,11 +109,18 @@
                 <Share></Share>
               </div>
             </article>
-            <div v-if="insight.acf.is_gated_content">
+            <div v-if="insight && insight.acf.is_gated_content">
   
               <div class="form-light">
+  
+                <GravityForm v-if="!completedGate" :formId="7" :gatedContent="insight.id" :title="insight.title.rendered" :id="insight.id" @submitted="refreshContent()" cookiePrefix="insight-"></GravityForm>
+  
                 <template v-if="viewGatedContent">
-                  <h1>TEST</h1>
+                  <div v-html="insight.acf.gated_content_text"></div>
+  
+                  <a :href="downloadUrl" v-if="downloadUrl" class="btn btn-primary" target="_blank">
+                    {{insight.acf.gated_download_button_text}}
+                  </a>
                 </template>
               </div>
             </div>
@@ -340,12 +347,6 @@ export default {
     title() {
       return this.insight.acf.meta_title ? this.insight.acf.meta_title : this.insight.title.rendered
     },
-    clientSide() {
-      if (process.BROWSER_BUILD) {
-        return true
-      }
-      return false
-    },
     downloadUrl() {
       if (this.insight.acf.gated_content_download_url) {
         return this.insight.acf.gated_content_download_url;
@@ -362,6 +363,7 @@ export default {
       if (this.completedGate || this.contentRefreshed) {
         return true
       }
+
       return false
     }
 
@@ -384,18 +386,19 @@ export default {
       })
     }
 
-    if (process.BROWSER_BUILD) {
 
-      if (this.insight && jscookie) {
-        //figure out whether the user has filled out the form from the cookie
-        if (jscookie.get('insight-' + this.insight.id)) {
-          this.completedGate = true;
-        }
+
+    // }
+  },
+  mounted() {
+
+    if (this.insight && jscookie) {
+      //figure out whether the user has filled out the form from the cookie
+      if (jscookie.get('insight-' + this.insight.id)) {
+        this.completedGate = true;
       }
-
     }
   },
-  // mounted if form exists in dom mounted then change action
   methods: {
     ...mapActions(['fetch']),
     prependIndefiniteArticle(word) {
