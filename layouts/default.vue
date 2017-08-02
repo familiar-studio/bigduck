@@ -67,7 +67,7 @@
   
       <main id="main" :class="{ 'no-top-padding': noTopPadding }">
         <div class="">
-          <nuxt/>
+          <nuxt :key="$route.fullPath" />
         </div>
   
       </main>
@@ -141,7 +141,7 @@
       <nuxt-link to="/privacy" class="link-privacy">Privacy Policy</nuxt-link>
     </section>
     <!--
-                          <script src="http://hi.bigducknyc.com/cdnr/30/acton/bn/tracker/4852"></script>-->
+                            <script src="http://hi.bigducknyc.com/cdnr/30/acton/bn/tracker/4852"></script>-->
   </div>
 </template>
 
