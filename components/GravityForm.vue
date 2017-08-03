@@ -105,13 +105,16 @@ export default {
       publicKey: '30d2b543ba',
       privateKey: '6cb1fab7a60e11a',
       baseUrl: 'http://bigduck-wordpress.familiar.studio/gravityformsapi/',
-      allFields: [],
+      allFields: null,
       formData: {},
+      profileData: {},
       totalProfilingFields: 2,
       submitted: false,
-      confirmation: 'Thanks, your the greatest!',
-      hiddenFields: [],
-      visibleFields: [],
+      confirmation: 'Thanks!',
+      hiddenFields: null,
+      visibleFields: null,
+      formIdsToLabels: {},
+      formLabelsToIds: {},
       loading: false,
       error: null
     }
@@ -159,8 +162,7 @@ export default {
       var expiration = 3600
       var unixtime = parseInt(d.getTime() / 1000)
       return unixtime + expiration
-    },
-
+    }
   },
   methods: {
     CalculateSig(route, method) {
@@ -169,12 +171,15 @@ export default {
       var base64 = hash.toString(CryptoJS.enc.Base64)
       return encodeURIComponent(base64)
     },
-    setupVisibleFields() {
+    async initializeForm() {
       let fieldCount = 0
-      console.log('setup all fields')
+      //console.log('setup all fields')
       if (this.allFields) {
 
         this.visibleFields = this.allFields.filter((field, index) => {
+          this.formIdsToLabels['input_' + field.id] = field.label;
+          this.formLabelsToIds[field.label] = 'input_' + field.id;
+
           if (field.type === 'checkbox') {
             console.log('checkboxes', this.formData[field.id])
 
@@ -199,92 +204,104 @@ export default {
           this.hiddenFields.push(field)
         })
       }
+
+      // get the data from local storage
+
+      if (process.BROWSER_BUILD && localStorage.formData) {
+        this.profileData = JSON.parse(localStorage.formData)
+
+        Object.keys(this.profileData).forEach((key) => {
+          var id = this.formLabelsToIds[key];
+          if (id) {
+            this.formData[id] = this.profileData[key]
+          }
+        })
+      }
+
     },
     async submitEntry() {
-      //this.$validator.validateAll().then(async result => {
+      this.$validator.validateAll().then(async result => {
+        if (result) {
+          this.loading = true
+          this.error = null
+          var signature = this.CalculateSig('entries', 'POST')
 
-      // if (result) {
-      this.loading = true
-
-      this.error = null
-      var signature = this.CalculateSig('entries', 'POST')
-      localStorage.formData = JSON.stringify(this.formData)
-      this.updateProfile(this.formData)
-
-      //this.formData['form_id'] = this.formId
-      // this.formData['title'] = this.
+          var endpoint = this.baseUrl + 'forms/' + this.formId + '/submissions';
+          console.log('endpoint', endpoint)
 
 
-      var endpoint = this.baseUrl + 'forms/' + this.formId + '/submissions';
-      console.log('endpoint', endpoint)
-
-
-      // fill in prefilled data!
-      if (this.actonId) {
-        this.formData.input_19 = this.title
-        this.formData.input_20 = this.id
-        this.formData.input_22 = this.actonId
-        this.formData.input_23 = this.actonId
-      }
-
-      if (this.gatedContent) {
-
-        this.formData.input_19 = this.title
-        this.formData.input_20 = this.gatedContent
-
-      }
-      var response = await axios.post(this.baseUrl + 'forms/' + this.formId + '/submissions',
-        { "input_values": this.formData },
-        { params: { api_key: this.publicKey, signature: signature, expires: this.expires } })
-      console.log(response)
-      if (!response.data.response.is_valid) {
-        var errors = response.data.response.validation_messages
-        var first = Object.keys(errors)[0]
-        this.error = "Field " + first + ": " + errors[first]
-        debugger
-        this.loading = false
-      } else {
-
-        if (this.id) {
-          if (process.BROWSER_BUILD) {
-            jscookie.set(this.cookiePrefix + this.id, "true", {
-              expires: 7
-            });
+          // fill in prefilled data!
+          if (this.actonId) {
+            this.formData.input_19 = this.title
+            this.formData.input_20 = this.id
+            this.formData.input_22 = this.actonId
+            this.formData.input_23 = this.actonId
           }
-        }
 
-        this.$emit('submitted')
-        this.submitted = true
-      }
-      this.loading = false
-      //}
-      //})
+          if (this.gatedContent) {
+
+            this.formData.input_19 = this.title
+            this.formData.input_20 = this.gatedContent
+
+          }
+          var response = await axios.post(this.baseUrl + 'forms/' + this.formId + '/submissions',
+            { "input_values": this.formData },
+            { params: { api_key: this.publicKey, signature: signature, expires: this.expires } })
+
+          if (!response.data.response.is_valid) {
+            var errors = response.data.response.validation_messages
+            var first = Object.keys(errors)[0]
+            this.error = "Field " + first + ": " + errors[first]
+            debugger
+            this.loading = false
+          } else {
+            if (this.id) {
+              if (process.BROWSER_BUILD) {
+                jscookie.set(this.cookiePrefix + this.id, "true", {
+                  expires: 7
+                });
+              }
+            }
+
+            // should loop through formdata and save it as by its label
+
+
+            Object.keys(this.formData).forEach((key) => {
+              var label = this.formIdsToLabels[key];
+              if (label) {
+                this.profileData[label] = this.formData[key]
+              }
+            })
+
+            localStorage.formData = JSON.stringify(this.profileData)
+
+            //this.updateProfile(this.formData)
+
+            this.$emit('submitted')
+            this.submitted = true
+          }
+          this.loading = false
+        }
+      })
     },
     ...mapMutations(['updateProfile'])
-
   },
-  created() {
+  async created() {
     var signature = this.CalculateSig('forms/' + this.formId, 'GET')
 
-    if (process.BROWSER_BUILD && localStorage.formData) {
-      this.formData = JSON.parse(localStorage.formData)
-      this.updateProfile(this.formData);
+
+
+    const response = await axios.get(this.baseUrl + 'forms/' + this.formId + '/', { params: { api_key: this.publicKey, signature: signature, expires: this.expires } })
+    if (response.status === 200) {
+      if (response.data.response.confirmations) {
+        var confirmations = response.data.response.confirmations
+        this.confirmation = confirmations[Object.keys(confirmations)[0]].message
+      }
+      this.allFields = response.data.response.fields
+      this.initializeForm();
+
     }
 
-    axios.get(this.baseUrl + 'forms/' + this.formId + '/', { params: { api_key: this.publicKey, signature: signature, expires: this.expires } }).then(
-      (response) => {
-        if (response.status === 200) {
-          if (response.data.response.confirmations) {
-            var confirmations = response.data.response.confirmations
-            this.confirmation = confirmations[Object.keys(confirmations)[0]].message
-          }
-
-          this.allFields = response.data.response.fields
-          this.setupVisibleFields();
-
-        }
-      }
-    )
   }
 }
 </script>
