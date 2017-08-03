@@ -47,7 +47,7 @@ export default {
         this.$scrollTo('#footer-callout', 500, { offset: 50 })
       }
 
-      if (ga) {
+      if (typeof ga !== 'undefined') {
         //console.log('ga', ga)
         ga('send', {
           hitType: 'event',

@@ -105,14 +105,15 @@ export default {
       publicKey: '30d2b543ba',
       privateKey: '6cb1fab7a60e11a',
       baseUrl: 'http://bigduck-wordpress.familiar.studio/gravityformsapi/',
-      allFields: null,
+
+      gravityFormData: null,
       formData: {},
       profileData: {},
       totalProfilingFields: 2,
       submitted: false,
       confirmation: 'Thanks!',
-      hiddenFields: null,
-      visibleFields: null,
+      hiddenFields: [],
+      visibleFields: [],
       formIdsToLabels: {},
       formLabelsToIds: {},
       loading: false,
@@ -174,9 +175,9 @@ export default {
     async initializeForm() {
       let fieldCount = 0
       //console.log('setup all fields')
-      if (this.allFields) {
+      if (this.gravityFormData && this.gravityFormData.fields) {
 
-        this.visibleFields = this.allFields.filter((field, index) => {
+        this.visibleFields = gravityFormData.fields.filter((field, index) => {
           this.formIdsToLabels['input_' + field.id] = field.label;
           this.formLabelsToIds[field.label] = 'input_' + field.id;
 
@@ -275,6 +276,16 @@ export default {
 
             localStorage.formData = JSON.stringify(this.profileData)
 
+            if (typeof ga !== 'undefined') {
+
+              ga('send', {
+                hitType: 'event',
+                eventCategory: 'Form',
+                eventAction: 'submit',
+                eventLabel: this.gravityFormData.title
+              });
+            }
+
             //this.updateProfile(this.formData)
 
             this.$emit('submitted')
@@ -297,7 +308,7 @@ export default {
         var confirmations = response.data.response.confirmations
         this.confirmation = confirmations[Object.keys(confirmations)[0]].message
       }
-      this.allFields = response.data.response.fields
+      this.gravityFormData = response.data.response;
       this.initializeForm();
 
     }
