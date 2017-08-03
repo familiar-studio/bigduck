@@ -97,7 +97,7 @@
   
               <div v-if="!contentRefreshed && !formFilled">
                 <h3>Register for this event</h3>
-                <p>{{ eventRegistrationText }}</p>
+  
               </div>
               <GravityForm v-if="!formFilled" :formId=9 @submitted="refreshContent()" cookiePrefix="event-" :id="event.id" :title="event.title.rendered" :actonId="event.acf.act_on_form_id"></GravityForm>
   
@@ -228,9 +228,6 @@ export default {
   computed: {
     ...mapState(['globals', 'callouts', 'topics']),
     ...mapGetters(['hostname', 'getTopicsIndexedById', 'getEventCategoriesIndexedById']),
-    eventRegistrationText() {
-      return this.$store.state.menuCallouts.event_registration_text
-    },
     formFilled() {
       if (this.event && jscookie) {
         // figure out whether the user has filled out the form from the cookie
