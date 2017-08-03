@@ -177,7 +177,7 @@ export default {
       //console.log('setup all fields')
       if (this.gravityFormData && this.gravityFormData.fields) {
 
-        this.visibleFields = gravityFormData.fields.filter((field, index) => {
+        this.visibleFields = this.gravityFormData.fields.filter((field, index) => {
           this.formIdsToLabels['input_' + field.id] = field.label;
           this.formLabelsToIds[field.label] = 'input_' + field.id;
 
