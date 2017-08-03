@@ -9,7 +9,9 @@ export default function({ route, redirect }) {
     "/nonprofit_training": "/events",
     "/nonprofit_training_webinars": "/insights",
     "/nonprofit_fundraising_and_marketing_blog": "/insights",
-    "/nonprofit-communications-jobs": "/about"
+    "/nonprofit-communications-jobs": "/about",
+    "/big-duck-company-values": "/about",
+    "/team": "/about"
   };
 
   console.log("path", route.path);
