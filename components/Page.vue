@@ -10,7 +10,7 @@
         <div v-if="content" v-html="content">
         </div>
       </article>
-      <div class="form-light mb-5">
+      <div class="form-light mb-5" v-if="formId">
         <GravityForm v-if="formId" :formId="formId" :showAll="true"></GravityForm>
       </div>
     </div>

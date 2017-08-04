@@ -47,7 +47,7 @@
                   <div class="nav-text" :class="{ 'show': currentText === 'about'}" v-html="globals.about"></div>
                 </li>
                 <li class="nav-item" @mouseover="hover('contact')" @mouseleave="hovering = false">
-                  <nuxt-link class="nav-link" to="/contact">
+                  <nuxt-link class="nav-link" to="/contact-us">
                     <span>Contact</span>
                   </nuxt-link>
                   <div class="nav-text" :class="{ 'show': currentText === 'contact'}" v-html="globals.contact"></div>
@@ -141,7 +141,7 @@
       <nuxt-link to="/privacy" class="link-privacy">Privacy Policy</nuxt-link>
     </section>
     <!--
-                            <script src="http://hi.bigducknyc.com/cdnr/30/acton/bn/tracker/4852"></script>-->
+                                <script src="http://hi.bigducknyc.com/cdnr/30/acton/bn/tracker/4852"></script>-->
   </div>
 </template>
 
