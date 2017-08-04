@@ -6,6 +6,10 @@
       background-color: nth($duck-colors, $i);
     }
 
+    .loading svg path {
+      fill: nth($duck-colors, $i);
+    }
+
     .color-change {
       color: nth($duck-colors, $i);
     }
@@ -29,12 +33,14 @@
     .fill-change path {
       fill: nth($duck-colors, $i);
     }
-    a:hover .hover-color, .hover-color a:hover {
+    a:hover .hover-color,
+    .hover-color a:hover {
       color: nth($duck-colors, $i);
     }
   }
 }
-.bg-change, html {
+.bg-change,
+html {
   transition: background-color 1s ease;
   will-change: background-color;
 }
@@ -42,21 +48,21 @@
 .color-change {
   transition: color 1s ease;
   -webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+  -moz-osx-font-smoothing: grayscale;
   will-change: color;
 }
 
 .border-change {
   transition: border 1s ease;
 }
-.underline-change{
+.underline-change {
   transition: background-size .3s ease;
   background-position: center 90%;
   background-repeat: no-repeat;
   background-size: 100% 1px;
 }
 
-.underline-change-thick{
+.underline-change-thick {
   transition: background-size .3s ease;
   background-position: center 95%;
   background-repeat: no-repeat;
@@ -67,9 +73,10 @@
   transition: fill 1s ease;
   will-change: fill;
 }
-a:hover .hover-color, .hover-color a:hover {
+a:hover .hover-color,
+.hover-color a:hover {
   transition: color 1s ease;
 }
-.hover-color{
+.hover-color {
   will-change: color;
 }

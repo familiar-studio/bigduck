@@ -10,16 +10,6 @@
   
     </div>
   
-    <div v-if="loading" key="loading" class="loading">
-      <div class="loader loader--style3" title="2">
-        <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
-          <path fill="#fff" d="M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z">
-            <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite" />
-          </path>
-        </svg>
-      </div>
-    </div>
-  
     <form v-if="!submitted && visibleFields" key="form">
   
       <div v-for="field in visibleFields" class="form-group" :class="{'has-danger':errors && errors.has(field.id.toString())}">
@@ -80,8 +70,18 @@
       <div v-for="field in hiddenFields">
         <input v-model="formData['input_'+field.id]" :name="field.id" type="hidden" />
       </div>
-  
-      <button type="submit" @click.prevent="submitEntry()" class="btn" :class="'btn-' + btnType">Submit</button>
+      <div class="btn-loading">
+        <button v-if="!loading" type="submit" @click.prevent="submitEntry()" class="btn btn-loading" :class="'btn-' + btnType">
+          Submit
+        </button>
+        <div v-if="loading" class="loading">
+          <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+            <path fill="#fff" d="M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z">
+              <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite" />
+            </path>
+          </svg>
+        </div>
+      </div>
     </form>
     <div v-else :key="confirmation">
       <h1>{{confirmation}}</h1>
@@ -105,7 +105,6 @@ export default {
       publicKey: '30d2b543ba',
       privateKey: '6cb1fab7a60e11a',
       baseUrl: 'http://bigduck-wordpress.familiar.studio/gravityformsapi/',
-
       gravityFormData: null,
       formData: {},
       profileData: {},
@@ -177,18 +176,34 @@ export default {
       //console.log('setup all fields')
       if (this.gravityFormData && this.gravityFormData.fields) {
 
-        this.visibleFields = this.gravityFormData.fields.filter((field, index) => {
+        this.gravityFormData.fields.forEach((field) => {
+
           this.formIdsToLabels['input_' + field.id] = field.label;
           this.formLabelsToIds[field.label] = 'input_' + field.id;
+
+          if (process.BROWSER_BUILD && localStorage.formData) {
+            this.profileData = JSON.parse(localStorage.formData)
+
+            Object.keys(this.profileData).forEach((key) => {
+              var id = this.formLabelsToIds[key];
+              if (id) {
+                this.formData[id] = this.profileData[key]
+              }
+            })
+          }
+        })
+
+        this.visibleFields = this.gravityFormData.fields.filter((field, index) => {
 
           if (field.type === 'checkbox') {
             console.log('checkboxes', this.formData[field.id])
 
-            if (!this.formData[field.id] || !Array.isArray(this.formData[field.id])) {
+            if (!this.formData['input_' + field.id]) {
               this.formData['input_' + field.id] = []
-            } else {
-              this.formData['input_' + field.id] = this.formData[field.id]
             }
+            // } else {
+            //   this.formData['input_' + field.id] = this.formData[field.id]
+            // }
           }
           // always include the first three
           if (index < 3) {
@@ -208,16 +223,7 @@ export default {
 
       // get the data from local storage
 
-      if (process.BROWSER_BUILD && localStorage.formData) {
-        this.profileData = JSON.parse(localStorage.formData)
 
-        Object.keys(this.profileData).forEach((key) => {
-          var id = this.formLabelsToIds[key];
-          if (id) {
-            this.formData[id] = this.profileData[key]
-          }
-        })
-      }
 
     },
     async submitEntry() {
@@ -316,8 +322,7 @@ export default {
   }
 }
 </script>
-<style>
-.loading,
+<style lang="scss">
 .error {
   display: flex;
   justify-content: center;
