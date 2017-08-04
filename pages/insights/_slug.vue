@@ -25,12 +25,10 @@
                 </div>
                 <div class="badge badge-default">
                   <span v-if="types && insight.type[0]">
-                    <div v-if="insight.calculated_reading_time && insight.calculated_reading_time.data && getTypesIndexedById[insight.type[0]].verb == 'Read'">
+                    <div v-if="insight.type[0] == '19'">
                       {{insight.calculated_reading_time.data}} Read
                     </div>
-                    <div v-if="getTypesIndexedById[insight.type[0]].verb !== 'Read'">
-                      {{insight.acf.time}} {{insight.acf.time_interval}} {{ getTypesIndexedById[insight.type[0]].verb }}
-                    </div>
+  
                   </span>
                 </div>
                 <div class="badge badge-default">
@@ -40,7 +38,7 @@
   
               <h1 v-html="insight.title.rendered">
               </h1>
-              <div class="author-listing" v-if="insight.acf.author.length > 0">
+              <div class="author-listing" v-if="insight.acf.author.length > 0 || insight.acf.guest_author_name">
                 <div class="badge badge-default mb-3" v-if="insight.author_headshots" v-for="author in insight.acf.author">
                   <img v-if="insight.author_headshots[author.user_nicename].sizes" :src="insight.author_headshots[author.user_nicename].sizes.thumbnail" class="round author-img mr-2">
                   <img v-else :src="globals.backup_author_image" class="round author-img mr-2">

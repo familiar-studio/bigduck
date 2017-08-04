@@ -26,11 +26,8 @@
   
               <div class="badge badge-default">
                 <span v-if="types && firstType">
-                  <span v-if="entry.calculated_reading_time && entry.calculated_reading_time.data && getTypesIndexedById[firstType].verb == 'Read'">
+                  <span v-if="entry['type'] == '19'">
                     {{entry.calculated_reading_time.data}} Read
-                  </span>
-                  <span v-if="getTypesIndexedById[firstType].verb !== 'Read'">
-                    {{entry.acf.time}} {{entry.acf.time_interval}} {{ getTypesIndexedById[firstType].verb }}
                   </span>
   
                 </span>
