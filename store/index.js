@@ -3,9 +3,9 @@ import axios from "axios";
 export const state = () => ({
   userProfile: null,
   localHostname: "https://wordpress.bigduck.dev/wp-json/",
-  remoteHostname: "http://bigduck-wordpress.familiar.studio/wp-json/",
+  remoteHostname: "https://wordpress.bigducknyc.com/wp-json/",
   bareLocalHostname: "https://wordpress.bigduck.dev/",
-  bareRemoteHostname: "http://bigduck-wordpress.familiar.studio/",
+  bareRemoteHostname: "https://wordpress.bigducknyc.com/",
   categories: null,
   categoriesPath: "wp/v2/categories/",
   ctas: [],
@@ -25,21 +25,23 @@ export const state = () => ({
   sectorsPath: "wp/v2/sector",
   topics: null,
   topicsPath: "wp/v2/topic",
-  types: null,
+  types: [],
   typesPath: "wp/v2/type"
 });
 
 export const mutations = {
   processTypeVerbs(state) {
-    state.types.forEach(type => {
-      if (type.name === "Podcasts") {
-        type.verb = "Listen";
-      } else if (type.name === "Webinars") {
-        type.verb = "Watch";
-      } else {
-        type.verb = "Read";
-      }
-    });
+    if (state.types) {
+      // state.types.forEach(type => {
+      //   if (type.name === "Podcasts") {
+      //     type.verb = "Listen";
+      //   } else if (type.name === "Webinars") {
+      //     type.verb = "Watch";
+      //   } else {
+      //     type.verb = "Read";
+      //   }
+      // });
+    }
   },
   nextPage(state) {
     state.page += 1;

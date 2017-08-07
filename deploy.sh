@@ -1,1 +1,1 @@
-rsync -a -z -e "ssh -o StrictHostKeyChecking=no" --exclude-from=./exclusions ./ "forge@67.205.162.117:/home/forge/bigduck.familiar.studio" --progress
+rsync -a -z -e "ssh -o StrictHostKeyChecking=no" --exclude-from=./exclusions ./ "forge@67.205.162.117:/home/forge/bigducknyc.com" --progress
