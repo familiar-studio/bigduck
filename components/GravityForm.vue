@@ -84,7 +84,7 @@
       </div>
     </form>
     <div v-else :key="confirmation">
-      <h1>{{confirmation}}</h1>
+      <h1 v-html="confirmation"></h1>
     </div>
   
   </div>
@@ -95,9 +95,6 @@ import axios from 'axios'
 import CryptoJS from 'crypto-js'
 import { mapGetters, mapMutations } from 'vuex'
 
-if (process.BROWSER_BUILD) {
-  var jscookie = require("js-cookie")
-}
 
 export default {
   data() {
@@ -136,7 +133,7 @@ export default {
       type: String,
       default: 'primary'
     },
-    cookiePrefix: {
+    storagePrefix: {
       type: String
     },
     actonId: {
@@ -264,9 +261,7 @@ export default {
           } else {
             if (this.id) {
               if (process.BROWSER_BUILD) {
-                jscookie.set(this.cookiePrefix + this.id, "true", {
-                  expires: 7
-                });
+                localStorage[this.storagePrefix + this.id] = "true"
               }
             }
 

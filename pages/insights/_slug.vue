@@ -111,7 +111,7 @@
   
               <div class="form-light">
   
-                <GravityForm v-if="!completedGate" :formId="7" :gatedContent="insight.id" :title="insight.title.rendered" :id="insight.id" @submitted="refreshContent()" cookiePrefix="insight-"></GravityForm>
+                <GravityForm v-if="!completedGate" :formId="7" :gatedContent="insight.id" :title="insight.title.rendered" :id="insight.id" @submitted="refreshContent()" storagePrefix="insight-"></GravityForm>
   
                 <template v-if="viewGatedContent">
                   <div v-html="insight.acf.gated_content_text"></div>
@@ -202,9 +202,7 @@ import Share from '~components/Share.vue'
 import Chat from '~components/Chat.vue'
 import flickity from '~components/Flickity.vue'
 
-if (process.BROWSER_BUILD) {
-  var jscookie = require("js-cookie")
-}
+
 
 
 
@@ -390,9 +388,9 @@ export default {
   },
   mounted() {
 
-    if (this.insight && jscookie) {
-      //figure out whether the user has filled out the form from the cookie
-      if (jscookie.get('insight-' + this.insight.id)) {
+    if (this.insight && localStorage) {
+      //figure out whether the user has filled out the form from the localstorage
+      if (localStorage['insight-' + this.insight.id]) {
         this.completedGate = true;
       }
     }

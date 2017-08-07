@@ -99,7 +99,7 @@
                 <h3>Register for this event</h3>
   
               </div>
-              <GravityForm v-if="!formFilled" :formId=9 @submitted="refreshContent()" cookiePrefix="event-" :id="event.id" :title="event.title.rendered" :actonId="event.acf.act_on_form_id"></GravityForm>
+              <GravityForm v-if="!formFilled" :formId=9 @submitted="refreshContent()" storagePrefix="event-" :id="event.id" :title="event.title.rendered" :actonId="event.acf.act_on_form_id"></GravityForm>
   
               <div v-if="formFilled || contentRefreshed">
                 <div v-html="event.acf.post_registration_content"></div>
@@ -132,7 +132,6 @@
 <script>
 import Axios from 'axios'
 import Chat from '~components/Chat.vue'
-import jscookie from 'js-cookie'
 import dateFns from 'date-fns'
 import Event from '~components/Event.vue'
 import GravityForm from '~components/GravityForm.vue'
@@ -229,9 +228,9 @@ export default {
     ...mapState(['globals', 'callouts', 'topics']),
     ...mapGetters(['hostname', 'getTopicsIndexedById', 'getEventCategoriesIndexedById']),
     formFilled() {
-      if (this.event && jscookie) {
+      if (this.event && localStorage) {
         // figure out whether the user has filled out the form from the cookie
-        return jscookie.get('event-' + this.event.id)
+        return localStorage['event-' + this.event.id]
       }
     },
     month() {

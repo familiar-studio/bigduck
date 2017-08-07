@@ -8,13 +8,14 @@
           {{ callout.inline_callout_body }}
         </p>
         <a href="#" v-if="!formVisible && callout.inline_callout_form" @click.prevent="toggleForm()" class="btn btn-primary">
-          Sign up
+          {{ callout.inline_callout_button_text }}
         </a>
       </div>
   
       <div v-if="formVisible && callout.inline_callout_form">
-        <GravityForm :formId="callout.inline_callout_form" @submitted="hideCallout()"></GravityForm>
-  
+        <transition name="fade">
+          <GravityForm :formId="callout.inline_callout_form" @submitted="hideCallout()"></GravityForm>
+        </transition>
       </div>
   
     </div>
@@ -25,9 +26,6 @@
 import { mapState } from 'vuex'
 import GravityForm from '~components/GravityForm.vue'
 
-if (process.BROWSER_BUILD) {
-  var jscookie = require("js-cookie");
-}
 
 export default {
   data() {
@@ -46,8 +44,8 @@ export default {
   },
   watch: {
     callout() {
-      if (jscookie) {
-        if (jscookie.get("callout-" + this.callout.post_name)) {
+      if (localStorage) {
+        if (localStorage["callout-" + this.callout.post_name]) {
           this.showCallout = false;
         }
       }
@@ -58,10 +56,8 @@ export default {
       this.formVisible = !this.formVisible
     },
     hideCallout() {
-      if (jscookie) {
-        jscookie.set("callout-" + this.callout.post_name, "true", {
-          expires: 7
-        });
+      if (localStorage) {
+        localStorage["callout-" + this.callout.post_name] = "true";
       }
       this.submittedForm = true
 
