@@ -11,7 +11,8 @@ export default function({ route, redirect }) {
     "/nonprofit_fundraising_and_marketing_blog": "/insights",
     "/nonprofit-communications-jobs": "/about",
     "/big-duck-company-values": "/about",
-    "/team": "/about"
+    "/team": "/about",
+    "/contact": "/contact-us"
   };
 
   console.log("path", route.path);
