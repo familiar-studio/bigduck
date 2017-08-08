@@ -12,7 +12,12 @@ export default function({ route, redirect }) {
     "/nonprofit-communications-jobs": "/about",
     "/big-duck-company-values": "/about",
     "/team": "/about",
-    "/contact": "/contact-us"
+    "/contact": "/contact-us",
+    "/workshops": "/events",
+    "/clients": "/about#clients",
+    "/blog": "/insights",
+    "/casestudies": "/work/all",
+    "/rebrandeffect": "/insights/the-rebrand-effect"
   };
 
   console.log("path", route.path);
