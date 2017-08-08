@@ -32,15 +32,15 @@ export const state = () => ({
 export const mutations = {
   processTypeVerbs(state) {
     if (state.types) {
-      // state.types.forEach(type => {
-      //   if (type.name === "Podcasts") {
-      //     type.verb = "Listen";
-      //   } else if (type.name === "Webinars") {
-      //     type.verb = "Watch";
-      //   } else {
-      //     type.verb = "Read";
-      //   }
-      // });
+      state.types.forEach(type => {
+        if (type.name === "Podcasts") {
+          type.verb = "Listen";
+        } else if (type.name === "Webinars") {
+          type.verb = "Watch";
+        } else {
+          type.verb = "Read";
+        }
+      });
     }
   },
   nextPage(state) {
