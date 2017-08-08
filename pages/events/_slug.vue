@@ -228,7 +228,7 @@ export default {
     ...mapState(['globals', 'callouts', 'topics']),
     ...mapGetters(['hostname', 'getTopicsIndexedById', 'getEventCategoriesIndexedById']),
     formFilled() {
-      if (this.event && localStorage) {
+      if (process.BROWSER_BUILD && this.event && localStorage) {
         // figure out whether the user has filled out the form from the cookie
         return localStorage['event-' + this.event.id]
       }

@@ -388,7 +388,7 @@ export default {
   },
   mounted() {
 
-    if (this.insight && localStorage) {
+    if (process.BROWSER_BUILD && this.insight && localStorage) {
       //figure out whether the user has filled out the form from the localstorage
       if (localStorage['insight-' + this.insight.id]) {
         this.completedGate = true;
