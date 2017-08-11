@@ -24,7 +24,7 @@ function bd_pre_get_posts( $query ) {
 	return $query;
 }
 
-add_filter('acf/fields/post_object/query/name=bd_event', 'my_post_object_query', 10, 3);
+add_filter('acf/fields/post_object/query/', 'my_post_object_query', 10, 3);
 
 function my_post_object_query( $args, $field ) {
 
