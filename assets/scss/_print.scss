@@ -57,6 +57,9 @@
   h1, h2, h3, h4, h5, h6 {
     page-break-after: avoid;
     page-break-inside: avoid;
+    &::first-letter {
+      margin-top: 0 !important;
+    }
   }
 
 

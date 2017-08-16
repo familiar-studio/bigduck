@@ -63,13 +63,11 @@
               <div v-for="block in insight.acf.body">
 
                 <div v-if="block.acf_fc_layout == 'text'" v-html="block.text" :class="['block-' + block.acf_fc_layout]"></div>
-                <div v-if="block.acf_fc_layout == 'quote'" :class="['block-' + block.acf_fc_layout]">
+                <div v-if="block.acf_fc_layout == 'quote'" class="block-pullquote">
                   <blockquote>
-
-                    <h3 v-html="block.quote"></h3>
-
-                    <footer class="label">
-                      — {{block.credit}}
+                    <div v-html="block.quote" class="text"></div>
+                    <footer class="label mt-3" v-if="block.credit">
+                      &mdash; {{block.credit}}
                     </footer>
                   </blockquote>
                 </div>
@@ -77,8 +75,8 @@
                 <div v-if="block.acf_fc_layout == 'video'" :class="['block-' + block.acf_fc_layout]" class="embed-responsive embed-responsive-16by9" v-html="block.video">
                 </div>
 
-                <div v-if="block.acf_fc_layout == 'callout'" :class="['block-' + block.acf_fc_layout]">
-                  <div v-html="block.text"></div>
+                <div v-if="block.acf_fc_layout == 'callout'" class="block-pullquote">
+                  <div v-html="block.text" class="text"></div>
                 </div>
 
                 <!-- GALLERY  -->
