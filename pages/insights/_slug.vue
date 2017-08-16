@@ -1,6 +1,6 @@
 <template>
   <div v-if="insight">
-  
+
     <div class="img-hero" v-if="insight && insight.acf.featured_image" :style=" { backgroundImage: 'url(' + insight.acf.featured_image + ')' }">
       <figcaption class="figure-caption">{{insight.acf.featured_image.caption}}</figcaption>
     </div>
@@ -28,14 +28,14 @@
                     <div v-if="insight.type[0] == '19'">
                       {{insight.calculated_reading_time.data}} Read
                     </div>
-  
+
                   </span>
                 </div>
                 <div class="badge badge-default">
                   {{ date }}
                 </div>
               </div>
-  
+
               <h1 v-html="insight.title.rendered">
               </h1>
               <div class="author-listing" v-if="insight.acf.author.length > 0 || insight.acf.guest_author_name">
@@ -46,7 +46,7 @@
                     <nuxt-link :to="'/about/' + author.user_nicename">{{author.display_name}}</nuxt-link>
                   </div>
                 </div>
-  
+
                 <div>
                   <div v-if="insight.acf.guest_author_name" class="badge badge-default mb-3">
                     <img :src="globals.backup_author_image" class="round author-img mr-2">
@@ -59,37 +59,28 @@
               <div v-if="!insight.acf.guest_author_name && insight.acf.author.length < 1" class="badge badge-default mb-3 author-no-img">
                 <span>Big Duck</span>
               </div>
-  
+
               <div v-for="block in insight.acf.body">
-  
+
                 <div v-if="block.acf_fc_layout == 'text'" v-html="block.text" :class="['block-' + block.acf_fc_layout]"></div>
                 <div v-if="block.acf_fc_layout == 'quote'" :class="['block-' + block.acf_fc_layout]">
                   <blockquote>
-  
+
                     <h3 v-html="block.quote"></h3>
-  
+
                     <footer class="label">
                       — {{block.credit}}
                     </footer>
                   </blockquote>
                 </div>
-  
+
                 <div v-if="block.acf_fc_layout == 'video'" :class="['block-' + block.acf_fc_layout]" class="embed-responsive embed-responsive-16by9" v-html="block.video">
                 </div>
-  
-                <div v-if="block.acf_fc_layout == 'callout'">
-                  <div class="row">
-                    <div class="col-md-6 col-img">
-                      <div :style=" { backgroundImage: 'url(' + block.image + ')' }" class="bg-img"></div>
-                    </div>
-                    <div class="col-md-6 col-text">
-  
-                      <div v-html="block.text"></div>
-                      <a :href="block.website" v-if="block.website" class="btn btn-info" target="_blank">Visit Site</a>
-                    </div>
-                  </div>
+
+                <div v-if="block.acf_fc_layout == 'callout'" :class="['block-' + block.acf_fc_layout]">
+                  <div v-html="block.text"></div>
                 </div>
-  
+
                 <!-- GALLERY  -->
                 <div v-if="block.acf_fc_layout == 'gallery'" class="cs-block-gallery break-container overflow-x-hidden">
                   <div class="">
@@ -97,34 +88,34 @@
                   </div>
                 </div>
                 <div class="" v-if="block.acf_fc_layout == 'image'" class="mb-5">
-  
+
                   <img :src="block.image" style="width: 100%;">
                   <figcaption v-if="block.caption" class="figure-caption mt-1">{{ block.caption }}</figcaption>
                 </div>
               </div>
-  
+
               <div class="hidden-lg-up mt-4">
                 <Share></Share>
               </div>
             </article>
             <div v-if="insight && insight.acf.is_gated_content">
-  
+
               <div class="form-light">
-  
+
                 <GravityForm v-if="!completedGate" :formId="7" :gatedContent="insight.id" :title="insight.title.rendered" :id="insight.id" @submitted="refreshContent()" storagePrefix="insight-"></GravityForm>
-  
+
                 <template v-if="viewGatedContent">
                   <div v-html="insight.acf.gated_content_text"></div>
-  
+
                   <a :href="downloadUrl" v-if="downloadUrl" class="btn btn-primary" target="_blank">
                     {{insight.acf.gated_download_button_text}}
                   </a>
                 </template>
               </div>
             </div>
-  
+
             <article class="mb-5">
-  
+
               <div v-if="insight.acf.author.length > 0" v-for="(author, index) in insight.acf.author">
                 <div class="author-bio">
                   <div class="row">
@@ -135,17 +126,17 @@
                       <h3 v-if="authorMetaById[author.ID]">
                         {{author.display_name}} is {{prependIndefiniteArticle(authorMetaById[author.ID].acf.job_title)}} at Big Duck
                       </h3>
-  
+
                       <nuxt-link class="btn btn-primary" :to="{name: 'about-slug', params: { slug: author.user_nicename}}">
                         More about {{author.user_firstname}}
                       </nuxt-link>
                     </div>
-  
+
                   </div>
                 </div>
               </div>
             </article>
-  
+
             <div class="mb-5" v-if="relatedCaseStudies">
               <h2>Related Case Studies</h2>
               <div class="row">
@@ -172,7 +163,7 @@
                 </div>
               </div>
             </div>
-  
+
             <div class="mb-5" v-if="relatedInsights">
               <h2>Related Insights</h2>
               <div v-if="relatedInsights">
