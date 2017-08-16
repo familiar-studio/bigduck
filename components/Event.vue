@@ -4,7 +4,14 @@
     <div class="block-overlap block-event" :class="blockClass">
       <nuxt-link :to="{ name: 'events-slug', params: { slug: entry.slug }}" :key="entry.id">
         <div class="col-image" v-if="entry.acf.featured_image">
-          <div :style="{ 'background-image': 'url(' + entry.acf.featured_image.url + ')' }" class="featured-image"></div>
+          <div :style="{ 'background-image': 'url(' + entry.acf.featured_image.url + ')' }" class="featured-image">
+            <div class="date-wrapper hidden-md-up">
+              <div class="event-date">
+                <h6>{{month}}</h6>
+                <h2>{{date}}</h2>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="col-text">
           <div class="card">
@@ -35,7 +42,7 @@
                   </span>
                 </div>
                 <div class="author-listing">
-  
+
                   <div v-for="team_member in entry.related_team_members.data" class="media">
                     <!-- <div class="media" > -->
                     <img v-if="team_member.headshot" :src="team_member.headshot.sizes.thumbnail" class="round author-img mr-2">
@@ -51,7 +58,7 @@
                 </div>
               </div>
             </div>
-            <div class="">
+            <div class="hidden-sm-down">
               <div class="event-date">
                 <h6>{{month}}</h6>
                 <h2>{{date}}</h2>
