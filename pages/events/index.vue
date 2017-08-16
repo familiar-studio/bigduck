@@ -13,29 +13,28 @@
           <div id="content">
             <div class="page-title">
               <h1>Upcoming Events</h1>
-  
-              <h5>
-  
-                <router-link :to="{name: 'events-speaking'}">
-                  <div class="media">
+
+                  <div class="media lead">
                     <img src="/svgs/speaking-icon.svg" class="d-flex mr-2" />
                     <div class="media-body">
-                      Interested in having Big Duck speak at your organization?
-                      <br/>
-                      <span class="label underline-change hover-color"> Learn more about our talks…</span>
+                      <router-link :to="{name: 'events-speaking'}">
+
+                        Interested in having Big Duck speak at your organization?
+                        <br/>
+                        <span class="underline-change color-change"> Learn more about our talks…</span>
+                      </router-link>
+
                     </div>
                   </div>
-                </router-link>
-              </h5>
             </div>
             <div v-if="events && events.length > 0">
               <div v-for="(event, index) in events" :key="event">
                 <Event :entry="event" :index="index"></Event>
-  
+
                 <InlineCallout class="mb-5" v-if="index % 5 == 1 && index < events.length - 1" :callout="callout"></InlineCallout>
-  
+
               </div>
-  
+
               <div class="pager" v-if="events.length < totalRecords">
                 <a class="btn btn-primary my-4" href="#" @click.prevent="nextPage">Load more</a>
               </div>

@@ -4,15 +4,8 @@
     h1 {
       margin-bottom: 1rem;
     }
-    // .label {
-    //   @include media-breakpoint-up(xl){
-    //     margin-left: .5rem;
-    //   }
-    // }
-    .media{
-      @include media-breakpoint-up(sm){
-        // align-items: center;
-      }
+    .lead{
+      line-height: 1.3;
     }
   }
   .callout-fullwidth {
