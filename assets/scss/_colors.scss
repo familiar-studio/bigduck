@@ -69,7 +69,7 @@ html {
   background-size: 100% 2px;
 }
 
-.fill-change path {
+.fill-change path, .loading svg path {
   transition: fill 1s ease;
   will-change: fill;
 }

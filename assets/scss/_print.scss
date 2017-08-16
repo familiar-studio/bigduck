@@ -1,0 +1,70 @@
+@media print {
+  @page {
+    margin: .5in;
+  }
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    outline: none;
+   }
+  html, body, .page-wrapper{
+    color: #000 !important;
+    background: #fff !important;
+    width: 7.5in !important;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+  }
+  .container{
+    width: 100% !important;
+  }
+  .img-hero{
+    height: 300px;
+  }
+  .overlap{
+    margin-top: 0;
+  }
+  #main-menu, #share, .work-cta, #footer, #footer-callout, .chat-group, .block-overlap .col-image, .slide-counter {
+    display: none !important;
+  }
+  #header{
+    position: absolute;
+  }
+  .col-lg-10{
+    max-width: none;
+    width: 100%;
+    flex-basis: 100%;
+  }
+  .carousel, .flickity-viewport, .flickity-slider, .carousel-cell{
+    position: static !important;
+    margin: 0;
+    padding: 0;
+  }
+  .flickity-viewport, .carousel-cell{
+    height: 100% !important;
+    margin-bottom: 1rem;
+    img{
+      max-width: 100% !important;
+      height: auto !important;
+    }
+  }
+  .break-container{
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+    page-break-inside: avoid;
+  }
+
+
+  blockquote, table, pre, img, .bg-img{
+    page-break-inside: avoid;
+  }
+
+  ul, ol, dl {
+    page-break-before: avoid;
+  }
+}
