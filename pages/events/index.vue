@@ -21,7 +21,7 @@
 
                         Interested in having Big Duck speak at your organization?
                         <br/>
-                        <span class="underline-change color-change"> Learn more about our talks…</span>
+                        <span class="underline-change-thick hover-color"> Learn more about our talks…</span>
                       </router-link>
 
                     </div>
