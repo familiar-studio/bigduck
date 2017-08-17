@@ -11,7 +11,7 @@ export default ({ app: { router }, store }) => {
       ** Send the pageview
       */
       var externalID;
-      if (ActOn && ActOn.Beacon) {
+      if (typeof ActOn !== 'undefined' && ActOn && ActOn.Beacon) {
         ActOn.Beacon.track();
 
         if (typeof ActOn.Beacon.cookie !== "undefined") {
