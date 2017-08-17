@@ -16,7 +16,6 @@
       <ul v-if="results && results.length > 0" class="list-unstyled">
         <li v-for="result in results">
           <div class="search-result">
-            {{ result['post-type']}}
             <router-link v-if="result['post-type'] == 'bd_insight'" :to="{name: 'insights-slug', params: {slug: result.slug}}" href="">
               <h6>Insight</h6>
               <h3><span class="underline-change hover-color" v-html="result.title.rendered"></span></h3>
@@ -123,7 +122,6 @@ export default {
   methods: {
     async search() {
       ///wp-json/wp/v2/multiple-post-type?search=awesome&type[]=post&type[]=page&type[]=article
-      console.log(this.$store.getters.hostname + 'wp/v2/multiple-post-type')
       let results = await Axios.get(this.$store.getters.hostname + 'wp/v2/multiple-post-type', { params: { search: this.query, type: ['bd_insight', 'bd_service', 'bd_case_study, bd_event'] } })
       this.results = results.data
       this.results.forEach((result) => {
