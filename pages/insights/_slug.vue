@@ -327,7 +327,7 @@ export default {
       }
     },
     description() {
-      return this.insight.acf.meta_description ? this.insight.acf.meta_description : this.insight.acf.short_description
+      return this.insight.acf.meta_description ? this.insight.acf.meta_description.slice(0, 160) : this.insight.acf.short_description.slice(0, 160)
     },
     title() {
       return this.insight.acf.meta_title ? this.insight.acf.meta_title : this.insight.title.rendered
