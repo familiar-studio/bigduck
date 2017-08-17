@@ -1,9 +1,9 @@
 <template>
   <div>
-  
+
     <div class="jumbotron" id="hero-animation">
       <div class="container">
-  
+
         <h1 class="display-2">
           <span>
             Developing
@@ -25,7 +25,7 @@
       </div>
     </div>
     <div id="below-hero-animation">
-  
+
       <Featured v-for="(caseStudy, index) in relatedCaseStudies" :work="caseStudy" :index="index" :key="caseStudy"></Featured>
       <div class="testimonial break-container mb-5">
         <div class="container">
@@ -38,23 +38,23 @@
         </div>
       </div>
       <div class="row no-gutters">
-  
+
         <div class="col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
           <div class="container">
             <div v-if="upcomingEvents" class="">
               <h2 class="mb-3">Featured Events</h2>
-  
+
               <div class="" v-for="(event, index) in upcomingEvents">
                 <Event :entry="event" index="index"></Event>
               </div>
               <nuxt-link class="btn btn-primary" to="/events">View All Events</nuxt-link>
             </div>
           </div>
-  
+
           <div class="container">
             <div v-if="latestInsights" class="my-5">
               <h2 class="mb-3">Recent Insights</h2>
-  
+
               <div class="" v-for="(insight, index) in latestInsights">
                 <Post :entry="insight" :index="index + latestInsights.length"></Post>
               </div>
@@ -135,7 +135,11 @@ export default {
       if (data.relatedWorkIds) {
         await Axios.get(store.getters['hostname'] + 'wp/v2/bd_case_study', { params: { include: data.relatedWorkIds } }).then(
           (response) => {
-            data.relatedCaseStudies = response.data
+            let orderedCaseStudies = []
+            data.relatedWorkIds.forEach((id, index) => {
+              orderedCaseStudies[index] = response.data.find((case_study) => { return case_study.id === id})
+            })
+            data.relatedCaseStudies = orderedCaseStudies
           }
         )
       }

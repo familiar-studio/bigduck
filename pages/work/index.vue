@@ -53,8 +53,22 @@ export default {
   },
   async asyncData({ state, store }) {
     let data = {}
-    let response = await axios.get(store.getters.hostname + 'familiar/v1/featured-work')
-    data.featured = response.data
+    let response = await axios.get(store.getters['hostname'] + 'wp/v2/pages/50')
+    let page = response.data
+    // let response = await axios.get(store.getters.hostname + 'familiar/v1/featured-work')
+    // data.featured = response.data
+    data.relatedWorkIds = page.acf.featured_case_studies.map((work) => { return work.ID })
+    if (data.relatedWorkIds) {
+      await axios.get(store.getters['hostname'] + 'wp/v2/bd_case_study', { params: { include: data.relatedWorkIds } }).then(
+        (response) => {
+          let orderedCaseStudies = []
+          data.relatedWorkIds.forEach((id, index) => {
+            orderedCaseStudies[index] = response.data.find((case_study) => { return case_study.id === id})
+          })
+          data.featured = orderedCaseStudies
+        }
+      )
+    }
     return data
   },
   components: {
