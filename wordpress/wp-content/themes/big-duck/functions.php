@@ -24,25 +24,14 @@ function bd_pre_get_posts( $query ) {
 	return $query;
 }
 
-// add_filter('acf/fields/post_object/query/name=bd_event', 'my_post_object_query', 10, 3);
-//
-// function my_post_object_query( $args, $field ) {
-//
-// 	$today = date('Y-m-d H:i:s');
-// 	$args->set('orderby', 'meta_value');
-// 	$args->set('meta_key', 'start_time');
-// 	$args->set('order', 'ASC');
-// 	if(! is_admin()){
-// 		$args->set('meta_query', array(
-// 			array(
-// 				'key' => 'start_time',
-// 				'value' => $today,
-// 				'compare' => '>'
-// 			)
-// 		));
-// 	}
-// 	return $args;
-// }
+function sort_insights_by_date( $query ) {
+	if ( isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == 'bd_insight' ) {
+		$query->set('orderby', 'date');
+	}
+}
+
+add_filter('pre_get_posts', 'sort_insights_by_date');
+
 
 add_filter('pre_get_posts', 'bd_pre_get_posts');
 
