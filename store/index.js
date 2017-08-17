@@ -190,7 +190,6 @@ export const actions = {
       });
       queryString += "?" + queryArray.join("&");
     }
-    console.log(context.getters.hostname + args.path + queryString);
     return axios.get(context.getters.hostname + args.path + queryString);
   },
   async fetchOne({ dispatch, commit, getters, rootGetters }, args) {
