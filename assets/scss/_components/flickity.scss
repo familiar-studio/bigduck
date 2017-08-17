@@ -17,12 +17,14 @@
   width: 100%;
   overflow: visible;
   height: 210px;
-  margin-bottom: 3rem;
+  margin-bottom: 5rem;
   @include media-breakpoint-up(sm) {
     height: 300px;
+    margin-bottom: 4rem;
   }
   @include media-breakpoint-up(md) {
     height: 400px;
+    margin-bottom: 3rem;
   }
 }
 
@@ -46,7 +48,7 @@
     //   height: 300px;
     // }
 
-    object-fit: cover;
+    object-fit: contain;
     // @include media-breakpoint-up(md) {
     //   height: 400px;
     // }
