@@ -82,6 +82,14 @@ function bd_cpt_search( $query ) {
 
     if ( $query->is_search ) {
 			$query->set( 'post_type', array( 'bd_insight', 'bd_case_study', 'bd_event', 'bd_service' ) );
+			$query->set('meta_key', 'start_time');
+			$query->set('meta_query', array(
+				array(
+					'key' => 'start_time',
+					'value' => $today,
+					'compare' => '>'
+				)
+			));
     }
 
     return $query;
