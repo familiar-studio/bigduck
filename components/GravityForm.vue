@@ -1,21 +1,21 @@
 <template>
   <div class="gravityforms-wrapper">
-  
+
     <div v-if="heading && !submitted">
       <h2>{{ heading }}</h2>
       <div v-if="body" v-html="body"></div>
     </div>
     <div class="error" key="error" v-if="error">
       {{ error }}
-  
+
     </div>
-  
+
     <form v-if="!submitted && visibleFields" key="form">
-  
+
       <div v-for="field in visibleFields" class="form-group" :class="{'has-danger':errors && errors.has(field.id.toString())}">
-  
+
         <label :for="field.id" v-if="field.type != 'hidden'">{{field.label}}</label>
-  
+
         <template v-if="field.type == 'select'">
           <select v-model="formData['input_'+field.id]" :name="field.id" class="custom-select form-control" v-validate="{ rules: { required: true } }">
             <option v-for="choice in field.choices" :value="choice.value">
@@ -23,7 +23,7 @@
             </option>
           </select>
         </template>
-  
+
         <template v-else-if="field.type == 'checkbox'">
           <div class="custom-controls-stacked">
             <label class="custom-control custom-checkbox" v-for="choice in field.choices">
@@ -42,31 +42,33 @@
             </label>
           </div>
         </template>
-  
+
         <template v-else-if="field.type == 'email'">
           <input v-model="formData['input_'+field.id]" type="email" :name="field.id" class="form-control" v-validate="{ rules: { required: true, email: true } }" />
         </template>
-  
+
         <template v-else-if="field.type == 'number'">
           <input v-model="formData['input_'+field.id]" type="number" :name="field.id" class="form-control" v-validate="{ rules: { required: true, numeric: true } }" />
         </template>
-  
+
         <template v-else-if="field.type == 'hidden'">
           <input v-model="formData['input_'+field.id]" :name="field.id" type="hidden" />
         </template>
-  
+
         <template v-else-if="field.type == 'textarea'">
           <textarea v-model="formData['input_'+field.id]" class="form-control" :name="field.id" v-validate="{ rules: { required: true } }" />
         </template>
-  
+
         <template v-else>
           <input v-model="formData['input_'+field.id]" type="text" class="form-control" :name="field.id" v-validate="{ rules: { required: true } }" />
         </template>
-  
-        <div class="form-control-feedback" v-if="errors && errors.has(field.id.toString())">{{ errors.first(field.id.toString()) }}</div>
-  
+
+        <div class="form-control-feedback" v-if="errors && errors.has(field.id.toString())">
+          {{ semanticError(field.id) }}
+        </div>
+
       </div>
-  
+
       <div v-for="field in hiddenFields">
         <input v-model="formData['input_'+field.id]" :name="field.id" type="hidden" />
       </div>
@@ -86,7 +88,7 @@
     <div v-else :key="confirmation">
       <h1 v-html="confirmation"></h1>
     </div>
-  
+
   </div>
 </template>
 
@@ -162,6 +164,11 @@ export default {
     }
   },
   methods: {
+    semanticError (id) {
+      let fieldTitle = this.formIdsToLabels['input_' + this.errors.errors[0].field]
+      let badErrorMsg = this.errors.errors[0].msg
+      return badErrorMsg.split(id + " field").join(fieldTitle)
+    },
     CalculateSig(route, method) {
       var stringToSign = this.publicKey + ':' + method + ':' + route + ':' + this.expires
       var hash = CryptoJS.HmacSHA1(stringToSign, this.privateKey)
