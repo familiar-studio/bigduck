@@ -81,18 +81,22 @@ add_filter( 'pre_get_posts', 'bd_cpt_search' );
 function bd_cpt_search( $query ) {
 
     if ( $query->is_search ) {
+      $today = date('Y-m-d H:i:s');
 			$query->set( 'post_type', array( 'bd_insight', 'bd_case_study', 'bd_event', 'bd_service' ) );
-      if ( isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == 'bd_event' ) {
-        $query->set('meta_key', 'start_time');
-    		$today = date('Y-m-d H:i:s');
-  			$query->set('meta_query', array(
-  				array(
-  					'key' => 'start_time',
-  					'value' => $today,
-  					'compare' => '>'
-  				)
-  			));
-      }
+      $query->set( 'meta_query', array(
+        'relation' =>  'OR',
+        array(
+          'key' => 'start_time',
+          'compare' => 'NOT EXISTS',
+          'value' => ''
+        ),
+        array(
+          'key' => 'start_time',
+          'compare' => '>',
+          'value' => $today
+        )
+      ));
+
     }
 
     return $query;
