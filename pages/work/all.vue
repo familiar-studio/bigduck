@@ -11,7 +11,6 @@
 
         <div class="container" id="content">
           <div v-if="work">
-            <h1>Work</h1>
             <Work :work="work" v-if="work.length > 0"></Work>
             <div v-else>
               There is currently no work in
