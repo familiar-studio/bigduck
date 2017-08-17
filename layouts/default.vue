@@ -7,12 +7,12 @@
             <button @click="toggleNav()" class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
-  
+
             <nuxt-link class="navbar-brand" to="/" @click="hideNav()">
               <Logo></Logo>
               <div class="label tagline hidden-xs-down">Smart communications for nonprofits</div>
             </nuxt-link>
-  
+
             <div class="navbar-collapse" id="main-menu">
               <div class="label tagline hidden-sm-up">Smart communications for nonprofits</div>
               <ul class="navbar-nav ml-auto">
@@ -64,14 +64,14 @@
           </nav>
         </div>
       </header>
-  
+
       <main id="main" :class="{ 'no-top-padding': noTopPadding }">
         <div class="">
           <nuxt :key="$route.fullPath" />
         </div>
-  
+
       </main>
-  
+
       <footer id="footer">
         <div>
           <nuxt-link to="/" class="navbar-brand">
@@ -115,33 +115,31 @@
                 <address class="">
                   {{globals.address_line_1}}
                   <br> {{globals.address_line_2}}
-  
+
                 </address>
               </h4>
             </div>
           </div>
         </div>
       </footer>
-  
+
       <SearchOverlay v-if="searchVisible" @hide="hideSearch()"></SearchOverlay>
-  
+
     </div>
     <section id="footer-callout" v-if="activeCta && activeCta.acf && activeCta.acf.cta_type == 'Form' && showFooter" class="bg-change text-white my-0 py-5">
       <div class="container">
         <div class="row">
           <div class="col-lg-10 offset-lg-1">
             <div class="footer-content">
-  
+
               <GravityForm :formId="activeCta.acf.cta_form" btnType="tertiary" :heading="activeCta.acf.headline" :body="activeCta.acf.body"></GravityForm>
-  
+
             </div>
           </div>
         </div>
       </div>
       <nuxt-link to="/privacy" class="link-privacy">Privacy Policy</nuxt-link>
     </section>
-    <!--
-                                <script src="http://hi.bigducknyc.com/cdnr/30/acton/bn/tracker/4852"></script>-->
   </div>
 </template>
 
