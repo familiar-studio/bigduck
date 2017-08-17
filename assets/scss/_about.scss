@@ -69,10 +69,10 @@
     margin-right: 20px;
   }
   .collapse-content {
-    transition: all 0.5s ease;
+    transition: max-height 0.5s ease-out;
     display: block !important;
     max-height: 0;
-    height: 100%;
+    height: auto;
     overflow: hidden;
     .client-list {
       margin-left: 56px; //width of icon + margin
@@ -100,7 +100,7 @@
   }
 
   .collapse-content.show {
-    max-height: 6000px;
+    max-height: 1000px;
   }
 }
 

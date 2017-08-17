@@ -58,7 +58,7 @@
 
                 <div class="collapse-block" v-for="(client, index) in page.acf.clients">
                   <div class="" v-if="client.client_category">
-                    <div class="media" :class="{ 'active': openCategory === client.client_category }">
+                    <div class="media" :class="{ 'active': openCategories[client.client_category] }">
                       <span class="svg" v-html="sectorsByIndex[client.client_category].icon"></span>
                       <h3>
                         <a href="#" class="underline-change" v-html="sectorsByIndex[client.client_category].name" @click.prevent="toggleClient(client.client_category)">
@@ -66,7 +66,7 @@
                       </h3>
                     </div>
                   </div>
-                  <div class="collapse-content" :class="{'show': openCategory === client.client_category}">
+                  <div class="collapse-content" :class="{'show': openCategories[client.client_category] }">
                     <ul class="list-unstyled client-list">
                       <li class="" v-for="client_list in client.c">
                         {{client_list.name}}
@@ -130,12 +130,12 @@
                 <div v-html="page.acf.jobs_body" class="mb-3"></div>
                 <div v-if="jobs">
                   <div v-for="(job, index) in jobs" class="collapse-block">
-                    <div :class="{'active': job.id === openJob}">
+                    <div :class="{'active': openJobs[job.id]}">
                       <h3>
                         <a href="#" class="underline-change" @click.prevent="toggleJob(job.id)">{{job.title.rendered}}</a>
                       </h3>
                     </div>
-                    <div class="collapse-content" :class="{'show': job.id === openJob}">
+                    <div class="collapse-content" :class="{'show': openJobs[job.id]}">
                       <div class="job-description">
                         <h5 v-html="job.acf.job_description_heading" v-if="job.acf.job_description_heading" class="mt-3"></h5>
                         <div v-html="job.acf.job_description" v-if="job.acf.job_description"></div>
@@ -164,6 +164,7 @@
 import Axios from 'axios'
 import Event from '~components/Event.vue'
 import Chat from '~components/Chat.vue'
+import Vue from 'vue'
 
 
 export default {
@@ -216,20 +217,25 @@ export default {
   data() {
     return {
       scrollPos: 0,
-      openCategory: null,
-      openJob: null,
       activeSection: 'we-believe'
     }
   },
   async asyncData({ store, query, dispatch }) {
     let data = {}
     let page = await Axios.get(store.getters['hostname'] + 'wp/v2/pages?slug=about')
+    let openCategories = {}
+    console.log(page)
+    page.data[0].acf.clients.forEach((client) => { openCategories[client.client_category] = false })
+    data['openCategories'] = openCategories
     data['pageObject'] = page.data
     let [team, jobs, openHouse] = await Promise.all([
       store.dispatch('fetch', 'familiar/v1/team'),
       store.dispatch('fetch', 'wp/v2/bd_job'),
       store.dispatch('fetch', 'wp/v2/bd_event?event_category=31')
     ])
+    let openJobs = {}
+    jobs.data.forEach((job) => { openJobs[job.id] = false })
+    data['openJobs'] = openJobs
     data['team'] = team.data
     data['jobs'] = jobs.data
 
@@ -251,10 +257,10 @@ export default {
       this.activeSection = sectionName
     },
     toggleClient(categoryId) {
-      this.openCategory = this.openCategory === categoryId ? null : categoryId
+      this.openCategories[categoryId] = !this.openCategories[categoryId]
     },
     toggleJob(jobId) {
-      this.openJob = this.openJob === jobId ? null : jobId
+      this.openJobs[jobId] = !this.openJobs[jobId]
     },
     teamMemberBySlug(slug) {
       return this.team.filter((teamMember) => {

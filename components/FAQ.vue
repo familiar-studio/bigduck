@@ -4,12 +4,12 @@
 
 <div v-if="questions">
   <div v-for="(question, index) in questions" class="collapse-block">
-    <div :class="{'active': index === openQuestion}">
+    <div :class="{'active': openQuestions[index]}">
       <h3>
         <a href="#" class="underline-change" @click.prevent="toggleQuestion(index)">{{question.question}}</a>
       </h3>
     </div>
-    <div class="collapse-content" :class="{'show': index === openQuestion}">
+    <div class="collapse-content" :class="{'show': openQuestions[index]}">
       <div class="job-description" v-html="question.answer">
       </div>
     </div>
@@ -19,16 +19,17 @@
 </template>
 
 <script>
+import Vue from 'vue'
 export default {
   data () {
     return {
-      openQuestion: null
+      openQuestions: {}
     }
   },
   props: ['questions'],
   methods: {
     toggleQuestion(questionId) {
-      this.openQuestion = this.openQuestion === questionId ? null : questionId
+      this.$set(this.openQuestions, questionId, !this.openQuestions[questionId])
     }
   }
 }
