@@ -41,7 +41,7 @@
           </div>
 
           <!-- CALLOUT  -->
-          <div v-if="block.acf_fc_layout == 'callout'" class="cs-block-callout break-container" :style="{ backgroundColor: caseStudy.acf.primary_color }">
+          <div v-if="block.acf_fc_layout == 'callout'" class="cs-block-callout break-container" :style="{ backgroundColor: service.acf.primary_color }">
             <div class="row">
               <div class="col-md-6 col-img">
                 <div :style=" { backgroundImage: 'url(' + block.image.url + ')' }" class="bg-img"></div>
