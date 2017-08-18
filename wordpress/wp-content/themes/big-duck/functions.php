@@ -34,6 +34,7 @@ function bd_pre_get_posts( $query ) {
 // add_filter('pre_get_posts', 'sort_insights_by_date');
 
 
+
 add_filter('pre_get_posts', 'bd_pre_get_posts');
 
 function bd_search_join( $join ) {
