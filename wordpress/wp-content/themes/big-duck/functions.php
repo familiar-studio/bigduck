@@ -30,6 +30,7 @@ function sort_insights_by_date( $query ) {
 	}
 }
 
+
 add_filter('pre_get_posts', 'sort_insights_by_date');
 
 
