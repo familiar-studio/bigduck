@@ -25,7 +25,12 @@ function bd_pre_get_posts( $query ) {
 }
 
 function sort_insights_by_date( $query ) {
-	if ( isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == 'bd_insight' ) {
+	if (
+    isset($query->query_vars['post_type']) &&
+    $query->query_vars['post_type'] == 'bd_insight' &&
+    isset($query->query_vars['sortByPostDate'] &&
+    $query->query_vars['sortByPostDate'] == true)
+  ) {
 		$query->set('orderby', 'date');
 	}
 }
