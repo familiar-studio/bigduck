@@ -1,4 +1,4 @@
- <template>
+<template>
   <div class="">
     <div class="row no-gutters">
       <div class="col-lg-3 col-xl-2">
@@ -41,20 +41,17 @@
   </div>
 </template>
 <script>
-
 import axios from 'axios'
 import Chat from '~components/Chat.vue'
 import FilterList from '~components/FilterList.vue'
 import InlineCallout from '~components/InlineCallout.vue'
 import { mapState, mapGetters } from 'vuex'
 import Post from '~components/Post.vue'
-
 export default {
   name: 'insights',
   async asyncData({ store, query, errro }) {
     try {
       store.commit('resetPage')
-
       const response = await store.dispatch('fetchByQuery', { isPaged: true, query: query, path: 'wp/v2/bd_insight' })
       return {
         insights: response.data,
@@ -68,8 +65,7 @@ export default {
   data() {
     return {
       previouslyLoadedInsights: 0,
-      callout: null,
-      typesToSortByPostDate: [22, 20]
+      callout: null
     }
   },
   head() {
@@ -136,20 +132,13 @@ export default {
     toggleTaxonomy(event) {
       // make a copy of the current query string
       let query = Object.assign({}, this.$route.query)
-
       // toggle filters
       if (parseInt(query[event.taxonomy]) === event.id) {
         delete query[event.taxonomy]
       } else {
         query[event.taxonomy] = event.id
       }
-      query = this.testSortByPostDate(query)
-      console.log(query)
       this.$router.push({ name: 'insights', query: query })
-    },
-    testSortByPostDate(query){
-      query['sortByPostDate'] = this.typesToSortByPostDate.indexOf(query.type) !== -1
-      return query
     },
     resetFilters() {
       this.$router.push({ name: 'insights', query: null })
