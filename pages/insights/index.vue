@@ -12,13 +12,13 @@
         <div class="container" id="content">
           <h1>Insights</h1>
           <div v-if="insights && insights.length > 0">
-  
+
             <div v-for="(insight, index) in insights" :key="insight" :data-index="index" v-cloak>
               <Post :entry="insight" :index="index" v-once></Post>
               <InlineCallout class="mb-5" v-if="index % 5 == 1 && index < insights.length - 1" :callout="callout"></InlineCallout>
-  
+
             </div>
-  
+
             <div class="pager" v-if="insights.length < totalRecords">
               <a class="btn btn-primary my-4" href="#" @click.prevent="nextPage">Load more</a>
             </div>
@@ -33,7 +33,7 @@
           </div>
         </div>
       </div>
-  
+
       <div class="col-xl-2">
         <Chat></Chat>
       </div>
@@ -68,7 +68,8 @@ export default {
   data() {
     return {
       previouslyLoadedInsights: 0,
-      callout: null
+      callout: null,
+      typesToSortByPostDate: [22, 20]
     }
   },
   head() {
@@ -142,7 +143,13 @@ export default {
       } else {
         query[event.taxonomy] = event.id
       }
+      query = this.testSortByPostDate(query)
+      console.log(query)
       this.$router.push({ name: 'insights', query: query })
+    },
+    testSortByPostDate(query){
+      query['sortByPostDate'] = this.typesToSortByPostDate.indexOf(query.type) !== -1
+      return query
     },
     resetFilters() {
       this.$router.push({ name: 'insights', query: null })
