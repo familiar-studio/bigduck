@@ -24,14 +24,14 @@ function bd_pre_get_posts( $query ) {
 	return $query;
 }
 
-function sort_insights_by_date( $query ) {
-	if ( isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == 'bd_insight' ) {
-		$query->set('orderby', 'date');
-	}
-}
-
-
-add_filter('pre_get_posts', 'sort_insights_by_date');
+// function sort_insights_by_date( $query ) {
+// 	if ( isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == 'bd_insight' ) {
+// 		$query->set('orderby', 'date');
+// 	}
+// }
+//
+//
+// add_filter('pre_get_posts', 'sort_insights_by_date');
 
 
 add_filter('pre_get_posts', 'bd_pre_get_posts');
