@@ -258,7 +258,7 @@ export default {
           var response = await axios.post(this.baseUrl + 'forms/' + this.formId + '/submissions',
             { "input_values": this.formData },
             {
-              withCredentials: false,
+              withCredentials: true,
               params: { api_key: this.publicKey, signature: signature, expires: this.expires }
             })
 
