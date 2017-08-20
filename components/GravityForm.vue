@@ -231,6 +231,11 @@ export default {
 
     },
     async submitEntry() {
+      let withCredentials = false;
+      if (process.env.NODE_ENV === "production") {
+        withCredentials = true;
+      }
+
       this.$validator.validateAll().then(async result => {
         if (result) {
           this.loading = true
@@ -258,7 +263,7 @@ export default {
           var response = await axios.post(this.baseUrl + 'forms/' + this.formId + '/submissions',
             { "input_values": this.formData },
             {
-              withCredentials: true,
+              withCredentials: withCredentials,
               params: { api_key: this.publicKey, signature: signature, expires: this.expires }
             })
 
