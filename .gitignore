@@ -12,20 +12,18 @@ dist
 
 backups
 
-wordpress/license.txt
-wordpress/readme.md
-wordpress/wp-admin
-wordpress/wp-includes
-wordpress/*.php
-wordpress/wp-content/*
-wordpress/wp-content/plugins
-wordpress/wp-content/uploads
-wordpress/wp-content/backups
-wordpress/wp-content/backup-db
-wordpress/wp-content/cache
+
+wp-admin
+wp-includes
+
+wp-content/*
+wp-content/plugins
+wp-content/uploads
+wp-content/backups
+wp-content/backup-db
+wp-content/cache
 
 !wordpress/wp-content/themes
-!wordpress/wp-config.php
 
 
 
