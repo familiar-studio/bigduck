@@ -1,8 +1,0 @@
-/**
- * If autohiding, make sure the .gf_invisible class
- * is set, even if gravityforms styles are disabled
- */
-    
-.gf_invisible {
-    display: none;
-}
