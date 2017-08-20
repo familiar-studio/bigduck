@@ -1,0 +1,257 @@
+body.toolbar-body
+{
+    background-color:   	transparent;
+    overflow:				hidden!important;
+}
+
+a
+{
+	color: 				#222222!important;
+	text-decoration: 	underline;	
+}
+
+a:hover
+{
+	text-decoration: 	underline;	
+}
+
+#toolbar-list
+{
+	width: 					200px;
+	margin-top:				0px;
+	z-index:				4;
+	position:				absolute;
+	top:					0px;
+	left:					0px;
+	background-color:		#999999;
+}
+
+#toolbar-header
+{
+	padding-top:			8px;
+	padding-left:			7px;
+	padding-bottom:			22px;
+	padding-right:			4px;
+}
+
+#toolbar-header a
+{
+	color:					white!important;
+	text-decoration:		none; 
+}
+
+#toolbar-header a.icon
+{
+	margin-right:			5px;
+	margin-top:				0px;
+	padding:				3px;
+	float:					right;
+	cursor:					pointer;
+x	border:					1px solid #CCC;
+	line-height:			5px;
+	font-size:				11px;
+	color:					white!important;
+	font-weight:			bold;
+	text-decoration:		none; 
+	text-align: 			center;
+x	display:				none;
+	background-color:		#888;
+}
+
+#toolbar-header a.icon:hover,
+#toolbar-header a.active:hover
+{
+x	border:					1px solid #EEE;
+	color:					#EEE!important;
+	background-color:		#444;
+}
+
+#toolbar-footer
+{
+	font-family:			"Helvetica", "Arial", sans-serif;
+	font-size:				10px;
+	color:					#FFFFFF;
+	padding-left:			45px;
+	position:				absolute;
+	left:					0px;
+	bottom:					20px;
+	z-index:				1;
+}
+
+.toolbar-block
+{
+	padding-bottom: 		17px;
+	background-color:		#858585;
+	margin:					0px 0px 15px 0px;
+	color: 					#DDDDDD!important;
+	font-size:				11px!important;
+}
+
+.toolbar-block td,
+.toolbar-block td a
+{
+	color: 					#FFFFFF!important;
+	text-decoration:		none;
+	font-size:				11px!important;
+}
+
+.toolbar-title
+{
+	opacity:				0.65;
+	filter:					alpha(opacity=65);
+	background-color:		#474747;
+x	display:				block;
+}
+
+.toolbar-block:hover,
+.toolbar-block:hover td,
+.toolbar-block:hover td a
+{
+	background-color:		#DDDDDD;
+	color: 					#222222!important;
+}
+
+
+.toolbar-block-active,
+.toolbar-block-active:hover,
+.toolbar-block-active td,
+.toolbar-block-active td a
+{
+	background-color:		#FFFFFF!important;
+	color: 					#222222!important;
+}
+
+.toolbar-block:hover .toolbar-title,
+.toolbar-block-active .toolbar-title
+{
+	opacity:				1;
+	filter:					alpha(opacity=100);
+}
+
+.toolbar-input
+{
+	margin-left:			10px;
+	margin-top:				15px;
+	border:					1px solid #959595;
+	width:					90px;
+	padding:				4px 5px;
+	font-family:			"Helvetica", "Arial", sans-serif;
+	font-size:				10px;
+	color:					#FFF;
+	background-color:		#959595;	
+	margin-bottom:			5px;
+}
+
+.toolbar-block:hover .toolbar-input,
+.toolbar-block-active .toolbar-input
+{
+	color:					#222222;
+	border:					1px solid #CCC;
+	background-color:		#FFFFFF;
+}
+
+table.toolbar-list
+{
+	margin-left:			10px;
+	margin-top:				12px;
+	width:					130px;
+	padding:				0px;
+}
+
+table.toolbar-list td
+{
+	white-space: 			nowrap;
+	padding-right:			5px;
+	
+	vertical-align:			middle;
+	width:					130px;
+	overflow:				hidden;
+	color:					#222222;
+}
+
+table.toolbar-list td .warning
+{
+	display:				block;
+	float:					left;
+	margin-right:			5px;
+	padding:				0px 8px;
+	color:					white;
+	font-weight:			bold;
+	background-color:		#b2330a;
+}
+
+table.toolbar-list td img
+{
+	display:				block;
+	margin:					2px 0px;
+}
+
+img.toolbar-chart
+{
+	margin-left:			5px;
+	margin-top:				20px;
+}
+
+.toolbar-block img.chart-off
+{
+	display: block;
+}
+
+.toolbar-block img.chart-on
+{
+	display: none;
+}
+
+
+
+
+.toolbar-block:hover img.chart-off,
+.toolbar-block-active img.chart-off,
+.toolbar-block-active:hover img.chart-off
+{
+	display: none;
+}
+
+.toolbar-block:hover img.chart-on,
+.toolbar-block-active img.chart-on,
+.toolbar-block-active:hover img.chart-on
+{
+	display: block;
+}
+
+#toolbar-logo
+{
+	position:				absolute;
+	left:					15px;
+	bottom:					22px;
+}
+
+.section-cms
+{
+	position:				relative;
+x	padding-top:			25px;
+}
+
+.section-cms .toolbar-title
+{
+
+}
+
+#status-block
+{
+	background-color:		#b2330a;
+	color:					white;
+	display: 				none;
+	padding:				15px;
+	margin:					10px;
+x	margin-top:				20px;
+	font-size:				11px;
+	line-height:			16px;
+	margin-top:				0px;
+}
+
+#adminmenu li.wp-menu-separator
+{
+	border-top:	1px solid #666;
+	margin:	15px 20px 10px 5px;
+}

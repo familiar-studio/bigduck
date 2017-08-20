@@ -1,0 +1,724 @@
+html
+{
+	margin-top:				0!important;
+}
+
+#newfangled-console-button
+{
+	position: 				fixed;
+	top:					0px;
+	left:					0px;
+	width:					50px;
+	height:					50px;
+	background-color:		#222;
+	z-index: 				99998;	
+
+	xbackground-image: 		url( /wp-content/plugins/newfangled-console/assets/images/nflogo.png );
+	xbackground-repeat:		no-repeat;
+	xbackground-position: 	center center;;
+}
+
+.toolbar-logo {
+    float: left;
+    color: white!important;
+    display: block;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font: 100 25px/1 dashicons;
+    opacity: .8;	
+    -webkit-font-smoothing: antialiased;
+}
+
+.toolbar-logo:before {
+    content: "\f324";
+    top: 2px;
+}
+
+#consoleToolbar
+{
+	position: 				fixed;
+	top: 					0px;
+	left: 					0px;
+	bottom: 				0px;
+	overflow: 				hidden;
+	background-color: 		#23282d;
+	z-index: 				1000001;
+	text-align: 			left;
+	width: 					190px;
+	margin-left: 			0px;
+	display: 				block;
+	height:					auto;
+	opacity:				1;
+	padding-top:			52px;
+
+x	background-image: 		url( /wp-content/plugins/newfangled-console/assets/images/nflogo.png );
+x	background-repeat:		no-repeat;
+x	background-position: 	12px 12px;
+
+	-moz-transition: 		all .1s ease-in-out!important;
+	-webkit-transition: 	all .1s ease-in-out!important;
+	transition: 			all .1s ease-in-out!important;
+
+	webkit-box-shadow: 		rgba(0, 0, 0, 0.95) -5px -5px 25px 5px;
+	box-shadow: 			rgba(0, 0, 0, 0.95) -5px -5px 25px 5px;
+
+}
+
+#consoleToolbar #iframe-outer
+{
+	width:					100%;
+	height:					100%;
+	background-repeat:		no-repeat;
+	background-position: 	center 42px;
+	background-image: 		url( /wp-content/plugins/newfangled-console/assets/images/spinner5.gif );
+x	margin-left:			10px;
+}
+
+
+.toolbar-collapsed
+{
+	height:					0px!important;
+	background-color: 		rgba (34, 34, 34, 0.5)!important;
+	width:					47px!important;
+	overflow:				hidden!important;
+	padding-top:			45px!important;
+	-moz-transition: 		all .1s ease-in-out!important;
+	-webkit-transition: 	all .1s ease-in-out!important;
+	transition: 			all .1s ease-in-out!important;
+
+x	background-image: 		url( /wp-content/plugins/newfangled-console/assets/images/nflogo.png )!important;
+x	background-repeat:		no-repeat!important;
+x	background-position: 	center center!important;
+
+	opacity:				1!important;
+
+x	webkit-box-shadow: 		none!important;
+x	box-shadow: 			none!important;	
+}
+
+.toolbar-collapsed #toolbar-header-right a.icon
+{
+	display: none!important;
+}
+
+.toolbar-collapsed-editorstate
+{
+	height:					100%!important;
+	width:					52px!important;
+	cursor:					pointer;
+}
+
+.toolbar-collapsed-editorstate #toolbar-header-right a.icon
+{
+	display: 				none!important;
+}
+
+
+.toolbar-collapsed-editorstate .wp-menu-name 
+{
+	margin-left: 			55px!important;
+}
+
+.toolbar-collapsed-editorstate #iframe-outer
+{
+	width: 					28px!important;
+	overflow: 				hidden;
+	background-image: 		none!important;
+}
+
+.toolbar-collapsed-editorstate iframe
+{
+	visibility: 			hidden;
+}
+
+#toolbar-header,
+#toolbar-header-right
+{
+	padding-top:			8px;
+	padding-left:			7px;
+	padding-bottom:			32px;
+	padding-right:			4px;
+
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 99999;
+	width: 56px;
+
+}
+
+#toolbar-header-right
+{
+	right: 0px;
+	left: auto;
+	width: auto;
+}
+
+#toolbar-header a,
+#toolbar-header-right a
+{
+	text-decoration:		none; 
+}
+
+#toolbar-header a.icon,
+#toolbar-header-right a.icon
+{
+	margin-right:			5px;
+	margin-top:				0px;
+	padding:				0px;
+	cursor:					pointer;
+	width: 					12px;
+	height: 				16px;
+	overflow: 				hidden;
+	opacity:  				.5
+}
+
+#toolbar-header a.icon:hover,
+#toolbar-header-right a.icon:hover
+{
+	opacity: 				1;
+}
+
+#toolbar-header a.icon img,
+#toolbar-header-right a.icon img
+{
+	width: 					14px;
+	height: 				14px;
+	margin-left:			-1px;
+}
+
+
+#consoleWorkspace
+{
+	position: 				fixed;
+	top: 					0px;
+	left: 					190px;
+	bottom: 				0px;
+	
+x	overflow: 				hidden;
+	background-color: 		#f1f1f1;
+	z-index: 				1000002;
+	text-align: 			left;
+	display: 				none;
+	width: 					0px;
+	
+	background-image: 		url( /wp-content/plugins/newfangled-console/assets/images/spinner6.gif );
+	background-repeat:		no-repeat;
+	background-position: 	center center;
+
+
+x	-webkit-box-shadow: 5px 0px 12px -6px rgba(102,102,102,1);
+x	-moz-box-shadow: 5px 0px 12px -6px rgba(102,102,102,1);
+x	box-shadow: 5px 0px 30px -6px rgba(102,102,102,1);
+
+}
+
+#workspace-tools
+{
+	position: 				absolute;
+	top:					32px;
+	right:					10px;
+}
+
+
+
+#workspace-tools a
+{
+	float: 					right;
+	display:				block;
+	margin-right:			10px;
+	margin-top:				0px;
+	color: #777;
+	background-color: white;
+	padding: 3px 8px;
+	font-size: 13px;
+height: 22px;
+line-height: 22px;
+text-decoration: none;
+font-family: "Open Sans",sans-serif;
+font-weight: 900;
+border: 1px solid #ddd;
+border-top: 0;
+background: #fff;
+-webkit-box-shadow: 0 1px 1px -1px rgba(0,0,0,.1);
+box-shadow: 0 1px 1px -1px rgba(0,0,0,.1);
+}
+
+#consoleDimm
+{
+	position: 				fixed;
+	top: 					0px;
+	left: 					0px;
+	right: 					0px;
+	bottom: 				0px;
+	background-color: 		rgba( 0,0,0,.8);
+	z-index: 				99997;
+	
+	display: 				none;
+	opacity: 				0.20;
+	filter: 				alpha(opacity=85);
+}
+
+body.console-active .page-wrapper
+{
+x 	-webkit-filter: blur( 20px );
+}
+
+.overlay-blur{
+}
+
+
+a.selectedit-main img,
+a.selectedit img,
+a.selectedit_preview img
+{
+    opacity:			0.9;
+	filter:				alpha(opacity=90);
+	border-radius: 		5px;
+	
+}	
+
+a.selectedit, 
+a.selectedit-main, 
+a.selectedit_preview
+{
+	position:           absolute;
+    z-index:            10;
+	overflow:			auto;
+	outline: 			none;
+
+	background-color:	#b2330a!important;
+	color:				white!important;
+	text-align:			center!important;
+	width:				65px!important;;
+	height:				22px!important;
+	line-height:		24px!important;
+	font-size:			11px!important;
+	font-family:		"Helvetica", "Arial", sans-serif!important;
+	overflow:			hidden!important;
+	text-decoration:	none!important;
+	
+x	opacity:			0.9;
+x	filter:				alpha(opacity=90);
+}
+
+.siteedit-sort
+{
+	margin-bottom:		3px;
+}
+
+a.selectedit_preview
+{
+	background-color:	#347a24!important;
+}
+
+a.selectedit, 
+a.selectedit-main, 
+a.selectedit_preview,
+ul#se,
+input.selectedit,
+input.selectedit_preview,
+input.siteeditbutton,
+.google-stats-box-max,
+.siteedit-sort
+{
+    display:    none!important;
+}
+
+.console-active a.selectedit, 
+.console-active a.selectedit-main, 
+.console-active a.selectedit_preview,
+.console-active ul#se,
+.console-active input.selectedit,
+.console-active input.selectedit_preview,
+.console-active input.siteeditbutton,
+.console-active .google-stats-box-max,
+.console-active #consoleToolbar,
+.console-active .siteedit-sort
+{
+    display:    block!important;
+}
+
+
+
+ul#se
+{
+	position:			absolute;
+	display:			block;
+	visibility:			hidden;
+	z-index:			5000;
+
+	list-style-type:	none;
+	margin:				0px;
+	padding:			0px;
+    border-top:         1px solid #FFFFFF;             
+	height:				auto;
+	width:				auto;
+	border-bottom:		none;
+	margin-left:		1px;
+
+
+}
+
+ul#se li
+{
+	background-color:   #999999!important;
+	display:			block;
+	margin:				0px;
+	padding:			0px;
+	font-family:		"Helvetica", "Arial", sans-serif;
+	color:				white;
+	border-bottom:		1px solid white;
+}
+
+ul#se a
+{
+	background-color:   #999999!important;
+	display:			block;
+	width:				auto;
+	padding:			0px 8px;
+	line-height:		20px;
+	height:				20px;
+	text-decoration:	none;
+	cursor:				pointer;
+	color:				white!important;
+	font-size:			11px;
+}
+
+ul#se a:hover
+{
+    background-color:   #666!important;
+}
+
+input.selectedit,input.selectedit_preview
+{
+	background-color:	white!important;
+	font-family:		ms sans serif,sans serif;
+	font-size:			12px;
+	vertical-align:		top;
+	color:				black!important;
+}
+
+input.selectedit_preview
+{
+	background-color:	lightgreen!important;
+}
+
+.selectedit-conversions
+{
+	display: block;
+	float: right;
+	background-color: black;
+	color: white;
+	padding:0px 5px;
+}
+
+
+
+#consoleWorkspace-close:before
+{
+	cursor: pointer!important;
+    position: absolute;
+    top: 10px;
+    right: 13px;
+    content: 'X';
+    cursor: pointer;
+    background-color: #4f8aa7;
+    border-radius: 30px;
+    padding: 10px;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 999999;
+    color: white!important;
+    padding: 0;
+    width: 30px;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    display: block;
+    font-size: 15px;
+    font-weight: 900;
+}
+
+#console-edit-menu
+{
+	position: 	absolute;
+	top: 20px;
+  	left: 20px;
+  	z-index: 999999;
+  	cursor: pointer;
+
+  	width: 20px;
+  	height: 20px;
+
+  	overflow: hidden;
+  	opacity: 0;
+	text-align: left;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+	border: 1px solid #AAA;
+
+	-webkit-box-shadow: 10px 10px 26px -12px rgba(0,0,0,0.75);
+	-moz-box-shadow: 10px 10px 26px -12px rgba(0,0,0,0.75);
+	box-shadow: 10px 10px 26px -12px rgba(0,0,0,0.75);
+
+}
+
+.console-edit-menu-top {
+x	height: 20px;
+x	background-color: #45bbe6;
+}
+
+.console-edit-menu-top:before {
+x	color: white!important;
+x	text-align: center!important;
+x	line-height: 20px!important;
+x	font-size: 15px!important;
+x
+x	font-family: "dashicons" !important;
+x  	content: "\f464" !important;
+x
+x  	margin-left: 6px;
+x  	height: 20px;
+x  	line-height: 20px;
+
+}
+
+#console-edit-menu a {
+	display: block;
+	background-color: #333;
+	height: 30px;
+	line-height: 30px;
+	color: white;
+	padding: 0 15px;
+	font-size: 12px;
+
+	white-space: nowrap;
+
+	font-size: 12px!important;
+	font-weight: 400!important;
+	line-height: 30px!important;
+
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	text-align: left;
+}
+
+#console-edit-menu a:hover {
+	text-decoration: none;
+	background-color: #000;
+	color: #45bbe6;
+}
+
+.entry-edit {
+	margin-bottom: 0px!important;
+}
+
+.post-edit-link
+{
+x	display: none;
+  	z-index: 99999;
+ 	position: relative;
+}
+
+
+.post-edit-link:before,
+.admin-link:before
+{
+	background-color:	rgba( 0, 0, 0, .6 );
+	color:				white!important;
+	text-align:			center!important;
+	line-height:		25px!important;
+	font-size:			18px!important;
+	letter-spacing:		-1px;
+	font-weight:		100!important;
+
+	float:				left;
+	margin-right:		5px;
+	width: 				25px;
+	height: 			25px;
+	border-radius: 		25px;
+	overflow: 			hidden;
+	font-family: 		"dashicons" !important;
+	content: 			"\f464" !important;
+
+	display:			inline-block!important;
+
+x	margin-left:		-27px;
+	margin-top: 		0px;
+
+	cursor: 			pointer;
+	z-index:  			99999;
+
+	-moz-transition: 	all 100ms!important;
+	-webkit-transition: all 100ms!important;
+	transition: 		all 100ms!important;
+
+	-webkit-font-smoothing: antialiased;
+    margin-bottom: -5px;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+
+}
+
+.post-edit-link.menu-open:before,
+.admin-link.menu-open:before
+{
+	background-color: #0074a2!important;
+}
+
+article.hentry > .entry-header .post-edit-link:before,
+article.hentry > .edit-link .post-edit-link:before,
+#homepage-wrapper #about  .post-edit-link:before
+{
+	float: left;
+	margin-left:		-39px;
+	width: 				30px;
+	height: 			30px;
+	border-radius: 		30px;
+	line-height:		30px!important;
+	font-size:			22px!important;
+}
+
+.page-header .post-edit-link:before
+{
+	font-size:			20px!important;
+	line-height:		30px!important;
+	width: 				30px;
+	height: 			30px;
+	border-radius: 		30px;
+	margin-left:		-45px;
+}
+
+.admin-link:before
+{
+	content: 			"\f108" !important;
+	letter-spacing:		-1px;
+}
+
+.form-admin-link:before
+{
+	content: 			"\f107" !important;
+x	letter-spacing:		0px;
+}
+
+.menu-admin-link:before
+{
+	content: 			"\f466" !important;
+x	letter-spacing:		-1px;
+x	margin-top: 		6px;
+x	vertical-align:  	middle;
+}
+
+.editorstate-active .post-edit-link,
+.editorstate-active #console-edit-menu
+{
+	display:			none!important;
+}
+
+
+body.console-invisible .post-edit-link,
+body.console-invisible #console-edit-menu,
+body.console-invisible #consoleWorkspace,
+body.console-invisible #consoleDimm
+{
+	display:			none!important;
+}
+
+body.console-invisible #consoleToolbar {
+	width: 47px!important;
+	height: 45px!important;
+	opacity: .5!important;
+
+	webkit-box-shadow: 		none;
+	box-shadow: 			none;
+
+	padding-top: 0px!important;
+}
+
+body.console-invisible #iframe-outer {
+	display: none!important;
+}
+
+
+
+body.console-invisible.editorstate-active {
+	margin-right: 0!important;
+	margin-left: 0!important;
+	min-width: 100%!important;
+}
+
+
+
+body.console-active .post-edit-link:before,
+body.console-active .admin-link:before
+{
+x	opacity:			.4!important;
+}
+
+.post-edit-link:hover:before,
+.admin-link:hover:before,
+.form-admin-link:hover:before
+{
+	opacity:			1!important;
+    background-color: 	#0074a2;
+
+
+
+
+}
+
+#pw-sidebars-customize .widget-liquid-right
+{
+	width:	58%!important;
+}
+
+@media (max-width: 1256px)
+{
+	.post-edit-link,
+	.admin-link,
+	#consoleToolbar
+	{
+	x	display:		none!important;
+	}
+}
+
+#consoleToolbar.notransition {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -o-transition: none !important;
+  -ms-transition: none !important;
+  transition: none !important;
+}
+
+body.editorstate-active .page-wrapper
+{
+	overflow-y:	scroll;
+	height: 100%!important;
+}
+
+body.editorstate-active
+{				
+	min-width:			2400px!important;
+	overflow-y:			scroll!important;
+}
+
+.header-logout
+{
+	float: right;
+	/* margin-top: -38px; */
+	margin-left: 10px;
+	font-size: 10px;
+	color: white!important;
+	font-weight: 400!important;
+	display: block;
+	position: absolute;
+	top: 8px;
+	left: 118px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}

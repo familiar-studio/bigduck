@@ -1,0 +1,11 @@
+/**
+ *  For SEO purposes, Gated Content and Webinars show the default ‘pre-form’ content on page load, 
+ *  with the ‘post-form’ content loading by ajax and replacing it, if the user has filled out the form. 
+ *  As such, there could be a ‘jump’ when the page first loads, as this content swaps. To control how 
+ *  this appears, target the class ‘.ajaxcontent-loading’. This is added to the container while the 
+ *  ajax is loading, and removed when it completed. 
+ */
+    
+.ajaxcontent-loading {
+    display: none!important;
+}

@@ -1,0 +1,76 @@
+#adminmenuwrap,
+#adminmenuback
+{
+	display: block!important;
+}
+
+.quicklinks
+{
+x	display: none!important;
+}
+
+#adminmenu
+{
+	top: 0px!important;
+	padding-top: 0px!important;
+	
+}
+
+#wpbody,
+#wpadminbar,
+#wp-toolbar
+{
+	display: none!important;
+}
+
+#adminmenu .wp-submenu a {
+	font-size: 13px!important;
+	line-height: 1.2!important;
+	margin: 0!important;
+	padding: 6px 0!important;
+}
+
+#adminmenu li>a, .folded #adminmenu li>a, .auto-fold #adminmenu li.menu-top .wp-submenu>li>a {
+	padding-right: 16px!important;
+	padding-left: 14px!important;
+	-moz-transition: all .1s ease-in-out!important;
+	-webkit-transition: all .1s ease-in-out!important;
+	transition: all .1s ease-in-out!important;
+}
+
+#adminmenu a.menu-top, #adminmenu .wp-submenu-head {
+	font-size: 14px!important;
+	font-weight: 400!important;
+	line-height: 18px!important;
+	padding: 0!important;
+}
+
+.auto-fold #adminmenu li.menu-top .wp-submenu>li>a{
+x	padding: 0 0 0 14px!important;
+
+}
+
+.auto-fold #adminmenu a.menu-top {
+	padding: 3 0 3 0!important;
+}		
+
+#adminmenu li.wp-menu-separator
+{
+	border-top:	1px solid #666;
+	margin:	15px 20px 15px 5px;
+}
+
+.menu-top .wp-menu-image
+{
+	background-image: none!important;
+} 
+
+#toplevel_page_w3tc_dashboard .wp-menu-image
+{
+	background-image: none!important;
+}
+
+.auto-fold #adminmenu .selected .wp-submenu-wrap
+{
+	margin-top: 0px!important;
+}

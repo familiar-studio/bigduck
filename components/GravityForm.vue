@@ -164,7 +164,7 @@ export default {
     }
   },
   methods: {
-    semanticError (id) {
+    semanticError(id) {
       let fieldTitle = this.formIdsToLabels['input_' + this.errors.errors[0].field]
       let badErrorMsg = this.errors.errors[0].msg
       return badErrorMsg.split(id + " field").join(fieldTitle)
@@ -257,8 +257,12 @@ export default {
           }
           var response = await axios.post(this.baseUrl + 'forms/' + this.formId + '/submissions',
             { "input_values": this.formData },
-            { params: { api_key: this.publicKey, signature: signature, expires: this.expires } })
+            {
+              withCredentials: false,
+              params: { api_key: this.publicKey, signature: signature, expires: this.expires }
+            })
 
+          console.log(response);
           if (!response.data.response.is_valid) {
             var errors = response.data.response.validation_messages
             var first = Object.keys(errors)[0]

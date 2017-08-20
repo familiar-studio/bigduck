@@ -1,0 +1,968 @@
+/******************************************************************************
+	Custom fonts
+/*****************************************************************************/
+@font-face {
+    font-family: 'MelbourneRegular';
+    src: url('/consolemgr/fonts/melbourne/melbourne_regular_basic-webfont.eot');
+    src: url('/consolemgr/fonts/melbourne/melbourne_regular_basic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/consolemgr/fonts/melbourne/melbourne_regular_basic-webfont.woff') format('woff'),
+         url('/consolemgr/fonts/melbourne/melbourne_regular_basic-webfont.ttf') format('truetype'),
+         url('/consolemgr/fonts/melbourne/melbourne_regular_basic-webfont.svg#MelbourneRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/******************************************************************************
+	Global
+/*****************************************************************************/
+html
+{
+	height:					100%;
+	padding:				0px!important;
+}
+
+body
+{
+	margin:					0px;
+	padding:				0px;	
+    background-color:   	#FFFFFF;
+	font-family:			"Helvetica", "Arial", sans-serif;
+	font-size:				11px;
+	color:					#333333;
+	height:					100%;
+}
+
+a
+{
+    outline:        		none;
+}
+
+img 
+{
+    border:     			none;
+}
+
+h1
+{
+	font-family: 			'MelbourneRegular'!important;
+	font-size:				28px;
+	color:					#474747;
+	font-weight:			normal;
+	margin:					0px;
+	padding:				0px;
+	margin-bottom:			15px;
+}
+
+h2
+{
+	font-size:				14px;
+	color:					#555555;
+	line-height:			24px;
+	font-weight:			600;
+	margin-bottom:			7px;
+	padding-bottom: 		0px;
+	font-weight:			normal;
+}
+
+h2.section
+{
+	font-family: 			'MelbourneRegular'!important;
+	font-size:				24px;
+	color:					#474747;
+	font-weight:			normal;
+	margin:					0px;
+	padding:				0px;
+	margin-bottom:			15px;
+	margin-left:			0px;
+}
+
+h2.section .warning
+{
+	display:				block;
+	float:					left;
+	margin-right:			5px;
+	padding:				3px 8px 0px 8px;
+	color:					white!important;
+	font-size:				20px;
+	line-height:			22px;
+	font-weight:			bold;
+	background-color:		#b2330a;
+}
+
+.title
+{
+	margin-left:			40px;
+	
+	font-family: 			'MelbourneRegular'!important;
+	font-size:				32px;
+	color:					#474747;
+	font-weight:			normal;
+	padding:				0px;
+	margin-bottom:			15px;
+	margin-top:				30px;
+}
+
+.detailstitle
+{
+	font-size:				18px;
+	font-weight:			normal;
+	height:					47px;
+	line-height:			47px;
+	margin-left:			18px;
+	margin-top:				15px;
+	
+	z-index:				999;
+	position:				relative;
+}
+
+
+.subtitle
+{
+	line-height:			22px;
+	
+	font-size:				13px;
+	font-weight:			bold;
+	color:					#0058D3;
+}
+
+.alltext
+{
+	font-family:			"Helvetica", "Arial", sans-serif;
+	font-size:				12px;
+	color:					#444444;
+}
+
+table {
+    font-size:				11px;
+    line-height:    		18px;
+}
+
+table td {
+    vertical-align: 		top;
+}
+
+.title-special
+{
+	font-family: 			Myriad Pro, Helvetica, Arial, sans serif;
+}
+
+a
+{
+	color: 					#333333!important;
+	text-decoration: 		underline;	
+}
+
+a:hover
+{
+	text-decoration: 		underline;	
+}
+
+/******************************************************************************
+	Columns
+/*****************************************************************************/
+table.view-columns
+{
+	width: 					100%;
+	height: 				100%;
+}
+
+td.view-column1,
+td.view-column2
+{
+	height: 				640px;
+	overflow: 				hidden;
+	width:					50%;
+	padding:				45px 30px;
+}
+
+td.view-column2
+{
+	border-left:			1px solid #DDDDDD;
+	
+}
+
+.featured
+{
+	background-color:		white;
+	margin-left:			40px;
+	margin-right:			40px;
+}
+
+.featured td
+{
+	background-color:		white;
+	font-size:				11px;
+	line-height:			20px;
+	color:					#666;
+}
+
+/******************************************************************************
+	Listview
+/*****************************************************************************/
+.block .listview-wrapper
+{
+	position: 				relative;
+
+}
+
+.block .listview-table
+{
+	margin-top: 			10px;
+	border: 				1px solid #f5f5f5;
+	border-right: 			none;
+	border-bottom: 			none;
+	
+	background-color:   	#f5f5f5;
+    width: 					100%;
+}
+
+.loadingblock .listview-table
+{
+	opacity:				0.2;
+	filter:					alpha(opacity=20);
+}
+
+.block .listview-wrapper .loading-overlay
+{
+	display: 				none;
+}
+
+.loadingblock .listview-wrapper .loading-overlay
+{
+	display: 				block;
+	position: 				absolute;
+	left: 					0px; 
+	right: 					0px;
+	top: 					0px;
+	bottom: 				0px;
+	
+	background-image: 		url( /consolemgr/images/ajax-loader.gif );
+	background-repeat:		no-repeat;
+	background-position: 	center center;
+}
+
+.block .listview-table th,
+.block .listview-table td
+{
+	font-weight: 			normal;
+	border-right: 			1px solid #f5f5f5;
+	border-bottom: 			1px solid #f5f5f5;
+	
+	padding: 				5px 7px;
+	vertical-align: 		middle;
+	white-space: 			nowrap;
+	overflow: 				hidden;
+	
+	font-size:				11px;
+}
+
+.block .listview-table th
+{
+	text-align: 			left;
+	background-color:	 	#BBB;
+	font-weight: 			bold;
+}
+
+.block .listview-table th.asc,
+.block .listview-table th.desc
+{
+	background-repeat: 		no-repeat;
+	background-position: 	right 9px;
+	background-color: 		#AAA!important;
+}
+
+.block .listview-table th a
+{
+	text-decoration:		none;
+}
+
+
+.block .listview-table th.asc
+{
+	background-image: 		url( /consolemgr/images/dt-arrow-dn.png );
+}
+
+.block .listview-table th.desc
+{
+	background-image: 		url( /consolemgr/images/dt-arrow-up.png );
+	background-repeat: 		no-repeat;
+}
+
+.block .listview-table td img
+{
+	
+}
+
+.block .listview-table td .thumbnail-mask
+{
+	margin-right:			10px;
+	float:					left;
+	width:					20px;
+	height:					20px;
+	overflow:				hidden;
+	text-align:				center;
+}
+
+a.thumb-nav
+{
+	text-decoration:		none!important;
+}
+
+.block .listview-table th a,
+.block .listview-table td a
+{
+	text-decoration:		underline;
+}
+
+.block .listview-table tr.row1
+{
+	background-color: 		#EEEEEE;
+}
+
+.block .listview-table tr.row2
+{
+	background-color: 		#DDDDDD;
+}
+
+.block .listview-table tr:hover
+{
+	background-color: 		#d06f50;
+}
+
+.view-columns td .block .listview-table tr:hover
+{
+	background-color: 		white!important;
+}
+
+.block .listview-table td table,
+.block .listview-table td table td,
+.block .listview-table td table tr:hover
+{
+	background-color: 		transparent;
+	border:					none;
+	white-space: 			normal;
+	padding:				0px;
+	vertical-align: 		top;
+}
+
+.cms-list td
+{
+	line-height:			13px!important;
+	padding-top:			7px;
+	padding-bottom:			7px;
+}
+
+/******************************************************************************
+	Page navigation
+/*****************************************************************************/
+.pnav
+{
+	overflow: 				show;
+	margin-top: 			10px;
+	margin-left:			5px;
+}
+
+.pnav a
+{
+	display: 				block;
+	float: 					left;
+	padding: 				1px 4px;
+	margin-right: 			5px;
+x	background-color: 		#e5e5e5;
+	text-decoration:		none;
+	color:					#666666;
+}
+
+.pnav a:hover
+{
+x	text-decoration: 		none;
+	background-color: 		#DDDDDD;
+x	color:					white!important;
+}
+.pnav a.active
+{
+x	border: 				1px solid #f5f5f5;
+	background-color: 		#DDDDDD;
+x	color:					white!important;
+}
+
+input.textfield
+{
+    border:     			none;
+    border-left:    		2px solid #8f99c2;
+    border-top:    			2px solid #8f99c2;
+    background-color:   	#e7eaf6;
+}
+
+div.table-box {
+    padding:        		10px;
+    background-color:   	#f5f5f5;
+    margin-top:     		15px;
+    -webkit-border-radius: 	5px;
+    -moz-border-radius: 	5px;
+    overflow:       		hidden;
+    
+}
+
+.table-box .title {
+    font-size:      		16px;
+    margin:         		0;
+    padding:        		0;
+    font-weight:    		normal;
+    float:  				left;
+    margin-right:   		15px;
+    margin-bottom:  		25px;
+}
+
+.block ul
+{
+	list-style-type: 		none;
+	margin: 				0px;
+	padding: 				0px;
+	margin-left: 			15px;
+	font-size: 				11px!important;
+}
+
+.block ul li
+{
+	line-height: 			13px;
+	margin: 				4px 0px;
+	background-image: 		url("/consolemgr/images/small-blue-bullet.png");
+	background-repeat: 		no-repeat;
+	padding-left: 			12px;
+	background-position: 	3px 5px;
+}
+
+.block ul li a
+{
+	color: 					#4e5b95;
+}
+
+#titlelinks
+{
+	font-family:			"Helvetica", "Arial", sans-serif;
+	font-size:				11px;
+	color:					#444444;
+}
+
+#titlelinks a
+{
+	margin-right:			10px;
+}
+
+
+/******************************************************************************
+	DETAIL PAGE STYLES
+/*****************************************************************************/
+body.details-page
+{
+x	overflow:				hidden;
+	background-color:		#FFFFFF;
+	height:					90%;
+}
+
+.details-top-bg
+{
+	position:				absolute;
+	top:					0px;
+	left:					0px;
+	height:					300px;
+	width:					100%;
+	background-color:		#FFFFFF;
+	z-index:				1;
+}
+
+#detailtop
+{
+	position:				absolute;
+	top:					75px;
+	left:					30px;
+	z-index:				150;
+	display:				none;
+}
+
+a.detailstab
+{
+	z-index:				151;
+	display:				block;
+	float:					left;
+	height:					25px;
+	line-height:			25px;
+	background-color:		#CCC;
+    margin-right:       	2px;	
+    font-size:          	11px;
+	color:					#333333;
+    cursor:             	pointer;
+    padding:				0px 10px;
+    text-decoration:		none;
+    margin-bottom:			-1px;
+    border:					1px solid #CCC;
+    border-bottom:			none;
+}
+
+a.tab-active 
+{
+	background-color:		#FFFFFF;
+    border-bottom:			none;
+}
+
+#actions
+{
+	position:				relative;
+	height:					28px;
+	
+	background-color:		rgb(153,51,51);
+	border-right:			2px solid white;
+	border-bottom:			2px solid white;
+	
+	padding-left:			10px;
+	padding-right:			10px;
+
+	line-height:			26px;
+	font-size:				12px;
+	font-weight:			bold;
+}
+
+.detailfooter
+{
+	display:				block;	
+	position:				absolute;
+	left:					0px;
+	bottom:					10px;
+	right:					0px;
+	z-index:				500;
+	white-space:			nowrap;	
+    height:          	   	44px;
+	font-weight:			bold;
+	font-size:				11px;
+	padding-left:			5px;
+}
+
+.detailfooter .detailsmsg
+{
+	margin-left:			18px;
+	margin-top:				15px;
+	color:					#b2330a;
+}
+
+a.actions
+{
+	padding:				0px 8px;
+	line-height:			26px;
+	color:					white;
+}
+
+.footertext
+{
+	position:				relative;
+	height:					16px;
+	margin-right:			2px;
+	padding-left:			10px;
+	padding-right:			10px;
+	background-color:		rgb(204,204,204);
+
+	line-height:			16px;
+	font-size:				11px;
+	font-weight:			bold;
+}
+
+input.long
+{
+	width:					300px;
+	border:					1px solid #DDDDDD;
+	font-size:				11px;
+	
+	font-family:			"Helvetica", "Arial", sans-serif;
+	margin-top:				3px;
+	padding:				5px 3px;
+}
+
+input.medium
+{
+	width:					160px;
+	border:					1px solid #DDDDDD;
+	font-size:				11px;
+	font-family:			"Helvetica", "Arial", sans-serif;
+	margin-top:				3px;
+	padding:				5px 3px;
+}
+
+input.short
+{
+	width:					80px;
+	border:					1px solid #DDDDDD;
+	font-family:			"Helvetica", "Arial", sans-serif;
+	font-size:				11px;
+	margin-top:				3px;
+	padding:				5px 3px;
+	font-family:			"Helvetica", "Arial", sans-serif;
+	margin-top:				3px;
+	padding:				5px 3px;
+}
+
+input.text
+{
+	border:					1px solid #DDDDDD;
+	font-family:			"Helvetica", "Arial", sans-serif;
+	font-size:				11px;
+	margin-top:				3px;
+	padding:				5px 3px;
+	font-family:			"Helvetica", "Arial", sans-serif;
+	margin-top:				3px;
+	padding:				5px 3px;
+}
+
+select.textfield
+{
+	border:					1px solid #DDDDDD;
+	font-size:				11px;
+}
+
+select.actionlist
+{
+	width:					100px;
+	border:					1px solid #DDDDDD;
+	font-size:				11px;
+}
+
+select.long
+{
+	width:					300px;
+	border:					1px solid #DDDDDD;
+	font-size:				11px;
+	background-color:		white!important;
+}
+
+textarea.long
+{
+	width:					300px;
+	border:					1px solid #DDDDDD;
+	font-size:				11px;
+}
+
+.textarea
+{
+	border:					1px solid #DDDDDD;
+	font-size:				11px;
+}
+
+input.button
+{
+	cursor:					hand;
+	cursor:					pointer;
+	color:					#FFFFFF;
+	font-weight:			bold;
+	border:					none;
+	background-color:		#777779;
+	font-size:				11px;
+	padding:				5px 15px;
+    margin-top:         	12px;
+}
+
+input.button:hover
+{
+	background-color:		#474747;
+	
+}
+
+.formlabel,
+.formlabel a
+{
+	color:					#000000!important;
+	font-weight:			bold!important;
+}
+
+.pickerinfo
+{
+	margin-top:				3px;
+	padding-top:			3px;
+	font-style:  			italic;
+	border-top:				1px solid #CCCCCC;
+}
+
+input.article
+{
+	z-index:				1000;
+	border:					1px solid #CCCCCC;
+	color:					#000000;
+	font-family:			"Helvetica", "Arial", sans-serif;
+	font-size:				11px;
+	margin-top:				0px;
+	padding:				3px 1px;
+}
+
+textarea.article
+{
+	z-index:				1000;
+	border:					1px solid #CCCCCC;
+	color:					#000000;
+	font-family:			"Helvetica", "Arial", sans-serif;
+	font-size:				11px;
+	margin-top:				0px;
+	padding:				3px 1px;
+}
+
+select.article
+{
+	z-index:				1000;
+	border:					1px solid #CCCCCC;
+	color:					#000000;
+	font-family:			"Helvetica", "Arial", sans-serif;
+	font-size:				11px;
+	margin-top:				0px;
+}
+
+checkbox.article
+{
+	z-index:				1000;
+	border:					1px solid #CCCCCC;
+	color:					#000000;
+	font-family:			"Helvetica", "Arial", sans-serif;
+	font-size:				11px;
+}
+
+.tablayer
+{
+    display:            	none;
+	position:				absolute;
+	top:					100px;
+	z-index:				100;
+	padding:				10px;
+    overflow:				hidden;
+	border-top:				1px solid #CCC;
+	background-color:		white;
+	border-bottom:			1px solid #CCC;	
+	
+	border:					1px solid #CCC;
+	margin-left:			20px;
+}
+
+.tablayer a
+{
+	text-decoration:		none!important;
+}
+
+.detailslayer
+{
+	position:				relative;
+	overflow:				auto;
+	width:					auto;
+}
+
+.tbottom
+{
+	line-height:			1px;
+	border-top:				1px solid rgb(204,204,204);
+}
+
+.foldercontrol
+{
+}
+
+.foldercontrolheader
+{
+	width:					100%;
+	height:					20px;
+	margin-bottom:			2px;
+	white-space:			nowrap;
+	width:					100%;
+}
+
+table.foldercontroldetails
+{
+	padding:				0px;
+	background-color:		rgb(250,250,250);
+	margin-top:				5px;
+	border-bottom:			1px solid #CCC;
+}
+
+
+table.foldercontroldetails td
+{
+	font-size:				11px;
+	border-top:				1px solid #CCC;
+	padding:				4px;
+	padding-bottom:			2px;
+	cursor:					move;
+	font-weight:			normal!important;
+}
+
+.foldercontrolfileupload
+{
+	background-color:		white;
+	font-size:				11px;
+	color:					black;
+	text-align:				right;
+	margin-top:				5px;
+}
+
+.foldercontroldelete
+{
+	padding:				0px;
+	margin:					0px;
+}
+
+/******************************************************************************
+	Helper box
+/*****************************************************************************/
+#helpbox
+{
+	position:			absolute;
+	z-index:			1000;
+	visibility:			hidden;
+	
+	background-color:		#b2330a;
+	color:					white;
+	padding:				15px;
+	margin:					10px;
+x	margin-top:				20px;
+	font-size:				11px;
+	line-height:			16px;
+	margin-top:				0px;
+}
+
+#helptitle
+{
+	position:relative;
+	margin-top:-12px;
+	margin-left:-10px;
+	margin-right:-10px;
+	padding-left:10px;
+	padding-right:10px;
+	background-color:#b2330a;
+	color:white;
+	font-size:11px;
+	font-weight:bold;
+	line-height:17px;	
+}
+
+#helptext
+{
+	padding-top:6px;
+	font-size:11px;
+	line-height:14px;
+	color:white;	
+}
+
+#helpbox a
+{
+	color: white!important;
+	cursor: pointer;
+}
+
+/******************************************************************************
+	Tree View
+/*****************************************************************************/
+#loadingmsg
+{
+	font-weight:			normal;
+	margin-left:			50px;
+	margin-top:				15px
+}
+
+#treeview
+{
+	visibility:				hidden;
+	margin:					0px;
+	padding:				0px;
+	font-size:				11px;
+	font-weight:			normal;
+	margin-top:				20px;	
+}
+
+a.tree-link
+{
+	font-family:			"Helvetica", "Arial", sans-serif;
+	font-size:				11px;
+	color:					#444444;
+	margin-right:			15px;
+}	
+
+a.tree-link:hover
+{
+}	
+
+ul.treebranch
+{
+	list-style-type:		none;
+	margin-top:				20px;
+	
+}
+
+ul.treebranch li
+{
+	white-space:			nowrap;
+	display: 				block;
+	min-height:				30px;
+}
+
+ul.treebranch a 
+{
+	
+	padding:				5px 10px;
+	background-color:		#DDDDDD;
+	font-size:				11px;
+	text-decoration:		none;
+}
+
+ul.treebranch a:hover
+{
+	background-color:		#474747;
+	color:					white!important;
+}
+
+.actions-bar
+{
+	visibility: 			hidden;
+}
+
+#picker-details
+{
+	z-index:				999999;
+	position:				absolute;
+	top:					0px;
+	right:					0px;
+	bottom:					0px;
+	left:					700px;
+	box-shadow: 			0 0 20px #222;
+	background-color: 		white;
+	overflow:				hidden;
+	display:				none;
+}
+
+#picker-details iframe
+{
+	position:				absolute;
+	top:					0px;
+	right:					0px;
+	bottom:					0px;
+	left:					0px;
+	background-color: 		white;
+	border:					none;
+	z-index:				9999;
+}
+
+#picker-details-close
+{
+	position:				absolute;
+	top:					10px;
+	left:					10px;
+	z-index:				99999;
+	font-size:				11px;
+}
+
+#picker-details-close a
+{
+	text-decoration:		none!important;;
+}
+
+.defaultSkin td.mceToolbar,
+.defaultSkin .mceStatusbar
+{
+	background-color:		#fbfbfb;
+}
+
+.defaultSkin .mceIframeContainer 
+{
+	border-top: none!important;
+}
