@@ -32,8 +32,8 @@ if (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != "on") {
 		define('SSL', true);
 }
 
-define('WP_HOME','http://bigduck.dev');
-define('WP_SITEURL','http://bigduck.dev');
+define('WP_HOME','http://bigducknyc.com');
+define('WP_SITEURL','http://bigducknyc.com');
 
 
 define('DB_NAME', 'bigduck_wordpress');
