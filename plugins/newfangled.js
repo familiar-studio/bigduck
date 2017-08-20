@@ -44,8 +44,10 @@ export default ({ app: { router }, store }) => {
             params: params
           })
           .then(response => {
+            console.log(response);
             jscookie.set("nfsession", response.data, {
-              expires: 365
+              expires: 365,
+              domain: ".bigducknyc.com"
             });
           })
           .catch(response => {
