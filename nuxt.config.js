@@ -34,23 +34,23 @@ module.exports = {
     appear: true
   },
   plugins: [
-    { src: "~plugins/vue-validate", ssr: false },
-    { src: "~plugins/newfangled.js", ssr: false },
-    { src: "~plugins/ga.js", ssr: false },
-    { src: "~plugins/scrollto.js", ssr: false },
-    { src: "~plugins/waypoint.js", ssr: false }
+    { src: "~/plugins/vue-validate", ssr: false },
+    { src: "~/plugins/newfangled.js", ssr: false },
+    { src: "~/plugins/ga.js", ssr: false },
+    { src: "~/plugins/scrollto.js", ssr: false },
+    { src: "~/plugins/waypoint.js", ssr: false }
   ],
   /*
   ** Customize the progress-bar color
   */
-  loading: "components/loading.vue",
+  loading: "~/components/loading.vue",
   router: {
     middleware: ["nextCta", "redirects"],
     scrollBehavior: function(to, from, savedPosition) {
       return { x: 0, y: 0 };
     }
   },
-  css: [{ src: "~assets/scss/styles.scss", lang: "scss" }],
+  css: [{ src: "~/assets/scss/styles.scss", lang: "scss" }],
   /*
   ** Build configuration
   */
