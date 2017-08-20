@@ -224,7 +224,7 @@ export default {
     let data = {}
     let page = await Axios.get(store.getters['hostname'] + 'wp/v2/pages?slug=about')
     let openCategories = {}
-    console.log(page)
+
     page.data[0].acf.clients.forEach((client) => { openCategories[client.client_category] = false })
     data['openCategories'] = openCategories
     data['pageObject'] = page.data

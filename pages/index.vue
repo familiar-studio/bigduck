@@ -26,7 +26,7 @@
     </div>
     <div id="below-hero-animation">
 
-      <Featured v-for="(caseStudy, index) in relatedCaseStudies" :work="caseStudy" :index="index" :key="caseStudy"></Featured>
+      <Featured v-for="(caseStudy, index) in relatedCaseStudies" :work="caseStudy" :index="index" :key="caseStudy.slug"></Featured>
       <div class="testimonial break-container mb-5">
         <div class="container">
           <blockquote>

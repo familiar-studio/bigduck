@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Featured v-for="(work, index) in featured" :work="work" :index="index" :key="work"></Featured>
+    <Featured v-for="(work, index) in featured" :work="work" :index="index" :key="work.slug"></Featured>
   </div>
 </template>
 

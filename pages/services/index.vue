@@ -14,7 +14,7 @@
             </article>
             <div class="pt-5">
               <h2 v-html="servicesPage.acf.services_heading" class="mb-3"></h2>
-              <Service v-for="(service, index) in otherServices" :entry="service" :index="index" :key="service"></Service>
+              <Service v-for="(service, index) in otherServices" :entry="service" :index="index" :key="service.slug"></Service>
               <h2 v-html="servicesPage.acf.brandraising_benchmark_heading" class="mt-5 mb-3"></h2>
               <Service :entry="brandraisingBenchmark" :index="otherServices.length"></Service>
             </div>

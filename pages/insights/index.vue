@@ -13,7 +13,7 @@
           <h1>Insights</h1>
           <div v-if="insights && insights.length > 0">
 
-            <div v-for="(insight, index) in insights" :key="insight" :data-index="index" v-cloak>
+            <div v-for="(insight, index) in insights" :key="insight.slug">
               <Post :entry="insight" :index="index" v-once></Post>
               <InlineCallout class="mb-5" v-if="index % 5 == 1 && index < insights.length - 1" :callout="callout"></InlineCallout>
 
