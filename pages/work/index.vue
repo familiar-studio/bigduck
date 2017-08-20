@@ -6,11 +6,11 @@
 
 <script>
 import axios from 'axios'
-import Featured from '~components/Featured.vue'
+import Featured from '~/components/Featured.vue'
 
 export default {
   name: 'featured-work',
-  head () {
+  head() {
     if (this.featured && this.featured[0]) {
       return {
         title: 'Featured Work',
@@ -63,7 +63,7 @@ export default {
         (response) => {
           let orderedCaseStudies = []
           data.relatedWorkIds.forEach((id, index) => {
-            orderedCaseStudies[index] = response.data.find((case_study) => { return case_study.id === id})
+            orderedCaseStudies[index] = response.data.find((case_study) => { return case_study.id === id })
           })
           data.featured = orderedCaseStudies
         }

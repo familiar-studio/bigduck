@@ -42,11 +42,11 @@
 </template>
 <script>
 import axios from 'axios'
-import Chat from '~components/Chat.vue'
-import FilterList from '~components/FilterList.vue'
-import InlineCallout from '~components/InlineCallout.vue'
+import Chat from '~/components/Chat.vue'
+import FilterList from '~/components/FilterList.vue'
+import InlineCallout from '~/components/InlineCallout.vue'
 import { mapState, mapGetters } from 'vuex'
-import Post from '~components/Post.vue'
+import Post from '~/components/Post.vue'
 export default {
   name: 'insights',
   async asyncData({ store, query, errro }) {

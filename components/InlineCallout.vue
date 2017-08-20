@@ -1,7 +1,7 @@
 <template>
   <div class="callout-fullwidth bg-inverse text-white" v-if="callout && showCallout">
     <div class="">
-  
+
       <div v-if="!submittedForm">
         <h2 v-html="callout.inline_callout_headline"></h2>
         <p>
@@ -11,20 +11,20 @@
           {{ callout.inline_callout_button_text }}
         </a>
       </div>
-  
+
       <div v-if="formVisible && callout.inline_callout_form">
         <transition name="fade">
           <GravityForm :formId="callout.inline_callout_form" @submitted="hideCallout()"></GravityForm>
         </transition>
       </div>
-  
+
     </div>
   </div>
 </template>
 <script>
 
 import { mapState } from 'vuex'
-import GravityForm from '~components/GravityForm.vue'
+import GravityForm from '~/components/GravityForm.vue'
 
 
 export default {

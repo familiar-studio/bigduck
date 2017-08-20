@@ -24,19 +24,19 @@
 export default {
   computed: {
     path() {
-      if (process.BROWSER_BUILD) {
+      if (process.browser) {
         return window.location.href
       } else {
         return "https://bigducknyc.org" + this.$route.fullPath
       }
     },
     title() {
-      if (process.BROWSER_BUILD) {
+      if (process.browser) {
         return this.$parent.$metaInfo.title
       }
     },
-    twitterPath () {
-      if (process.BROWSER_BUILD) {
+    twitterPath() {
+      if (process.browser) {
         let longPath = this.path + ' ' + this.title + ' @bigduck'
         if (longPath.length > 140) {
           longPath = this.path + ' ' + this.title

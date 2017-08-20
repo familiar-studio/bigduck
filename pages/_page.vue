@@ -5,7 +5,7 @@
 
 <script>
 import Axios from 'axios'
-import Page from '~components/Page'
+import Page from '~/components/Page'
 
 
 export default {

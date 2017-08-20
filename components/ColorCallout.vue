@@ -6,7 +6,7 @@
   </div>
 </template>
 <script>
-import SubscribeForm from '~components/subscribe/form.vue'
+import SubscribeForm from '~/components/subscribe/form.vue'
 export default {
   props: ['entry'],
   components: {

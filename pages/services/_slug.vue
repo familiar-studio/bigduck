@@ -74,11 +74,11 @@
 </template>
 <script>
 import Axios from 'axios'
-import ColorCallout from '~components/ColorCallout.vue'
-import FAQ from '~components/FAQ.vue'
-import GravityForm from '~components/GravityForm.vue'
-import Work from '~components/Work.vue'
-import Post from '~components/Post.vue'
+import ColorCallout from '~/components/ColorCallout.vue'
+import FAQ from '~/components/FAQ.vue'
+import GravityForm from '~/components/GravityForm.vue'
+import Work from '~/components/Work.vue'
+import Post from '~/components/Post.vue'
 
 export default {
   name: 'service',

@@ -71,10 +71,10 @@
 </template>
 <script>
 import Axios from 'axios'
-import Featured from '~components/Featured.vue'
-import Event from '~components/Event.vue'
-import Post from '~components/Post.vue'
-import Chat from '~components/Chat.vue'
+import Featured from '~/components/Featured.vue'
+import Event from '~/components/Event.vue'
+import Post from '~/components/Post.vue'
+import Chat from '~/components/Chat.vue'
 
 import { mapState, mapGetters } from 'vuex'
 
@@ -137,7 +137,7 @@ export default {
           (response) => {
             let orderedCaseStudies = []
             data.relatedWorkIds.forEach((id, index) => {
-              orderedCaseStudies[index] = response.data.find((case_study) => { return case_study.id === id})
+              orderedCaseStudies[index] = response.data.find((case_study) => { return case_study.id === id })
             })
             data.relatedCaseStudies = orderedCaseStudies
           }

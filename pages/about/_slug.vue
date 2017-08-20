@@ -63,8 +63,8 @@
 
 <script>
 import Axios from 'axios'
-import Event from '~components/Event.vue'
-import Post from '~components/Post.vue'
+import Event from '~/components/Event.vue'
+import Post from '~/components/Post.vue'
 import { mapGetters } from 'vuex'
 
 export default {

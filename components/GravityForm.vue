@@ -103,7 +103,7 @@ export default {
     return {
       publicKey: '30d2b543ba',
       privateKey: '6cb1fab7a60e11a',
-      baseUrl: 'http://wordpress.bigducknyc.com/gravityformsapi/',
+      baseUrl: 'http://bigducknyc.com/gravityformsapi/',
       gravityFormData: null,
       formData: {},
       profileData: {},
@@ -185,7 +185,7 @@ export default {
           this.formIdsToLabels['input_' + field.id] = field.label;
           this.formLabelsToIds[field.label] = 'input_' + field.id;
 
-          if (process.BROWSER_BUILD && localStorage.formData) {
+          if (process.browser && localStorage.formData) {
             this.profileData = JSON.parse(localStorage.formData)
 
             Object.keys(this.profileData).forEach((key) => {
@@ -271,7 +271,7 @@ export default {
             this.loading = false
           } else {
             if (this.id) {
-              if (process.BROWSER_BUILD) {
+              if (process.browser) {
                 localStorage[this.storagePrefix + this.id] = "true"
               }
             }

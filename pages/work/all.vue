@@ -29,9 +29,9 @@
 </template>
 
 <script>
-import Work from '~components/Work.vue'
-import FilterList from '~components/FilterList.vue'
-import Chat from '~components/Chat.vue'
+import Work from '~/components/Work.vue'
+import FilterList from '~/components/FilterList.vue'
+import Chat from '~/components/Chat.vue'
 
 import Axios from 'axios'
 import { mapState, mapGetters } from 'vuex'

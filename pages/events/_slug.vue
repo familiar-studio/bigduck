@@ -31,11 +31,11 @@
                     <h4>
                       <span v-html="event.acf.subtitle"></span>
                     </h4>
-  
+
                     <h6 class="mobile-event-date">{{month}} {{date}} {{start_time}}&ndash;{{end_time}}</h6>
                   </div>
                   <div v-html="event.acf.text"></div>
-  
+
                   <div v-if="event.related_team_members.data || event.acf.guest_speakers.length > 0" class="author-listing">
                     <div class="media speaker mt-3" v-if="event.related_team_members.data" v-for="team_member in event.related_team_members.data">
                       <img v-if="team_member.headshot" :src="team_member.headshot.sizes.thumbnail" class="round author-img mr-2">
@@ -78,7 +78,7 @@
                       </div>
                     </div>
                     <div class="">
-  
+
                       <div v-if="!formFilled && !contentRefreshed">
                         <a v-if="event.acf.is_webinar" href="#register" class="btn btn-primary my-3 event-registration" v-scroll-to="{ el:'#register'}">Register</a>
                         <a v-else-if="event.acf.registration_url" :href="event.acf.registration_url" target="_blank" class="btn btn-primary my-3 event-registration">Register</a>
@@ -90,23 +90,23 @@
                   </aside>
                 </div>
               </div>
-  
+
             </article>
-  
+
             <div v-if="event.acf.is_webinar" class="form-light" id="register" :class="{'mb-5': !relatedInsights && !relatedEvents}">
-  
+
               <div v-if="!contentRefreshed && !formFilled">
                 <h3>Register for this event</h3>
-  
+
               </div>
               <GravityForm v-if="!formFilled" :formId=9 @submitted="refreshContent()" storagePrefix="event-" :id="event.id" :title="event.title.rendered" :actonId="event.acf.act_on_form_id"></GravityForm>
-  
+
               <div v-if="formFilled || contentRefreshed">
                 <div v-html="event.acf.post_registration_content"></div>
               </div>
-  
+
             </div>
-  
+
             <div v-if="relatedEvents || relatedInsights">
               <h2 class="mb-3 mt-5">Related Events &amp; Insights</h2>
               <div v-if="relatedEvents">
@@ -131,12 +131,12 @@
 </template>
 <script>
 import Axios from 'axios'
-import Chat from '~components/Chat.vue'
+import Chat from '~/components/Chat.vue'
 import dateFns from 'date-fns'
-import Event from '~components/Event.vue'
-import GravityForm from '~components/GravityForm.vue'
-import Post from '~components/Post.vue'
-import Share from '~components/Share.vue'
+import Event from '~/components/Event.vue'
+import GravityForm from '~/components/GravityForm.vue'
+import Post from '~/components/Post.vue'
+import Share from '~/components/Share.vue'
 
 
 import { mapState, mapGetters } from 'vuex'
@@ -228,7 +228,7 @@ export default {
     ...mapState(['globals', 'callouts', 'topics']),
     ...mapGetters(['hostname', 'getTopicsIndexedById', 'getEventCategoriesIndexedById']),
     formFilled() {
-      if (process.BROWSER_BUILD && this.event && typeof localStorage !== 'undefined') {
+      if (process.browser && this.event && typeof localStorage !== 'undefined') {
         // figure out whether the user has filled out the form from the cookie
         return localStorage['event-' + this.event.id]
       }

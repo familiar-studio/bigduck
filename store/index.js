@@ -2,9 +2,9 @@ import axios from "axios";
 
 export const state = () => ({
   userProfile: null,
-  localHostname: "https://wordpress.bigduck.dev/wp-json/",
+  localHostname: "http://bigduck.dev/wp-json/",
   remoteHostname: "http://bigducknyc.com/wp-json/",
-  bareLocalHostname: "https://wordpress.bigduck.dev/",
+  bareLocalHostname: "http://bigduck.dev/",
   bareRemoteHostname: "http://bigducknyc.com/",
   categories: null,
   categoriesPath: "wp/v2/categories/",
@@ -221,7 +221,7 @@ export const getters = {
     //   return state.remoteHostname
     // }
 
-    // return state.localHostname;
+    //return state.localHostname;
     return state.remoteHostname;
   },
   bareHostname: state => {
@@ -231,9 +231,8 @@ export const getters = {
     // return state.bareRemoteHostname
     // }
 
-    // return state.bareLocalHostname;
+    //return state.bareLocalHostname;
     return state.bareRemoteHostname;
-    // return state.bareLocalHostname;
   },
   relatedInsightsPerPage: state => {
     return state.relatedInsightsPerPage;

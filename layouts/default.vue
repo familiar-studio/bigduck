@@ -145,9 +145,9 @@
 
 <script>
 import Axios from 'axios'
-import GravityForm from '~components/GravityForm.vue'
-import Logo from '~components/Logo.vue'
-import SearchOverlay from '~components/SearchOverlay.vue'
+import GravityForm from '~/components/GravityForm.vue'
+import Logo from '~/components/Logo.vue'
+import SearchOverlay from '~/components/SearchOverlay.vue'
 
 
 import { mapState, mapGetters, mapMutations } from 'vuex'
@@ -242,7 +242,7 @@ export default {
 
   },
   created() {
-    if (process.BROWSER_BUILD) {
+    if (process.browser) {
       setInterval(this.changeColor, 5000)
       window.addEventListener('scroll', this.handleScroll)
 

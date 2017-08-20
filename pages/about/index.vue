@@ -162,8 +162,8 @@
 </template>
 <script>
 import Axios from 'axios'
-import Event from '~components/Event.vue'
-import Chat from '~components/Chat.vue'
+import Event from '~/components/Event.vue'
+import Chat from '~/components/Chat.vue'
 import Vue from 'vue'
 
 

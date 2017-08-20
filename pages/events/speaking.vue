@@ -4,11 +4,11 @@
 </template>
 <script>
 import Axios from 'axios'
-import Page from '~components/Page'
+import Page from '~/components/Page'
 
 export default {
   name: 'contact',
-  head () {
+  head() {
     if (this.title && this.image) {
       return {
         title: this.title,

@@ -14,18 +14,18 @@
             <div class="page-title">
               <h1>Upcoming Events</h1>
 
-                  <div class="media lead">
-                    <img src="/svgs/speaking-icon.svg" class="d-flex mr-2" />
-                    <div class="media-body">
-                      <router-link :to="{name: 'events-speaking'}">
+              <div class="media lead">
+                <img src="/svgs/speaking-icon.svg" class="d-flex mr-2" />
+                <div class="media-body">
+                  <router-link :to="{name: 'events-speaking'}">
 
-                        Interested in having Big Duck speak at your organization?
-                        <br/>
-                        <span class="underline-change-thick hover-color"> Learn more about our talks…</span>
-                      </router-link>
+                    Interested in having Big Duck speak at your organization?
+                    <br/>
+                    <span class="underline-change-thick hover-color"> Learn more about our talks…</span>
+                  </router-link>
 
-                    </div>
-                  </div>
+                </div>
+              </div>
             </div>
             <div v-if="events && events.length > 0">
               <div v-for="(event, index) in events" :key="event">
@@ -55,11 +55,11 @@
   </div>
 </template>
 <script>
-import Event from '~components/Event.vue'
-import FilterList from '~components/FilterList.vue'
+import Event from '~/components/Event.vue'
+import FilterList from '~/components/FilterList.vue'
 import { mapState, mapGetters } from 'vuex'
-import InlineCallout from '~components/InlineCallout.vue'
-import Chat from '~components/Chat.vue'
+import InlineCallout from '~/components/InlineCallout.vue'
+import Chat from '~/components/Chat.vue'
 import axios from 'axios'
 
 

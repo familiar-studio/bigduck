@@ -184,12 +184,12 @@
 import Axios from 'axios'
 
 import dateFns from 'date-fns'
-import GravityForm from '~components/GravityForm.vue'
+import GravityForm from '~/components/GravityForm.vue'
 import { mapState, mapGetters, mapActions } from 'vuex'
-import Post from '~components/Post.vue'
-import Share from '~components/Share.vue'
-import Chat from '~components/Chat.vue'
-import flickity from '~components/Flickity.vue'
+import Post from '~/components/Post.vue'
+import Share from '~/components/Share.vue'
+import Chat from '~/components/Chat.vue'
+import flickity from '~/components/Flickity.vue'
 
 
 
@@ -296,7 +296,7 @@ export default {
       return dateFns.format(this.insight.date, 'MMM D, YYYY')
     },
     formId() {
-      if (process.BROWSER_BUILD) {
+      if (process.browser) {
         var parser = new DOMParser()
         var doc = parser.parseFromString(this.insight.content.rendered, 'text/html')
         var formId = doc.getElementById('form-id')
@@ -377,7 +377,7 @@ export default {
   },
   mounted() {
 
-    if (process.BROWSER_BUILD && this.insight && localStorage) {
+    if (process.browser && this.insight && localStorage) {
       //figure out whether the user has filled out the form from the localstorage
       if (localStorage['insight-' + this.insight.id]) {
         this.completedGate = true;
