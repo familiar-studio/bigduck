@@ -269,7 +269,11 @@ export default {
 
           console.log(response);
           if (!response.data.response.is_valid) {
-            var errors = response.data.response.validation_messages
+            if (response.data.response) {
+              console.log('response', response)
+              var errors = response.data.response.validation_messages
+
+            }
             var first = Object.keys(errors)[0]
             this.error = "Field " + first + ": " + errors[first]
             debugger

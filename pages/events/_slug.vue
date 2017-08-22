@@ -99,7 +99,7 @@
                 <h3>Register for this event</h3>
 
               </div>
-              <GravityForm v-if="!formFilled" :formId=9 @submitted="refreshContent()" storagePrefix="event-" :id="event.id" :title="event.title.rendered" :actonId="event.acf.act_on_form_id"></GravityForm>
+              <GravityForm v-if="!formFilled" :formId=16 @submitted="refreshContent()" storagePrefix="event-" :id="event.id" :title="event.title.rendered" :actonId="event.acf.act_on_form_id"></GravityForm>
 
               <div v-if="formFilled || contentRefreshed">
                 <div v-html="event.acf.post_registration_content"></div>
