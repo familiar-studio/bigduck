@@ -207,18 +207,19 @@ export default {
               }
             })
 
-            if (field.label == 'Opt-In') {
+            
+          }
+          if (field.label == 'Opt-In') {
+            console.log('optin',field);
+            let optIn = false 
+            if (Array.isArray(this.formData['input_' + field.id])) {
+              optIn = this.formData['input_' + field.id][0] == 1 ? true: false
+            } 
 
-              let optIn = false 
-              if (Array.isArray(this.formData['input_' + field.id])) {
-                optIn = this.formData['input_' + field.id][0] == 1 ? true: false
-              } 
-
-              if (!this.formData[this.formLabelsToIds['Country']]) {
-                this.showOptIn = true
-              } else if (this.optInCountries.includes(this.formData[this.formLabelsToIds['Country']]) && !optIn) {
-                this.showOptIn = true
-              }
+            if (!this.formData[this.formLabelsToIds['Country']]) {
+              this.showOptIn = true
+            } else if (this.optInCountries.includes(this.formData[this.formLabelsToIds['Country']]) && !optIn) {
+              this.showOptIn = true
             }
           }
         })
