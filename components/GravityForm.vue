@@ -11,10 +11,12 @@
     </div>
 
     <form v-if="!submitted && visibleFields" key="form">
+      <!-- hide if optin and country is not one of the selected countries -->
+      <div v-for="field in visibleFields" class="form-group" :class="{'has-danger':errors && errors.has(field.id.toString())}" v-if="(field.label == 'Opt-In' && optInCountries.includes(formData[formLabelsToIds['Country']])) ||  field.label != 'Opt-In'">
 
-      <div v-for="field in visibleFields" class="form-group" :class="{'has-danger':errors && errors.has(field.id.toString())}">
-
-        <label :for="field.id" v-if="field.type != 'hidden'">{{field.label}}</label>
+        <label :for="field.id" v-if="field.type != 'hidden'">
+          {{field.label}}
+        </label>
 
         <template v-if="field.type == 'select'">
           <select v-model="formData['input_'+field.id]" :name="field.id" class="custom-select form-control" v-validate="{ rules: { required: true } }">
@@ -25,9 +27,10 @@
         </template>
 
         <template v-else-if="field.type == 'checkbox'">
-          <div class="custom-controls-stacked">
+       
+          <div class="custom-controls-stacked" v-if="(field.label == 'Opt-In' && optInCountries.includes(formData[formLabelsToIds['Country']])) ||  field.label != 'Opt-In'">
             <label class="custom-control custom-checkbox" v-for="choice in field.choices">
-              <input class="custom-control-input" type="checkbox" :name="field.id" v-model="formData['input_'+field.id]" :value="choice.value" v-validate="{ rules: { required: true } }">
+              <input class="custom-control-input" type="checkbox" :name="field.id" v-model="formData['input_'+field.id]" :value="choice.value">
               <span class="custom-control-indicator"></span>
               <span class="custom-control-description">{{ choice.text }}</span>
             </label>
@@ -115,7 +118,9 @@ export default {
       formIdsToLabels: {},
       formLabelsToIds: {},
       loading: false,
-      error: null
+      error: null,
+      showOptIn: false,
+      optInCountries: ['Canada', 'Netherlands', 'United Kingdom', 'Spain', 'France', 'Germany', 'Italy', 'Australia']
     }
   },
   props: {
@@ -177,13 +182,20 @@ export default {
     },
     async initializeForm() {
       let fieldCount = 0
+
+
       //console.log('setup all fields')
       if (this.gravityFormData && this.gravityFormData.fields) {
 
+
+        // setup some data for use later!
         this.gravityFormData.fields.forEach((field) => {
 
           this.formIdsToLabels['input_' + field.id] = field.label;
           this.formLabelsToIds[field.label] = 'input_' + field.id;
+
+          // check if country is blank or one of the opt in countries to show both on the form
+          
 
           if (process.browser && localStorage.formData) {
             this.profileData = JSON.parse(localStorage.formData)
@@ -194,13 +206,27 @@ export default {
                 this.formData[id] = this.profileData[key]
               }
             })
+
+            if (field.label == 'Opt-In') {
+
+              let optIn = false 
+              if (Array.isArray(this.formData['input_' + field.id])) {
+                optIn = this.formData['input_' + field.id][0] == 1 ? true: false
+              } 
+
+              if (!this.formData[this.formLabelsToIds['Country']]) {
+                this.showOptIn = true
+              } else if (this.optInCountries.includes(this.formData[this.formLabelsToIds['Country']]) && !optIn) {
+                this.showOptIn = true
+              }
+            }
           }
         })
+
 
         this.visibleFields = this.gravityFormData.fields.filter((field, index) => {
 
           if (field.type === 'checkbox') {
-            console.log('checkboxes', this.formData[field.id])
 
             if (!this.formData['input_' + field.id]) {
               this.formData['input_' + field.id] = []
@@ -213,12 +239,22 @@ export default {
           if (index < 3) {
             return field
           } else {
-            if ((!this.formData['input_' + field.id] && fieldCount < this.totalProfilingFields) || this.showAll) {
-              fieldCount++
 
-              console.log('data', this.formData[field.id])
+            if (this.showAll) {
               return field
             }
+            if ((!this.formData['input_' + field.id] && fieldCount < this.totalProfilingFields)) {
+              fieldCount++
+              return field
+            }
+
+
+            // if show opt in show both country and optin no matter what
+            if ((field.label == 'Country' || field.label == 'Opt-In') && this.showOptIn) {
+              return field
+            }
+
+
           }
 
           this.hiddenFields.push(field)
@@ -270,7 +306,6 @@ export default {
           console.log(response);
           if (!response.data.response.is_valid) {
             if (response.data.response) {
-              console.log('response', response)
               var errors = response.data.response.validation_messages
 
             }
