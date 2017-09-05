@@ -1,7 +1,7 @@
 #header {
   background-color: $white;
-  padding: .5rem 0;
-  transition: height .3s ease;
+  padding: 0.5rem 0;
+  transition: height 0.3s ease;
   height: 120px;
   will-change: height;
   position: fixed;
@@ -14,12 +14,15 @@
     height: 130px;
   }
 
-  .navbar{
-    padding: .5rem 0;
+  .navbar {
+    padding: 0.5rem 0;
     @include media-breakpoint-up(md) {
-      padding: .5rem;
+      padding: 0.5rem;
       align-items: self-start;
     }
+  }
+  .navbar-brand {
+    cursor: pointer;
   }
 
   .navbar-brand .tagline {
@@ -32,8 +35,8 @@
     @extend .color-change;
     // color: nth($duck-colors, 1);
     -webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-    margin-top: .2rem;
+    -moz-osx-font-smoothing: grayscale;
+    margin-top: 0.2rem;
     font-size: 18px;
   }
 
@@ -47,7 +50,7 @@
 
 .navbar-brand {
   white-space: normal;
-  transition: transform .5s ease;
+  transition: transform 0.5s ease;
   transform-origin: left top;
   will-change: transform;
   @include media-breakpoint-up(sm) {
@@ -87,17 +90,17 @@
     height: 4px;
     background-color: $gray-darker;
     width: 26px;
-    transition: all .2s ease;
+    transition: all 0.2s ease;
     &::before,
     &::after {
-      content: '';
+      content: "";
       display: block;
       position: absolute;
       left: 0;
       height: 4px;
       background-color: $gray-darker;
       width: 100%;
-      transition: all .2s ease;
+      transition: all 0.2s ease;
       transform-origin: center center;
     }
     &::before {
@@ -112,7 +115,7 @@
 #main-menu {
   max-height: 0;
   overflow: hidden;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
   @include media-breakpoint-up(lg) {
     padding-top: 0;
     align-self: flex-start;
@@ -136,7 +139,7 @@
     font-size: 1.4rem;
 
     @include media-breakpoint-up(lg) {
-      padding: .25rem 1rem;
+      padding: 0.25rem 1rem;
       font-size: 1rem;
     }
     span {
@@ -151,7 +154,7 @@
       }
     }
 
-    &.nuxt-link-active{
+    &.nuxt-link-active {
       @extend .color-change;
     }
   }
@@ -166,11 +169,10 @@
       z-index: 1;
       left: 1rem;
       opacity: 0;
-      transition: opacity .4s ease;
+      transition: opacity 0.4s ease;
     }
-
   }
-  .nuxt-link-active + .nav-text{
+  .nuxt-link-active + .nav-text {
     opacity: 1;
   }
 }
@@ -179,26 +181,24 @@ header.hovering #main-menu {
   .nuxt-link-active + .nav-text {
     opacity: 0;
   }
-  .nav-text.show{
+  .nav-text.show {
     opacity: 1;
-
   }
 }
 
-.nav-link{
+.nav-link {
   font-family: $font-family-sans-serif;
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 700;
 }
 
-
 #header.nav-open {
   @extend .bg-change;
   background-color: nth($duck-colors, 1);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+  -moz-osx-font-smoothing: grayscale;
   .navbar-toggler-icon {
     background-color: transparent;
     &::before {
@@ -235,7 +235,7 @@ header.hovering #main-menu {
   padding: 0;
   box-shadow: 0px 0px 10px 0px rgba($black, 0.1);
   height: 68px;
-  .navbar{
+  .navbar {
     height: 68px;
   }
   .navbar-brand {
@@ -255,7 +255,6 @@ header.hovering #main-menu {
     opacity: 0;
   }
 }
-
 
 button.navbar-toggler:focus {
   outline: none;

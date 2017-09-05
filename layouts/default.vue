@@ -7,11 +7,12 @@
             <button @click="toggleNav()" class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
-
-            <nuxt-link class="navbar-brand" to="/" @click="hideNav()">
+            <div class="navbar-brand" @click="goHome()">
               <Logo></Logo>
+
               <div class="label tagline hidden-xs-down">Smart communications for nonprofits</div>
-            </nuxt-link>
+
+            </div>
 
             <div class="navbar-collapse" id="main-menu">
               <div class="label tagline hidden-sm-up">Smart communications for nonprofits</div>
@@ -210,13 +211,23 @@ export default {
     }
   },
   watch: {
-    '$route': function () {
+    '$route': function() {
       this.navVisible = false
     }
   },
   methods: {
     toggleNav() {
       this.navVisible = !this.navVisible
+    },
+    hideNav() {
+      this.navVisible = false;
+    },
+    goHome() {
+      // Stupid method to deal with the fact that animated svgs cant be in links
+      // ref: https://rrott.com/blog/svg/issue-with-css-transition-animation-in-safari.html
+
+      this.$router.push('/');
+      this.navVisible = false;
     },
 
     showSearch() {
