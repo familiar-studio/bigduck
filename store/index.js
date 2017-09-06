@@ -194,14 +194,8 @@ export const actions = {
       params.event_category = query.event_category;
     }
 
-    // if (typeof query !== "undefined") {
-    //   let queryArray = [];
-    //   Object.keys(query).forEach(key => {
-    //     queryArray.push(key + "=" + query[key]);
-    //   });
-    //   queryString += "?" + queryArray.join("&");
-    // }
-    console.log(context.getters.hostname, path, { params: params });
+    //return this.$axios.$get(args.path + queryString);
+    //return axios.get(context.getters.hostname + args.path + queryString);
     return axios.get(context.getters.hostname + path, { params: params });
   },
   async fetchOne({ dispatch, commit, getters, rootGetters }, args) {

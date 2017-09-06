@@ -40,7 +40,16 @@ module.exports = {
     { src: "~/plugins/scrollto.js", ssr: false },
     { src: "~/plugins/waypoint.js", ssr: false }
   ],
+  modules: [
+    // Simple usage
+    "@nuxtjs/axios"
+  ],
+  axios: {
+    credentials: false,
+    baseURL: "http://bigducknyc.com/wp-json/"
+  },
   /*
+
   ** Customize the progress-bar color
   */
   loading: "~/components/loading.vue",

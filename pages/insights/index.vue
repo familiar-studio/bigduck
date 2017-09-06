@@ -14,7 +14,8 @@
           <div v-if="insights && insights.length > 0">
 
             <div v-for="(insight, index) in insights" :key="insight.slug">
-              <Post :entry="insight" :index="index" v-once></Post>
+              <Post :entry="insight" :index="index"></Post>
+
               <InlineCallout class="mb-5" v-if="index % 5 == 1 && index < insights.length - 1" :callout="callout"></InlineCallout>
 
             </div>
@@ -50,22 +51,21 @@ import Post from '~/components/Post.vue'
 export default {
   name: 'insights',
   async asyncData({ store, query, errro }) {
-    try {
-      store.commit('resetPage')
-      const response = await store.dispatch('fetchByQuery', { isPaged: true, query: query, path: 'wp/v2/bd_insight' })
-      return {
-        insights: response.data,
-        totalPages: response.headers['x-wp-totalpages'],
-        totalRecords: response.headers['x-wp-total']
-      }
-    } catch (e) {
-      error({ statusCode: 404, message: 'Post not found' })
+
+    store.commit('resetPage')
+    const response = await store.dispatch('fetchByQuery', { isPaged: true, query: query, path: 'wp/v2/bd_insight' })
+    return {
+      insights: response.data,
+      totalPages: response.headers['x-wp-totalpages'],
+      totalRecords: response.headers['x-wp-total']
     }
+
   },
   data() {
     return {
       previouslyLoadedInsights: 0,
-      callout: null
+      callout: null,
+      insights: []
     }
   },
   head() {

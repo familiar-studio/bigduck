@@ -5,6 +5,7 @@
   "author": "Keith Mancuso <keithmancuso@gmail.com>",
   "private": true,
   "dependencies": {
+    "@nuxtjs/axios": "^4.1.1",
     "ava": "^0.19.1",
     "axios": "^0.16.2",
     "bootstrap": "^4.0.0-alpha.6",
@@ -16,7 +17,7 @@
     "js-cookie": "^2.1.4",
     "lodash": "^4.17.4",
     "node-sass": "^4.5.3",
-    "nuxt": "^1.0.0-rc4",
+    "nuxt": "^1.0.0-rc9",
     "pm2": "^2.6.1",
     "sass-loader": "^6.0.5",
     "sass-resources-loader": "^1.2.1",
