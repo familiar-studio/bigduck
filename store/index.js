@@ -174,23 +174,35 @@ export const actions = {
         context.commit("setEventCategories", response.data);
       });
   },
-  fetchByQuery(context, args) {
+  fetchByQuery(context, { query, path, isPaged }) {
     // if page has changed, make the query again as it was, only with page updated
     // if the query has changed reset page to 1
     let queryString = "";
-    const query = args.query;
-    if (args.isPaged) {
-      query["page"] = context.state.page;
-      query["per_page"] = context.state.postsPerPage;
+    let params = {};
+    if (isPaged) {
+      params.page = context.state.page;
+      params.per_page = context.state.postsPerPage;
     }
-    if (typeof query !== "undefined") {
-      let queryArray = [];
-      Object.keys(query).forEach(key => {
-        queryArray.push(key + "=" + query[key]);
-      });
-      queryString += "?" + queryArray.join("&");
+
+    if (query.topic) {
+      params.topic = query.topic;
     }
-    return axios.get(context.getters.hostname + args.path + queryString);
+    if (query.type) {
+      params.type = query.type;
+    }
+    if (query.event_category) {
+      params.event_category = query.event_category;
+    }
+
+    // if (typeof query !== "undefined") {
+    //   let queryArray = [];
+    //   Object.keys(query).forEach(key => {
+    //     queryArray.push(key + "=" + query[key]);
+    //   });
+    //   queryString += "?" + queryArray.join("&");
+    // }
+    console.log(context.getters.hostname, path, { params: params });
+    return axios.get(context.getters.hostname + path, { params: params });
   },
   async fetchOne({ dispatch, commit, getters, rootGetters }, args) {
     let response = await axios.get(
