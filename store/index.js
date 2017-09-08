@@ -190,6 +190,10 @@ export const actions = {
     if (query.type) {
       params.type = query.type;
     }
+
+    if (query.slug) {
+      params.slug = query.slug;
+    }
     if (query.event_category) {
       params.event_category = query.event_category;
     }
