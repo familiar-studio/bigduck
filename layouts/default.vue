@@ -66,7 +66,7 @@
         </div>
       </header>
 
-      <main id="main" :class="{ 'no-top-padding': noTopPadding }">
+      <main id="main">
         <div class="">
           <nuxt :key="$route.fullPath" />
         </div>
@@ -202,12 +202,6 @@ export default {
         return false
       }
       return true
-    },
-    noTopPadding() {
-      if (this.page === 'services-slug') {
-        return true
-      }
-      return false
     }
   },
   watch: {
