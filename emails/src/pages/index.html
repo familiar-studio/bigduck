@@ -1,3 +1,113 @@
-<container>
-  Content goes here
+<container class="main">
+    <center>
+      <spacer size="30"></spacer>
+      <span class="date main-date">May 18, 2017</span>
+      <spacer size="10"></spacer>
+      <h1><span>It might be time to kill your newsletter</span></h1>
+    </center>
+      <spacer size="20"></spacer>
+  <wrapper>
+    <center>
+      <img src="http://placehold.it/565x295">
+    </center>
+  </wrapper>
+    <spacer size="20"></spacer>
+    <div class="body">
+      <p>Ah - the nonprofit newsletter. That communications tactic that’s so ubiquitous that you probably can’t imagine life without it. Like sliced bread. Or kale in Brooklyn. From the days of twenty page printed quarterlies (mailed the old fashioned way), to 2017 when our subscribers spend a few seconds thumbing through our content on their mobile devices, if we’re lucky. The nonprofit newsletter is destined to stand the test of time. Right?</p>
+
+      <p>I’m here today to make a potentially controversial statement: It’s time to say goodbye to the newsletter as we know it. Chances are your investment in it is simply just not worth the time and energy as it used to be.</p>
+    </div>
+    <spacer size="10"></spacer>
+    <center>
+      <button href="#">Keep Reading</button>
+    </center>
+    <spacer size="30"></spacer>
+    <h2><span>Insights</span></h2>
+    <spacer size="20"></spacer>
+  <wrapper class="entry">
+      <img src="http://placehold.it/240x220">
+      <div class="content">
+        <div class="media">
+          {{> campaign-logo}}
+          <h4>Campaigns</h4>
+        </div>
+        <h3><a href="#"><span>When your communications plateau, think like a clock restorer<span></a></h3>
+          <div class="media author">
+            <img src="http://placehold.it/35x35"><h4>Sarah Durham</h4>
+          </div>
+      </div>
+  </wrapper>
+<spacer size="20"></spacer>
+<wrapper class="entry reverse">
+    <img src="http://placehold.it/240x220">
+    <div class="content">
+      <div class="media">
+        {{> brands-logo}}
+        <h4>Brands</h4>
+      </div>
+      <h3><a href="#"><span>Using your brand strategy everyday in everything<span></a></h3>
+        <div class="media author">
+          <img src="http://placehold.it/35x35"><h4>Claire Taylor Hanson</h4>
+        </div>
+    </div>
+</wrapper>
+<spacer size="20"></spacer>
+<h2><span>Upcoming Events</span></h2>
+<spacer size="30"></spacer>
+  {{> event
+    title="Building a Marketing Plan for Your Nonprofit"
+    month="June"
+    date="9"
+    author="Sarah Durham"
+    headshot="http://placehold.it/35x35"
+    topic="campaigns"
+    topicImage="http://placehold.it/35x35"
+  }}
+  {{> event
+    title="Capital Campaigns, Capacity, and Communications: Ramping Up for the Future"
+    month="June"
+    date="21"
+    author="Claire Taylor Hanson"
+    headshot="http://placehold.it/35x35"
+    topic="Webinar"
+    topicImage="http://placehold.it/35x35"
+  }}
+  {{> event title="Summer Open House"
+    month="June"
+    date="23"
+    author="Sarah Durham"
+    headshot="http://placehold.it/35x35"
+    topic="At Big Duck"
+    topicImage="http://placehold.it/35x35"
+  }}
+  <center>
+    <button href="#">View More</button>
+  </center>
+  <spacer size="40"></spacer>
+  <h2><span>Shared</span></h2>
+  <spacer size="20"></spacer>
+  <div class="body">
+    <p>Writing a blog post you’re not sure anyone will read? Struggling to tackle your communications to-do list? It’s time to rethink your nonprofit’s content and marketing strategies. Register for Farra Trompeter’s
+      <a href="#">interactive workshop on planning your way to marketing success</a>
+       or join Sarah Durham for an all-day workshop on
+       <a href="#">content planning and management</a> to learn how to prioritize, prepare, and produce the media your audiences will love to share (and will serve your nonprofit best). Hurry—there are just a few spots left in each!</p>
+  </div>
+  <spacer size="40"></spacer>
+  <h2><span>Let's talk</span></h2>
+  <spacer size="20"></spacer>
+
+  <div class="body">
+    <p>
+      Think we might be a good match for your nonprofit? Please fill out a short form to give us a sense of what you're looking for, and we'll be in touch soon…
+    </p>
+  </div>
+  <spacer size="20"></spacer>
+  <center>
+    <button href="#">Get in touch</button>
+  </center>
+  <spacer size="40"></spacer>
+  <h2><span>Follow Us</span></h2>
+  <spacer size="20"></spacer>
+  {{> share}}
+  <spacer size="40"></spacer>
 </container>
