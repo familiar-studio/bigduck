@@ -7,9 +7,9 @@
     </center>
       <spacer size="20"></spacer>
   <wrapper>
-    <center>
-      <img src="http://placehold.it/565x295">
-    </center>
+    <!-- <center> -->
+      <img class="hero" src="http://placehold.it/565x295">
+    <!-- </center> -->
   </wrapper>
     <spacer size="20"></spacer>
     <div class="body">
@@ -24,33 +24,45 @@
     <spacer size="30"></spacer>
     <h2><span>Insights</span></h2>
     <spacer size="20"></spacer>
-  <wrapper class="entry">
-      <img src="http://placehold.it/240x220">
+  <container class="entry">
+    <row>
+      <columns small="12" large="5" class="no-bottom no-left">
+        <img class="featured" src="http://placehold.it/235x265">
+      </columns>
+      <columns>
+        <spacer size="20"></spacer>
+        <div class="content">
+          <div class="media">
+            {{> campaign-logo}}
+          </div>
+          <h3><a href="#"><span>When your communications plateau, think like a clock restorer<span></a></h3>
+            <div class="media author">
+              <img src="http://placehold.it/35x35"><h4>Sarah Durham</h4>
+            </div>
+        </div>
+      </columns>
+    </row>
+  </container>
+<spacer size="20"></spacer>
+<container class="entry">
+  <row>
+    <columns>
+      <spacer size="20"></spacer>
       <div class="content">
         <div class="media">
-          {{> campaign-logo}}
-          <h4>Campaigns</h4>
+          {{> brands-logo}}
         </div>
         <h3><a href="#"><span>When your communications plateau, think like a clock restorer<span></a></h3>
           <div class="media author">
             <img src="http://placehold.it/35x35"><h4>Sarah Durham</h4>
           </div>
       </div>
-  </wrapper>
-<spacer size="20"></spacer>
-<wrapper class="entry reverse">
-    <img src="http://placehold.it/240x220">
-    <div class="content">
-      <div class="media">
-        {{> brands-logo}}
-        <h4>Brands</h4>
-      </div>
-      <h3><a href="#"><span>Using your brand strategy everyday in everything<span></a></h3>
-        <div class="media author">
-          <img src="http://placehold.it/35x35"><h4>Claire Taylor Hanson</h4>
-        </div>
-    </div>
-</wrapper>
+    </columns>
+    <columns small="12" large="5" class="no-bottom no-right">
+      <img class="featured" src="http://placehold.it/235x265">
+    </columns>
+  </row>
+</container>
 <spacer size="20"></spacer>
 <h2><span>Upcoming Events</span></h2>
 <spacer size="30"></spacer>
@@ -61,7 +73,6 @@
     author="Sarah Durham"
     headshot="http://placehold.it/35x35"
     topic="campaigns"
-    topicImage="http://placehold.it/35x35"
   }}
   {{> event
     title="Capital Campaigns, Capacity, and Communications: Ramping Up for the Future"
@@ -70,7 +81,6 @@
     author="Claire Taylor Hanson"
     headshot="http://placehold.it/35x35"
     topic="Webinar"
-    topicImage="http://placehold.it/35x35"
   }}
   {{> event title="Summer Open House"
     month="June"
@@ -78,7 +88,7 @@
     author="Sarah Durham"
     headshot="http://placehold.it/35x35"
     topic="At Big Duck"
-    topicImage="http://placehold.it/35x35"
+    atBigDuck="true"
   }}
   <center>
     <button href="#">View More</button>
