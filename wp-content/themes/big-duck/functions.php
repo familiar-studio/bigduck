@@ -467,6 +467,9 @@ class StarterSite  {
 	function add_image_sizes() {
 		add_image_size( 'cropped_400_square', 400, 400, TRUE);
 		add_image_size( 'cropped_rectangle', 700, 350, TRUE);
+    add_image_size( 'small-thumbnail', 35, 35, TRUE );
+    add_image_size( 'email-hero', 585, 296, TRUE);
+    add_image_size( 'email-insight-img', 235, 265, TRUE);
 	}
 
 
@@ -999,7 +1002,6 @@ class StarterSite  {
 			$args
 		);
 	}
-
 
 
 	function myfoo( $text ) {
