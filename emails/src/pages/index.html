@@ -1,26 +1,26 @@
 <container class="main">
     <center>
       <spacer size="30"></spacer>
-      <span class="date main-date">May 18, 2017</span>
+      <span class="date main-date"><?php echo date('F j, Y'); ?></span>
       <spacer size="10"></spacer>
-      <h1><span>It might be time to kill your newsletter</span></h1>
+      <h1><span><?php echo $mainInsightData['title']; ?></span></h1>
     </center>
       <spacer size="20"></spacer>
   <wrapper >
     <div class="hero image-cover" style=""></div>
-    <!-- <center> -->
-      <!-- <img class="hero" src="http://bigducknyc.com/wp-content/uploads/2017/09/ocean-seacoast-rocks-water-87284-1.jpeg"> -->
-    <!-- </center> -->
+    <center>
+      <img class="hero" src="<?php echo $mainInsightData['image']; ?>">
+    </center>
   </wrapper>
     <spacer size="20"></spacer>
     <div class="body">
-      <p>Ah - the nonprofit newsletter. That communications tactic that’s so ubiquitous that you probably can’t imagine life without it. Like sliced bread. Or kale in Brooklyn. From the days of twenty page printed quarterlies (mailed the old fashioned way), to 2017 when our subscribers spend a few seconds thumbing through our content on their mobile devices, if we’re lucky. The nonprofit newsletter is destined to stand the test of time. Right?</p>
-
-      <p>I’m here today to make a potentially controversial statement: It’s time to say goodbye to the newsletter as we know it. Chances are your investment in it is simply just not worth the time and energy as it used to be.</p>
+      <?php
+        echo $mainInsightData['text'];
+      ?>
     </div>
     <spacer size="10"></spacer>
     <center>
-      <button href="#">Keep Reading</button>
+      <button href="<?php echo 'http://bigducknyc.com/insights/' . $mainInsightData['slug']; ?>">Keep Reading</button>
     </center>
     <wrapper>
       <spacer size="30"></spacer>
@@ -37,53 +37,34 @@
     </row>
       <spacer size="20"></spacer>
     </wrapper>
+
+  <?php foreach($insightData as $index=>$insight) { ?>
   <container class="entry">
     <row class="side-lines">
-      <columns small="12" large="5" class="no-bottom no-left featured image-cover">
-        <!-- <img  src="http://placehold.it/235x265"> -->
+      <columns small="12" large="5" class="no-bottom
+      <?php echo ($index % 2 == 0) ? 'no-left' : 'no-right'; ?>
+      featured image-cover">
+        <img  src="<?php echo $insight['image']; ?>">
       </columns>
       <columns>
         <spacer size="20"></spacer>
         <div class="content">
           <div class="media">
-            {{> campaign-logo}}
+            <img src="<?php echo $insight['topic']['image']; ?>"></img>
+            <h4><?php echo $insight['topic']['title']; ?></h4>
           </div>
-          <h3><a href="#"><span>When your communications plateau, think like a clock restorer<span></a></h3>
+          <h3><a href="<?php echo 'http://bigducknyc.com/insights/' . $insight['slug']; ?>"><span><?php echo $insights['title']; ?><span></a></h3>
             <div class="media author">
-              <div class="image">
-
-              </div>
-              <h4>Sarah Durham</h4>
-              <!-- <img src="http://placehold.it/35x35"><h4>Sarah Durham</h4> -->
+              <img src="<?php echo $insight['headshot']; ?>"></img>
+              <h4><?php echo $insight['author']; ?></h4>
             </div>
         </div>
       </columns>
     </row>
   </container>
-<spacer size="20"></spacer>
-<container class="entry">
-  <row>
-    <columns>
-      <spacer size="20"></spacer>
-      <div class="content">
-        <div class="media">
-          {{> brands-logo}}
-        </div>
-        <h3><a href="#"><span>When your communications plateau, think like a clock restorer<span></a></h3>
-          <div class="media author">
-            <div class="image">
+  <spacer size="20"></spacer>
+  <?php } ?>
 
-            </div>
-            <!-- <img src="http://placehold.it/35x35"><h4>Sarah Durham</h4> -->
-          </div>
-      </div>
-    </columns>
-    <columns small="12" large="5" class="no-bottom no-right  featured image-cover">
-      <!-- <img class="featured" src="http://placehold.it/235x265"> -->
-    </columns>
-  </row>
-</container>
-<spacer size="30"></spacer>
 <row class="side-lines">
 <columns small="2" class="line">
   <spacer size="5"></spacer><hr/>
@@ -96,78 +77,68 @@
 </columns>
 </row>
 <spacer size="30"></spacer>
-  {{> event
-    title="Building a Marketing Plan for Your Nonprofit"
-    month="June"
-    date="9"
-    author="Sarah Durham"
-    headshot="http://placehold.it/35x35"
-    topic="campaigns"
-  }}
-  {{> event
-    title="Capital Campaigns, Capacity, and Communications: Ramping Up for the Future"
-    month="June"
-    date="21"
-    author="Claire Taylor Hanson"
-    headshot="http://placehold.it/35x35"
-    topic="Webinar"
-    webinar="true"
-  }}
-  {{> event title="Summer Open House"
-    month="June"
-    date="23"
-    author="Sarah Durham"
-    headshot="http://placehold.it/35x35"
-    topic="At Big Duck"
-    atBigDuck="true"
-  }}
+<?php foreach($eventsData as $event){ ?>
+  <container>
+    <row class="event">
+    <columns small="12" large="9" class="content">
+      <spacer size="20"></spacer>
+      <div class="media">
+        <img src="<?php echo $event['category']['icon']; ?>"><h4><?php echo $event['category']['name']; ?></h4>
+      </div>
+      <h3><a href="<?php echo $event['url']; ?>"><span><?php echo $event['title']; ?></span></a><h3>
+        <spacer size="10"></spacer>
+      <div class="media author">
+        <img src="<?php echo $event['headshot']; ?>"><h4><?php echo $event['author']['display_name']; ?></h4>
+      </div>
+    </columns>
+    <columns small="0" large="2"></columns>
+    <columns small="12" large="1">
+        <spacer size="20"></spacer>
+        <div class="event-date">
+          <div class="">
+            <spacer size="10"></spacer>
+            <span class="month"><?php echo $event['month']; ?></span>
+            <spacer size="3"></spacer>
+            <span class="date"><?php echo $event['day']; ?></span>
+          </div>
+        </div>
+    </columns>
+  </row>
+  </container>
+  <spacer size="30"></spacer>
+<?php } ?>
   <center>
-    <button href="#">View More</button>
+    <button href="https://bigducknyc.com/events">View More</button>
   </center>
   <spacer size="40"></spacer>
+<?php foreach($sections as $section)  { ?>
   <row class="side-lines">
-  <columns small="4" class="line">
-    <spacer size="5"></spacer><hr/>
-  </columns>
-  <columns small="4" class="text">
-    <h2>Shared</h2>
-  </columns>
-  <columns small="4" class="line">
-    <spacer size="5"></spacer><hr/>
-  </columns>
-</row>
-  <spacer size="20"></spacer>
-  <div class="body">
-    <p>Writing a blog post you’re not sure anyone will read? Struggling to tackle your communications to-do list? It’s time to rethink your nonprofit’s content and marketing strategies. Register for Farra Trompeter’s
-      <a href="#">interactive workshop on planning your way to marketing success</a>
-       or join Sarah Durham for an all-day workshop on
-       <a href="#">content planning and management</a> to learn how to prioritize, prepare, and produce the media your audiences will love to share (and will serve your nonprofit best). Hurry—there are just a few spots left in each!</p>
-  </div>
-  <spacer size="40"></spacer>
-<row class="side-lines">
-  <columns small="3" class="line">
-    <spacer size="5"></spacer><hr/>
-  </columns>
-  <columns small="6" class="text">
-    <h2>Let's talk</h2>
-  </columns>
-  <columns small="3" class="line">
-    <spacer size="5"></spacer><hr/>
-  </columns>
-</row>
-  <spacer size="20"></spacer>
+    <columns small="4" class="line">
+      <spacer size="5"></spacer><hr/>
+    </columns>
+    <columns small="4" class="text">
+      <h2><?php echo $section['heading']; ?></h2>
+    </columns>
+    <columns small="4" class="line">
+      <spacer size="5"></spacer><hr/>
+    </columns>
+  </row>
+    <spacer size="20"></spacer>
+    <div class="body">
+      <?php echo $section['body']; ?>
+    </div>
+    <spacer size="40"></spacer>
+    <?php if($section['button_text']){ ?>
+      <center>
+        <button href="<?php echo $section['button_url']; ?>">
+          <?php echo $section['button_text']; ?>
+          </button>
+      </center>
+      <spacer size="40"></spacer>
+    <?php } ?>
+<?php } ?>
 
-  <div class="body">
-    <p>
-      Think we might be a good match for your nonprofit? Please fill out a short form to give us a sense of what you're looking for, and we'll be in touch soon…
-    </p>
-  </div>
-  <spacer size="20"></spacer>
-  <center>
-    <button href="#">Get in touch</button>
-  </center>
-  <spacer size="40"></spacer>
-  <row class="side-lines">
+<row class="side-lines">
   <columns small="3" class="line">
     <spacer size="5"></spacer><hr/>
   </columns>

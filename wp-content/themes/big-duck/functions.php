@@ -757,6 +757,21 @@ class StarterSite  {
 
 	function register_post_types() {
 		//this is where you can register custom post types
+    register_post_type( 'bd_email',
+      array(
+        'labels' => array(
+          'name' => __( 'Emails' ),
+          'singular_name' => __( 'Email' )
+        ),
+        'public' => true,
+        'show_ui' => true,
+        'show_in_menu' => true,
+        'menu_icon' => 'dashicons-email-alt',
+        'has_archive' => true,
+        'rewrite' => array('slug' => 'emails'),
+        'show_in_rest' => true,
+      )
+    );
 			register_post_type( 'bd_event',
 				array(
 					'labels' => array(

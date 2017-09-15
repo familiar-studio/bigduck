@@ -3,23 +3,12 @@
   <columns small="12" large="9" class="content">
     <spacer size="20"></spacer>
     <div class="media">
-      {{#if atBigDuck}}
-      <img src="http://bigducknyc.com/wp-content/uploads/2017/09/open-house.png"><h4>At Big Duck</h4>
-      {{else}}
-        {{#if webinar}}
-          <img src="http://bigducknyc.com/wp-content/uploads/2017/09/webinar-1.png"><h4>Webinar</h4>
-        {{else}}
-      <img src="http://bigducknyc.com/wp-content/uploads/2017/09/{{topic}}.png"><h4>{{topic}}</h4>
-        {{/if}}
-      {{/if}}
+      <img src="{{icon}}"><h4>{{topic}}</h4>
     </div>
-    <h3><a href="#"><span>{{title}}</span></a><h3>
+    <h3><a href="{{url}}"><span>{{title}}</span></a><h3>
       <spacer size="10"></spacer>
     <div class="media author">
-      <div class="image">
-
-      </div>
-      <!-- <img src="{{headshot}}"><h4>{{author}}</h4> -->
+      <img src="{{headshot}}"><h4>{{author}}</h4>
     </div>
   </columns>
   <columns small="0" large="2"></columns>
