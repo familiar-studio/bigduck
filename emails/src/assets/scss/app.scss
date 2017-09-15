@@ -9,10 +9,20 @@ body, html, p, a, h1, h2, h3, h4 {
 }
 
 .underline {
-  background-position: center 90%;
-  background-repeat: no-repeat;
-  background-size: 100% 1px;
-  background-image: linear-gradient($primary-color, $primary-color);
+  text-decoration: underline;
+  -webkit-text-decoration-color: $primary-color;
+  -moz-text-decoration-color: $primary-color;
+  text-decoration-color: $primary-color;
+  @media screen and (-webkit-min-device-pixel-ratio:0) {
+    span {
+      text-decoration-color: transparent;
+      text-decoration: none;
+      background-position: center 90%;
+      background-repeat: no-repeat;
+      background-size: 100% 2px;
+      background-image: linear-gradient($primary-color, $primary-color);
+    }
+  }
 }
 
 .logo-text {
@@ -72,7 +82,7 @@ h1 {
 h2 {
   text-align: center;
   @extend .underline;
-  background-position: 0 60%;
+  background-position: 0 100%;
   span {
     position: relative;
     background-color: $light-gray;
@@ -121,8 +131,12 @@ table.button table td a {
 
 .media {
   padding-bottom: 0.5rem;
-  h4, img {
+  h4, img, div {
     display: inline;
+    vertical-align: middle;
+  }
+  div {
+    display: inline-block;
     vertical-align: middle;
   }
   img.featured {
@@ -163,8 +177,11 @@ table.button table td a {
   }
 }
 
-.author img {
+.author .image {
   border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  background-image: url('http://bigducknyc.com/wp-content/uploads/2017/05/Sarah-Durham-150x150.jpg');
 }
 
 table.row.event {
@@ -266,4 +283,38 @@ th.columns.no-right {
 
 .hero {
   max-width: 565px;
+}
+
+
+.side-lines {
+  .line {
+    padding-top: 5px;
+    hr {
+      border-color: $primary-color;
+      border-style: solid;
+    }
+  }
+  .text {
+    padding-right: 0px;
+    padding-left: 0px;
+    text-align: center;
+  }
+}
+
+.image-cover {
+  background-size: cover;
+}
+
+.hero {
+  background-image: url('http://bigducknyc.com/wp-content/uploads/2017/09/ocean-seacoast-rocks-water-87284-1.jpeg');
+  width: 585px;
+  height: 295px;
+}
+
+.featured {
+  background-image: url('http://bigducknyc.com/wp-content/uploads/2017/09/ocean-seacoast-rocks-water-87284-1.jpeg');
+  min-width: 235px;
+  min-height: 265px;
+  height: 100%;
+  width: 100%;
 }

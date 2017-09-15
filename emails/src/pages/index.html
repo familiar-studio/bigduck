@@ -6,9 +6,10 @@
       <h1><span>It might be time to kill your newsletter</span></h1>
     </center>
       <spacer size="20"></spacer>
-  <wrapper>
+  <wrapper >
+    <div class="hero image-cover" style=""></div>
     <!-- <center> -->
-      <img class="hero" src="http://placehold.it/565x295">
+      <!-- <img class="hero" src="http://bigducknyc.com/wp-content/uploads/2017/09/ocean-seacoast-rocks-water-87284-1.jpeg"> -->
     <!-- </center> -->
   </wrapper>
     <spacer size="20"></spacer>
@@ -21,13 +22,25 @@
     <center>
       <button href="#">Keep Reading</button>
     </center>
-    <spacer size="30"></spacer>
-    <h2><span>Insights</span></h2>
-    <spacer size="20"></spacer>
+    <wrapper>
+      <spacer size="30"></spacer>
+      <row class="side-lines">
+      <columns small="4" class="line">
+        <spacer size="5"></spacer><hr/>
+      </columns>
+      <columns small="4" class="text">
+        <h2>Insights</h2>
+      </columns>
+      <columns small="4" class="line">
+        <spacer size="5"></spacer><hr/>
+      </columns>
+    </row>
+      <spacer size="20"></spacer>
+    </wrapper>
   <container class="entry">
-    <row>
-      <columns small="12" large="5" class="no-bottom no-left">
-        <img class="featured" src="http://placehold.it/235x265">
+    <row class="side-lines">
+      <columns small="12" large="5" class="no-bottom no-left featured image-cover">
+        <!-- <img  src="http://placehold.it/235x265"> -->
       </columns>
       <columns>
         <spacer size="20"></spacer>
@@ -37,7 +50,11 @@
           </div>
           <h3><a href="#"><span>When your communications plateau, think like a clock restorer<span></a></h3>
             <div class="media author">
-              <img src="http://placehold.it/35x35"><h4>Sarah Durham</h4>
+              <div class="image">
+
+              </div>
+              <h4>Sarah Durham</h4>
+              <!-- <img src="http://placehold.it/35x35"><h4>Sarah Durham</h4> -->
             </div>
         </div>
       </columns>
@@ -54,17 +71,30 @@
         </div>
         <h3><a href="#"><span>When your communications plateau, think like a clock restorer<span></a></h3>
           <div class="media author">
-            <img src="http://placehold.it/35x35"><h4>Sarah Durham</h4>
+            <div class="image">
+
+            </div>
+            <!-- <img src="http://placehold.it/35x35"><h4>Sarah Durham</h4> -->
           </div>
       </div>
     </columns>
-    <columns small="12" large="5" class="no-bottom no-right">
-      <img class="featured" src="http://placehold.it/235x265">
+    <columns small="12" large="5" class="no-bottom no-right  featured image-cover">
+      <!-- <img class="featured" src="http://placehold.it/235x265"> -->
     </columns>
   </row>
 </container>
-<spacer size="20"></spacer>
-<h2><span>Upcoming Events</span></h2>
+<spacer size="30"></spacer>
+<row class="side-lines">
+<columns small="2" class="line">
+  <spacer size="5"></spacer><hr/>
+</columns>
+<columns small="8" class="text">
+  <h2>Upcoming Events</h2>
+</columns>
+<columns small="2" class="line">
+  <spacer size="5"></spacer><hr/>
+</columns>
+</row>
 <spacer size="30"></spacer>
   {{> event
     title="Building a Marketing Plan for Your Nonprofit"
@@ -81,6 +111,7 @@
     author="Claire Taylor Hanson"
     headshot="http://placehold.it/35x35"
     topic="Webinar"
+    webinar="true"
   }}
   {{> event title="Summer Open House"
     month="June"
@@ -94,7 +125,17 @@
     <button href="#">View More</button>
   </center>
   <spacer size="40"></spacer>
-  <h2><span>Shared</span></h2>
+  <row class="side-lines">
+  <columns small="4" class="line">
+    <spacer size="5"></spacer><hr/>
+  </columns>
+  <columns small="4" class="text">
+    <h2>Shared</h2>
+  </columns>
+  <columns small="4" class="line">
+    <spacer size="5"></spacer><hr/>
+  </columns>
+</row>
   <spacer size="20"></spacer>
   <div class="body">
     <p>Writing a blog post you’re not sure anyone will read? Struggling to tackle your communications to-do list? It’s time to rethink your nonprofit’s content and marketing strategies. Register for Farra Trompeter’s
@@ -103,7 +144,17 @@
        <a href="#">content planning and management</a> to learn how to prioritize, prepare, and produce the media your audiences will love to share (and will serve your nonprofit best). Hurry—there are just a few spots left in each!</p>
   </div>
   <spacer size="40"></spacer>
-  <h2><span>Let's talk</span></h2>
+<row class="side-lines">
+  <columns small="3" class="line">
+    <spacer size="5"></spacer><hr/>
+  </columns>
+  <columns small="6" class="text">
+    <h2>Let's talk</h2>
+  </columns>
+  <columns small="3" class="line">
+    <spacer size="5"></spacer><hr/>
+  </columns>
+</row>
   <spacer size="20"></spacer>
 
   <div class="body">
@@ -116,7 +167,17 @@
     <button href="#">Get in touch</button>
   </center>
   <spacer size="40"></spacer>
-  <h2><span>Follow Us</span></h2>
+  <row class="side-lines">
+  <columns small="3" class="line">
+    <spacer size="5"></spacer><hr/>
+  </columns>
+  <columns small="6" class="text">
+    <h2>Follow Us</h2>
+  </columns>
+  <columns small="3" class="line">
+    <spacer size="5"></spacer><hr/>
+  </columns>
+</row>
   <spacer size="20"></spacer>
   {{> share}}
   <spacer size="40"></spacer>
