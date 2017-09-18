@@ -82,6 +82,7 @@ export default {
             'content': 'Insights'
           },
           {
+            'hid': "description",
             'property': 'description',
             'content': 'Read more about the results of our work.'
           },

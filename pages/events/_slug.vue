@@ -174,6 +174,7 @@ export default {
             'content': this.event.title.rendered
           },
           {
+            'hid': "description",
             'property': 'description',
             'content': this.event.acf.subtitle
           },

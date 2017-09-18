@@ -96,6 +96,7 @@ export default {
             'content': this.service.title.rendered
           },
           {
+            'hid': "description",
             'property': 'description',
             'content': this.service.acf.introduction
           },

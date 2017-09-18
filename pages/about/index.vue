@@ -187,6 +187,7 @@ export default {
             'content': this.page.acf.we_believe_headline
           },
           {
+            'hid': "description",
             'property': 'description',
             'content': this.page.acf.we_believe_body
           },

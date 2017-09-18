@@ -24,6 +24,7 @@ export default {
             'content': 'Featured Work'
           },
           {
+            'hid': "description",
             'property': 'description',
             'content': "Learn more about what we've done."
           },

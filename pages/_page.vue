@@ -47,6 +47,7 @@ export default {
             'content': this.title
           },
           {
+            'hid': "description",
             'property': 'description',
             'content': this.content
           },

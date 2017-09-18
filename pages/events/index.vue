@@ -85,6 +85,7 @@ export default {
             'content': 'Upcoming Events'
           },
           {
+            'hid': "description",
             'property': 'description',
             'content': 'Learn more about our upcoming events.'
           },

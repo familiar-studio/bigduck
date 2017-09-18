@@ -83,6 +83,7 @@ export default {
             'content': this.member.name
           },
           {
+            'hid': "description",
             'property': 'description',
             'content': this.member.job_title
           },

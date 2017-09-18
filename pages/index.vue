@@ -100,6 +100,7 @@ export default {
           'content': 'Big Duck'
         },
         {
+          'hid': "description",
           'property': 'description',
           'content': "Developing the voices of determined nonprofits."
         },

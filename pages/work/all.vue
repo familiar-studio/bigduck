@@ -86,6 +86,7 @@ export default {
             'content': 'Work - All Projects'
           },
           {
+            'hid': "description",
             'property': 'description',
             'content': "All Projects"
           },

@@ -63,6 +63,7 @@ export default {
             'content': 'Services'
           },
           {
+            'hid': "description",
             'property': 'description',
             'content': this.servicesPage.acf.text
           },
