@@ -148,16 +148,17 @@ export default {
             'content': this.caseStudy.title.rendered
           },
           {
+            'hid': "description",
             'property': 'description',
-            'content': this.caseStudy.acf.short_description
+            'content': this.caseStudy.acf.short_description.replace(/(<([^>]+)>)/ig, "")
           },
           {
             'property': 'og:description',
-            'content': this.caseStudy.acf.short_description
+            'content': this.caseStudy.acf.short_description.replace(/(<([^>]+)>)/ig, "")
           },
           {
             'property': 'twitter:description',
-            'content': this.caseStudy.acf.short_description
+            'content': this.caseStudy.acf.short_description.replace(/(<([^>]+)>)/ig, "")
           },
           {
             'property': 'image',
