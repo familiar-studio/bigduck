@@ -157,7 +157,7 @@ export default {
           },
           {
             'property': 'twitter:description',
-            'content': this.caseStudy.acf.introduction
+            'content': this.caseStudy.acf.short_description
           },
           {
             'property': 'image',
