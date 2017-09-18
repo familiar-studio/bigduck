@@ -149,15 +149,15 @@ export default {
           },
           {
             'property': 'description',
-            'content': this.caseStudy.acf.introduction.replace(/<(?:.|\n)*?>/gm, '')
+            'content': this.caseStudy.acf.short_description
           },
           {
             'property': 'og:description',
-            'content': this.caseStudy.acf.introduction.replace(/<(?:.|\n)*?>/gm, '')
+            'content': this.caseStudy.acf.short_description
           },
           {
             'property': 'twitter:description',
-            'content': this.caseStudy.acf.introduction.replace(/<(?:.|\n)*?>/gm, '')
+            'content': this.caseStudy.acf.short_description
           },
           {
             'property': 'image',
