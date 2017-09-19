@@ -33,6 +33,7 @@ if (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != "on") {
 }
 
 define('WP_HOME','http://bigducknyc.com');
+
 define('WP_SITEURL','http://bigducknyc.com');
 
 
