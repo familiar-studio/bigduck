@@ -30,13 +30,19 @@
       $headshot = get_field('headshot', 'user_' . $author['ID'])['sizes']['small-thumbnail'];
       $author_name = $author['display_name'];
     } else if ($meta['guest_author_name']) {
-      $headshot = 'http://bigducknyc.com/wp-content/uploads/2017/06/guest_blogger-15x15.png';
+      $headshot = 'http://bigducknyc.com/wp-content/uploads/2017/06/guest_blogger-35x35.png';
       $author_name = $meta['guest_author_name'];
     }
     $title = $insight->post_title;
 
     $topic = wp_get_post_terms($insight->ID, 'topic')[0];
-    $icon = $topic ? get_taxonomy_icon_png(get_fields($topic)['icon']) : null;
+    if ($topic->name == 'campaigns') {
+      $icon = 'http://bigducknyc.com/wp-content/uploads/2017/09/campaigns.png';
+    } else if ($topic->name == 'open-house') {
+      $icon = 'http://bigducknyc.com/wp-content/uploads/2017/09/open-house.png';
+    } else {
+      $icon = $topic ? get_taxonomy_icon_png(get_fields($topic)['icon']) : null;
+    }
     $slug = 'https://bigducknyc.com/insights/' . $insight->post_name;
 
     return array(
