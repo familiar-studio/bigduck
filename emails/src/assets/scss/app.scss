@@ -14,9 +14,11 @@ body, html, p, a, h1, h2, h3, h4 {
   -moz-text-decoration-color: $primary-color;
   text-decoration-color: $primary-color;
   @media screen and (-webkit-min-device-pixel-ratio:0) {
+    text-decoration: none;
+    color: $primary-color;
     span {
       text-decoration-color: transparent;
-      text-decoration: none;
+      text-decoration: unset;
       background-position: center 90%;
       background-repeat: no-repeat;
       background-size: 100% 2px;
@@ -74,6 +76,7 @@ h1 {
   line-height: 1;
   text-align: center;
   span {
+    color:$dark-gray;
     @extend .underline;
   }
   text-transform: none;
@@ -91,11 +94,13 @@ h2 {
 }
 
 h3 {
+  color: $dark-gray;
   a {
     font-weight: bold;
     font-family: $header-font-family;
     color: $dark-gray;
     span {
+      color: $dark-gray;
       @extend .underline;
       line-height: 1.1;
     }
@@ -112,15 +117,24 @@ p {
   font-size: 1.0625rem;
   &, a {
     line-height: calc(24/17);
+    text-decoration::none;
   }
+}
+
+table tbody tr td .body p a {
+  @extend .underline;
 }
 
 .body {
   padding: 0 1.5rem;
+  p a, > p > a {
+    color: $primary-color !important;
+    @extend .underline;
+  }
 }
 
 a {
-  color: $primary-color;
+  @extend .underline;
 }
 
 table.button table td a {

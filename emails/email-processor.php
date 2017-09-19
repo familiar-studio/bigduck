@@ -29,6 +29,9 @@
     if ($author) {
       $headshot = get_field('headshot', 'user_' . $author['ID'])['sizes']['small-thumbnail'];
       $author_name = $author['display_name'];
+    } else if ($meta['guest_author_name']) {
+      $headshot = 'http://bigducknyc.com/wp-content/uploads/2017/06/guest_blogger-15x15.png';
+      $author_name = $meta['guest_author_name'];
     }
     $title = $insight->post_title;
 
