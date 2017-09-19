@@ -10,11 +10,13 @@
     $meta = get_fields($insight);
     $body = $meta['body'];
     $firstTextBlock = null;
-    foreach($body as $struct){
-      if ($struct['acf_fc_layout'] == 'text') {
-        $firstTextBlock = $struct['text'];
-        break;
-      };
+    if ($body) {
+      foreach($body as $struct){
+        if ($struct['acf_fc_layout'] == 'text') {
+          $firstTextBlock = $struct['text'];
+          break;
+        };
+      }
     }
     $imageUrl = $meta['featured_image'];
     $explodedUrl = explode(".", $meta['featured_image']);
@@ -53,8 +55,8 @@
   $uri_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
   $uri_segments = explode('/', $uri_path);
 
-  $slug = $uri_segments[1];
-  
+  $slug = $uri_segments[2];
+
   // echo $slug;
 
   $args = array(
