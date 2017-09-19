@@ -15,7 +15,7 @@
 // 1. Global
 // ---------
 
-$primary-color: #4b273c;
+$primary-color: #F59178;
 $secondary-color: #cf1974;
 $light-pink: #e072ad;
 $mid-pink: #a21e66;
@@ -23,16 +23,16 @@ $link-pink: #cf1974;
 $success-color: #3adb76;
 $warning-color: #ffae00;
 $alert-color: #ec5840;
-$light-gray: #f3f3f3;
+$light-gray: #F5F2F2;
 $medium-gray: #3e4b51;
 $brand-gray: #2c3237;
 $dark-gray: #232323;
 $black: #0a0a0a;
 $white: #fff;
 $pre-color: #ff6908;
-$global-width: 600px;
+$global-width: 520px;
 $global-width-small: 100%;
-$global-gutter: 20px;
+$global-gutter: 25px;
 $body-background: $light-gray;
 $container-background: $white;
 $global-padding: 12px;
@@ -59,7 +59,7 @@ $block-grid-gutter: $global-gutter;
 
 $global-font-color: $dark-gray;
 // $body-font-family: Helvetica, Arial, sans-serif;
-$body-font-family: "GTWalsheim", Verdana, futura, -apple-system,
+$body-font-family: "Georgia", Verdana, futura, -apple-system,
   BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
   sans-serif !default;
 // $body-font-family: Verdana, futura, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !default;
@@ -68,13 +68,13 @@ $header-color: inherit;
 $global-line-height: 27px;
 $global-font-size: 20px;
 $body-line-height: $global-line-height;
-$header-font-family: "Irma", Verdana, futura, -apple-system, BlinkMacSystemFont,
-  "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !default;
+$header-font-family: "Calibre", -apple-system, BlinkMacSystemFont,
+  "Segoe UI", Roboto, Verdana, futura, "Helvetica Neue", Arial, sans-serif !default;
 // $header-font-family: Verdana, futura, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !default;
 $header-font-weight: 900;
-$h1-font-size: 34px;
-$h2-font-size: 26px;
-$h3-font-size: 26px;
+$h1-font-size: 36px;
+$h2-font-size: 35px;
+$h3-font-size: 25px;
 $h4-font-size: 24px;
 $h5-font-size: 20px;
 $h6-font-size: 18px;
@@ -106,15 +106,15 @@ $stat-font-size: 40px;
 $button-padding: (
   tiny: 4px 8px 4px 8px,
   small: 5px 10px 5px 10px,
-  default: 10px 16px 5px 16px,
-  large: 20px 25px 15px 25px
+  default: 5px 10px 7px 10px,
+  large: 5px 10px 7px 10px
 );
-$button-font-size: (tiny: 10px, small: 12px, default: 16px, large: 30px);
+$button-font-size: (tiny: 10px, small: 12px, default: 18px, large: 30px);
 $button-color: $white;
 $button-color-alt: $medium-gray;
 $button-font-weight: bold;
 $button-margin: 0 0 $global-margin 0;
-$button-background: $secondary-color;
+$button-background: $primary-color;
 $button-border: 2px solid $button-background;
 $button-radius: $global-radius;
 $button-rounded: $global-rounded;

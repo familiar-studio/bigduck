@@ -1,3 +1,10 @@
+# TODO
+
+Merge in the changes, and create the Email fields to match the local db
+Create a test email
+Test that Images are loading correctly
+Adjust any remaining styles
+
 # Foundation for Emails Template
 
 [![devDependency Status](https://david-dm.org/zurb/foundation-emails-template/dev-status.svg)](https://david-dm.org/zurb/foundation-emails-template#info=devDependencies)
@@ -58,7 +65,7 @@ Run `npm run litmus` to build as above, then submit to litmus for testing. *AWS 
 
 Run `npm run mail` to build as above, then send to specified email address for testing. *SMTP server details required (config.json)*
 
-Run `npm run zip` to build as above, then zip HTML and images for easy deployment to email marketing services. 
+Run `npm run zip` to build as above, then zip HTML and images for easy deployment to email marketing services.
 
 ### Speeding Up Your Build
 
@@ -127,4 +134,3 @@ Similar to the Litmus tests, you can have the emails sent to a specified email a
 For a full list of Litmus' supported test clients(applications) see their [client list](https://litmus.com/emails/clients.xml).
 
 **Caution:** AWS Service Fees will result, however, are usually very low do to minimal traffic. Use at your own discretion.
-
