@@ -22,7 +22,13 @@
     $sizeString = $is_featured ? '-585x296' : '-235x265';
     $image = implode(".", $explodedUrl) . $sizeString . '.' . $last;
     $author = $meta['author'][0];
-    $headshot = get_field('headshot', 'user_' . $author['ID'])['sizes']['small-thumbnail'];
+    $headshot = null;
+    $author_name = null;
+    if ($author) {
+      $headshot = get_field('headshot', 'user_' . $author['ID'])['sizes']['small-thumbnail'];
+      $author_name = $author['display_name'];
+    }
+
     $topic = wp_get_post_terms($insight->ID, 'topic')[0];
     $icon = $topic ? get_taxonomy_icon_png(get_fields($topic)['icon']) : null;
     $slug = 'https://bigducknyc.com/insights/' . $insight->post_name;
@@ -33,7 +39,7 @@
       'text' =>  $firstTextBlock,
       'slug' => $slug,
       'imageUrl' => $imageUrl,
-      'author' => $author['display_name'],
+      'author' => $author_name,
       'headshot' => $headshot,
       'topic' => array(
         'title' => $topic->name,
