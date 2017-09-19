@@ -38,7 +38,9 @@
       <spacer size="20"></spacer>
     </wrapper>
 
-  <?php foreach($insightData as $index=>$insight) { ?>
+  <?php
+  if($insightData) {
+    foreach($insightData as $index=>$insight) { ?>
   <container class="entry">
     <row class="side-lines">
       <columns small="12" large="5" class="no-bottom
@@ -63,7 +65,9 @@
     </row>
   </container>
   <spacer size="20"></spacer>
-  <?php } ?>
+  <?php
+    }
+  } ?>
 
 <row class="side-lines">
 <columns small="2" class="line">
@@ -77,7 +81,9 @@
 </columns>
 </row>
 <spacer size="30"></spacer>
-<?php foreach($eventsData as $event){ ?>
+<?php
+  if($eventsData){
+    foreach($eventsData as $event){ ?>
   <container>
     <row class="event">
     <columns small="12" large="9" class="content">
@@ -106,12 +112,16 @@
   </row>
   </container>
   <spacer size="30"></spacer>
-<?php } ?>
+<?php
+  }
+} ?>
   <center>
     <button href="https://bigducknyc.com/events">View More</button>
   </center>
   <spacer size="40"></spacer>
-<?php foreach($sections as $section)  { ?>
+<?php
+  if (sections) {
+    foreach($sections as $section)  { ?>
   <row class="side-lines">
     <columns small="4" class="line">
       <spacer size="5"></spacer><hr/>
@@ -136,6 +146,7 @@
       </center>
       <spacer size="40"></spacer>
     <?php } ?>
+<?php } ?>
 <?php } ?>
 
 <row class="side-lines">
