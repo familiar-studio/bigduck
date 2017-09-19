@@ -30,13 +30,14 @@
       $headshot = get_field('headshot', 'user_' . $author['ID'])['sizes']['small-thumbnail'];
       $author_name = $author['display_name'];
     }
+    $title = $insight->post_title;
 
     $topic = wp_get_post_terms($insight->ID, 'topic')[0];
     $icon = $topic ? get_taxonomy_icon_png(get_fields($topic)['icon']) : null;
     $slug = 'https://bigducknyc.com/insights/' . $insight->post_name;
 
     return array(
-      'title' => $insight->post_title,
+      'title' => $title,
       'image' => $image,
       'text' =>  $firstTextBlock,
       'slug' => $slug,
