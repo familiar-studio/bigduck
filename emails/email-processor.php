@@ -36,10 +36,8 @@
     $title = $insight->post_title;
 
     $topic = wp_get_post_terms($insight->ID, 'topic')[0];
-    if ($topic->name == 'campaigns') {
+    if ($topic->slug == 'campaigns') {
       $icon = 'http://bigducknyc.com/wp-content/uploads/2017/09/campaigns.png';
-    } else if ($topic->name == 'open-house') {
-      $icon = 'http://bigducknyc.com/wp-content/uploads/2017/09/open-house.png';
     } else {
       $icon = $topic ? get_taxonomy_icon_png(get_fields($topic)['icon']) : null;
     }
@@ -79,7 +77,11 @@
   function get_event_data($event) {
     $meta = get_fields($event);
     $category = wp_get_post_terms($event->ID, 'event_category')[0];
-    $icon = $category ? get_taxonomy_icon_png(get_fields($category)['taxonomy-icon']) : null;
+    if ($category->slug == 'open-house') {
+      $icon = 'http://bigducknyc.com/wp-content/uploads/2017/09/open-house.png';
+    } else {
+      $icon = $category ? get_taxonomy_icon_png(get_fields($category)['taxonomy-icon']) : null;
+    }
     $relatedTeamMember = $meta['related_team_members'][0];
     $headshot = get_field('headshot', 'user_' . $relatedTeamMember['ID'])['sizes']['small-thumbnail'];
     $date = date_create($event->start_time);
