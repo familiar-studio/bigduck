@@ -33,6 +33,9 @@ body, html, p, a, h1, h2, h3, h4 {
   line-height: 1.3;
   font-family: $header-font-family;
   font-weight: 600;
+  Margin-left: 10px;
+  color: $primary-color;
+  display: inline-block;
 }
 
 .header {
