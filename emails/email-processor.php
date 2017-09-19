@@ -48,7 +48,13 @@
     );
   }
 
-  $slug = $_GET["email"];
+  //$slug = $_GET["email"];
+
+  $uri_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+  $uri_segments = explode('/', $uri_path);
+
+  $slug = $uri_segments[1];
+  
   // echo $slug;
 
   $args = array(
