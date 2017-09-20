@@ -140,6 +140,7 @@ table tbody tr td .body p a {
 
 .body {
   padding: 0 1.5rem;
+  font-family: $body-font-family;
   p a, > p > a {
     color: $primary-color !important;
     @extend .underline;
