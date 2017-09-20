@@ -24,7 +24,9 @@ module.exports = {
         content: "@bigduck"
       }
     ],
-    link: [{ rel: "apple-touch-icon", sizes: "152x152", href: "/favicon.png" }],
+    link: [
+      { rel: "icon", type: "image/png", href: "favicon.png", sizes: "16x16" }
+    ],
     script: [{ src: "http://hi.bigducknyc.com/cdnr/30/acton/bn/tracker/4852" }]
   },
   cache: true,
