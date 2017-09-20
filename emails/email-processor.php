@@ -11,9 +11,9 @@
     $body = $meta['body'];
     $firstTextBlock = null;
     if ($body) {
-      foreach($body as $struct){
-        if ($struct['acf_fc_layout'] == 'text') {
-          $firstTextBlock = $struct['text'];
+      foreach($body as $block){
+        if ($block['acf_fc_layout'] == 'text') {
+          $firstTextBlock = str_split($block['text'], 1000);
           break;
         };
       }
