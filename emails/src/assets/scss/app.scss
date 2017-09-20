@@ -46,6 +46,9 @@ body, html, p, a, h1, h2, h3, h4 {
     width: 300px;
     height: 80px;
   }
+  .container {
+    width: 565px;
+  }
 }
 
 .footer .logo-text {
@@ -74,6 +77,7 @@ table.container.main {
   font-weight: 600;
   text-transform: uppercase;
   font-family: $header-font-family;
+  letter-spacing: 1px;
 }
 
 h1 {
@@ -114,9 +118,12 @@ h3 {
 }
 
 h4 {
+  letter-spacing: 1px;
   text-transform: uppercase;
   font-size: 0.875rem;
   font-weight: 600;
+  Margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 p {
@@ -133,6 +140,7 @@ table tbody tr td .body p a {
 
 .body {
   padding: 0 1.5rem;
+  font-family: $body-font-family;
   p a, > p > a {
     color: $primary-color !important;
     @extend .underline;
@@ -219,7 +227,6 @@ table.row.event {
     display: block;
     font-family: $header-font-family;
     font-weight: 600;
-    font-size: 0.75rem;
     color: white;
     line-height: 1.1;
   }
@@ -288,7 +295,7 @@ a .event-date span {
     font-size: 0.9375rem;
   }
   .date {
-    font-size: 1.125rem;
+    font-size: 1.5rem;
   }
 }
 
@@ -311,6 +318,9 @@ th.columns.no-right {
 
 
 .side-lines {
+  h2 {
+    text-decoration: none;
+  }
   .line {
     padding-top: 5px;
     hr {
