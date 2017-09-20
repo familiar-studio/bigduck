@@ -221,10 +221,11 @@ table.row.event {
     color: white;
     line-height: 1.1;
   }
-  a span {
-    background: none;
-    text-decoration: none;
-  }
+}
+
+a .event-date span {
+  background: none;
+  text-decoration: none;
 }
 
 .share {
