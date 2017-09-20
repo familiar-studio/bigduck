@@ -27,7 +27,7 @@ module.exports = {
     link: [
       { rel: "icon", type: "image/png", href: "favicon.png", sizes: "16x16" }
     ],
-    script: [{ src: "http://hi.bigducknyc.com/cdnr/30/acton/bn/tracker/4852" }]
+    script: [{ src: "https://hi.bigducknyc.com/cdnr/30/acton/bn/tracker/4852" }]
   },
   cache: true,
   transition: {
@@ -48,7 +48,7 @@ module.exports = {
   ],
   axios: {
     credentials: false,
-    baseURL: "http://bigducknyc.com/wp-json/"
+    baseURL: "https://bigducknyc.com/wp-json/"
   },
   /*
 
