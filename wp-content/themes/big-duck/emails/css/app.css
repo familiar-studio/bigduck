@@ -405,7 +405,7 @@ h4 {
 
 .body {
   padding: 0 1.5rem; }
-  .body, .body > *, .body > * > * {
+  .body a, .body > *, .body > * > * {
     font-family: "Georgia", Verdana, futura, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
 
 table.button table td a {
