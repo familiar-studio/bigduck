@@ -40,7 +40,7 @@ gulp.task("zip", gulp.series("build", zip));
 // Delete the "dist" folder
 // This happens every time a build starts
 function clean(done) {
-  rimraf("dist", done);
+  rimraf("../wp-content/themes/big-duck/emails", done);
 }
 
 // Compile layouts, pages, and partials into flat HTML files
@@ -57,7 +57,7 @@ function pages() {
       })
     )
     .pipe(inky())
-    .pipe(gulp.dest("dist"));
+    .pipe(gulp.dest("../wp-content/themes/big-duck/emails"));
 }
 
 // Reset Panini's cache of layouts and partials
@@ -80,12 +80,12 @@ function sass() {
       $.if(
         PRODUCTION,
         $.uncss({
-          html: ["dist/**/*.html"]
+          html: ["../wp-content/themes/big-duck/emails/**/*.html"]
         })
       )
     )
     .pipe($.if(!PRODUCTION, $.sourcemaps.write()))
-    .pipe(gulp.dest("dist/css"));
+    .pipe(gulp.dest("../wp-content/themes/big-duck/emails/css"));
 }
 
 // Copy and compress images
@@ -93,15 +93,15 @@ function images() {
   return gulp
     .src(["src/assets/img/**/*", "!src/assets/img/archive/**/*"])
     .pipe($.imagemin())
-    .pipe(gulp.dest("./dist/assets/img"));
+    .pipe(gulp.dest("../wp-content/themes/big-duck/emails/assets/img"));
 }
 
 // Inline CSS and minify HTML
 function inline() {
   return gulp
-    .src("dist/**/*.html")
-    .pipe($.if(PRODUCTION, inliner("dist/css/app.css")))
-    .pipe(gulp.dest("dist"));
+    .src("../wp-content/themes/big-duck/emails/**/*.html")
+    .pipe($.if(PRODUCTION, inliner("../wp-content/themes/big-duck/emails/css/app.css")))
+    .pipe(gulp.dest("../wp-content/themes/big-duck/emails"));
 }
 
 // Start a server with LiveReload to preview the site in
@@ -181,7 +181,7 @@ function aws() {
 
   return (
     gulp
-      .src("./dist/assets/img/*")
+      .src("../wp-content/themes/big-duck/emails/assets/img/*")
       // publisher will add Content-Length, Content-Type and headers specified above
       // If not specified it will set x-amz-acl to public-read by default
       .pipe(publisher.publish(headers))
