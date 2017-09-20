@@ -30,14 +30,14 @@
       $headshot = get_field('headshot', 'user_' . $author['ID'])['sizes']['small-thumbnail'];
       $author_name = $author['display_name'];
     } else if ($meta['guest_author_name']) {
-      $headshot = 'http://bigducknyc.com/wp-content/uploads/2017/06/guest_blogger-35x35.png';
+      $headshot = 'https://bigducknyc.com/wp-content/uploads/2017/06/guest_blogger-35x35.png';
       $author_name = $meta['guest_author_name'];
     }
     $title = $insight->post_title;
 
     $topic = wp_get_post_terms($insight->ID, 'topic')[0];
     if ($topic->slug == 'campaigns') {
-      $icon = 'http://bigducknyc.com/wp-content/uploads/2017/09/campaigns.png';
+      $icon = 'https://bigducknyc.com/wp-content/uploads/2017/09/campaigns.png';
     } else {
       $icon = $topic ? get_taxonomy_icon_png(get_fields($topic)['icon']) : null;
     }
@@ -78,9 +78,9 @@
     $meta = get_fields($event);
     $category = wp_get_post_terms($event->ID, 'event_category')[0];
     if ($category->slug == 'open-house') {
-      $icon = 'http://bigducknyc.com/wp-content/uploads/2017/09/open-house.png';
+      $icon = 'https://bigducknyc.com/wp-content/uploads/2017/09/open-house.png';
     } else if ($category->slug == 'webinars') {
-      $icon = 'http://bigducknyc.com/wp-content/uploads/2017/09/webinar-1.png';
+      $icon = 'https://bigducknyc.com/wp-content/uploads/2017/09/webinar-1.png';
     } else {
       $icon = $category ? get_taxonomy_icon_png(get_fields($category)['taxonomy-icon']) : null;
     }

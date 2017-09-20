@@ -48,7 +48,7 @@ module.exports = {
   ],
   axios: {
     credentials: false,
-    baseURL: "http://bigducknyc.com/wp-json/"
+    baseURL: "https://bigducknyc.com/wp-json/"
   },
   /*
 

@@ -106,7 +106,7 @@ export default {
     return {
       publicKey: '30d2b543ba',
       privateKey: '6cb1fab7a60e11a',
-      baseUrl: 'http://bigducknyc.com/gravityformsapi/',
+      baseUrl: 'https://bigducknyc.com/gravityformsapi/',
       gravityFormData: null,
       formData: {},
       profileData: {},
