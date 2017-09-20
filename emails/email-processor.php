@@ -79,6 +79,8 @@
     $category = wp_get_post_terms($event->ID, 'event_category')[0];
     if ($category->slug == 'open-house') {
       $icon = 'http://bigducknyc.com/wp-content/uploads/2017/09/open-house.png';
+    } else if ($category->slug == 'webinar') {
+      $icon = 'http://bigducknyc.com/wp-content/uploads/2017/09/webinar-1.png';
     } else {
       $icon = $category ? get_taxonomy_icon_png(get_fields($category)['taxonomy-icon']) : null;
     }
