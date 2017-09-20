@@ -25,7 +25,7 @@ module.exports = {
       }
     ],
     link: [
-      { rel: "icon", type: "image/png", href: "favicon.png", sizes: "16x16" }
+      { rel: "icon", type: "image/png", href: "/favicon.png", sizes: "16x16" }
     ],
     script: [{ src: "https://hi.bigducknyc.com/cdnr/30/acton/bn/tracker/4852" }]
   },

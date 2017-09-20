@@ -1,20 +1,20 @@
 <container class="main">
-    <center>
-      <spacer size="30"></spacer>
-      <span class="date main-date"><?php echo date('F j, Y'); ?></span>
-      <spacer size="10"></spacer>
-      <h1><span><?php echo $mainInsightData['title']; ?></span></h1>
-    </center>
-      <spacer size="20"></spacer>
-  <wrapper >
+  <center>
+    <spacer size="30"></spacer>
+    <span class="date main-date"><?php echo date('F j, Y'); ?></span>
+    <spacer size="10"></spacer>
+    <h1><span><?php echo $mainInsightData['title']; ?></span></h1>
+  </center>
+  <spacer size="20"></spacer>
+  <wrapper>
     <div class="hero image-cover" style=""></div>
     <center>
       <img class="hero" src="<?php echo $mainInsightData['image']; ?>">
     </center>
   </wrapper>
-    <spacer size="20"></spacer>
-    <div class="body">
-      <?php
+  <spacer size="20"></spacer>
+  <div class="body">
+    <?php
         echo $mainInsightData['text'];
       ?>
     </div>
@@ -26,141 +26,162 @@
       <spacer size="30"></spacer>
       <row class="side-lines">
       <columns small="4" class="line">
-        <spacer size="5"></spacer><hr/>
+        <spacer size="5"></spacer>
+        <hr/>
       </columns>
       <columns small="4" class="text">
         <h2>Insights</h2>
       </columns>
       <columns small="4" class="line">
-        <spacer size="5"></spacer><hr/>
+        <spacer size="5"></spacer>
+        <hr/>
       </columns>
     </row>
-      <spacer size="20"></spacer>
-    </wrapper>
-    <container>
-    </container>
+    <spacer size="20"></spacer>
+  </wrapper>
+  <container>
+  </container>
   <?php
   if($insightData) {
     foreach($insightData as $index=>$insight) { ?>
 
-  <container class="entry">
-    <row class="side-lines">
-      <columns small="12" large="5" class="no-bottom no-left featured image-cover">
-        <img  src="<?php echo $insight['image']; ?>">
-      </columns>
-      <columns>
-        <spacer size="20"></spacer>
-        <div class="content">
-          <div class="media">
-            <img src="<?php echo $insight['topic']['image']; ?>"></img>
-            <h4><?php echo $insight['topic']['title']; ?></h4>
-          </div>
-          <h3><a href="<?php echo $insight['slug']; ?>"><span><?php echo $insight['title']; ?><span></a></h3>
+    <container class="entry">
+      <row class="side-lines">
+        <columns small="12" large="5" class="no-bottom no-left featured image-cover">
+          <img src="<?php echo $insight['image']; ?>">
+        </columns>
+        <columns>
+          <spacer size="20"></spacer>
+          <div class="content">
+            <div class="media">
+              <img src="<?php echo $insight['topic']['image']; ?>"></img>
+              <h4>
+                <?php echo $insight['topic']['title']; ?>
+              </h4>
+            </div>
+            <h3><a href="<?php echo $insight['slug']; ?>"><span><?php echo $insight['title']; ?><span></a></h3>
             <div class="media author">
               <img src="<?php echo $insight['headshot']; ?>"></img>
-              <h4><?php echo $insight['author']; ?></h4>
+              <h4>
+                <?php echo $insight['author']; ?>
+              </h4>
             </div>
-        </div>
-      </columns>
-    </row>
-  </container>
-  <spacer size="30"></spacer>
-  <?php
+          </div>
+        </columns>
+      </row>
+    </container>
+    <spacer size="30"></spacer>
+    <?php
     }
   } ?>
 
-<row class="side-lines">
-<columns small="2" class="line">
-  <spacer size="5"></spacer><hr/>
-</columns>
-<columns small="8" class="text">
-  <h2>Upcoming Events</h2>
-</columns>
-<columns small="2" class="line">
-  <spacer size="5"></spacer><hr/>
-</columns>
-</row>
-<spacer size="20"></spacer>
-<?php
+      <row class="side-lines">
+        <columns small="2" class="line">
+          <spacer size="5"></spacer>
+          <hr/>
+        </columns>
+        <columns small="8" class="text">
+          <h2>Upcoming Events</h2>
+        </columns>
+        <columns small="2" class="line">
+          <spacer size="5"></spacer>
+          <hr/>
+        </columns>
+      </row>
+      <spacer size="20"></spacer>
+      <?php
   if($eventsData){
     foreach($eventsData as $event){ ?>
-  <container>
-    <row class="event">
-    <columns small="12" large="9" class="content">
-      <spacer size="20"></spacer>
-      <div class="media">
-        <img src="<?php echo $event['category']['icon']; ?>"><h4><?php echo $event['category']['name']; ?></h4>
-      </div>
-      <h3><a href="<?php echo $event['url']; ?>"><span><?php echo $event['title']; ?></span></a><h3>
-        <spacer size="10"></spacer>
-      <div class="media author">
-        <img src="<?php echo $event['headshot']; ?>"><h4><?php echo $event['author']['display_name']; ?></h4>
-      </div>
-    </columns>
-    <columns small="0" large="2"></columns>
-    <columns small="12" large="1">
-        <spacer size="20"></spacer>
-        <div class="event-date">
-          <div class="">
-            <spacer size="8"></spacer>
-            <span class="month"><?php echo $event['month']; ?></span>
-            <spacer size="3"></spacer>
-            <span class="date"><?php echo $event['day']; ?></span>
-          </div>
-        </div>
-    </columns>
-  </row>
-  </container>
-  <spacer size="30"></spacer>
-<?php
+        <container>
+          <row class="event">
+            <columns small="12" large="9" class="content">
+              <spacer size="20"></spacer>
+              <div class="media">
+                <img src="<?php echo $event['category']['icon']; ?>">
+                <h4>
+                  <?php echo $event['category']['name']; ?>
+                </h4>
+              </div>
+              <h3><a href="<?php echo $event['url']; ?>"><span><?php echo $event['title']; ?></span></a>
+                <h3>
+                  <spacer size="10"></spacer>
+                  <div class="media author">
+                    <img src="<?php echo $event['headshot']; ?>">
+                    <h4>
+                      <?php echo $event['author']['display_name']; ?>
+                    </h4>
+                  </div>
+            </columns>
+            <columns small="0" large="2"></columns>
+            <columns small="12" large="1">
+              <spacer size="20"></spacer>
+              <div class="event-date">
+                <div class="">
+                  <spacer size="8"></spacer>
+                  <span class="month"><?php echo $event['month']; ?></span>
+                  <spacer size="3"></spacer>
+                  <span class="date"><?php echo $event['day']; ?></span>
+                </div>
+              </div>
+            </columns>
+          </row>
+        </container>
+        <spacer size="30"></spacer>
+        <?php
   }
 } ?>
-  <center>
-    <button href="https://bigducknyc.com/events">View More</button>
-  </center>
-  <spacer size="40"></spacer>
-<?php
+          <center>
+            <button href="https://bigducknyc.com/events">View More</button>
+          </center>
+          <spacer size="40"></spacer>
+          <?php
   if (sections) {
     foreach($sections as $section)  { ?>
-  <row class="side-lines">
-    <columns small="2" class="line">
-      <spacer size="5"></spacer><hr/>
-    </columns>
-    <columns small="8" class="text">
-      <h2><?php echo $section['heading']; ?></h2>
-    </columns>
-    <columns small="2" class="line">
-      <spacer size="5"></spacer><hr/>
-    </columns>
-  </row>
-    <spacer size="20"></spacer>
-    <div class="body">
-      <?php echo $section['body']; ?>
-    </div>
-    <spacer size="40"></spacer>
-    <?php if($section['button_text']){ ?>
-      <center>
-        <button href="<?php echo $section['button_url']; ?>">
+            <row class="side-lines">
+              <columns small="2" class="line">
+                <spacer size="5"></spacer>
+                <hr/>
+              </columns>
+              <columns small="8" class="text">
+                <h2>
+                  <?php echo $section['heading']; ?>
+                </h2>
+              </columns>
+              <columns small="2" class="line">
+                <spacer size="5"></spacer>
+                <hr/>
+              </columns>
+            </row>
+            <spacer size="20"></spacer>
+            <div class="body">
+              <?php echo $section['body']; ?>
+            </div>
+            <spacer size="40"></spacer>
+            <?php if($section['button_text']){ ?>
+            <center>
+              <button href="<?php echo $section['button_url']; ?>">
           <?php echo $section['button_text']; ?>
           </button>
-      </center>
-      <spacer size="40"></spacer>
-    <?php } ?>
-<?php } ?>
-<?php } ?>
+            </center>
+            <spacer size="40"></spacer>
+            <?php } ?>
+            <?php } ?>
+            <?php } ?>
 
-<row class="side-lines">
-  <columns small="3" class="line">
-    <spacer size="5"></spacer><hr/>
-  </columns>
-  <columns small="6" class="text">
-    <h2>Follow Us</h2>
-  </columns>
-  <columns small="3" class="line">
-    <spacer size="5"></spacer><hr/>
-  </columns>
-</row>
-  <spacer size="20"></spacer>
-  {{> share}}
-  <spacer size="40"></spacer>
+            <row class="side-lines">
+              <columns small="3" class="line">
+                <spacer size="5"></spacer>
+                <hr/>
+              </columns>
+              <columns small="6" class="text">
+                <h2>Follow Us</h2>
+              </columns>
+              <columns small="3" class="line">
+                <spacer size="5"></spacer>
+                <hr/>
+              </columns>
+            </row>
+            <spacer size="20"></spacer>
+            {{> share}}
+            <spacer size="40"></spacer>
 </container>
