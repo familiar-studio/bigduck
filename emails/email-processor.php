@@ -13,7 +13,7 @@
     if ($body) {
       foreach($body as $block){
         if ($block['acf_fc_layout'] == 'text') {
-          $firstTextBlock = str_split($block['text'], 1000);
+          $firstTextBlock = str_split($block['text'], 1000)[0];
           break;
         };
       }
