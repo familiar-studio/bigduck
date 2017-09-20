@@ -16,14 +16,16 @@ backups
 wp-admin
 wp-includes
 
-wp-content/*
+
 wp-content/plugins
 wp-content/uploads
 wp-content/backups
 wp-content/backup-db
 wp-content/cache
 
-!wordpress/wp-content/themes
+
+
+
 
 
 
