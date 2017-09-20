@@ -27,7 +27,7 @@
         </template>
 
         <template v-else-if="field.type == 'checkbox'">
-       
+
           <div class="custom-controls-stacked" v-if="(field.label == 'Opt-In' && optInCountries.includes(formData[formLabelsToIds['Country']])) ||  field.label != 'Opt-In'">
             <label class="custom-control custom-checkbox" v-for="choice in field.choices">
               <input class="custom-control-input" type="checkbox" :name="field.id" v-model="formData['input_'+field.id]" :value="choice.value">
@@ -195,7 +195,7 @@ export default {
           this.formLabelsToIds[field.label] = 'input_' + field.id;
 
           // check if country is blank or one of the opt in countries to show both on the form
-          
+
 
           if (process.browser && localStorage.formData) {
             this.profileData = JSON.parse(localStorage.formData)
@@ -207,14 +207,14 @@ export default {
               }
             })
 
-            
+
           }
           if (field.label == 'Opt-In') {
-            console.log('optin',field);
-            let optIn = false 
+            console.log('optin', field);
+            let optIn = false
             if (Array.isArray(this.formData['input_' + field.id])) {
-              optIn = this.formData['input_' + field.id][0] == 1 ? true: false
-            } 
+              optIn = this.formData['input_' + field.id][0] == 1 ? true : false
+            }
 
             if (!this.formData[this.formLabelsToIds['Country']]) {
               this.showOptIn = true
