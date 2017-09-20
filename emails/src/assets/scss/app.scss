@@ -89,6 +89,7 @@ h2 {
   text-align: center;
   @extend .underline;
   background-position: 0 100%;
+  line-height: 1.1;
   span {
     position: relative;
     background-color: $light-gray;
