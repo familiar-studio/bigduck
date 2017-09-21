@@ -84,9 +84,16 @@ h1 {
   font-weight: bold;
   line-height: 1;
   text-align: center;
-  span {
-    color:$dark-gray;
-    @extend .underline;
+  a {
+    font-family: $header-font-family;
+    color: $dark-gray;
+    line-height: 1;
+    span {
+        font-family: $header-font-family;
+      color:$dark-gray;
+      @extend .underline;
+      font-weight: bold;
+    }
   }
   text-transform: none;
 }
@@ -110,6 +117,7 @@ h3 {
     font-family: $header-font-family;
     color: $dark-gray;
     span {
+      font-family: $header-font-family;
       color: $dark-gray;
       @extend .underline;
       line-height: 1.1;
@@ -140,14 +148,30 @@ table tbody tr td .body p a {
 
 .body {
   padding: 0 1.5rem;
+  font-family: $body-font-family;
+  a {
+    color: $primary-color;
+  }
   p, a, p span, p span, p span a span
   &, > *, > * > * {
     font-family: $body-font-family;
   }
-  p a, > p > a {
+  p a, > p > a, p a span {
     color: $primary-color !important;
     @extend .underline;
   }
+}
+
+.body p {
+  color: $primary-color;
+}
+
+td > div.body > p, td > div.body >  p > a  {
+  font-family: $body-font-family;
+}
+
+td > div.body > p > a {
+  color: $primary-color;
 }
 
 a {
