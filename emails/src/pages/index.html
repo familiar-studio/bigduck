@@ -22,6 +22,8 @@
     <center>
       <button href="<?php echo 'https://bigducknyc.com/insights/' . $mainInsightData['slug']; ?>">Keep Reading</button>
     </center>
+    <?php if($insightData) { ?>
+
     <wrapper>
       <spacer size="30"></spacer>
       <row class="side-lines">
@@ -30,7 +32,7 @@
         <hr/>
       </columns>
       <columns small="4" class="text">
-        <h2>Insights</h2>
+        <a href="https://bigducknyc.com/insight"><h2>Insights</h2></a>
       </columns>
       <columns small="4" class="line">
         <spacer size="5"></spacer>
@@ -41,9 +43,7 @@
   </wrapper>
   <container>
   </container>
-  <?php
-  if($insightData) {
-    foreach($insightData as $index=>$insight) { ?>
+  <?php foreach($insightData as $index=>$insight) { ?>
 
     <container class="entry">
       <row class="side-lines">
@@ -75,6 +75,8 @@
     }
   } ?>
 
+  <?php
+  if($eventsData){
       <row class="side-lines">
         <columns small="2" class="line">
           <spacer size="5"></spacer>
@@ -89,8 +91,6 @@
         </columns>
       </row>
       <spacer size="20"></spacer>
-      <?php
-  if($eventsData){
     foreach($eventsData as $event){ ?>
         <container>
           <row class="event">
@@ -127,15 +127,15 @@
           </row>
         </container>
         <spacer size="30"></spacer>
+        <center>
+          <button href="https://bigducknyc.com/events">View More</button>
+        </center>
+        <spacer size="40"></spacer>
         <?php
   }
 } ?>
-          <center>
-            <button href="https://bigducknyc.com/events">View More</button>
-          </center>
-          <spacer size="40"></spacer>
           <?php
-  if (sections) {
+          if ($sections) {
     foreach($sections as $section)  { ?>
             <row class="side-lines">
               <columns small="2" class="line">

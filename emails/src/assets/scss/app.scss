@@ -139,6 +139,9 @@ table tbody tr td .body p a {
 }
 
 .body {
+  p, p span, p a, p a span {
+    font-family: $body-font-family;
+  }
   padding: 0 1.5rem;
   p, a, p span, p span, p span a span
   &, > *, > * > * {
