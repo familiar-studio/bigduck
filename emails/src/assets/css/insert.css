@@ -1,0 +1,16 @@
+.body p a {color: #F59178;}
+.body p a:hover {color: #232323;}
+@font-face {
+  font-family: "Calibre";
+  src: url("https://bigducknyc.com/fonts/CalibreWeb-Semibold.woff2")
+    format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Calibre";
+  src: url("https://bigducknyc.com/fonts/CalibreWeb-Bold.woff2") format("woff2");
+  font-weight: bold;
+  font-style: normal;
+}
