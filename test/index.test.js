@@ -27,14 +27,14 @@ test("Route / exits and render HTML", async t => {
 });
 
 // Example of testing via dom checking
-test("Route / exits and render HTML with CSS applied", async t => {
-  const window = await nuxt.renderAndGetWindow("http://localhost:4000/");
-  const element = window.document.querySelector(".tagline");
-  t.not(element, null);
-  t.is(element.textContent, "Smart communications for nonprofits");
-  // t.is(element.className, "red");
-  // t.is(window.getComputedStyle(element).color, "red");
-});
+// test("Route / exits and render HTML with CSS applied", async t => {
+//   const window = await nuxt.renderAndGetWindow("http://localhost:4000/");
+//   const element = window.document.querySelector(".tagline");
+//   t.not(element, null);
+//   t.is(element.textContent, "Smart communications for nonprofits");
+//   // t.is(element.className, "red");
+//   // t.is(window.getComputedStyle(element).color, "red");
+// });
 
 test("Route /services exits and render HTML", async t => {
   let context = {};
