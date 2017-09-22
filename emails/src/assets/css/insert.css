@@ -1,5 +1,14 @@
-.body p a {color: #F59178;}
-.body p a:hover {color: #232323;}
+<style>.body p a {
+  color: #F59178;
+  font-family: "Georgia", "Times", "Times New Roman", serif;
+}
+.body p a:hover {
+  color: #232323;
+  font-family: "Georgia", "Times", "Times New Roman", serif;
+}
+.body p, .body p span {
+  font-family: "Georgia", "Times", "Times New Roman", serif;
+}
 @font-face {
   font-family: "Calibre";
   src: url("https://bigducknyc.com/fonts/CalibreWeb-Semibold.woff2")
@@ -14,3 +23,4 @@
   font-weight: bold;
   font-style: normal;
 }
+</style>
