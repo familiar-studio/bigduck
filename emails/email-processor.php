@@ -38,6 +38,8 @@
     $topic = wp_get_post_terms($insight->ID, 'topic')[0];
     if ($topic->slug == 'campaigns') {
       $icon = 'https://bigducknyc.com/wp-content/uploads/2017/09/campaigns.png';
+    } else if ($topic->slug == 'teams') {
+      $icon = 'https://bigducknyc.com/wp-content/uploads/2017/09/teams.png';
     } else {
       $icon = $topic ? get_taxonomy_icon_png(get_fields($topic)['icon']) : null;
     }
@@ -77,10 +79,12 @@
   function get_event_data($event) {
     $meta = get_fields($event);
     $category = wp_get_post_terms($event->ID, 'event_category')[0];
-    if ($category->slug == 'open-house') {
+    if ($category->slug == 'at-big-duck' || $category->slug == 'open-house') {
       $icon = 'https://bigducknyc.com/wp-content/uploads/2017/09/open-house.png';
     } else if ($category->slug == 'webinars') {
       $icon = 'https://bigducknyc.com/wp-content/uploads/2017/09/webinar-1.png';
+    } else if ($category->slug == 'workshop')  {
+      $icon = 'https://bigducknyc.com/wp-content/uploads/2017/09/workshop.png';
     } else {
       $icon = $category ? get_taxonomy_icon_png(get_fields($category)['taxonomy-icon']) : null;
     }
