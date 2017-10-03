@@ -172,6 +172,22 @@ th.large-9 {
 th.large-9.first {
   padding-left: 25px; }
 
+th.large-12 {
+  width: 495px;
+  padding-left: 12.5px;
+  padding-right: 12.5px; }
+
+th.large-12.first {
+  padding-left: 25px; }
+
+th.large-12.last {
+  padding-right: 25px; }
+
+th.expander {
+  visibility: hidden;
+  width: 0;
+  padding: 0 !important; }
+
 img.float-center {
   margin: 0 auto;
   Margin: 0 auto;
@@ -194,7 +210,7 @@ td,
 th,
 a {
   color: #232323;
-  font-family: "Georgia", Verdana, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+  font-family: "Georgia", -apple-system, BlinkMacSystemFont, sans-serif;
   font-weight: 400;
   padding: 0;
   margin: 0;
@@ -208,7 +224,7 @@ h3,
 h4 {
   color: inherit;
   word-wrap: normal;
-  font-family: "Calibre", -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+  font-family: "Calibre", -apple-system, BlinkMacSystemFont, sans-serif;
   font-weight: 900;
   margin-bottom: 10px;
   Margin-bottom: 10px; }
@@ -270,7 +286,7 @@ table.button {
     background: #F59178;
     border: 2px solid #F59178; }
     table.button table td a {
-      font-family: "Georgia", Verdana, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+      font-family: "Georgia", -apple-system, BlinkMacSystemFont, sans-serif;
       font-size: 18px;
       font-weight: bold;
       color: #fff;
@@ -336,8 +352,6 @@ body, html, a, h1, h2, h3, h4 {
 
 h1 a span, h2, h3 a span, a {
   text-decoration: underline;
-  -webkit-text-decoration-color: #F59178;
-  -moz-text-decoration-color: #F59178;
   text-decoration-color: #F59178; }
 
 .header .logo-text {
@@ -347,7 +361,7 @@ h1 a span, h2, h3 a span, a {
   text-align: left;
   font-size: 0.9rem;
   line-height: 1.3;
-  font-family: "Calibre", -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+  font-family: "Calibre", -apple-system, BlinkMacSystemFont, sans-serif;
   font-weight: 600;
   color: #F59178;
   display: inline-block; }
@@ -370,7 +384,7 @@ table.container.main {
   font-size: 0.875rem;
   font-weight: 600;
   text-transform: uppercase;
-  font-family: "Calibre", -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+  font-family: "Calibre", -apple-system, BlinkMacSystemFont, sans-serif;
   letter-spacing: 1px; }
 
 h1 {
@@ -379,11 +393,11 @@ h1 {
   text-align: center;
   text-transform: none; }
   h1 a {
-    font-family: "Calibre", -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+    font-family: "Calibre", -apple-system, BlinkMacSystemFont, sans-serif;
     color: #232323;
     line-height: 1; }
     h1 a span {
-      font-family: "Calibre", -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+      font-family: "Calibre", -apple-system, BlinkMacSystemFont, sans-serif;
       color: #232323;
       font-weight: bold; }
 
@@ -396,10 +410,9 @@ h3 {
   color: #232323; }
   h3 a {
     font-weight: bold;
-    font-family: "Calibre", -apple-system, BlinkMacSystemFont, Arial, sans-serif;
     color: #232323; }
     h3 a span {
-      font-family: "Calibre", -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+      font-family: "Calibre", -apple-system, BlinkMacSystemFont, sans-serif;
       color: #232323;
       line-height: 1.1; }
 
@@ -408,18 +421,17 @@ h4 {
   text-transform: uppercase;
   font-size: 0.875rem;
   font-weight: 600;
-  Margin-bottom: 0;
-  margin-bottom: 0; }
+  Margin-bottom: 0; }
 
 .body {
   padding: 0 1.5rem;
-  font-family: "Georgia", Verdana, -apple-system, BlinkMacSystemFont, Arial, sans-serif; }
+  font-family: "Georgia", -apple-system, BlinkMacSystemFont, sans-serif; }
   .body a {
     color: #F59178; }
 
 table.button table td a {
   text-transform: uppercase;
-  font-family: "Calibre", -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+  font-family: "Calibre", -apple-system, BlinkMacSystemFont, sans-serif;
   letter-spacing: 0.75px; }
 
 .media {
@@ -463,7 +475,7 @@ table.row.event {
   .event-date .month, .event-date .date {
     text-align: center;
     display: block;
-    font-family: "Calibre", -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+    font-family: "Calibre", -apple-system, BlinkMacSystemFont, sans-serif;
     font-weight: 600;
     color: white;
     line-height: 1.1; }
@@ -488,9 +500,9 @@ table.row.event {
     .footer ul li, .footer ul li a {
       color: white;
       font-size: 0.9rem;
-      line-height: calc(22/18);
+      line-height: 1.22;
       font-weight: 600;
-      font-family: "Calibre", -apple-system, BlinkMacSystemFont, Arial, sans-serif; }
+      font-family: "Calibre", -apple-system, BlinkMacSystemFont, sans-serif; }
 
 .event .month {
   font-size: 0.9375rem; }

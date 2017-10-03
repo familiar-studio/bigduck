@@ -10,21 +10,7 @@ body, html, p, a, h1, h2, h3, h4 {
 
 .underline {
   text-decoration: underline;
-  -webkit-text-decoration-color: $primary-color;
-  -moz-text-decoration-color: $primary-color;
   text-decoration-color: $primary-color;
-  // @media screen and (-webkit-min-device-pixel-ratio:0) {
-  //   text-decoration: none;
-  //   color: $primary-color;
-  //   span {
-  //     text-decoration-color: transparent;
-  //     text-decoration: unset;
-  //     background-position: center 90%;
-  //     background-repeat: no-repeat;
-  //     background-size: 100% 2px;
-  //     background-image: linear-gradient($primary-color, $primary-color);
-  //   }
-  // }
 }
 
 .header .logo-text {
@@ -114,7 +100,6 @@ h3 {
   color: $dark-gray;
   a {
     font-weight: bold;
-    font-family: $header-font-family;
     color: $dark-gray;
     span {
       font-family: $header-font-family;
@@ -131,7 +116,6 @@ h4 {
   font-size: 0.875rem;
   font-weight: 600;
   Margin-bottom: 0;
-  margin-bottom: 0;
 }
 
 p {
@@ -291,7 +275,7 @@ a .event-date span {
       &, a {
         color: white;
         font-size: 0.9rem;
-        line-height: calc(22/18);
+        line-height: 1.22;
         font-weight: 600;
         font-family: $header-font-family;
       }

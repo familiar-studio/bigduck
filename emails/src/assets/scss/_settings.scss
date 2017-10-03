@@ -58,16 +58,15 @@ $block-grid-gutter: $global-gutter;
 // -------------
 
 $global-font-color: $dark-gray;
-// $body-font-family: Helvetica, Arial, sans-serif;
-$body-font-family: "Georgia", Verdana, -apple-system, BlinkMacSystemFont, Arial, sans-serif !default;
-// $body-font-family: Verdana, futura, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !default;
+// $body-font-family: "Georgia", Verdana, -apple-system, BlinkMacSystemFont, Arial, sans-serif !default;
+$body-font-family: "Georgia", -apple-system, BlinkMacSystemFont, sans-serif !default;
 $global-font-weight: 400;
 $header-color: inherit;
 $global-line-height: 27px;
 $global-font-size: 20px;
 $body-line-height: $global-line-height;
-$header-font-family: "Calibre", -apple-system, BlinkMacSystemFont, Arial, sans-serif !default;
-// $header-font-family: Verdana, futura, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !default;
+// $header-font-family: "Calibre", -apple-system, BlinkMacSystemFont, Arial, sans-serif !default;
+$header-font-family: "Calibre", -apple-system, BlinkMacSystemFont, sans-serif !default;
 $header-font-weight: 900;
 $h1-font-size: 36px;
 $h2-font-size: 35px;
