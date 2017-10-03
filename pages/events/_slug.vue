@@ -94,7 +94,6 @@
             </article>
 
             <div v-if="event.acf.is_webinar" class="form-light" id="register" :class="{'mb-5': !relatedInsights && !relatedEvents}">
-              {{completedRegister ? 'yes': 'no'}} {{event.id}}
               <GravityForm v-if="!completedRegister" :formId=16 @submitted="refreshContent()" storagePrefix="event-" :id="event.id" :title="event.title.rendered" :actonId="event.acf.act_on_form_id"></GravityForm>
 
               <div v-if="registered">
@@ -223,7 +222,7 @@ export default {
     }
   },
   mounted() {
-    if (process.browser && this.insight && typeof localStorage !== 'undefined') {
+    if (process.browser && this.event && typeof localStorage !== 'undefined') {
       //figure out whether the user has filled out the form from the localstorage
       if (localStorage['event-' + this.event.id]) {
         this.completedRegister = true;
