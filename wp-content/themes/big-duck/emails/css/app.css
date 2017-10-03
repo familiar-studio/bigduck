@@ -210,7 +210,7 @@ td,
 th,
 a {
   color: #232323;
-  font-family: "Georgia", serif;
+  font-family: "Georgia", Verdana, serif;
   font-weight: 400;
   padding: 0;
   margin: 0;
@@ -286,7 +286,7 @@ table.button {
     background: #f59178;
     border: 2px solid #f59178; }
     table.button table td a {
-      font-family: "Georgia", serif;
+      font-family: "Georgia", Verdana, serif;
       font-size: 18px;
       font-weight: bold;
       color: #fff;
@@ -426,8 +426,7 @@ h4 {
   margin-bottom: 0; }
 
 .body {
-  padding: 0 1.5rem;
-  font-family: "Georgia", serif; }
+  padding: 0 1.5rem; }
 
 table.button table td a {
   text-transform: uppercase;

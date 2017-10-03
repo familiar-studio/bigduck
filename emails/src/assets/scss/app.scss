@@ -132,11 +132,12 @@ table tbody tr td .body p a {
 
 .body {
   padding: 0 1.5rem;
-  font-family: $body-font-family;
+  //font-family: $body-font-family;
 }
 
 .body p {
   color: $primary-color;
+  font-family: $body-font-family;
 }
 
 table.button table td a {
