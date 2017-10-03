@@ -1,6 +1,10 @@
 <style>.body p a {
   color: #F59178;
   font-family: "Georgia", "Times", "Times New Roman", serif;
+  text-decoration: underline;
+  -webkit-text-decoration-color: $primary-color;
+  -moz-text-decoration-color: $primary-color;
+  text-decoration-color: $primary-color;
 }
 .body p a:hover {
   color: #232323;

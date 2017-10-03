@@ -125,6 +125,7 @@
       }
     }
     $sections = get_field( 'sections', $id);
+    $preview = get_field( 'preiew', $id);
   };
 
 ?>
