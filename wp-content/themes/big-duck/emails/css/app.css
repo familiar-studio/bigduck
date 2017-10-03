@@ -346,16 +346,22 @@ table.button:active table a {
     display: inline-block !important;
     width: 100% !important; } }
 
-body, html, a, h1, h2, h3, h4 {
+body,
+html,
+a,
+h1,
+h2,
+h3,
+h4 {
   hyphens: none;
   font-smooth: never; }
 
-h1 a span, h2, h3 a span, a {
+h1 a, h2, h3 a {
   text-decoration: underline;
   text-decoration-color: #F59178; }
 
 .header .logo-text {
-  Margin-left: 10px; }
+  margin-left: 10px; }
 
 .logo-text {
   text-align: left;
@@ -391,15 +397,13 @@ h1 {
   font-weight: bold;
   line-height: 1;
   text-align: center;
+  color: #232323;
   text-transform: none; }
   h1 a {
     font-family: "Calibre", -apple-system, BlinkMacSystemFont, sans-serif;
     color: #232323;
-    line-height: 1; }
-    h1 a span {
-      font-family: "Calibre", -apple-system, BlinkMacSystemFont, sans-serif;
-      color: #232323;
-      font-weight: bold; }
+    line-height: 1;
+    font-weight: bold; }
 
 h2 {
   text-align: center;
@@ -410,24 +414,20 @@ h3 {
   color: #232323; }
   h3 a {
     font-weight: bold;
-    color: #232323; }
-    h3 a span {
-      font-family: "Calibre", -apple-system, BlinkMacSystemFont, sans-serif;
-      color: #232323;
-      line-height: 1.1; }
+    color: #232323;
+    font-family: "Calibre", -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.1; }
 
 h4 {
   letter-spacing: 1px;
   text-transform: uppercase;
   font-size: 0.875rem;
   font-weight: 600;
-  Margin-bottom: 0; }
+  margin-bottom: 0; }
 
 .body {
   padding: 0 1.5rem;
   font-family: "Georgia", -apple-system, BlinkMacSystemFont, sans-serif; }
-  .body a {
-    color: #F59178; }
 
 table.button table td a {
   text-transform: uppercase;
@@ -436,7 +436,8 @@ table.button table td a {
 
 .media {
   padding-bottom: 0.5rem; }
-  .media h4, .media img {
+  .media h4,
+  .media img {
     display: inline;
     vertical-align: middle; }
   .media img {
@@ -445,7 +446,7 @@ table.button table td a {
     line-height: 1;
     padding-left: 0.5rem;
     padding-bottom: 0;
-    Margin-bottom: 0; }
+    margin-bottom: 0; }
 
 .entry {
   background-color: white;
@@ -472,7 +473,8 @@ table.row.event {
   width: 60px;
   height: 60px;
   background-color: #232323; }
-  .event-date .month, .event-date .date {
+  .event-date .month,
+  .event-date .date {
     text-align: center;
     display: block;
     font-family: "Calibre", -apple-system, BlinkMacSystemFont, sans-serif;
@@ -497,7 +499,8 @@ table.row.event {
   .footer ul {
     list-style-type: none;
     float: right; }
-    .footer ul li, .footer ul li a {
+    .footer ul li,
+    .footer ul li a {
       color: white;
       font-size: 0.9rem;
       line-height: 1.22;

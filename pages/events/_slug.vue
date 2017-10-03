@@ -79,7 +79,7 @@
                     </div>
                     <div class="">
 
-                      <div v-if="!formFilled && !contentRefreshed">
+                      <div v-if="!registered">
                         <a v-if="event.acf.is_webinar" href="#register" class="btn btn-primary my-3 event-registration" v-scroll-to="{ el:'#register'}">Register</a>
                         <a v-else-if="event.acf.registration_url" :href="event.acf.registration_url" target="_blank" class="btn btn-primary my-3 event-registration">Register</a>
                       </div>
@@ -94,14 +94,10 @@
             </article>
 
             <div v-if="event.acf.is_webinar" class="form-light" id="register" :class="{'mb-5': !relatedInsights && !relatedEvents}">
+              {{completedRegister ? 'yes': 'no'}} {{event.id}}
+              <GravityForm v-if="!completedRegister" :formId=16 @submitted="refreshContent()" storagePrefix="event-" :id="event.id" :title="event.title.rendered" :actonId="event.acf.act_on_form_id"></GravityForm>
 
-              <div v-if="!contentRefreshed && !formFilled">
-                <h3>Register for this event</h3>
-
-              </div>
-              <GravityForm v-if="!formFilled" :formId=16 @submitted="refreshContent()" storagePrefix="event-" :id="event.id" :title="event.title.rendered" :actonId="event.acf.act_on_form_id"></GravityForm>
-
-              <div v-if="formFilled || contentRefreshed">
+              <div v-if="registered">
                 <div v-html="event.acf.post_registration_content"></div>
               </div>
 
@@ -156,7 +152,8 @@ export default {
       relatedInsightsIds: null,
       relatedInsights: null,
       relatedEvents: null,
-      contentRefreshed: false
+      contentRefreshed: false,
+      completedRegister: false
     }
   },
   head() {
@@ -225,15 +222,18 @@ export default {
       })
     }
   },
+  mounted() {
+    if (process.browser && this.insight && typeof localStorage !== 'undefined') {
+      //figure out whether the user has filled out the form from the localstorage
+      if (localStorage['event-' + this.event.id]) {
+        this.completedRegister = true;
+      }
+    }
+  },
   computed: {
     ...mapState(['globals', 'callouts', 'topics']),
     ...mapGetters(['hostname', 'getTopicsIndexedById', 'getEventCategoriesIndexedById']),
-    formFilled() {
-      if (process.browser && this.event && typeof localStorage !== 'undefined') {
-        // figure out whether the user has filled out the form from the cookie
-        return localStorage['event-' + this.event.id]
-      }
-    },
+
     month() {
       return dateFns.format(this.event.acf.start_time, 'MMM')
     },
@@ -245,6 +245,13 @@ export default {
     },
     end_time() {
       return dateFns.format(this.event.acf.end_time, 'h:mma')
+    },
+    registered() {
+      if (this.completedRegister || this.contentRefreshed) {
+        return true
+      }
+
+      return false
     }
   },
   methods: {

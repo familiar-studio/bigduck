@@ -3,7 +3,11 @@
     <spacer size="30"></spacer>
     <span class="date main-date"><?php echo date('F j, Y'); ?></span>
     <spacer size="10"></spacer>
-    <h1><a href="<?php echo $mainInsightData['slug'] ?>"><span><?php echo $mainInsightData['title']; ?></span></a></h1>
+    <h1>
+      <a href="<?php echo $mainInsightData['slug'] ?>">
+        <?php echo $mainInsightData['title']; ?>
+      </a>
+    </h1>
   </center>
   <spacer size="20"></spacer>
   <wrapper>
@@ -17,14 +21,14 @@
     <?php
         echo $mainInsightData['text'];
       ?>
-    </div>
-    <spacer size="10"></spacer>
-    <center>
-      <button href="<?php echo $mainInsightData['slug']; ?>">Keep Reading</button>
-    </center>
-    <wrapper>
-      <spacer size="30"></spacer>
-      <row class="side-lines">
+  </div>
+  <spacer size="10"></spacer>
+  <center>
+    <button href="<?php echo $mainInsightData['slug']; ?>">Keep Reading</button>
+  </center>
+  <wrapper>
+    <spacer size="30"></spacer>
+    <row class="side-lines">
       <columns small="4" class="line">
         <spacer size="5"></spacer>
         <hr/>
@@ -59,7 +63,11 @@
                 <?php echo $insight['topic']['title']; ?>
               </h4>
             </div>
-            <h3><a href="<?php echo $insight['slug']; ?>"><span><?php echo $insight['title']; ?><span></a></h3>
+            <h3>
+              <a href="<?php echo $insight['slug']; ?>">
+                <?php echo $insight['title']; ?>
+              </a>
+            </h3>
             <div class="media author">
               <img src="<?php echo $insight['headshot']; ?>"></img>
               <h4>
@@ -102,7 +110,10 @@
                   <?php echo $event['category']['name']; ?>
                 </h4>
               </div>
-              <h3><a href="<?php echo $event['url']; ?>"><span><?php echo $event['title']; ?></span></a>
+              <h3>
+                <a href="<?php echo $event['url']; ?>">
+                  <?php echo $event['title']; ?>
+                </a>
                 <h3>
                   <spacer size="10"></spacer>
                   <div class="media author">
