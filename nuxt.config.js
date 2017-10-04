@@ -22,6 +22,11 @@ module.exports = {
         hid: "twittersite",
         name: "twitter:site",
         content: "@bigduck"
+      },
+      {
+        hid: "twittercard",
+        name: "twitter:card",
+        content: "summary_large_image"
       }
     ],
     link: [
