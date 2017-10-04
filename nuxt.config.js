@@ -32,7 +32,10 @@ module.exports = {
     link: [
       { rel: "icon", type: "image/png", href: "/favicon.png", sizes: "16x16" }
     ],
-    script: [{ src: "https://hi.bigducknyc.com/cdnr/30/acton/bn/tracker/4852" }]
+    script: [
+      { src: "https://hi.bigducknyc.com/cdnr/30/acton/bn/tracker/4852" }
+    ],
+    __dangerouslyDisableSanitizers: ["title", "description"]
   },
   cache: true,
   transition: {
