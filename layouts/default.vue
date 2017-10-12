@@ -139,7 +139,7 @@
           </div>
         </div>
       </div>
-      <nuxt-link to="/privacy" class="link-privacy">Privacy Policy</nuxt-link>
+      <nuxt-link to="/privacy" class="link-privacy">Privacy Policy test</nuxt-link>
     </section>
   </div>
 </template>
