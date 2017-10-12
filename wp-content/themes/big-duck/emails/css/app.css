@@ -172,22 +172,6 @@ th.large-9 {
 th.large-9.first {
   padding-left: 25px; }
 
-th.large-12 {
-  width: 495px;
-  padding-left: 12.5px;
-  padding-right: 12.5px; }
-
-th.large-12.first {
-  padding-left: 25px; }
-
-th.large-12.last {
-  padding-right: 25px; }
-
-th.expander {
-  visibility: hidden;
-  width: 0;
-  padding: 0 !important; }
-
 img.float-center {
   margin: 0 auto;
   Margin: 0 auto;
@@ -247,6 +231,10 @@ td,
 th {
   font-size: 20px;
   line-height: 27px; }
+
+small {
+  font-size: 80%;
+  color: #3e4b51; }
 
 a {
   color: #f59178;
@@ -375,8 +363,9 @@ h1 a, h2, h3 a {
 .header {
   background-color: white; }
   .header img {
-    width: 300px;
-    height: 80px; }
+    width: 130px;
+    height: 80px;
+    display: inline-block; }
   .header .container {
     width: 565px; }
 
@@ -496,8 +485,7 @@ table.row.event {
   .footer .container {
     background-color: transparent; }
   .footer ul {
-    list-style-type: none;
-    float: right; }
+    list-style-type: none; }
     .footer ul li,
     .footer ul li a {
       color: white;
@@ -505,6 +493,11 @@ table.row.event {
       line-height: 1.22;
       font-weight: 600;
       font-family: "Calibre", -apple-system, BlinkMacSystemFont, sans-serif; }
+  .footer .unsubscribe a {
+    color: white;
+    font-size: 12px;
+    font-family: "Calibre", -apple-system, BlinkMacSystemFont, sans-serif;
+    text-decoration: underline; }
 
 .event .month {
   font-size: 0.9375rem; }

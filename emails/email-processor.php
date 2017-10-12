@@ -93,7 +93,7 @@
     $date = date_create($event->start_time);
     return array(
       'title' => $event->post_title,
-      'url' => $event->registration_url,
+      'url' => 'https://bigducknyc.com/events/' . $event->post_name,
       'month' => $date->format('M'),
       'day' => $date->format('j'),
       'category' => array(

@@ -36,8 +36,9 @@ h4 {
 .header {
   background-color: white;
   img {
-    width: 300px;
+    width: 130px;
     height: 80px;
+    display: inline-block;
   }
   .container {
     width: 565px;
@@ -259,7 +260,7 @@ a .event-date span {
   }
   ul {
     list-style-type: none;
-    float: right;
+
     li {
       &,
       a {
@@ -270,6 +271,13 @@ a .event-date span {
         font-family: $header-font-family;
       }
     }
+  }
+
+  .unsubscribe a {
+    color: white;
+    font-size: 12px;
+    font-family: $header-font-family;
+    text-decoration: underline;
   }
 }
 
