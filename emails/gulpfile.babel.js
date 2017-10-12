@@ -12,6 +12,7 @@ import path from "path";
 import merge from "merge-stream";
 import beep from "beepbeep";
 import colors from "colors";
+import rename from "gulp-rename";
 
 const $ = plugins();
 
@@ -57,6 +58,7 @@ function pages() {
       })
     )
     .pipe(inky())
+    .pipe(rename({ extname: ".php" }))
     .pipe(gulp.dest("../wp-content/themes/big-duck/emails"));
 }
 
@@ -80,7 +82,7 @@ function sass() {
       $.if(
         PRODUCTION,
         $.uncss({
-          html: ["../wp-content/themes/big-duck/emails/**/*.html"]
+          html: ["../wp-content/themes/big-duck/emails/**/*.php"]
         })
       )
     )
@@ -99,8 +101,13 @@ function images() {
 // Inline CSS and minify HTML
 function inline() {
   return gulp
-    .src("../wp-content/themes/big-duck/emails/**/*.html")
-    .pipe($.if(PRODUCTION, inliner("../wp-content/themes/big-duck/emails/css/app.css")))
+    .src("../wp-content/themes/big-duck/emails/**/*.php")
+    .pipe(
+      $.if(
+        PRODUCTION,
+        inliner("../wp-content/themes/big-duck/emails/css/app.css")
+      )
+    )
     .pipe(gulp.dest("../wp-content/themes/big-duck/emails"));
 }
 
@@ -143,7 +150,7 @@ function inliner(css) {
     .pipe($.replace, "<!-- <style> -->", `<style>${mqCss}</style>`)
     .pipe(
       $.replace,
-      '<link rel="stylesheet" type="text/css" href="css/app.css">',
+      '<link rel="stylesheet" type="text/css" href="/css/app.css">',
       ""
     )
     .pipe($.htmlmin, {
