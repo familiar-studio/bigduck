@@ -269,9 +269,9 @@ export default {
     },
     async submitEntry() {
       let withCredentials = false;
-      if (process.env.NODE_ENV === "production") {
-        withCredentials = true;
-      }
+      // if (process.env.NODE_ENV === "production") {
+      //   withCredentials = true;
+      // }
 
       this.$validator.validateAll().then(async result => {
         if (result) {
@@ -312,7 +312,7 @@ export default {
             }
             var first = Object.keys(errors)[0]
             this.error = "Field " + first + ": " + errors[first]
-            debugger
+            //debugger
             this.loading = false
           } else {
             if (this.id) {
