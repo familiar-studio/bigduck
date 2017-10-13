@@ -54,6 +54,10 @@
           <input v-model="formData['input_'+field.id]" type="number" :name="field.id" class="form-control" v-validate="{ rules: { required: true, numeric: true } }" />
         </template>
 
+        <template v-else-if="field.type == 'phone'">
+          <input v-model="formData['input_'+field.id]" type="phone" :name="field.id" class="form-control" v-validate="{ rules: { required: true, numeric: true } }" />
+        </template>
+
         <template v-else-if="field.type == 'hidden'">
           <input v-model="formData['input_'+field.id]" :name="field.id" type="hidden" />
         </template>
