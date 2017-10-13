@@ -272,9 +272,9 @@ export default {
     },
     async submitEntry() {
       let withCredentials = false;
-      // if (process.env.NODE_ENV === "production") {
-      //   withCredentials = true;
-      // }
+      if (process.env.NODE_ENV === "production") {
+        withCredentials = true;
+      }
 
       this.$validator.validateAll().then(async result => {
         if (result) {
