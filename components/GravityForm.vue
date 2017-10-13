@@ -53,7 +53,6 @@
         <template v-else-if="field.type == 'number'">
           <input v-model="formData['input_'+field.id]" type="number" :name="field.id" class="form-control" v-validate="{ rules: { required: true, numeric: true } }" />
         </template>
-
         <template v-else-if="field.type == 'phone'">
           <input v-model="formData['input_'+field.id]" type="text" :name="field.id" class="form-control" v-validate="{ rules: { required: true, numeric: true } }" />
         </template>
