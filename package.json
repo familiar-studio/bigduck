@@ -17,7 +17,7 @@
     "js-cookie": "^2.1.4",
     "lodash": "^4.17.4",
     "node-sass": "^4.5.3",
-    "nuxt": "^1.0.0-rc9",
+    "nuxt": "^1.0.0-rc11",
     "pm2": "^2.6.1",
     "sass-loader": "^6.0.5",
     "sass-resources-loader": "^1.2.1",
