@@ -70,14 +70,13 @@
   </div>
 </template>
 <script>
-import Axios from 'axios'
-import Featured from '~/components/Featured.vue'
-import Event from '~/components/Event.vue'
-import Post from '~/components/Post.vue'
-import Chat from '~/components/Chat.vue'
+import Axios from "axios";
+import Featured from "~/components/Featured.vue";
+import Event from "~/components/Event.vue";
+import Post from "~/components/Post.vue";
+import Chat from "~/components/Chat.vue";
 
-import { mapState, mapGetters } from 'vuex'
-
+import { mapState, mapGetters } from "vuex";
 
 export default {
   components: {
@@ -88,84 +87,95 @@ export default {
   },
   head() {
     return {
-      title: 'Big Duck',
+      title: "Big Duck",
       titleTemplate: null,
       meta: [
         {
-          'property': 'og:title',
-          'content': 'Big Duck'
+          property: "og:title",
+          content: "Big Duck"
         },
         {
-          'property': 'twitter:title',
-          'content': 'Big Duck'
+          property: "twitter:title",
+          content: "Big Duck"
         },
         {
-          'hid': "description",
-          'property': 'description',
-          'content': "Developing the voices of determined nonprofits."
+          hid: "description",
+          property: "description",
+          content:
+            "Big Duck develops the voices of nonprofit organizations by developing strong brands, campaigns, and communications teams."
         },
         {
-          'property': 'og:description',
-          'content': "Developing the voices of determined nonprofits."
+          property: "og:description",
+          content:
+            "Big Duck develops the voices of nonprofit organizations by developing strong brands, campaigns, and communications teams."
         },
         {
-          'property': 'twitter:description',
-          'content': "Developing the voices of determined nonprofits."
+          property: "twitter:description",
+          content:
+            "Big Duck develops the voices of nonprofit organizations by developing strong brands, campaigns, and communications teams."
         },
         {
-          'property': 'image',
-          'content': 'http://bigduck.familiar.studio/wordpress/wp-content/uploads/2017/07/28546982-bf3e1ad0-709a-11e7-9b12-3b5d1238669f.png'
+          property: "image",
+          content:
+            "http://bigduck.familiar.studio/wordpress/wp-content/uploads/2017/07/28546982-bf3e1ad0-709a-11e7-9b12-3b5d1238669f.png"
         },
         {
-          'property': 'og:image:url',
-          'content': 'http://bigduck.familiar.studio/wordpress/wp-content/uploads/2017/07/28546982-bf3e1ad0-709a-11e7-9b12-3b5d1238669f.png'
+          property: "og:image:url",
+          content:
+            "http://bigduck.familiar.studio/wordpress/wp-content/uploads/2017/07/28546982-bf3e1ad0-709a-11e7-9b12-3b5d1238669f.png"
         },
         {
-          'property': 'twitter:image',
-          'content': 'http://bigduck.familiar.studio/wordpress/wp-content/uploads/2017/07/28546982-bf3e1ad0-709a-11e7-9b12-3b5d1238669f.png'
+          property: "twitter:image",
+          content:
+            "http://bigduck.familiar.studio/wordpress/wp-content/uploads/2017/07/28546982-bf3e1ad0-709a-11e7-9b12-3b5d1238669f.png"
         }
       ]
-    }
+    };
   },
   async asyncData({ store }) {
-    let data = {}
-    let response = await Axios.get(store.getters['hostname'] + 'wp/v2/pages/37')
-    let page = response.data
+    let data = {};
+    let response = await Axios.get(
+      store.getters["hostname"] + "wp/v2/pages/37"
+    );
+    let page = response.data;
     if (page && page.acf) {
-      data.relatedWorkIds = page.acf.featured_case_studies.map((work) => { return work.ID })
+      data.relatedWorkIds = page.acf.featured_case_studies.map(work => {
+        return work.ID;
+      });
       if (data.relatedWorkIds) {
-        await Axios.get(store.getters['hostname'] + 'wp/v2/bd_case_study', { params: { include: data.relatedWorkIds } }).then(
-          (response) => {
-            let orderedCaseStudies = []
-            data.relatedWorkIds.forEach((id, index) => {
-              orderedCaseStudies[index] = response.data.find((case_study) => { return case_study.id === id })
-            })
-            data.relatedCaseStudies = orderedCaseStudies
-          }
-        )
+        await Axios.get(store.getters["hostname"] + "wp/v2/bd_case_study", {
+          params: { include: data.relatedWorkIds }
+        }).then(response => {
+          let orderedCaseStudies = [];
+          data.relatedWorkIds.forEach((id, index) => {
+            orderedCaseStudies[index] = response.data.find(case_study => {
+              return case_study.id === id;
+            });
+          });
+          data.relatedCaseStudies = orderedCaseStudies;
+        });
       }
       return {
         page: response.data,
         ...data,
-        upcomingEventIds: page.acf.upcoming_events.map((event) => { return event.ID }),
-        latestInsightIds: page.acf.latest_insights.map((insight) => { return insight.ID })
-      }
+        upcomingEventIds: page.acf.upcoming_events.map(event => {
+          return event.ID;
+        }),
+        latestInsightIds: page.acf.latest_insights.map(insight => {
+          return insight.ID;
+        })
+      };
     }
   },
   data() {
     return {
-      wordString: 'voices',
-      words: [
-        'voices',
-        'brands',
-        'campaigns',
-        'teams'
-      ],
+      wordString: "voices",
+      words: ["voices", "brands", "campaigns", "teams"],
       wordIndex: 0,
       letterIndex: 6,
       timeWaited: 0,
       interval: null,
-      typingStatus: 'waiting',
+      typingStatus: "waiting",
       looped: false,
       // same as color animation
       totalWordTypeTime: 5000,
@@ -179,69 +189,71 @@ export default {
       relatedCaseStudies: null,
       upcomingEvents: null,
       latestInsights: null
-    }
+    };
   },
   computed: {
-    ...mapGetters(['hostname']),
+    ...mapGetters(["hostname"]),
     word() {
-      return this.words[this.wordIndex]
+      return this.words[this.wordIndex];
     },
     waitingIntervalFrames() {
       // the number of letters to typed and deleted, one frame to change word, times the let of a frame
-      return this.totalWordTypeTime - this.frameInterval * ((2 * this.word.length) + 1)
+      return (
+        this.totalWordTypeTime - this.frameInterval * (2 * this.word.length + 1)
+      );
     }
   },
   created() {
-    this.interval = setInterval(this.nextFrame, this.frameInterval)
+    this.interval = setInterval(this.nextFrame, this.frameInterval);
 
     if (this.upcomingEventIds) {
-      Axios.get(this.hostname + 'wp/v2/bd_event', { params: { include: this.upcomingEventIds } }).then(
-        (response) => {
-          this.upcomingEvents = response.data
-        }
-      )
+      Axios.get(this.hostname + "wp/v2/bd_event", {
+        params: { include: this.upcomingEventIds }
+      }).then(response => {
+        this.upcomingEvents = response.data;
+      });
     }
     if (this.latestInsightIds) {
-      Axios.get(this.hostname + 'wp/v2/bd_insight', { params: { include: this.latestInsightIds } }).then(
-        (response) => {
-          this.latestInsights = response.data
-        }
-      )
+      Axios.get(this.hostname + "wp/v2/bd_insight", {
+        params: { include: this.latestInsightIds }
+      }).then(response => {
+        this.latestInsights = response.data;
+      });
     }
   },
   methods: {
     nextFrame() {
       switch (this.typingStatus) {
-        case 'typing':
+        case "typing":
           if (this.letterIndex < this.words[this.wordIndex].length) {
-            this.letterIndex++
+            this.letterIndex++;
           } else {
-            this.typingStatus = 'waiting'
-            this.timeWaited = 0
+            this.typingStatus = "waiting";
+            this.timeWaited = 0;
           }
-          break
-        case 'waiting':
+          break;
+        case "waiting":
           if (this.timeWaited < this.waitingIntervalFrames) {
-            this.timeWaited += this.frameInterval
+            this.timeWaited += this.frameInterval;
           } else if (this.loop || !this.looped) {
-            this.typingStatus = 'deleting'
+            this.typingStatus = "deleting";
           }
-          break
-        case 'deleting':
+          break;
+        case "deleting":
           if (this.letterIndex > 0) {
-            this.letterIndex--
+            this.letterIndex--;
           } else {
-            this.typingStatus = 'changingWord'
+            this.typingStatus = "changingWord";
           }
-          break
+          break;
         default:
-          this.wordIndex = (this.wordIndex + 1) % (this.words.length)
-          this.looped = this.wordIndex === 0
-          this.typingStatus = 'typing'
-          break
+          this.wordIndex = (this.wordIndex + 1) % this.words.length;
+          this.looped = this.wordIndex === 0;
+          this.typingStatus = "typing";
+          break;
       }
-      this.wordString = this.word.substring(0, this.letterIndex)
+      this.wordString = this.word.substring(0, this.letterIndex);
     }
   }
-}
+};
 </script>
