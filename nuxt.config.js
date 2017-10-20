@@ -13,20 +13,43 @@ module.exports = {
         content: "q5-HejTljPFYvH9amyqStrGWAKuL_GUrkR1MhDRVRjE"
       },
       {
+        property: "og:title",
+        content: "Big Duck"
+      },
+      {
+        property: "twitter:title",
+        content: "Big Duck"
+      },
+      {
         hid: "description",
-
-        name: "description",
-        content: "Effective branding, fundraising, and marketing for nonprofits"
+        property: "description",
+        content:
+          "Big Duck develops the voices of nonprofit organizations by developing strong brands, campaigns, and communications teams."
       },
       {
-        hid: "twittersite",
-        name: "twitter:site",
-        content: "@bigduck"
+        property: "og:description",
+        content:
+          "Big Duck develops the voices of nonprofit organizations by developing strong brands, campaigns, and communications teams."
       },
       {
-        hid: "twittercard",
-        name: "twitter:card",
-        content: "summary_large_image"
+        property: "twitter:description",
+        content:
+          "Big Duck develops the voices of nonprofit organizations by developing strong brands, campaigns, and communications teams."
+      },
+      {
+        property: "image",
+        content:
+          "/wp-content/uploads/2017/07/28546982-bf3e1ad0-709a-11e7-9b12-3b5d1238669f.png"
+      },
+      {
+        property: "og:image:url",
+        content:
+          "/wp-content/uploads/2017/07/28546982-bf3e1ad0-709a-11e7-9b12-3b5d1238669f.png"
+      },
+      {
+        property: "twitter:image",
+        content:
+          "/wp-content/uploads/2017/07/28546982-bf3e1ad0-709a-11e7-9b12-3b5d1238669f.png"
       }
     ],
     link: [
