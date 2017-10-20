@@ -113,21 +113,6 @@ export default {
           property: "twitter:description",
           content:
             "Big Duck develops the voices of nonprofit organizations by developing strong brands, campaigns, and communications teams."
-        },
-        {
-          property: "image",
-          content:
-            "/wp-content/uploads/2017/07/28546982-bf3e1ad0-709a-11e7-9b12-3b5d1238669f.png"
-        },
-        {
-          property: "og:image:url",
-          content:
-            "/wp-content/uploads/2017/07/28546982-bf3e1ad0-709a-11e7-9b12-3b5d1238669f.png"
-        },
-        {
-          property: "twitter:image",
-          content:
-            "/wp-content/uploads/2017/07/28546982-bf3e1ad0-709a-11e7-9b12-3b5d1238669f.png"
         }
       ]
     };
