@@ -99,23 +99,22 @@
 </template>
 
 <script>
-import axios from 'axios'
-import CryptoJS from 'crypto-js'
-import { mapGetters, mapMutations } from 'vuex'
-
+import axios from "axios";
+import CryptoJS from "crypto-js";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   data() {
     return {
-      publicKey: '30d2b543ba',
-      privateKey: '6cb1fab7a60e11a',
-      baseUrl: 'https://bigducknyc.com/gravityformsapi/',
+      publicKey: "30d2b543ba",
+      privateKey: "6cb1fab7a60e11a",
+      baseUrl: "https://bigducknyc.com/gravityformsapi/",
       gravityFormData: null,
       formData: {},
       profileData: {},
       totalProfilingFields: 2,
       submitted: false,
-      confirmation: 'Thanks!',
+      confirmation: "Thanks!",
       hiddenFields: [],
       visibleFields: [],
       formIdsToLabels: {},
@@ -123,8 +122,17 @@ export default {
       loading: false,
       error: null,
       showOptIn: false,
-      optInCountries: ['Canada', 'Netherlands', 'United Kingdom', 'Spain', 'France', 'Germany', 'Italy', 'Australia']
-    }
+      optInCountries: [
+        "Canada",
+        "Netherlands",
+        "United Kingdom",
+        "Spain",
+        "France",
+        "Germany",
+        "Italy",
+        "Australia"
+      ]
+    };
   },
   props: {
     formId: {
@@ -141,7 +149,7 @@ export default {
     },
     btnType: {
       type: String,
-      default: 'primary'
+      default: "primary"
     },
     storagePrefix: {
       type: String
@@ -163,112 +171,117 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['hostname']),
+    ...mapGetters(["hostname"]),
     expires() {
-      var d = new Date()
-      var expiration = 3600
-      var unixtime = parseInt(d.getTime() / 1000)
-      return unixtime + expiration
+      var d = new Date();
+      var expiration = 3600;
+      var unixtime = parseInt(d.getTime() / 1000);
+      return unixtime + expiration;
     }
   },
   methods: {
     semanticError(id) {
-      let fieldTitle = this.formIdsToLabels['input_' + this.errors.errors[0].field]
-      let badErrorMsg = this.errors.errors[0].msg
-      return badErrorMsg.split(id + " field").join(fieldTitle)
+      let fieldTitle = this.formIdsToLabels[
+        "input_" + this.errors.errors[0].field
+      ];
+      let badErrorMsg = this.errors.errors[0].msg;
+      return badErrorMsg.split(id + " field").join(fieldTitle);
     },
     CalculateSig(route, method) {
-      var stringToSign = this.publicKey + ':' + method + ':' + route + ':' + this.expires
-      var hash = CryptoJS.HmacSHA1(stringToSign, this.privateKey)
-      var base64 = hash.toString(CryptoJS.enc.Base64)
-      return encodeURIComponent(base64)
+      var stringToSign =
+        this.publicKey + ":" + method + ":" + route + ":" + this.expires;
+      var hash = CryptoJS.HmacSHA1(stringToSign, this.privateKey);
+      var base64 = hash.toString(CryptoJS.enc.Base64);
+      return encodeURIComponent(base64);
     },
     async initializeForm() {
-      let fieldCount = 0
-
+      let fieldCount = 0;
 
       //console.log('setup all fields')
       if (this.gravityFormData && this.gravityFormData.fields) {
-
-
         // setup some data for use later!
-        this.gravityFormData.fields.forEach((field) => {
-
-          this.formIdsToLabels['input_' + field.id] = field.label;
-          this.formLabelsToIds[field.label] = 'input_' + field.id;
+        this.gravityFormData.fields.forEach(field => {
+          this.formIdsToLabels["input_" + field.id] = field.label;
+          this.formLabelsToIds[field.label] = "input_" + field.id;
 
           // check if country is blank or one of the opt in countries to show both on the form
 
-
           if (process.browser && localStorage.formData) {
-            this.profileData = JSON.parse(localStorage.formData)
+            this.profileData = JSON.parse(localStorage.formData);
 
-            Object.keys(this.profileData).forEach((key) => {
+            Object.keys(this.profileData).forEach(key => {
               var id = this.formLabelsToIds[key];
               if (id) {
-                this.formData[id] = this.profileData[key]
+                this.formData[id] = this.profileData[key];
               }
-            })
-
-
+            });
           }
-          if (field.label == 'Opt-In') {
-            console.log('optin', field);
-            let optIn = false
-            if (Array.isArray(this.formData['input_' + field.id])) {
-              optIn = this.formData['input_' + field.id][0] == 1 ? true : false
+          if (field.label == "Opt-In") {
+            console.log("optin", field);
+            let optIn = false;
+            if (Array.isArray(this.formData["input_" + field.id])) {
+              optIn = this.formData["input_" + field.id][0] == 1 ? true : false;
             }
 
-            if (!this.formData[this.formLabelsToIds['Country']]) {
-              this.showOptIn = true
-            } else if (this.optInCountries.includes(this.formData[this.formLabelsToIds['Country']]) && !optIn) {
-              this.showOptIn = true
+            if (!this.formData[this.formLabelsToIds["Country"]]) {
+              this.showOptIn = true;
+            } else if (
+              this.optInCountries.includes(
+                this.formData[this.formLabelsToIds["Country"]]
+              ) &&
+              !optIn
+            ) {
+              this.showOptIn = true;
             }
           }
-        })
+        });
 
-
-        this.visibleFields = this.gravityFormData.fields.filter((field, index) => {
-
-          if (field.type === 'checkbox') {
-
-            if (!this.formData['input_' + field.id]) {
-              this.formData['input_' + field.id] = []
+        this.visibleFields = this.gravityFormData.fields.filter(
+          (field, index) => {
+            if (field.type === "checkbox") {
+              if (!this.formData["input_" + field.id]) {
+                this.formData["input_" + field.id] = [];
+              }
+              // } else {
+              //   this.formData['input_' + field.id] = this.formData[field.id]
+              // }
             }
-            // } else {
-            //   this.formData['input_' + field.id] = this.formData[field.id]
-            // }
+
+            // added support for default values
+            if (field.defaultValue) {
+              this.formData["input_" + field.id] = field.defaultValue;
+            }
+
+            // always include the first three
+            if (index < 3) {
+              return field;
+            } else {
+              if (this.showAll) {
+                return field;
+              }
+              if (
+                !this.formData["input_" + field.id] &&
+                fieldCount < this.totalProfilingFields
+              ) {
+                fieldCount++;
+                return field;
+              }
+
+              // if show opt in show both country and optin no matter what
+              if (
+                (field.label == "Country" || field.label == "Opt-In") &&
+                this.showOptIn
+              ) {
+                return field;
+              }
+            }
+
+            this.hiddenFields.push(field);
           }
-          // always include the first three
-          if (index < 3) {
-            return field
-          } else {
-
-            if (this.showAll) {
-              return field
-            }
-            if ((!this.formData['input_' + field.id] && fieldCount < this.totalProfilingFields)) {
-              fieldCount++
-              return field
-            }
-
-
-            // if show opt in show both country and optin no matter what
-            if ((field.label == 'Country' || field.label == 'Opt-In') && this.showOptIn) {
-              return field
-            }
-
-
-          }
-
-          this.hiddenFields.push(field)
-        })
+        );
       }
 
       // get the data from local storage
-
-
-
     },
     async submitEntry() {
       let withCredentials = false;
@@ -278,103 +291,109 @@ export default {
 
       this.$validator.validateAll().then(async result => {
         if (result) {
-          this.loading = true
-          this.error = null
-          var signature = this.CalculateSig('entries', 'POST')
+          this.loading = true;
+          this.error = null;
+          var signature = this.CalculateSig("entries", "POST");
 
-          var endpoint = this.baseUrl + 'forms/' + this.formId + '/submissions';
-          console.log('endpoint', endpoint)
-
+          var endpoint = this.baseUrl + "forms/" + this.formId + "/submissions";
+          console.log("endpoint", endpoint);
 
           // fill in prefilled data!
           if (this.actonId) {
-            this.formData.input_19 = this.title
-            this.formData.input_20 = this.id
-            this.formData.input_22 = this.actonId
-            this.formData.input_23 = this.actonId
+            this.formData.input_19 = this.title;
+            this.formData.input_20 = this.id;
+            this.formData.input_22 = this.actonId;
+            this.formData.input_23 = this.actonId;
           }
 
           if (this.gatedContent) {
-
-            this.formData.input_19 = this.title
-            this.formData.input_20 = this.gatedContent
-
+            this.formData.input_19 = this.title;
+            this.formData.input_20 = this.gatedContent;
           }
-          var response = await axios.post(this.baseUrl + 'forms/' + this.formId + '/submissions',
-            { "input_values": this.formData },
+          var response = await axios.post(
+            this.baseUrl + "forms/" + this.formId + "/submissions",
+            { input_values: this.formData },
             {
               withCredentials: withCredentials,
-              params: { api_key: this.publicKey, signature: signature, expires: this.expires }
-            })
+              params: {
+                api_key: this.publicKey,
+                signature: signature,
+                expires: this.expires
+              }
+            }
+          );
 
           console.log(response);
           if (!response.data.response.is_valid) {
             if (response.data.response) {
-              var errors = response.data.response.validation_messages
-
+              var errors = response.data.response.validation_messages;
             }
-            var first = Object.keys(errors)[0]
-            this.error = "Field " + first + ": " + errors[first]
+            var first = Object.keys(errors)[0];
+            this.error = "Field " + first + ": " + errors[first];
             //debugger
-            this.loading = false
+            this.loading = false;
           } else {
             if (this.id) {
               if (process.browser) {
-                localStorage[this.storagePrefix + this.id] = "true"
+                localStorage[this.storagePrefix + this.id] = "true";
               }
             }
 
             // should loop through formdata and save it as by its label
 
-
-            Object.keys(this.formData).forEach((key) => {
+            Object.keys(this.formData).forEach(key => {
               var label = this.formIdsToLabels[key];
               if (label) {
-                this.profileData[label] = this.formData[key]
+                this.profileData[label] = this.formData[key];
               }
-            })
+            });
 
-            localStorage.formData = JSON.stringify(this.profileData)
+            localStorage.formData = JSON.stringify(this.profileData);
 
-            if (typeof ga !== 'undefined') {
-
-              ga('send', {
-                hitType: 'event',
-                eventCategory: 'Form',
-                eventAction: 'submit',
+            if (typeof ga !== "undefined") {
+              ga("send", {
+                hitType: "event",
+                eventCategory: "Form",
+                eventAction: "submit",
                 eventLabel: this.gravityFormData.title
               });
             }
 
             //this.updateProfile(this.formData)
 
-            this.$emit('submitted')
-            this.submitted = true
+            this.$emit("submitted");
+            this.submitted = true;
           }
-          this.loading = false
+          this.loading = false;
         }
-      })
+      });
     },
-    ...mapMutations(['updateProfile'])
+    ...mapMutations(["updateProfile"])
   },
   async created() {
-    var signature = this.CalculateSig('forms/' + this.formId, 'GET')
+    var signature = this.CalculateSig("forms/" + this.formId, "GET");
 
-
-
-    const response = await axios.get(this.baseUrl + 'forms/' + this.formId + '/', { params: { api_key: this.publicKey, signature: signature, expires: this.expires } })
+    const response = await axios.get(
+      this.baseUrl + "forms/" + this.formId + "/",
+      {
+        params: {
+          api_key: this.publicKey,
+          signature: signature,
+          expires: this.expires
+        }
+      }
+    );
     if (response.status === 200) {
       if (response.data.response.confirmations) {
-        var confirmations = response.data.response.confirmations
-        this.confirmation = confirmations[Object.keys(confirmations)[0]].message
+        var confirmations = response.data.response.confirmations;
+        this.confirmation =
+          confirmations[Object.keys(confirmations)[0]].message;
       }
       this.gravityFormData = response.data.response;
       this.initializeForm();
-
     }
-
   }
-}
+};
 </script>
 <style lang="scss">
 .error {
