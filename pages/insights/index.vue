@@ -42,72 +42,62 @@
   </div>
 </template>
 <script>
-import axios from 'axios'
-import Chat from '~/components/Chat.vue'
-import FilterList from '~/components/FilterList.vue'
-import InlineCallout from '~/components/InlineCallout.vue'
-import { mapState, mapGetters } from 'vuex'
-import Post from '~/components/Post.vue'
+import axios from "axios";
+import Chat from "~/components/Chat.vue";
+import FilterList from "~/components/FilterList.vue";
+import InlineCallout from "~/components/InlineCallout.vue";
+import { mapState, mapGetters } from "vuex";
+import Post from "~/components/Post.vue";
 export default {
-  name: 'insights',
+  name: "insights",
   async asyncData({ store, query, errro }) {
-
-    store.commit('resetPage')
-    const response = await store.dispatch('fetchByQuery', { isPaged: true, query: query, path: 'wp/v2/bd_insight' })
+    store.commit("resetPage");
+    const response = await store.dispatch("fetchByQuery", {
+      isPaged: true,
+      query: query,
+      path: "wp/v2/bd_insight"
+    });
     return {
       insights: response.data,
-      totalPages: response.headers['x-wp-totalpages'],
-      totalRecords: response.headers['x-wp-total']
-    }
-
+      totalPages: response.headers["x-wp-totalpages"],
+      totalRecords: response.headers["x-wp-total"]
+    };
   },
   data() {
     return {
       previouslyLoadedInsights: 0,
       callout: null,
       insights: []
-    }
+    };
   },
   head() {
     if (this.insights) {
       return {
-        title: 'Insights',
+        title: "Insights",
         meta: [
           {
-            'property': 'og:title',
-            'content': 'Insights'
+            property: "og:title",
+            content: "Insights"
           },
           {
-            'property': 'twitter:title',
-            'content': 'Insights'
+            property: "twitter:title",
+            content: "Insights"
           },
           {
-            'hid': "description",
-            'property': 'description',
-            'content': 'Read more about the results of our work.'
+            hid: "description",
+            property: "description",
+            content: "Read more about the results of our work."
           },
           {
-            'property': 'og:description',
-            'content': 'Read more about the results of our work.'
+            property: "og:description",
+            content: "Read more about the results of our work."
           },
           {
-            'property': 'twitter:description',
-            'content': 'Read more about the results of our work.'
-          },
-          {
-            'property': 'image',
-            'content': 'http://bigduck.familiar.studio/wordpress/wp-content/uploads/2017/07/28546982-bf3e1ad0-709a-11e7-9b12-3b5d1238669f.png'
-          },
-          {
-            'property': 'og:image:url',
-            'content': 'http://bigduck.familiar.studio/wordpress/wp-content/uploads/2017/07/28546982-bf3e1ad0-709a-11e7-9b12-3b5d1238669f.png'
-          },
-          {
-            'property': 'twitter:image',
-            'content': 'http://bigduck.familiar.studio/wordpress/wp-content/uploads/2017/07/28546982-bf3e1ad0-709a-11e7-9b12-3b5d1238669f.png'
+            property: "twitter:description",
+            content: "Read more about the results of our work."
           }
         ]
-      }
+      };
     }
   },
   components: {
@@ -117,52 +107,60 @@ export default {
     Post
   },
   computed: {
-    ...mapState(['types', 'topics']),
-    ...mapGetters(['getTopicsIndexedById', 'getTypesIndexedById', 'hostname']),
+    ...mapState(["types", "topics"]),
+    ...mapGetters(["getTopicsIndexedById", "getTypesIndexedById", "hostname"]),
     selectedType() {
-      return this.$route.query.type
+      return this.$route.query.type;
     },
     selectedTopic() {
-      return this.$route.query.topic
+      return this.$route.query.topic;
     }
   },
   watch: {
-    '$route.query': 'filterResults'
+    "$route.query": "filterResults"
   },
   methods: {
     toggleTaxonomy(event) {
       // make a copy of the current query string
-      let query = Object.assign({}, this.$route.query)
+      let query = Object.assign({}, this.$route.query);
       // toggle filters
       if (parseInt(query[event.taxonomy]) === event.id) {
-        delete query[event.taxonomy]
+        delete query[event.taxonomy];
       } else {
-        query[event.taxonomy] = event.id
+        query[event.taxonomy] = event.id;
       }
-      this.$router.push({ name: 'insights', query: query })
+      this.$router.push({ name: "insights", query: query });
     },
     resetFilters() {
-      this.$router.push({ name: 'insights', query: null })
+      this.$router.push({ name: "insights", query: null });
     },
     async filterResults() {
-      this.$store.commit('resetPage')
-      const response = await this.$store.dispatch('fetchByQuery', { isPaged: true, path: 'wp/v2/bd_insight', query: this.$route.query })
-      this.insights = response.data
-      this.totalPages = response.headers['x-wp-totalpages']
-      this.totalRecords = response.headers['x-wp-total']
+      this.$store.commit("resetPage");
+      const response = await this.$store.dispatch("fetchByQuery", {
+        isPaged: true,
+        path: "wp/v2/bd_insight",
+        query: this.$route.query
+      });
+      this.insights = response.data;
+      this.totalPages = response.headers["x-wp-totalpages"];
+      this.totalRecords = response.headers["x-wp-total"];
     },
     async nextPage() {
-      this.$store.commit('nextPage')
-      this.previouslyLoadedInsights = this.insights.length
-      let query = Object.assign({}, this.$route.query)
-      const response = await this.$store.dispatch('fetchByQuery', { isPaged: true, query: query, path: 'wp/v2/bd_insight' })
-      this.insights = this.insights.concat(response.data)
+      this.$store.commit("nextPage");
+      this.previouslyLoadedInsights = this.insights.length;
+      let query = Object.assign({}, this.$route.query);
+      const response = await this.$store.dispatch("fetchByQuery", {
+        isPaged: true,
+        query: query,
+        path: "wp/v2/bd_insight"
+      });
+      this.insights = this.insights.concat(response.data);
     }
   },
   async created() {
-    let response = await axios.get(this.hostname + 'wp/v2/pages?slug=insights')
-    var data = response.data[0]
+    let response = await axios.get(this.hostname + "wp/v2/pages?slug=insights");
+    var data = response.data[0];
     this.callout = data.acf;
   }
-}
+};
 </script>

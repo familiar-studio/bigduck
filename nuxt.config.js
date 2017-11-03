@@ -13,21 +13,52 @@ module.exports = {
         content: "q5-HejTljPFYvH9amyqStrGWAKuL_GUrkR1MhDRVRjE"
       },
       {
-        hid: "description",
-
-        name: "description",
-        content: "Effective branding, fundraising, and marketing for nonprofits"
+        property: "og:title",
+        content: "Big Duck"
       },
       {
-        hid: "twittersite",
-        name: "twitter:site",
-        content: "@bigduck"
+        property: "twitter:title",
+        content: "Big Duck"
+      },
+      {
+        hid: "description",
+        property: "description",
+        content:
+          "Big Duck develops the voices of nonprofit organizations by developing strong brands, campaigns, and communications teams."
+      },
+      {
+        property: "og:description",
+        content:
+          "Big Duck develops the voices of nonprofit organizations by developing strong brands, campaigns, and communications teams."
+      },
+      {
+        property: "twitter:description",
+        content:
+          "Big Duck develops the voices of nonprofit organizations by developing strong brands, campaigns, and communications teams."
+      },
+      {
+        property: "image",
+        content:
+          "https://bigducknyc.com/wp-content/uploads/2017/07/28546982-bf3e1ad0-709a-11e7-9b12-3b5d1238669f.png"
+      },
+      {
+        property: "og:image:url",
+        content:
+          "https://bigducknyc.com/wp-content/uploads/2017/07/28546982-bf3e1ad0-709a-11e7-9b12-3b5d1238669f.png"
+      },
+      {
+        property: "twitter:image",
+        content:
+          "https://bigducknyc.com/wp-content/uploads/2017/07/28546982-bf3e1ad0-709a-11e7-9b12-3b5d1238669f.png"
       }
     ],
     link: [
       { rel: "icon", type: "image/png", href: "/favicon.png", sizes: "16x16" }
     ],
-    script: [{ src: "https://hi.bigducknyc.com/cdnr/30/acton/bn/tracker/4852" }]
+    script: [
+      { src: "https://hi.bigducknyc.com/cdnr/30/acton/bn/tracker/4852" }
+    ],
+    __dangerouslyDisableSanitizers: ["title", "description"]
   },
   cache: true,
   transition: {

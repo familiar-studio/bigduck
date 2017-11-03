@@ -60,10 +60,10 @@ table, tr, td {
 @media only screen {
   html {
     min-height: 100%;
-    background: #F5F2F2; } }
+    background: #f5f2f2; } }
 
 table.body {
-  background: #F5F2F2;
+  background: #f5f2f2;
   height: 100%;
   width: 100%; }
 
@@ -172,22 +172,6 @@ th.large-9 {
 th.large-9.first {
   padding-left: 25px; }
 
-th.large-12 {
-  width: 495px;
-  padding-left: 12.5px;
-  padding-right: 12.5px; }
-
-th.large-12.first {
-  padding-left: 25px; }
-
-th.large-12.last {
-  padding-right: 25px; }
-
-th.expander {
-  visibility: hidden;
-  width: 0;
-  padding: 0 !important; }
-
 img.float-center {
   margin: 0 auto;
   Margin: 0 auto;
@@ -210,7 +194,7 @@ td,
 th,
 a {
   color: #232323;
-  font-family: "Georgia", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Georgia", Verdana, serif;
   font-weight: 400;
   padding: 0;
   margin: 0;
@@ -248,28 +232,32 @@ th {
   font-size: 20px;
   line-height: 27px; }
 
+small {
+  font-size: 80%;
+  color: #3e4b51; }
+
 a {
-  color: #F59178;
+  color: #f59178;
   text-decoration: none; }
   a:hover {
     color: #f16a49; }
   a:active {
     color: #f16a49; }
   a:visited {
-    color: #F59178; }
+    color: #f59178; }
 
 h1 a,
 h1 a:visited,
 h3 a,
 h3 a:visited {
-  color: #F59178; }
+  color: #f59178; }
 
 span.preheader {
   display: none !important;
   visibility: hidden;
   mso-hide: all !important;
   font-size: 1px;
-  color: #F5F2F2;
+  color: #f5f2f2;
   line-height: 1px;
   max-height: 0px;
   max-width: 0px;
@@ -283,17 +271,17 @@ table.button {
   table.button table td {
     text-align: left;
     color: #fff;
-    background: #F59178;
-    border: 2px solid #F59178; }
+    background: #f59178;
+    border: 2px solid #f59178; }
     table.button table td a {
-      font-family: "Georgia", -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: "Georgia", Verdana, serif;
       font-size: 18px;
       font-weight: bold;
       color: #fff;
       text-decoration: none;
       display: inline-block;
       padding: 5px 10px 5px 10px;
-      border: 0 solid #F59178;
+      border: 0 solid #f59178;
       border-radius: 6px; }
 
 table.button:hover table tr td a,
@@ -346,16 +334,22 @@ table.button:active table a {
     display: inline-block !important;
     width: 100% !important; } }
 
-body, html, a, h1, h2, h3, h4 {
+body,
+html,
+a,
+h1,
+h2,
+h3,
+h4 {
   hyphens: none;
   font-smooth: never; }
 
-h1 a span, h2, h3 a span, a {
+h1 a, h2, h3 a {
   text-decoration: underline;
-  text-decoration-color: #F59178; }
+  text-decoration-color: #f59178; }
 
 .header .logo-text {
-  Margin-left: 10px; }
+  margin-left: 10px; }
 
 .logo-text {
   text-align: left;
@@ -363,14 +357,15 @@ h1 a span, h2, h3 a span, a {
   line-height: 1.3;
   font-family: "Calibre", -apple-system, BlinkMacSystemFont, sans-serif;
   font-weight: 600;
-  color: #F59178;
+  color: #f59178;
   display: inline-block; }
 
 .header {
   background-color: white; }
   .header img {
-    width: 300px;
-    height: 80px; }
+    width: 130px;
+    height: 80px;
+    display: inline-block; }
   .header .container {
     width: 565px; }
 
@@ -378,7 +373,7 @@ h1 a span, h2, h3 a span, a {
   color: white; }
 
 table.container.main {
-  background-color: #F5F2F2; }
+  background-color: #f5f2f2; }
 
 .date.main-date {
   font-size: 0.875rem;
@@ -391,15 +386,13 @@ h1 {
   font-weight: bold;
   line-height: 1;
   text-align: center;
+  color: #232323;
   text-transform: none; }
   h1 a {
     font-family: "Calibre", -apple-system, BlinkMacSystemFont, sans-serif;
     color: #232323;
-    line-height: 1; }
-    h1 a span {
-      font-family: "Calibre", -apple-system, BlinkMacSystemFont, sans-serif;
-      color: #232323;
-      font-weight: bold; }
+    line-height: 1;
+    font-weight: bold; }
 
 h2 {
   text-align: center;
@@ -410,24 +403,19 @@ h3 {
   color: #232323; }
   h3 a {
     font-weight: bold;
-    color: #232323; }
-    h3 a span {
-      font-family: "Calibre", -apple-system, BlinkMacSystemFont, sans-serif;
-      color: #232323;
-      line-height: 1.1; }
+    color: #232323;
+    font-family: "Calibre", -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.1; }
 
 h4 {
   letter-spacing: 1px;
   text-transform: uppercase;
   font-size: 0.875rem;
   font-weight: 600;
-  Margin-bottom: 0; }
+  margin-bottom: 0; }
 
 .body {
-  padding: 0 1.5rem;
-  font-family: "Georgia", -apple-system, BlinkMacSystemFont, sans-serif; }
-  .body a {
-    color: #F59178; }
+  padding: 0 1.5rem; }
 
 table.button table td a {
   text-transform: uppercase;
@@ -436,7 +424,8 @@ table.button table td a {
 
 .media {
   padding-bottom: 0.5rem; }
-  .media h4, .media img {
+  .media h4,
+  .media img {
     display: inline;
     vertical-align: middle; }
   .media img {
@@ -445,7 +434,7 @@ table.button table td a {
     line-height: 1;
     padding-left: 0.5rem;
     padding-bottom: 0;
-    Margin-bottom: 0; }
+    margin-bottom: 0; }
 
 .entry {
   background-color: white;
@@ -472,7 +461,8 @@ table.row.event {
   width: 60px;
   height: 60px;
   background-color: #232323; }
-  .event-date .month, .event-date .date {
+  .event-date .month,
+  .event-date .date {
     text-align: center;
     display: block;
     font-family: "Calibre", -apple-system, BlinkMacSystemFont, sans-serif;
@@ -495,14 +485,19 @@ table.row.event {
   .footer .container {
     background-color: transparent; }
   .footer ul {
-    list-style-type: none;
-    float: right; }
-    .footer ul li, .footer ul li a {
+    list-style-type: none; }
+    .footer ul li,
+    .footer ul li a {
       color: white;
       font-size: 0.9rem;
       line-height: 1.22;
       font-weight: 600;
       font-family: "Calibre", -apple-system, BlinkMacSystemFont, sans-serif; }
+  .footer .unsubscribe a {
+    color: white;
+    font-size: 12px;
+    font-family: "Calibre", -apple-system, BlinkMacSystemFont, sans-serif;
+    text-decoration: underline; }
 
 .event .month {
   font-size: 0.9375rem; }
@@ -526,7 +521,7 @@ th.columns.no-left {
 .side-lines .line {
   padding-top: 5px; }
   .side-lines .line hr {
-    border-color: #F59178;
+    border-color: #f59178;
     border-style: solid; }
 
 .side-lines .text {

@@ -3,7 +3,14 @@
 @import "settings";
 @import "foundation-emails";
 
-body, html, p, a, h1, h2, h3, h4 {
+body,
+html,
+p,
+a,
+h1,
+h2,
+h3,
+h4 {
   hyphens: none;
   font-smooth: never;
 }
@@ -14,7 +21,7 @@ body, html, p, a, h1, h2, h3, h4 {
 }
 
 .header .logo-text {
-  Margin-left: 10px;
+  margin-left: 10px;
 }
 .logo-text {
   text-align: left;
@@ -29,8 +36,9 @@ body, html, p, a, h1, h2, h3, h4 {
 .header {
   background-color: white;
   img {
-    width: 300px;
+    width: 130px;
     height: 80px;
+    display: inline-block;
   }
   .container {
     width: 565px;
@@ -70,16 +78,14 @@ h1 {
   font-weight: bold;
   line-height: 1;
   text-align: center;
+  color: $dark-gray;
   a {
     font-family: $header-font-family;
     color: $dark-gray;
     line-height: 1;
-    span {
-        font-family: $header-font-family;
-      color:$dark-gray;
-      @extend .underline;
-      font-weight: bold;
-    }
+
+    @extend .underline;
+    font-weight: bold;
   }
   text-transform: none;
 }
@@ -89,11 +95,6 @@ h2 {
   @extend .underline;
   background-position: 0 100%;
   line-height: 1.1;
-  span {
-    position: relative;
-    background-color: $light-gray;
-    padding: 0 10px;
-  }
 }
 
 h3 {
@@ -101,12 +102,10 @@ h3 {
   a {
     font-weight: bold;
     color: $dark-gray;
-    span {
-      font-family: $header-font-family;
-      color: $dark-gray;
-      @extend .underline;
-      line-height: 1.1;
-    }
+
+    font-family: $header-font-family;
+    @extend .underline;
+    line-height: 1.1;
   }
 }
 
@@ -115,14 +114,16 @@ h4 {
   text-transform: uppercase;
   font-size: 0.875rem;
   font-weight: 600;
-  Margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 p {
   font-size: 1.0625rem;
-  &, a {
+  a {
     line-height: 1.4;
-    text-decoration::none;
+    color: $primary-color;
+    text-decoration: none;
+    @extend .underline;
   }
 }
 
@@ -132,26 +133,12 @@ table tbody tr td .body p a {
 
 .body {
   padding: 0 1.5rem;
-  font-family: $body-font-family;
-  a {
-    color: $primary-color;
-  }
+  //font-family: $body-font-family;
 }
 
 .body p {
   color: $primary-color;
-}
-
-td > div.body > p, td > div.body >  p > a  {
   font-family: $body-font-family;
-}
-
-td > div.body > p > a {
-  color: $primary-color;
-}
-
-a {
-  @extend .underline;
 }
 
 table.button table td a {
@@ -162,7 +149,9 @@ table.button table td a {
 
 .media {
   padding-bottom: 0.5rem;
-  h4, img, div {
+  h4,
+  img,
+  div {
     display: inline;
     vertical-align: middle;
   }
@@ -172,7 +161,7 @@ table.button table td a {
   }
   img.featured {
     width: 100%;
-    height: 100%
+    height: 100%;
   }
   img {
     height: 25px;
@@ -185,7 +174,7 @@ table.button table td a {
     line-height: 1;
     padding-left: 0.5rem;
     padding-bottom: 0;
-    Margin-bottom: 0;
+    margin-bottom: 0;
   }
 }
 
@@ -218,14 +207,14 @@ table.row.event {
   background-color: white;
   padding-top: 1rem;
   padding-bottom: 1rem;
-
 }
 
 .event-date {
   width: 60px;
   height: 60px;
   background-color: $dark-gray;
-  .month, .date {
+  .month,
+  .date {
     text-align: center;
     display: block;
     font-family: $header-font-family;
@@ -241,7 +230,8 @@ a .event-date span {
 }
 
 .share {
-  svg, img {
+  svg,
+  img {
     max-height: 20px;
     max-width: 20px;
     display: inline;
@@ -270,9 +260,10 @@ a .event-date span {
   }
   ul {
     list-style-type: none;
-    float:right;
+
     li {
-      &, a {
+      &,
+      a {
         color: white;
         font-size: 0.9rem;
         line-height: 1.22;
@@ -280,6 +271,13 @@ a .event-date span {
         font-family: $header-font-family;
       }
     }
+  }
+
+  .unsubscribe a {
+    color: white;
+    font-size: 12px;
+    font-family: $header-font-family;
+    text-decoration: underline;
   }
 }
 
@@ -318,7 +316,6 @@ th.columns.no-right {
 .hero {
   max-width: 565px;
 }
-
 
 .side-lines {
   h2 {

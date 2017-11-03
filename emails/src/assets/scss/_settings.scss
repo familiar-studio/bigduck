@@ -15,7 +15,7 @@
 // 1. Global
 // ---------
 
-$primary-color: #F59178;
+$primary-color: #f59178;
 $secondary-color: #cf1974;
 $light-pink: #e072ad;
 $mid-pink: #a21e66;
@@ -23,7 +23,7 @@ $link-pink: #cf1974;
 $success-color: #3adb76;
 $warning-color: #ffae00;
 $alert-color: #ec5840;
-$light-gray: #F5F2F2;
+$light-gray: #f5f2f2;
 $medium-gray: #3e4b51;
 $brand-gray: #2c3237;
 $dark-gray: #232323;
@@ -59,14 +59,14 @@ $block-grid-gutter: $global-gutter;
 
 $global-font-color: $dark-gray;
 // $body-font-family: "Georgia", Verdana, -apple-system, BlinkMacSystemFont, Arial, sans-serif !default;
-$body-font-family: "Georgia", -apple-system, BlinkMacSystemFont, sans-serif !default;
+$body-font-family: "Georgia", Verdana, serif !default;
 $global-font-weight: 400;
 $header-color: inherit;
 $global-line-height: 27px;
 $global-font-size: 20px;
 $body-line-height: $global-line-height;
-// $header-font-family: "Calibre", -apple-system, BlinkMacSystemFont, Arial, sans-serif !default;
-$header-font-family: "Calibre", -apple-system, BlinkMacSystemFont, sans-serif !default;
+$header-font-family: "Calibre", -apple-system, BlinkMacSystemFont,
+  sans-serif !default;
 $header-font-weight: 900;
 $h1-font-size: 36px;
 $h2-font-size: 35px;

@@ -28,6 +28,12 @@ function bd_pre_get_posts( $query ) {
 
 add_filter('pre_get_posts', 'bd_pre_get_posts');
 
+add_action( 'save_post', function( $post_id ) {
+  if ( class_exists( 'WP_REST_Cache' ) ) {
+    WP_REST_Cache::empty_cache();
+  }
+} );
+
 function bd_search_where( $where ) {
     global $wpdb;
 

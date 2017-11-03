@@ -25,7 +25,7 @@ export const state = () => ({
   sectorsPath: "wp/v2/sector",
   topics: null,
   topicsPath: "wp/v2/topic",
-  types: [],
+  types: null,
   typesPath: "wp/v2/type"
 });
 
@@ -147,25 +147,37 @@ export const actions = {
       });
   },
   fetchTopics(context) {
-    return axios
-      .get(context.getters.hostname + context.state.topicsPath)
-      .then(response => {
-        context.commit("setTopics", response.data);
-      });
+    if (context.state.topics == null) {
+      return axios
+        .get(context.getters.hostname + context.state.topicsPath)
+        .then(response => {
+          context.commit("setTopics", response.data);
+        });
+    } else {
+      return null;
+    }
   },
   fetchSectors(context) {
-    return axios
-      .get(context.getters.hostname + context.state.sectorsPath)
-      .then(response => {
-        context.commit("setSectors", response.data);
-      });
+    if (context.state.topics == null) {
+      return axios
+        .get(context.getters.hostname + context.state.sectorsPath)
+        .then(response => {
+          context.commit("setSectors", response.data);
+        });
+    } else {
+      return null;
+    }
   },
   fetchTypes(context) {
-    return axios
-      .get(context.getters.hostname + context.state.typesPath)
-      .then(response => {
-        context.commit("setTypes", response.data);
-      });
+    if (context.state.topics == null) {
+      return axios
+        .get(context.getters.hostname + context.state.typesPath)
+        .then(response => {
+          context.commit("setTypes", response.data);
+        });
+    } else {
+      return null;
+    }
   },
   fetchEventCategories(context) {
     return axios

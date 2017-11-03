@@ -29,16 +29,15 @@
 </template>
 
 <script>
-import Work from '~/components/Work.vue'
-import FilterList from '~/components/FilterList.vue'
-import Chat from '~/components/Chat.vue'
+import Work from "~/components/Work.vue";
+import FilterList from "~/components/FilterList.vue";
+import Chat from "~/components/Chat.vue";
 
-import Axios from 'axios'
-import { mapState, mapGetters } from 'vuex'
-
+import Axios from "axios";
+import { mapState, mapGetters } from "vuex";
 
 export default {
-  name: 'work',
+  name: "work",
   data() {
     return {
       work: null,
@@ -46,96 +45,92 @@ export default {
         topic: null,
         sector: null
       }
-    }
+    };
   },
   components: {
-    Work, FilterList, Chat
+    Work,
+    FilterList,
+    Chat
   },
   computed: {
-    ...mapState(['topics', 'sectors']),
-    ...mapGetters(['getTopicsIndexedById']),
+    ...mapState(["topics", "sectors"]),
+    ...mapGetters(["getTopicsIndexedById"]),
     selectedTopic() {
-      return this.$route.query.topic
+      return this.$route.query.topic;
     }
   },
   watch: {
-    '$route.query': 'filterResults'
+    "$route.query": "filterResults"
   },
   async asyncData({ store, query }) {
     try {
-      store.commit('resetPage')
-      const response = await store.dispatch('fetchByQuery', { query: query, path: 'wp/v2/bd_case_study' })
+      store.commit("resetPage");
+      const response = await store.dispatch("fetchByQuery", {
+        query: query,
+        path: "wp/v2/bd_case_study"
+      });
       return {
         work: response.data
-      }
+      };
     } catch (e) {
-      console.error(e)
+      console.error(e);
     }
   },
   head() {
     if (this.work[0]) {
       return {
-        title: 'Work - All Projects',
+        title: "Work - All Projects",
         meta: [
           {
-            'property': 'og:title',
-            'content': 'Work - All Projects'
+            property: "og:title",
+            content: "Work - All Projects"
           },
           {
-            'property': 'twitter:title',
-            'content': 'Work - All Projects'
+            property: "twitter:title",
+            content: "Work - All Projects"
           },
           {
-            'hid': "description",
-            'property': 'description',
-            'content': "All Projects"
+            hid: "description",
+            property: "description",
+            content: "All Projects"
           },
           {
-            'property': 'og:description',
-            'content': "All Projects"
+            property: "og:description",
+            content: "All Projects"
           },
           {
-            'property': 'twitter:description',
-            'content': "All Projects"
-          },
-          {
-            'property': 'image',
-            'content': 'http://bigduck.familiar.studio/wordpress/wp-content/uploads/2017/07/28546982-bf3e1ad0-709a-11e7-9b12-3b5d1238669f.png'
-          },
-          {
-            'property': 'og:image:url',
-            'content': 'http://bigduck.familiar.studio/wordpress/wp-content/uploads/2017/07/28546982-bf3e1ad0-709a-11e7-9b12-3b5d1238669f.png'
-          },
-          {
-            'property': 'twitter:image',
-            'content': 'http://bigduck.familiar.studio/wordpress/wp-content/uploads/2017/07/28546982-bf3e1ad0-709a-11e7-9b12-3b5d1238669f.png'
+            property: "twitter:description",
+            content: "All Projects"
           }
         ]
-      }
+      };
     }
   },
   methods: {
     toggleTaxonomy(event) {
       // make a copy of the curren tquery string
-      let query = Object.assign({}, this.$route.query)
+      let query = Object.assign({}, this.$route.query);
 
       // toggle filters
       if (parseInt(query[event.taxonomy]) === event.id) {
-        delete query[event.taxonomy]
+        delete query[event.taxonomy];
       } else {
-        query[event.taxonomy] = event.id
+        query[event.taxonomy] = event.id;
       }
-      this.$router.push({ name: 'work-all', query: query })
+      this.$router.push({ name: "work-all", query: query });
     },
     resetFilters() {
-      this.$router.push({ name: 'work-all', query: null })
+      this.$router.push({ name: "work-all", query: null });
     },
     async filterResults() {
-      this.$store.commit('resetPage')
-      const response = await this.$store.dispatch('fetchByQuery', { path: 'wp/v2/bd_case_study', query: this.$route.query })
+      this.$store.commit("resetPage");
+      const response = await this.$store.dispatch("fetchByQuery", {
+        path: "wp/v2/bd_case_study",
+        query: this.$route.query
+      });
 
-      this.insights = response.data
+      this.insights = response.data;
     }
   }
-}
+};
 </script>

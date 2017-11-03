@@ -43,72 +43,66 @@
   </div>
 </template>
 <script>
-import Service from '~/components/Service.vue'
-
+import Service from "~/components/Service.vue";
 
 export default {
-  name: 'services',
+  name: "services",
   components: { Service },
   head() {
     if (this.servicesPage) {
       return {
-        title: 'Services',
+        title: "Services",
         meta: [
           {
-            'property': 'og:title',
-            'content': 'Services'
+            property: "og:title",
+            content: "Services"
           },
           {
-            'property': 'twitter:title',
-            'content': 'Services'
+            property: "twitter:title",
+            content: "Services"
           },
           {
-            'hid': "description",
-            'property': 'description',
-            'content': this.servicesPage.acf.text
+            hid: "description",
+            property: "description",
+            content: this.servicesPage.acf.text
           },
           {
-            'property': 'og:description',
-            'content': this.servicesPage.acf.text
+            property: "og:description",
+            content: this.servicesPage.acf.text
           },
           {
-            'property': 'twitter:description',
-            'content': this.servicesPage.acf.text
-          },
-          {
-            'property': 'image',
-            'content': 'http://bigduck.familiar.studio/wordpress/wp-content/uploads/2017/07/28546982-bf3e1ad0-709a-11e7-9b12-3b5d1238669f.png'
-          },
-          {
-            'property': 'og:image:url',
-            'content': 'http://bigduck.familiar.studio/wordpress/wp-content/uploads/2017/07/28546982-bf3e1ad0-709a-11e7-9b12-3b5d1238669f.png'
-          },
-          {
-            'property': 'twitter:image',
-            'content': 'http://bigduck.familiar.studio/wordpress/wp-content/uploads/2017/07/28546982-bf3e1ad0-709a-11e7-9b12-3b5d1238669f.png'
+            property: "twitter:description",
+            content: this.servicesPage.acf.text
           }
         ]
-      }
+      };
     }
   },
   computed: {
     brandraisingBenchmark() {
-      return this.services.filter((service) => { return service.slug === 'brandraising-benchmark' })[0]
+      return this.services.filter(service => {
+        return service.slug === "brandraising-benchmark";
+      })[0];
     },
 
     otherServices() {
-      return this.services.filter((service) => { return service.slug !== 'brandraising-benchmark' })
+      return this.services.filter(service => {
+        return service.slug !== "brandraising-benchmark";
+      });
     }
   },
   async asyncData({ store, query, state }) {
     const [page, services] = await Promise.all([
-      store.dispatch('fetchByQuery', { query: query, path: 'wp/v2/pages?slug=services' }),
-      store.dispatch('fetchByQuery', { query: query, path: 'wp/v2/bd_service' })
-    ])
-    let data = {}
-    data['servicesPage'] = page.data[0]
-    data['services'] = services.data.reverse()
-    return data
+      store.dispatch("fetchByQuery", {
+        query: query,
+        path: "wp/v2/pages?slug=services"
+      }),
+      store.dispatch("fetchByQuery", { query: query, path: "wp/v2/bd_service" })
+    ]);
+    let data = {};
+    data["servicesPage"] = page.data[0];
+    data["services"] = services.data.reverse();
+    return data;
   }
-}
+};
 </script>

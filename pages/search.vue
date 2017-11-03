@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import Axios from 'axios'
+import Axios from "axios";
 
 export default {
   data() {
@@ -67,47 +67,34 @@ export default {
       totalPages: null,
       query: null,
       results: null
-    }
+    };
   },
   head() {
-
-      return {
-        title: 'Search',
-        meta: [
-          {
-            'property': 'og:title',
-            'content': 'Search'
-          },
-          {
-            'property': 'twitter:title',
-            'content': 'Search'
-          },
-          {
-            'property': 'description',
-            'content': 'Find anything on our site.'
-          },
-          {
-            'property': 'og:description',
-            'content': 'Find anything on our site.'
-          },
-          {
-            'property': 'twitter:description',
-            'content': 'Find anything on our site.'
-          },
-          {
-            'property': 'image',
-            'content': 'http://bigduck.familiar.studio/wordpress/wp-content/uploads/2017/07/28546982-bf3e1ad0-709a-11e7-9b12-3b5d1238669f.png'
-          },
-          {
-            'property': 'og:image:url',
-            'content': 'http://bigduck.familiar.studio/wordpress/wp-content/uploads/2017/07/28546982-bf3e1ad0-709a-11e7-9b12-3b5d1238669f.png'
-          },
-          {
-            'property': 'twitter:image',
-            'content': 'http://bigduck.familiar.studio/wordpress/wp-content/uploads/2017/07/28546982-bf3e1ad0-709a-11e7-9b12-3b5d1238669f.png'
-          }
-        ]
-      }
+    return {
+      title: "Search",
+      meta: [
+        {
+          property: "og:title",
+          content: "Search"
+        },
+        {
+          property: "twitter:title",
+          content: "Search"
+        },
+        {
+          property: "description",
+          content: "Find anything on our site."
+        },
+        {
+          property: "og:description",
+          content: "Find anything on our site."
+        },
+        {
+          property: "twitter:description",
+          content: "Find anything on our site."
+        }
+      ]
+    };
   },
   async asyncData({ route, store }) {
     // let response = await Axios.get(store.getters.hostname + 'wp/v2/bd_insight?filter[s]=' + route.query.query)
@@ -116,18 +103,28 @@ export default {
     // }
   },
   mounted() {
-    this.query = this.$route.query.query
-    this.search()
+    this.query = this.$route.query.query;
+    this.search();
   },
   methods: {
     async search() {
       ///wp-json/wp/v2/multiple-post-type?search=awesome&type[]=post&type[]=page&type[]=article
-      let results = await Axios.get(this.$store.getters.hostname + 'wp/v2/multiple-post-type', { params: { search: this.query, type: ['bd_insight', 'bd_service', 'bd_case_study, bd_event'] } })
-      this.results = results.data
-      this.results.forEach((result) => {
-        result['post-type'] = result.guid.rendered.split('?post_type=')[1].split('&')[0]
-      })
+      let results = await Axios.get(
+        this.$store.getters.hostname + "wp/v2/multiple-post-type",
+        {
+          params: {
+            search: this.query,
+            type: ["bd_insight", "bd_service", "bd_case_study, bd_event"]
+          }
+        }
+      );
+      this.results = results.data;
+      this.results.forEach(result => {
+        result["post-type"] = result.guid.rendered
+          .split("?post_type=")[1]
+          .split("&")[0];
+      });
     }
   }
-}
+};
 </script>
