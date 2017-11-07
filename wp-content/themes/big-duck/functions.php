@@ -24,15 +24,6 @@ function bd_pre_get_posts( $query ) {
 	return $query;
 }
 
-// function sort_insights_by_date( $query ) {
-// 	if ( isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == 'bd_insight' ) {
-// 		$query->set('orderby', 'date');
-// 	}
-// }
-//
-//
-// add_filter('pre_get_posts', 'sort_insights_by_date');
-
 
 
 add_filter('pre_get_posts', 'bd_pre_get_posts');
@@ -42,17 +33,6 @@ add_action( 'save_post', function( $post_id ) {
     WP_REST_Cache::empty_cache();
   }
 } );
-
-function bd_search_join( $join ) {
-	global $wpdb;
-
-	if ( is_search() ) {
-		$join .=' LEFT JOIN '.$wpdb->postmeta. ' ON ' . $wpdb->posts . '.ID = ' . $wpdb->postmeta . '.post_id';
-	}
-	return $join;
-}
-
-add_filter('posts_join', 'bd_search_join');
 
 function bd_search_where( $where ) {
     global $wpdb;
@@ -134,9 +114,6 @@ function my_toolbars( $toolbars )
 	{
 	    unset( $toolbars['Full' ][2][$key] );
 	}
-
-	// var_dump( $toolbars['Basic']);
-	// die();
 
 	// Edit the "Full" toolbar and remove 'code'
 	// - delet from array code from http://stackoverflow.com/questions/7225070/php-array-delete-by-value-not-key
