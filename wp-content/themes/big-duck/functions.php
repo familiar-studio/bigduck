@@ -13,7 +13,7 @@ function bd_pre_get_posts( $query ) {
 		if(! is_admin()){
 			$query->set('meta_query', array(
 				array(
-					'key' => 'start_time',
+					'key' => 'end_time',
 					'value' => $today,
 					'compare' => '>'
 				)
