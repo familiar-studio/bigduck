@@ -22,7 +22,7 @@ module.exports = {
       },
       {
         hid: "description",
-        property: "description",
+        name: "description",
         content:
           "Big Duck develops the voices of nonprofit organizations by developing strong brands, campaigns, and communications teams."
       },
