@@ -300,10 +300,10 @@ export default {
 
           // fill in prefilled data!
           if (this.actonId) {
-            this.formData.input_19 = this.title;
-            this.formData.input_20 = this.id;
-            this.formData.input_22 = this.actonId;
-            this.formData.input_23 = this.actonId;
+            this.formData.input_36 = this.title;
+            this.formData.input_32 = this.id;
+            this.formData.input_34 = this.actonId;
+            this.formData.input_35 = this.actonId;
           }
 
           if (this.gatedContent) {
