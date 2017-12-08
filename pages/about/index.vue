@@ -161,14 +161,13 @@
   </div>
 </template>
 <script>
-import Axios from 'axios'
-import Event from '~/components/Event.vue'
-import Chat from '~/components/Chat.vue'
-import Vue from 'vue'
-
+import Axios from "axios";
+import Event from "~/components/Event.vue";
+import Chat from "~/components/Chat.vue";
+import Vue from "vue";
 
 export default {
-  name: 'about',
+  name: "about",
   components: {
     Event,
     Chat
@@ -179,95 +178,101 @@ export default {
         title: this.page.acf.we_believe_headline,
         meta: [
           {
-            'property': 'og:title',
-            'content': this.page.acf.we_believe_headline
+            property: "og:title",
+            content: this.page.acf.we_believe_headline
           },
           {
-            'property': 'twitter:title',
-            'content': this.page.acf.we_believe_headline
+            property: "twitter:title",
+            content: this.page.acf.we_believe_headline
           },
           {
-            'hid': "description",
-            'property': 'description',
-            'content': this.page.acf.we_believe_body
+            hid: "description",
+            name: "description",
+            content: this.page.acf.we_believe_body
           },
           {
-            'property': 'og:description',
-            'content': this.page.acf.we_believe_body
+            property: "og:description",
+            content: this.page.acf.we_believe_body
           },
           {
-            'property': 'twitter:description',
-            'content': this.page.acf.we_believe_body
+            property: "twitter:description",
+            content: this.page.acf.we_believe_body
           },
           {
-            'property': 'image',
-            'content': this.page.acf.featured_image.url
+            property: "image",
+            content: this.page.acf.featured_image.url
           },
           {
-            'property': 'og:image:url',
-            'content': this.page.acf.featured_image.url
+            property: "og:image:url",
+            content: this.page.acf.featured_image.url
           },
           {
-            'property': 'twitter:image',
-            'content': this.page.acf.featured_image.url
+            property: "twitter:image",
+            content: this.page.acf.featured_image.url
           }
         ]
-      }
+      };
     }
   },
   data() {
     return {
       scrollPos: 0,
-      activeSection: 'we-believe'
-    }
+      activeSection: "we-believe"
+    };
   },
   async asyncData({ store, query, dispatch }) {
-    let data = {}
-    let page = await Axios.get(store.getters['hostname'] + 'wp/v2/pages?slug=about')
-    let openCategories = {}
+    let data = {};
+    let page = await Axios.get(
+      store.getters["hostname"] + "wp/v2/pages?slug=about"
+    );
+    let openCategories = {};
 
-    page.data[0].acf.clients.forEach((client) => { openCategories[client.client_category] = false })
-    data['openCategories'] = openCategories
-    data['pageObject'] = page.data
+    page.data[0].acf.clients.forEach(client => {
+      openCategories[client.client_category] = false;
+    });
+    data["openCategories"] = openCategories;
+    data["pageObject"] = page.data;
     let [team, jobs, openHouse] = await Promise.all([
-      store.dispatch('fetch', 'familiar/v1/team'),
-      store.dispatch('fetch', 'wp/v2/bd_job'),
-      store.dispatch('fetch', 'wp/v2/bd_event?event_category=31')
-    ])
-    let openJobs = {}
-    jobs.data.forEach((job) => { openJobs[job.id] = false })
-    data['openJobs'] = openJobs
-    data['team'] = team.data
-    data['jobs'] = jobs.data
+      store.dispatch("fetch", "familiar/v1/team"),
+      store.dispatch("fetch", "wp/v2/bd_job"),
+      store.dispatch("fetch", "wp/v2/bd_event?event_category=31")
+    ]);
+    let openJobs = {};
+    jobs.data.forEach(job => {
+      openJobs[job.id] = false;
+    });
+    data["openJobs"] = openJobs;
+    data["team"] = team.data;
+    data["jobs"] = jobs.data;
 
     // arrange clients into sectors:
-    const sectors = store.state.sectors.sort()
-    data['openHouse'] = openHouse.data
-    return data
+    const sectors = store.state.sectors.sort();
+    data["openHouse"] = openHouse.data;
+    return data;
   },
   computed: {
     page() {
-      return this.pageObject[0]
+      return this.pageObject[0];
     },
     sectorsByIndex() {
-      return this.$store.getters['getSectorsIndexedById']
+      return this.$store.getters["getSectorsIndexedById"];
     }
   },
   methods: {
     activateSection(sectionName) {
-      this.activeSection = sectionName
+      this.activeSection = sectionName;
     },
     toggleClient(categoryId) {
-      this.openCategories[categoryId] = !this.openCategories[categoryId]
+      this.openCategories[categoryId] = !this.openCategories[categoryId];
     },
     toggleJob(jobId) {
-      this.openJobs[jobId] = !this.openJobs[jobId]
+      this.openJobs[jobId] = !this.openJobs[jobId];
     },
     teamMemberBySlug(slug) {
-      return this.team.filter((teamMember) => {
-        return teamMember.slug === slug
-      })[0]
+      return this.team.filter(teamMember => {
+        return teamMember.slug === slug;
+      })[0];
     }
   }
-}
+};
 </script>

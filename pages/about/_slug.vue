@@ -62,53 +62,53 @@
 </template>
 
 <script>
-import Axios from 'axios'
-import Event from '~/components/Event.vue'
-import Post from '~/components/Post.vue'
-import { mapGetters } from 'vuex'
+import Axios from "axios";
+import Event from "~/components/Event.vue";
+import Post from "~/components/Post.vue";
+import { mapGetters } from "vuex";
 
 export default {
-  name: 'team-member',
+  name: "team-member",
   head() {
     if (this.member) {
       return {
         title: this.member.name,
         meta: [
           {
-            'property': 'og:title',
-            'content': this.member.name
+            property: "og:title",
+            content: this.member.name
           },
           {
-            'property': 'twitter:title',
-            'content': this.member.name
+            property: "twitter:title",
+            content: this.member.name
           },
           {
-            'hid': "description",
-            'property': 'description',
-            'content': this.member.job_title
+            hid: "description",
+            name: "description",
+            content: this.member.job_title
           },
           {
-            'property': 'og:description',
-            'content': this.member.job_title
+            property: "og:description",
+            content: this.member.job_title
           },
           {
-            'property': 'twitter:description',
-            'content': this.member.job_title
+            property: "twitter:description",
+            content: this.member.job_title
           },
           {
-            'property': 'image',
-            'content': this.member.headshot.url
+            property: "image",
+            content: this.member.headshot.url
           },
           {
-            'property': 'og:image:url',
-            'content': this.member.headshot.url
+            property: "og:image:url",
+            content: this.member.headshot.url
           },
           {
-            'property': 'twitter:image',
-            'content': this.member.headshot.url
+            property: "twitter:image",
+            content: this.member.headshot.url
           }
         ]
-      }
+      };
     }
   },
   data() {
@@ -118,49 +118,69 @@ export default {
       insightsPerPage: 2,
       insightsPage: 0,
       totalInsightsPages: null
-    }
+    };
   },
   components: {
-    Event, Post
+    Event,
+    Post
   },
   computed: {
-    ...mapGetters(['hostname', 'relatedInsightsPerPage']),
+    ...mapGetters(["hostname", "relatedInsightsPerPage"]),
     relatedEventsLength() {
       if (this.relatedEvents && this.relatedEvents) {
-        return this.relatedEvents.length
+        return this.relatedEvents.length;
       } else {
-        return 0
+        return 0;
       }
     }
   },
   async created() {
     //let relatedEventIds = this.member.events.map((event) => { return event.ID })
     //    if (relatedEventIds && relatedEventIds.length > 0) {
-    let response = await Axios.get(this.hostname + 'familiar/v1/events/user/' + this.member.slug)
-    this.relatedEvents = response.data.events
+    let response = await Axios.get(
+      this.hostname + "familiar/v1/events/user/" + this.member.slug
+    );
+    this.relatedEvents = response.data.events;
     //}
-    let responseInsights = await Axios.get(this.hostname + 'familiar/v1/insights/user/' + this.member.slug,
-      { params: { posts_per_page: this.insightsPerPage, page: this.insightsPage } })
-    this.totalInsightsPages = responseInsights.data.pages
-    this.relatedInsights = responseInsights.data.data
+    let responseInsights = await Axios.get(
+      this.hostname + "familiar/v1/insights/user/" + this.member.slug,
+      {
+        params: {
+          posts_per_page: this.insightsPerPage,
+          page: this.insightsPage
+        }
+      }
+    );
+    this.totalInsightsPages = responseInsights.data.pages;
+    this.relatedInsights = responseInsights.data.data;
   },
   async asyncData({ store, params }) {
-    let response = await Axios.get(store.getters['hostname'] + 'familiar/v1/team/' + params.slug)
+    let response = await Axios.get(
+      store.getters["hostname"] + "familiar/v1/team/" + params.slug
+    );
     return {
       member: response.data
-    }
+    };
   },
   methods: {
     nextPage() {
-      this.insightsPage++
-      this.fetchMoreInsights()
+      this.insightsPage++;
+      this.fetchMoreInsights();
     },
     async fetchMoreInsights() {
-      let response = await Axios.get(this.hostname + 'familiar/v1/insights/user/' + this.member.slug + '?posts_per_page=' + this.insightsPerPage + '&page=' + this.insightsPage)
-      this.relatedInsights = this.relatedInsights.concat(response.data.data)
+      let response = await Axios.get(
+        this.hostname +
+          "familiar/v1/insights/user/" +
+          this.member.slug +
+          "?posts_per_page=" +
+          this.insightsPerPage +
+          "&page=" +
+          this.insightsPage
+      );
+      this.relatedInsights = this.relatedInsights.concat(response.data.data);
     }
   }
-}
+};
 </script>
 
 <style lang="css">

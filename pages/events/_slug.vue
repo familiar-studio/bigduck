@@ -125,19 +125,18 @@
   </div>
 </template>
 <script>
-import Axios from 'axios'
-import Chat from '~/components/Chat.vue'
-import dateFns from 'date-fns'
-import Event from '~/components/Event.vue'
-import GravityForm from '~/components/GravityForm.vue'
-import Post from '~/components/Post.vue'
-import Share from '~/components/Share.vue'
+import Axios from "axios";
+import Chat from "~/components/Chat.vue";
+import dateFns from "date-fns";
+import Event from "~/components/Event.vue";
+import GravityForm from "~/components/GravityForm.vue";
+import Post from "~/components/Post.vue";
+import Share from "~/components/Share.vue";
 
-
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters } from "vuex";
 
 export default {
-  name: 'event',
+  name: "event",
   components: {
     Chat,
     Event,
@@ -153,112 +152,130 @@ export default {
       relatedEvents: null,
       contentRefreshed: false,
       completedRegister: false
-    }
+    };
   },
   head() {
     if (this.event) {
-
       return {
         title: this.event.title.rendered,
         meta: [
           {
-            'property': 'og:title',
-            'content': this.event.title.rendered
+            property: "og:title",
+            content: this.event.title.rendered
           },
           {
-            'property': 'twitter:title',
-            'content': this.event.title.rendered
+            property: "twitter:title",
+            content: this.event.title.rendered
           },
           {
-            'hid': "description",
-            'property': 'description',
-            'content': this.event.acf.subtitle
+            hid: "description",
+            name: "description",
+            content: this.event.acf.subtitle
           },
           {
-            'property': 'og:description',
-            'content': this.event.acf.subtitle
+            property: "og:description",
+            content: this.event.acf.subtitle
           },
           {
-            'property': 'twitter:description',
-            'content': this.event.acf.subtitle
+            property: "twitter:description",
+            content: this.event.acf.subtitle
           },
           {
-            'property': 'image',
-            'content': this.event.acf.featured_image.url
+            property: "image",
+            content: this.event.acf.featured_image.url
           },
           {
-            'property': 'og:image:url',
-            'content': this.event.acf.featured_image.url
+            property: "og:image:url",
+            content: this.event.acf.featured_image.url
           },
           {
-            'property': 'twitter:image',
-            'content': this.event.acf.featured_image.url
+            property: "twitter:image",
+            content: this.event.acf.featured_image.url
           }
         ]
-      }
+      };
     }
   },
   async asyncData({ store, query, params }) {
-    let data = {}
-    let response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_event', { params: { slug: params.slug } })
-    data.event = response.data[0]
-    data.relatedEventsIds = data.event.acf.related_events ? data.event.acf.related_events.map((e) => { return e.ID }) : null
-    data.relatedInsightsIds = data.event.acf.related_insights ? data.event.acf.related_insights.map((e) => { return e.ID }) : null
-    return data
+    let data = {};
+    let response = await Axios.get(
+      store.getters["hostname"] + "wp/v2/bd_event",
+      { params: { slug: params.slug } }
+    );
+    data.event = response.data[0];
+    data.relatedEventsIds = data.event.acf.related_events
+      ? data.event.acf.related_events.map(e => {
+          return e.ID;
+        })
+      : null;
+    data.relatedInsightsIds = data.event.acf.related_insights
+      ? data.event.acf.related_insights.map(e => {
+          return e.ID;
+        })
+      : null;
+    return data;
   },
   created() {
     // get related events
     if (this.relatedEventsIds) {
-      Axios.get(this.hostname + 'wp/v2/bd_event', { params: { include: this.relatedEventsIds } }).then((response) => {
-        this.relatedEvents = response.data
-      })
+      Axios.get(this.hostname + "wp/v2/bd_event", {
+        params: { include: this.relatedEventsIds }
+      }).then(response => {
+        this.relatedEvents = response.data;
+      });
     }
 
     // get related insights
     if (this.relatedInsightsIds) {
-      Axios.get(this.hostname + 'wp/v2/bd_insight', { params: { include: this.relatedInsightsIds } }).then((response) => {
-        this.relatedInsights = response.data
-      })
+      Axios.get(this.hostname + "wp/v2/bd_insight", {
+        params: { include: this.relatedInsightsIds }
+      }).then(response => {
+        this.relatedInsights = response.data;
+      });
     }
   },
   mounted() {
-    if (process.browser && this.event && typeof localStorage !== 'undefined') {
+    if (process.browser && this.event && typeof localStorage !== "undefined") {
       //figure out whether the user has filled out the form from the localstorage
-      if (localStorage['event-' + this.event.id]) {
+      if (localStorage["event-" + this.event.id]) {
         this.completedRegister = true;
       }
     }
   },
   computed: {
-    ...mapState(['globals', 'callouts', 'topics']),
-    ...mapGetters(['hostname', 'getTopicsIndexedById', 'getEventCategoriesIndexedById']),
+    ...mapState(["globals", "callouts", "topics"]),
+    ...mapGetters([
+      "hostname",
+      "getTopicsIndexedById",
+      "getEventCategoriesIndexedById"
+    ]),
 
     month() {
-      return dateFns.format(this.event.acf.start_time, 'MMM')
+      return dateFns.format(this.event.acf.start_time, "MMM");
     },
     date() {
-      return dateFns.format(this.event.acf.start_time, 'D')
+      return dateFns.format(this.event.acf.start_time, "D");
     },
     start_time() {
-      return dateFns.format(this.event.acf.start_time, 'h:mma')
+      return dateFns.format(this.event.acf.start_time, "h:mma");
     },
     end_time() {
-      return dateFns.format(this.event.acf.end_time, 'h:mma')
+      return dateFns.format(this.event.acf.end_time, "h:mma");
     },
     registered() {
       if (this.completedRegister || this.contentRefreshed) {
-        return true
+        return true;
       }
 
-      return false
+      return false;
     }
   },
   methods: {
     refreshContent() {
-      this.contentRefreshed = true
+      this.contentRefreshed = true;
     }
   }
-}
+};
 </script>
 <!-- /*<style>
   .speaker {

@@ -180,23 +180,18 @@
   </div>
 </template>
 <script>
+import Axios from "axios";
 
-import Axios from 'axios'
-
-import dateFns from 'date-fns'
-import GravityForm from '~/components/GravityForm.vue'
-import { mapState, mapGetters, mapActions } from 'vuex'
-import Post from '~/components/Post.vue'
-import Share from '~/components/Share.vue'
-import Chat from '~/components/Chat.vue'
-import flickity from '~/components/Flickity.vue'
-
-
-
-
+import dateFns from "date-fns";
+import GravityForm from "~/components/GravityForm.vue";
+import { mapState, mapGetters, mapActions } from "vuex";
+import Post from "~/components/Post.vue";
+import Share from "~/components/Share.vue";
+import Chat from "~/components/Chat.vue";
+import flickity from "~/components/Flickity.vue";
 
 export default {
-  name: 'insight',
+  name: "insight",
   components: {
     Share,
     GravityForm,
@@ -211,126 +206,144 @@ export default {
       authors: null,
       contentRefreshed: false,
       completedGate: false
-    }
+    };
   },
   async asyncData({ state, params, store, error }) {
-    let data = {}
+    let data = {};
     try {
-
-      let response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_insight', { params: { slug: params.slug } })
-      data.insight = response.data[0]
+      let response = await Axios.get(
+        store.getters["hostname"] + "wp/v2/bd_insight",
+        { params: { slug: params.slug } }
+      );
+      data.insight = response.data[0];
       if (data.insight.acf.related_case_studies) {
-        data.relatedWorkIds = data.insight.acf.related_case_studies.map((caseStudy) => { return caseStudy.ID })
+        data.relatedWorkIds = data.insight.acf.related_case_studies.map(
+          caseStudy => {
+            return caseStudy.ID;
+          }
+        );
       }
       if (data.insight.acf.related_insights) {
-        data.relatedInsightIds = data.insight.acf.related_insights.map((insight) => { return insight.ID })
+        data.relatedInsightIds = data.insight.acf.related_insights.map(
+          insight => {
+            return insight.ID;
+          }
+        );
       }
       if (data.insight.acf.author.length > 0) {
-        data.authorIds = data.insight.acf.author.map((author) => { return author.ID })
+        data.authorIds = data.insight.acf.author.map(author => {
+          return author.ID;
+        });
       }
-      return data
+      return data;
     } catch (e) {
-      error({ statusCode: 404, message: 'Post not found' })
+      error({ statusCode: 404, message: "Post not found" });
     }
   },
   head() {
     if (this.insight && this.insight.acf) {
       return {
-
         title: this.title,
         meta: [
           {
-            'property': 'og:title',
-            'content': this.title
+            property: "og:title",
+            content: this.title
           },
           {
-            'property': 'twitter:title',
-            'content': this.title
+            property: "twitter:title",
+            content: this.title
           },
           {
             hid: "description",
 
-            'property': 'description',
-            'content': this.description
+            name: "description",
+            content: this.description
           },
           {
-            'property': 'og:description',
-            'content': this.description
+            property: "og:description",
+            content: this.description
           },
           {
-            'property': 'twitter:description',
-            'content': this.description
+            property: "twitter:description",
+            content: this.description
           },
           {
-            'property': 'image',
-            'content': this.insight.acf.featured_image
+            property: "image",
+            content: this.insight.acf.featured_image
           },
           {
-            'property': 'og:image:url',
-            'content': this.insight.acf.featured_image
+            property: "og:image:url",
+            content: this.insight.acf.featured_image
           },
           {
-            'property': 'twitter:image',
-            'content': this.insight.acf.featured_image
+            property: "twitter:image",
+            content: this.insight.acf.featured_image
           },
           {
-            'property': 'og:type',
-            'content': 'article'
+            property: "og:type",
+            content: "article"
           },
           {
-            'property': 'twitter:card',
-            'content': 'summary'
+            property: "twitter:card",
+            content: "summary"
           }
         ]
-      }
+      };
     }
   },
   computed: {
-    ...mapState(['types', 'topics', 'globals']),
-    ...mapGetters(['hostname', 'getTopicsIndexedById', 'getTypesIndexedById']),
+    ...mapState(["types", "topics", "globals"]),
+    ...mapGetters(["hostname", "getTopicsIndexedById", "getTypesIndexedById"]),
     backupImage() {
-      let images = this.globals.backup_insights_images
-      return images[this.insight.id % images.length].backup_insight_image
+      let images = this.globals.backup_insights_images;
+      return images[this.insight.id % images.length].backup_insight_image;
     },
     date() {
-      return dateFns.format(this.insight.date, 'MMM D, YYYY')
+      return dateFns.format(this.insight.date, "MMM D, YYYY");
     },
     formId() {
       if (process.browser) {
-        var parser = new DOMParser()
-        var doc = parser.parseFromString(this.insight.content.rendered, 'text/html')
-        var formId = doc.getElementById('form-id')
+        var parser = new DOMParser();
+        var doc = parser.parseFromString(
+          this.insight.content.rendered,
+          "text/html"
+        );
+        var formId = doc.getElementById("form-id");
         if (formId) {
-          return Number(formId.innerHTML)
+          return Number(formId.innerHTML);
         } else {
-          return false
+          return false;
         }
       }
-      return null
+      return null;
     },
     authorsById() {
       if (this.insight) {
         let authors = {};
-        this.insight.acf.author.forEach((author) => {
-          authors[author.ID] = author
-        })
+        this.insight.acf.author.forEach(author => {
+          authors[author.ID] = author;
+        });
       }
-      return authors
+      return authors;
     },
     authorMetaById() {
       if (this.authors) {
-        let authorsById = {}
-        this.authors.forEach((author) => {
-          authorsById[author.id] = author
-        })
-        return authorsById
+        let authorsById = {};
+        this.authors.forEach(author => {
+          authorsById[author.id] = author;
+        });
+        return authorsById;
       }
     },
     description() {
-      return this.insight.acf.meta_description ? this.insight.acf.meta_description.slice(0, 160) : this.insight.acf.short_description.slice(0, 160)
+      return this.insight.acf.meta_description
+        ? this.insight.acf.meta_description.slice(0, 160)
+        : this.insight.acf.short_description.slice(0, 160);
     },
     title() {
-      return this.insight.acf.meta_title ? this.insight.acf.meta_title : this.insight.title.rendered
+      return this.insight.acf.meta_title
+        ? this.insight.acf.meta_title
+        : this.insight.title.rendered;
     },
     downloadUrl() {
       if (this.insight.acf.gated_content_download_url) {
@@ -342,64 +355,68 @@ export default {
       }
 
       return null;
-
     },
     viewGatedContent() {
       if (this.completedGate || this.contentRefreshed) {
-        return true
+        return true;
       }
 
-      return false
+      return false;
     }
-
   },
   created() {
     // get related case studies
     if (this.relatedWorkIds) {
-      Axios.get(this.hostname + 'wp/v2/bd_case_study', { params: { include: this.relatedWorkIds } }).then((response) => {
-        this.relatedCaseStudies = response.data
-      })
+      Axios.get(this.hostname + "wp/v2/bd_case_study", {
+        params: { include: this.relatedWorkIds }
+      }).then(response => {
+        this.relatedCaseStudies = response.data;
+      });
     }
     if (this.relatedInsightIds) {
-      Axios.get(this.hostname + 'wp/v2/bd_insight', { params: { include: this.relatedInsightIds } }).then((response) => {
-        this.relatedInsights = response.data
-      })
+      Axios.get(this.hostname + "wp/v2/bd_insight", {
+        params: { include: this.relatedInsightIds }
+      }).then(response => {
+        this.relatedInsights = response.data;
+      });
     }
     if (this.authorIds) {
-      Axios.get(this.hostname + 'acf/v3/users', { params: { include: this.authorIds } }).then((response) => {
-        this.authors = response.data
-      })
+      Axios.get(this.hostname + "acf/v3/users", {
+        params: { include: this.authorIds }
+      }).then(response => {
+        this.authors = response.data;
+      });
     }
-
-
 
     // }
   },
   mounted() {
-
-    if (process.browser && this.insight && typeof localStorage !== 'undefined') {
+    if (
+      process.browser &&
+      this.insight &&
+      typeof localStorage !== "undefined"
+    ) {
       //figure out whether the user has filled out the form from the localstorage
-      if (localStorage['insight-' + this.insight.id]) {
+      if (localStorage["insight-" + this.insight.id]) {
         this.completedGate = true;
       }
     }
   },
   methods: {
-    ...mapActions(['fetch']),
+    ...mapActions(["fetch"]),
     prependIndefiniteArticle(word) {
       if (word) {
-        if ('aeiou'.indexOf(word.split('')[0].toLowerCase()) > -1) {
-          return 'an ' + word
+        if ("aeiou".indexOf(word.split("")[0].toLowerCase()) > -1) {
+          return "an " + word;
         } else {
-          return 'a ' + word
+          return "a " + word;
         }
       }
-      return null
+      return null;
     },
     refreshContent() {
-      this.contentRefreshed = true
+      this.contentRefreshed = true;
     }
-
   }
-}
+};
 </script>
