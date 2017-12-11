@@ -56,8 +56,7 @@ module.exports = {
       { rel: "icon", type: "image/png", href: "/favicon.png", sizes: "16x16" }
     ],
     script: [
-      { src: "https://hi.bigducknyc.com/cdnr/30/acton/bn/tracker/4852" },
-      { src: "https://cdn.polyfill.io/v2/polyfill.min.js" }
+      { src: "https://hi.bigducknyc.com/cdnr/30/acton/bn/tracker/4852" }
     ],
 
     __dangerouslyDisableSanitizers: ["title", "description"]
@@ -103,7 +102,7 @@ module.exports = {
     /*
     ** Run ESLINT on save
     */
-    vendor: ["axios", "date-fns", "crypto-js", "flickity"],
+    vendor: ["axios", "date-fns", "crypto-js", "flickity", "babel-polyfill"],
     extend(config, ctx) {
       if (ctx.isClient) {
         config.module.rules.push({
