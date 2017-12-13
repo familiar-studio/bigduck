@@ -246,45 +246,43 @@ export default {
         title: this.title,
         meta: [
           {
-            property: "og:title",
-            content: this.title
+            hid: "og:title",
+            content: this.title + " | Big Duck"
           },
           {
-            property: "twitter:title",
-            content: this.title
+            hid: "twitter:title",
+            content: this.title + " | Big Duck"
           },
           {
             hid: "description",
-
-            name: "description",
             content: this.description
           },
           {
-            property: "og:description",
+            hid: "og:description",
             content: this.description
           },
           {
-            property: "twitter:description",
+            hid: "twitter:description",
             content: this.description
           },
           {
-            property: "image",
+            hid: "image",
             content: this.insight.acf.featured_image
           },
           {
-            property: "og:image:url",
+            hid: "og:image:url",
             content: this.insight.acf.featured_image
           },
           {
-            property: "twitter:image",
+            hid: "twitter:image",
             content: this.insight.acf.featured_image
           },
           {
-            property: "og:type",
+            name: "og:type",
             content: "article"
           },
           {
-            property: "twitter:card",
+            name: "twitter:card",
             content: "summary"
           }
         ]

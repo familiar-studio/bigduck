@@ -35,36 +35,35 @@ export default {
         title: this.title,
         meta: [
           {
-            property: "og:title",
+            hid: "og:title",
             content: this.title
           },
           {
-            property: "twitter:title",
+            hid: "twitter:title",
             content: this.title
           },
           {
             hid: "description",
-            name: "description",
             content: this.content
           },
           {
-            property: "og:description",
+            hid: "og:description",
             content: this.content
           },
           {
-            property: "twitter:description",
+            hid: "twitter:description",
             content: this.content
           },
           {
-            property: "image",
+            hid: "image",
             content: this.image
           },
           {
-            property: "og:image:url",
+            hid: "og:image:url",
             content: this.image
           },
           {
-            property: "twitter:image",
+            hid: "twitter:image",
             content: this.image
           }
         ]

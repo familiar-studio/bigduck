@@ -88,36 +88,35 @@ export default {
         title: this.service.title.rendered,
         meta: [
           {
-            property: "og:title",
+            hid: "og:title",
             content: this.service.title.rendered
           },
           {
-            property: "twitter:title",
+            hid: "twitter:title",
             content: this.service.title.rendered
           },
           {
             hid: "description",
-            name: "description",
             content: this.service.acf.introduction
           },
           {
-            property: "og:description",
+            hid: "og:description",
             content: this.service.acf.introduction
           },
           {
-            property: "twitter:description",
+            hid: "twitter:description",
             content: this.service.acf.introduction
           },
           {
-            property: "image",
+            hid: "image",
             content: this.service.acf.featured_image.url
           },
           {
-            property: "og:image:url",
+            hid: "og:image:url",
             content: this.service.acf.featured_image.url
           },
           {
-            property: "twitter:image",
+            hid: "twitter:image",
             content: this.service.acf.featured_image.url
           }
         ]

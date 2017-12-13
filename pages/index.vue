@@ -91,26 +91,25 @@ export default {
       titleTemplate: null,
       meta: [
         {
-          property: "og:title",
+          hid: "og:title",
           content: "Big Duck"
         },
         {
-          property: "twitter:title",
+          hid: "twitter:title",
           content: "Big Duck"
         },
         {
           hid: "description",
-          name: "description",
           content:
             "Big Duck develops the voices of nonprofit organizations by developing strong brands, campaigns, and communications teams."
         },
         {
-          property: "og:description",
+          hid: "og:description",
           content:
             "Big Duck develops the voices of nonprofit organizations by developing strong brands, campaigns, and communications teams."
         },
         {
-          property: "twitter:description",
+          hid: "twitter:description",
           content:
             "Big Duck develops the voices of nonprofit organizations by developing strong brands, campaigns, and communications teams."
         }

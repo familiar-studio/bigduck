@@ -14,35 +14,35 @@ export default {
         title: this.title,
         meta: [
           {
-            property: "og:title",
+            hid: "og:title",
             content: this.title
           },
           {
-            property: "twitter:title",
+            hid: "twitter:title",
             content: this.title
           },
           {
-            name: "description",
+            hid: "description",
             content: "Interested in having Big Duck speak at your organization?"
           },
           {
-            property: "og:description",
+            hid: "og:description",
             content: "Interested in having Big Duck speak at your organization?"
           },
           {
-            property: "twitter:description",
+            hid: "twitter:description",
             content: "Interested in having Big Duck speak at your organization?"
           },
           {
-            property: "image",
+            hid: "image",
             content: this.image
           },
           {
-            property: "og:image:url",
+            hid: "og:image:url",
             content: this.image
           },
           {
-            property: "twitter:image",
+            hid: "twitter:image",
             content: this.image
           }
         ]

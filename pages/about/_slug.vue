@@ -75,36 +75,35 @@ export default {
         title: this.member.name,
         meta: [
           {
-            property: "og:title",
+            hid: "og:title",
             content: this.member.name
           },
           {
-            property: "twitter:title",
+            hid: "twitter:title",
             content: this.member.name
           },
           {
             hid: "description",
-            name: "description",
             content: this.member.job_title
           },
           {
-            property: "og:description",
+            hid: "og:description",
             content: this.member.job_title
           },
           {
-            property: "twitter:description",
+            hid: "twitter:description",
             content: this.member.job_title
           },
           {
-            property: "image",
+            hid: "image",
             content: this.member.headshot.url
           },
           {
-            property: "og:image:url",
+            hid: "og:image:url",
             content: this.member.headshot.url
           },
           {
-            property: "twitter:image",
+            hid: "twitter:image",
             content: this.member.headshot.url
           }
         ]

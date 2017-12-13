@@ -76,24 +76,23 @@ export default {
         title: "Upcoming Events",
         meta: [
           {
-            property: "og:title",
+            hid: "og:title",
             content: "Upcoming Events"
           },
           {
-            property: "twitter:title",
+            hid: "twitter:title",
             content: "Upcoming Events"
           },
           {
             hid: "description",
-            property: "description",
             content: "Learn more about our upcoming events."
           },
           {
-            property: "og:description",
+            hid: "og:description",
             content: "Learn more about our upcoming events."
           },
           {
-            property: "twitter:description",
+            hid: "twitter:description",
             content: "Learn more about our upcoming events."
           }
         ]

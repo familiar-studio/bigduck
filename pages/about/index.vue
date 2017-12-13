@@ -143,7 +143,7 @@
                         <div v-html="job.acf.requirements_body" v-if="job.acf.requirements_body"></div>
                         <h5 v-html="job.acf.how_to_apply_heading" v-if="job.acf.how_to_apply_heading" class="mt-3"></h5>
                         <div v-html="job.acf.how_to_apply_body" v-if="job.acf.how_to_apply_body"></div>
-                        <a class="btn btn-primary mb-3" :href="job.acf.apply_link" v-if="job.acf.apply_link">Apply</a>
+                        <a class="btn btn-primary mb-3" :href="job.acf.apply_link" v-if="job.acf.apply_link">Learn more and apply</a>
                       </div>
                     </div>
                   </div>
@@ -178,36 +178,35 @@ export default {
         title: this.page.acf.we_believe_headline,
         meta: [
           {
-            property: "og:title",
+            hid: "og:title",
             content: this.page.acf.we_believe_headline
           },
           {
-            property: "twitter:title",
+            hid: "twitter:title",
             content: this.page.acf.we_believe_headline
           },
           {
             hid: "description",
-            name: "description",
             content: this.page.acf.we_believe_body
           },
           {
-            property: "og:description",
+            hid: "og:description",
             content: this.page.acf.we_believe_body
           },
           {
-            property: "twitter:description",
+            hid: "twitter:description",
             content: this.page.acf.we_believe_body
           },
           {
-            property: "image",
+            hid: "image",
             content: this.page.acf.featured_image.url
           },
           {
-            property: "og:image:url",
+            hid: "og:image:url",
             content: this.page.acf.featured_image.url
           },
           {
-            property: "twitter:image",
+            hid: "twitter:image",
             content: this.page.acf.featured_image.url
           }
         ]
