@@ -89,34 +89,42 @@ export default {
         meta: [
           {
             hid: "og:title",
-            content: this.service.title.rendered
+            property: "og:title",
+            content: this.service.title.rendered + " | Big Duck"
           },
           {
             hid: "twitter:title",
-            content: this.service.title.rendered
+            property: "twitter:title",
+            content: this.service.title.rendered + " | Big Duck"
           },
           {
             hid: "description",
+            name: "description",
             content: this.service.acf.introduction
           },
           {
             hid: "og:description",
+            property: "og:description",
             content: this.service.acf.introduction
           },
           {
             hid: "twitter:description",
+            property: "twitter:description",
             content: this.service.acf.introduction
           },
           {
             hid: "image",
+            property: "image",
             content: this.service.acf.featured_image.url
           },
           {
             hid: "og:image:url",
+            property: "og:image:url",
             content: this.service.acf.featured_image.url
           },
           {
             hid: "twitter:image",
+            property: "twitter:image",
             content: this.service.acf.featured_image.url
           }
         ]

@@ -141,14 +141,17 @@ export default {
         meta: [
           {
             hid: "og:title",
-            content: this.caseStudy.title.rendered
+            property: "og:title",
+            content: this.caseStudy.title.rendered + " | Big Duck"
           },
           {
             hid: "twitter:title",
-            content: this.caseStudy.title.rendered
+            property: "twitter:title",
+            content: this.caseStudy.title.rendered + " | Big Duck"
           },
           {
             hid: "description",
+            name: "description",
             content: this.caseStudy.acf.short_description.replace(
               /(<([^>]+)>)/gi,
               ""
@@ -156,6 +159,7 @@ export default {
           },
           {
             hid: "og:description",
+            property: "og:description",
             content: this.caseStudy.acf.short_description.replace(
               /(<([^>]+)>)/gi,
               ""
@@ -163,6 +167,7 @@ export default {
           },
           {
             hid: "twitter:description",
+            property: "twitter:description",
             content: this.caseStudy.acf.short_description.replace(
               /(<([^>]+)>)/gi,
               ""
@@ -170,14 +175,17 @@ export default {
           },
           {
             hid: "image",
+            property: "image",
             content: this.caseStudy.acf.hero_image.url
           },
           {
             hid: "og:image:url",
+            property: "og:image:url",
             content: this.caseStudy.acf.hero_image.url
           },
           {
             hid: "twitter:image",
+            property: "twitter:image",
             content: this.caseStudy.acf.hero_image.url
           }
         ]

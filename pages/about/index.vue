@@ -179,34 +179,42 @@ export default {
         meta: [
           {
             hid: "og:title",
+            property: "og:title",
             content: this.page.acf.we_believe_headline
           },
           {
             hid: "twitter:title",
+            property: "twitter:title",
             content: this.page.acf.we_believe_headline
           },
           {
             hid: "description",
+            name: "description",
             content: this.page.acf.we_believe_body
           },
           {
             hid: "og:description",
+            property: "og:description",
             content: this.page.acf.we_believe_body
           },
           {
             hid: "twitter:description",
+            property: "twitter:description",
             content: this.page.acf.we_believe_body
           },
           {
             hid: "image",
+            property: "image",
             content: this.page.acf.featured_image.url
           },
           {
             hid: "og:image:url",
+            property: "og:image:url",
             content: this.page.acf.featured_image.url
           },
           {
             hid: "twitter:image",
+            property: "twitter:image",
             content: this.page.acf.featured_image.url
           }
         ]
