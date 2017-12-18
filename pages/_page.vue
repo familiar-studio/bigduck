@@ -36,14 +36,17 @@ export default {
         meta: [
           {
             hid: "og:title",
+            property: "og:title",
             content: this.title
           },
           {
             hid: "twitter:title",
+            property: "twitter:title",
             content: this.title
           },
           {
             hid: "description",
+            name: "description",
             content: this.content
           },
           {
@@ -52,18 +55,22 @@ export default {
           },
           {
             hid: "twitter:description",
+            property: "twitter:description",
             content: this.content
           },
           {
             hid: "image",
+            property: "image",
             content: this.image
           },
           {
             hid: "og:image:url",
+            property: "og:image:url",
             content: this.image
           },
           {
             hid: "twitter:image",
+            property: "twitter:image",
             content: this.image
           }
         ]
