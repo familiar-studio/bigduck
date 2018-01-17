@@ -124,56 +124,72 @@
   </div>
 </template>
 <script>
-import Axios from 'axios'
-import GravityForm from '~/components/GravityForm.vue'
-import Service from '~/components/Service.vue'
-import share from '~/components/Share.vue'
-import Work from '~/components/Work.vue'
-import { mapState, mapGetters } from 'vuex'
-import flickity from '~/components/Flickity.vue'
+import Axios from "axios";
+import GravityForm from "~/components/GravityForm.vue";
+import Service from "~/components/Service.vue";
+import share from "~/components/Share.vue";
+import Work from "~/components/Work.vue";
+import { mapState, mapGetters } from "vuex";
+import flickity from "~/components/Flickity.vue";
 
 export default {
-  name: 'case_study',
+  name: "case_study",
   head() {
     if (this.caseStudy) {
       return {
         title: this.caseStudy.title.rendered,
         meta: [
           {
-            'property': 'og:title',
-            'content': this.caseStudy.title.rendered
+            hid: "og:title",
+            property: "og:title",
+            content: this.caseStudy.title.rendered + " | Big Duck"
           },
           {
-            'property': 'twitter:title',
-            'content': this.caseStudy.title.rendered
+            hid: "twitter:title",
+            property: "twitter:title",
+            content: this.caseStudy.title.rendered + " | Big Duck"
           },
           {
-            'hid': "description",
-            'property': 'description',
-            'content': this.caseStudy.acf.short_description.replace(/(<([^>]+)>)/ig, "")
+            hid: "description",
+            name: "description",
+            content: this.caseStudy.acf.short_description.replace(
+              /(<([^>]+)>)/gi,
+              ""
+            )
           },
           {
-            'property': 'og:description',
-            'content': this.caseStudy.acf.short_description.replace(/(<([^>]+)>)/ig, "")
+            hid: "og:description",
+            property: "og:description",
+            content: this.caseStudy.acf.short_description.replace(
+              /(<([^>]+)>)/gi,
+              ""
+            )
           },
           {
-            'property': 'twitter:description',
-            'content': this.caseStudy.acf.short_description.replace(/(<([^>]+)>)/ig, "")
+            hid: "twitter:description",
+            property: "twitter:description",
+            content: this.caseStudy.acf.short_description.replace(
+              /(<([^>]+)>)/gi,
+              ""
+            )
           },
           {
-            'property': 'image',
-            'content': this.caseStudy.acf.hero_image.url
+            hid: "image",
+            property: "image",
+            content: this.caseStudy.acf.hero_image.url
           },
           {
-            'property': 'og:image:url',
-            'content': this.caseStudy.acf.hero_image.url
+            hid: "og:image:url",
+            property: "og:image:url",
+            content: this.caseStudy.acf.hero_image.url
           },
           {
-            'property': 'twitter:image',
-            'content': this.caseStudy.acf.hero_image.url
+            hid: "twitter:image",
+            property: "twitter:image",
+            content: this.caseStudy.acf.hero_image.url
           }
         ]
-      }
+      };
     }
   },
   data() {
@@ -182,7 +198,7 @@ export default {
       relatedService: null,
       submittedForm: false,
       formId: 5
-    }
+    };
   },
   components: {
     GravityForm,
@@ -192,51 +208,51 @@ export default {
     Work
   },
   computed: {
-    ...mapState([
-      'callouts',
-      'topics',
-      'types'
-    ]),
-    ...mapGetters(['hostname']),
+    ...mapState(["callouts", "topics", "types"]),
+    ...mapGetters(["hostname"]),
     id() {
-      return this.$route.params.id
+      return this.$route.params.id;
     },
     topicsIndexedById() {
-      return this.$store.getters['getTopicsIndexedById']
+      return this.$store.getters["getTopicsIndexedById"];
     },
     sectorsIndexedById() {
-      return this.$store.getters['getSectorsIndexedById']
+      return this.$store.getters["getSectorsIndexedById"];
     }
   },
   methods: {
     next() {
-      this.$refs.flickity.next()
+      this.$refs.flickity.next();
     },
     previous() {
-      this.$refs.flickity.previous()
+      this.$refs.flickity.previous();
     },
     hideCallout() {
-
-      this.submittedForm = true
-
+      this.submittedForm = true;
     }
   },
   async asyncData({ params, store }) {
-    let data = {}
-    let response = await Axios.get(store.getters['hostname'] + 'wp/v2/bd_case_study?slug=' + params.slug)
-    console.log(store.getters['hostname'] + 'wp/v2/bd_case_study?slug=' + params.slug)
-    data['caseStudy'] = response.data[0]
-    return data
+    let data = {};
+    let response = await Axios.get(
+      store.getters["hostname"] + "wp/v2/bd_case_study?slug=" + params.slug
+    );
+    console.log(
+      store.getters["hostname"] + "wp/v2/bd_case_study?slug=" + params.slug
+    );
+    data["caseStudy"] = response.data[0];
+    return data;
   },
   async created() {
-    let topics = this.caseStudy.topic
-    let related = await Axios.get(this.hostname + 'wp/v2/bd_service?topic=' + topics[0])
-    this.relatedService = related.data[0]
+    let topics = this.caseStudy.topic;
+    let related = await Axios.get(
+      this.hostname + "wp/v2/bd_service?topic=" + topics[0]
+    );
+    this.relatedService = related.data[0];
     // let relatedWorkIds = this.caseStudy.acf.related_case_studies
     // if (typeof relatedWorkIds !== 'undefined' && relatedWorkIds) {
     //   let response = await Axios.get(this.$store.getters['hostname'] + 'wp/v2/bd_case_study?' + relatedWorkIds.map((obj) => 'include[]=' + obj.ID).join('&'))
     //   this.relatedCaseStudies = response.data
     // }
   }
-}
+};
 </script>

@@ -82,23 +82,27 @@ export default {
         title: "Work - All Projects",
         meta: [
           {
+            hid: "og:title",
             property: "og:title",
-            content: "Work - All Projects"
+            content: "Work - All Projects | Big Duck"
           },
           {
+            hid: "twitter:title",
             property: "twitter:title",
-            content: "Work - All Projects"
+            content: "Work - All Projects | Big Duck"
           },
           {
             hid: "description",
-            property: "description",
+            name: "description",
             content: "All Projects"
           },
           {
+            hid: "og:description",
             property: "og:description",
             content: "All Projects"
           },
           {
+            hid: "twitter:description",
             property: "twitter:description",
             content: "All Projects"
           }

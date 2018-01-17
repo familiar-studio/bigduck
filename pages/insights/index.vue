@@ -76,23 +76,27 @@ export default {
         title: "Insights",
         meta: [
           {
+            hid: "og:title",
             property: "og:title",
             content: "Insights"
           },
           {
+            hid: "twitter:title",
             property: "twitter:title",
             content: "Insights"
           },
           {
             hid: "description",
-            property: "description",
+            name: "description",
             content: "Read more about the results of our work."
           },
           {
+            hid: "og:description",
             property: "og:description",
             content: "Read more about the results of our work."
           },
           {
+            hid: "twitter:description",
             property: "twitter:description",
             content: "Read more about the results of our work."
           }

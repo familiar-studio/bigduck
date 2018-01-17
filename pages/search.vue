@@ -74,23 +74,23 @@ export default {
       title: "Search",
       meta: [
         {
-          property: "og:title",
+          hid: "og:title",
           content: "Search"
         },
         {
-          property: "twitter:title",
+          hid: "twitter:title",
           content: "Search"
         },
         {
-          property: "description",
+          hid: "description",
           content: "Find anything on our site."
         },
         {
-          property: "og:description",
+          hid: "og:description",
           content: "Find anything on our site."
         },
         {
-          property: "twitter:description",
+          hid: "twitter:description",
           content: "Find anything on our site."
         }
       ]

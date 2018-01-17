@@ -13,40 +13,47 @@ module.exports = {
         content: "q5-HejTljPFYvH9amyqStrGWAKuL_GUrkR1MhDRVRjE"
       },
       {
+        hid: "og:title",
         property: "og:title",
         content: "Big Duck"
       },
       {
+        hid: "twitter:title",
         property: "twitter:title",
         content: "Big Duck"
       },
       {
         hid: "description",
-        property: "description",
+        name: "description",
         content:
           "Big Duck develops the voices of nonprofit organizations by developing strong brands, campaigns, and communications teams."
       },
       {
+        hid: "og:description",
         property: "og:description",
         content:
           "Big Duck develops the voices of nonprofit organizations by developing strong brands, campaigns, and communications teams."
       },
       {
+        hid: "twitter:description",
         property: "twitter:description",
         content:
           "Big Duck develops the voices of nonprofit organizations by developing strong brands, campaigns, and communications teams."
       },
       {
+        hid: "image",
         property: "image",
         content:
           "https://bigducknyc.com/wp-content/uploads/2017/07/28546982-bf3e1ad0-709a-11e7-9b12-3b5d1238669f.png"
       },
       {
+        hid: "og:image:url",
         property: "og:image:url",
         content:
           "https://bigducknyc.com/wp-content/uploads/2017/07/28546982-bf3e1ad0-709a-11e7-9b12-3b5d1238669f.png"
       },
       {
+        hid: "twitter:image",
         property: "twitter:image",
         content:
           "https://bigducknyc.com/wp-content/uploads/2017/07/28546982-bf3e1ad0-709a-11e7-9b12-3b5d1238669f.png"
@@ -58,6 +65,7 @@ module.exports = {
     script: [
       { src: "https://hi.bigducknyc.com/cdnr/30/acton/bn/tracker/4852" }
     ],
+
     __dangerouslyDisableSanitizers: ["title", "description"]
   },
   cache: true,
@@ -101,7 +109,7 @@ module.exports = {
     /*
     ** Run ESLINT on save
     */
-    vendor: ["axios", "date-fns", "crypto-js", "flickity"],
+    vendor: ["axios", "date-fns", "crypto-js", "flickity", "babel-polyfill"],
     extend(config, ctx) {
       if (ctx.isClient) {
         config.module.rules.push({

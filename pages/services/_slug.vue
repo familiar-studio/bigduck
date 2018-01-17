@@ -73,55 +73,62 @@
   </div>
 </template>
 <script>
-import Axios from 'axios'
-import ColorCallout from '~/components/ColorCallout.vue'
-import FAQ from '~/components/FAQ.vue'
-import GravityForm from '~/components/GravityForm.vue'
-import Work from '~/components/Work.vue'
-import Post from '~/components/Post.vue'
+import Axios from "axios";
+import ColorCallout from "~/components/ColorCallout.vue";
+import FAQ from "~/components/FAQ.vue";
+import GravityForm from "~/components/GravityForm.vue";
+import Work from "~/components/Work.vue";
+import Post from "~/components/Post.vue";
 
 export default {
-  name: 'service',
+  name: "service",
   head() {
     if (this.service) {
       return {
         title: this.service.title.rendered,
         meta: [
           {
-            'property': 'og:title',
-            'content': this.service.title.rendered
+            hid: "og:title",
+            property: "og:title",
+            content: this.service.title.rendered + " | Big Duck"
           },
           {
-            'property': 'twitter:title',
-            'content': this.service.title.rendered
+            hid: "twitter:title",
+            property: "twitter:title",
+            content: this.service.title.rendered + " | Big Duck"
           },
           {
-            'hid': "description",
-            'property': 'description',
-            'content': this.service.acf.introduction
+            hid: "description",
+            name: "description",
+            content: this.service.acf.introduction
           },
           {
-            'property': 'og:description',
-            'content': this.service.acf.introduction
+            hid: "og:description",
+            property: "og:description",
+            content: this.service.acf.introduction
           },
           {
-            'property': 'twitter:description',
-            'content': this.service.acf.introduction
+            hid: "twitter:description",
+            property: "twitter:description",
+            content: this.service.acf.introduction
           },
           {
-            'property': 'image',
-            'content': this.service.acf.featured_image.url
+            hid: "image",
+            property: "image",
+            content: this.service.acf.featured_image.url
           },
           {
-            'property': 'og:image:url',
-            'content': this.service.acf.featured_image.url
+            hid: "og:image:url",
+            property: "og:image:url",
+            content: this.service.acf.featured_image.url
           },
           {
-            'property': 'twitter:image',
-            'content': this.service.acf.featured_image.url
+            hid: "twitter:image",
+            property: "twitter:image",
+            content: this.service.acf.featured_image.url
           }
         ]
-      }
+      };
     }
   },
   data() {
@@ -129,41 +136,51 @@ export default {
       service: null,
       relatedCaseStudies: null,
       relatedInsights: null
-    }
+    };
   },
   computed: {
     slug() {
-      return this.$route.params.slug
+      return this.$route.params.slug;
     },
     callouts() {
-      return this.$store.state.callouts
+      return this.$store.state.callouts;
     },
     topics() {
-      return this.$store.state.topics
+      return this.$store.state.topics;
     },
     types() {
-      return this.$store.state.types
+      return this.$store.state.types;
     },
     topicsIndexedById() {
-      return this.$store.getters['getTopicsIndexedById']
+      return this.$store.getters["getTopicsIndexedById"];
     },
     typesIndexedById() {
-      return this.$store.getters['getTypesIndexedById']
+      return this.$store.getters["getTypesIndexedById"];
     }
   },
   components: {
-    Work, Post, GravityForm, FAQ
+    Work,
+    Post,
+    GravityForm,
+    FAQ
   },
   async created() {
-    let relatedWorkIds = this.service.acf.related_case_studies
-    if (relatedWorkIds && typeof relatedWorkIds !== 'undefined') {
-      let response = await Axios.get(this.$store.getters['hostname'] + 'wp/v2/bd_case_study?' + relatedWorkIds.map((obj) => 'include[]=' + obj.ID).join('&'))
-      this.relatedCaseStudies = response.data
+    let relatedWorkIds = this.service.acf.related_case_studies;
+    if (relatedWorkIds && typeof relatedWorkIds !== "undefined") {
+      let response = await Axios.get(
+        this.$store.getters["hostname"] +
+          "wp/v2/bd_case_study?" +
+          relatedWorkIds.map(obj => "include[]=" + obj.ID).join("&")
+      );
+      this.relatedCaseStudies = response.data;
     }
   },
   async asyncData({ store, route }) {
-    let response = await store.dispatch('fetchByQuery', { path: 'wp/v2/bd_service', query: { slug: route.params.slug } })
-    return { service: response.data[0] }
+    let response = await store.dispatch("fetchByQuery", {
+      path: "wp/v2/bd_service",
+      query: { slug: route.params.slug }
+    });
+    return { service: response.data[0] };
   }
-}
+};
 </script>
