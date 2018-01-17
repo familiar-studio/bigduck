@@ -40,6 +40,8 @@
       $icon = 'https://bigducknyc.com/wp-content/uploads/2017/09/campaigns.png';
     } else if ($topic->slug == 'teams') {
       $icon = 'https://bigducknyc.com/wp-content/uploads/2017/09/teams.png';
+    } else if ($topic->slug == 'brands') {
+      $icon = 'https://bigducknyc.com/wp-content/uploads/2017/09/brands.png';
     } else {
       $icon = $topic ? get_taxonomy_icon_png(get_fields($topic)['icon']) : null;
     }
