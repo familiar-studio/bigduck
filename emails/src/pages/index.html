@@ -28,17 +28,18 @@
   </center>
   <wrapper>
     <spacer size="30"></spacer>
-    <row class="side-lines">
+    <!-- <center>
+      <h2>Insights</h2>
+    </center> -->
+    <row>
       <columns small="4" class="line">
         <spacer size="5"></spacer>
-        <hr/>
       </columns>
       <columns small="4" class="text">
         <h2>Insights</h2>
       </columns>
       <columns small="4" class="line">
         <spacer size="5"></spacer>
-        <hr/>
       </columns>
     </row>
     <spacer size="20"></spacer>
@@ -50,7 +51,7 @@
     foreach($insightData as $index=>$insight) { ?>
 
     <container class="entry">
-      <row class="side-lines">
+      <row>
         <columns small="12" large="5" class="no-bottom no-left featured image-cover">
           <img src="<?php echo $insight['image']; ?>">
         </columns>
@@ -58,8 +59,8 @@
           <spacer size="20"></spacer>
           <div class="content">
             <div class="media">
-              <img src="<?php echo $insight['topic']['image']; ?>"></img>
-              <h4>
+              <img class="icon" src="<?php echo $insight['topic']['image']; ?>"></img>
+              <h4 class="small">
                 <?php echo $insight['topic']['title']; ?>
               </h4>
             </div>
@@ -70,7 +71,7 @@
             </h3>
             <div class="media author">
               <img src="<?php echo $insight['headshot']; ?>"></img>
-              <h4>
+              <h4 class="small">
                 <?php echo $insight['author']; ?>
               </h4>
             </div>
@@ -82,18 +83,18 @@
     <?php
     }
   } ?>
-
-      <row class="side-lines">
+      <!-- <center>
+        <h2>Upcoming events</h2>
+      </center> -->
+      <row>
         <columns small="2" class="line">
           <spacer size="5"></spacer>
-          <hr/>
         </columns>
         <columns small="8" class="text">
           <h2>Upcoming events</h2>
         </columns>
         <columns small="2" class="line">
           <spacer size="5"></spacer>
-          <hr/>
         </columns>
       </row>
       <spacer size="20"></spacer>
@@ -105,8 +106,8 @@
             <columns small="12" large="9" class="content">
               <spacer size="20"></spacer>
               <div class="media">
-                <img src="<?php echo $event['category']['icon']; ?>">
-                <h4>
+                <img class="icon" src="<?php echo $event['category']['icon']; ?>">
+                <h4 class="small">
                   <?php echo $event['category']['name']; ?>
                 </h4>
               </div>
@@ -118,7 +119,7 @@
                   <spacer size="10"></spacer>
                   <div class="media author">
                     <img src="<?php echo $event['headshot']; ?>">
-                    <h4>
+                    <h4 class="small">
                       <?php echo $event['author']['display_name']; ?>
                     </h4>
                   </div>
@@ -148,10 +149,12 @@
           <?php
   if (sections) {
     foreach($sections as $section)  { ?>
-            <row class="side-lines">
+            <!-- <center>
+              <h2><?php echo $section['heading']; ?></h2>
+            </center> -->
+            <row>
               <columns small="2" class="line">
                 <spacer size="5"></spacer>
-                <hr/>
               </columns>
               <columns small="8" class="text">
                 <h2>
@@ -160,7 +163,6 @@
               </columns>
               <columns small="2" class="line">
                 <spacer size="5"></spacer>
-                <hr/>
               </columns>
             </row>
             <spacer size="20"></spacer>
@@ -178,18 +180,18 @@
             <?php } ?>
             <?php } ?>
             <?php } ?>
-
-            <row class="side-lines">
+            <!-- <center>
+              <h2>Follow us</h2>
+            </center> -->
+            <row>
               <columns small="3" class="line">
                 <spacer size="5"></spacer>
-                <hr/>
               </columns>
               <columns small="6" class="text">
                 <h2>Follow us</h2>
               </columns>
               <columns small="3" class="line">
                 <spacer size="5"></spacer>
-                <hr/>
               </columns>
             </row>
             <spacer size="20"></spacer>

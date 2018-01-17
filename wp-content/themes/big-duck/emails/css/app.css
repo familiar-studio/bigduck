@@ -353,7 +353,7 @@ h1 a, h2, h3 a {
 
 .logo-text {
   text-align: left;
-  font-size: 0.9rem;
+  font-size: 15px;
   line-height: 1.3;
   font-family: "Calibre", -apple-system, BlinkMacSystemFont, sans-serif;
   font-weight: 600;
@@ -376,7 +376,7 @@ table.container.main {
   background-color: #f5f2f2; }
 
 .date.main-date {
-  font-size: 0.875rem;
+  font-size: 14px;
   font-weight: 600;
   text-transform: uppercase;
   font-family: "Calibre", -apple-system, BlinkMacSystemFont, sans-serif;
@@ -410,12 +410,12 @@ h3 {
 h4 {
   letter-spacing: 1px;
   text-transform: uppercase;
-  font-size: 0.875rem;
+  font-size: 14px;
   font-weight: 600;
   margin-bottom: 0; }
 
 .body {
-  padding: 0 1.5rem; }
+  padding: 0 30px; }
 
 table.button table td a {
   text-transform: uppercase;
@@ -423,7 +423,8 @@ table.button table td a {
   letter-spacing: 0.75px; }
 
 .media {
-  padding-bottom: 0.5rem; }
+  padding-bottom: 0.5rem;
+  padding-bottom: 10px; }
   .media h4,
   .media img {
     display: inline;
@@ -438,7 +439,7 @@ table.button table td a {
 
 .entry {
   background-color: white;
-  padding-bottom: 2rem; }
+  padding-bottom: 40px; }
 
 .featured img {
   width: 100%; }
@@ -489,7 +490,7 @@ table.row.event {
     .footer ul li,
     .footer ul li a {
       color: white;
-      font-size: 0.9rem;
+      font-size: 18px;
       line-height: 1.22;
       font-weight: 600;
       font-family: "Calibre", -apple-system, BlinkMacSystemFont, sans-serif; }
@@ -500,10 +501,10 @@ table.row.event {
     text-decoration: underline; }
 
 .event .month {
-  font-size: 0.9375rem; }
+  font-size: 18.75px; }
 
 .event .date {
-  font-size: 1.5rem; }
+  font-size: 30rem; }
 
 th.columns.no-bottom {
   padding-bottom: 0;
@@ -515,20 +516,6 @@ th.columns.no-left {
 .hero {
   max-width: 565px; }
 
-.side-lines h2 {
-  text-decoration: none; }
-
-.side-lines .line {
-  padding-top: 5px; }
-  .side-lines .line hr {
-    border-color: #f59178;
-    border-style: solid; }
-
-.side-lines .text {
-  padding-right: 0px;
-  padding-left: 0px;
-  text-align: center; }
-
 .image-cover {
   background-size: cover; }
 
@@ -537,3 +524,7 @@ th.columns.no-left {
   min-height: 265px;
   height: 100%;
   width: 100%; }
+
+.icon {
+  width: 25px;
+  height: 25px; }
