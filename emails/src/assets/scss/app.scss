@@ -36,11 +36,6 @@ h4 {
 
 .header {
   background-color: white;
-  img {
-    width: 130px;
-    height: 80px;
-    display: inline-block;
-  }
   .container {
     width: 565px;
   }
@@ -179,7 +174,7 @@ table.button table td a {
   }
   h4 {
     line-height: 1;
-    padding-left: 0.5rem;
+    // padding-left: 0.5rem;
     padding-bottom: 0;
     margin-bottom: 0;
   }
@@ -206,7 +201,7 @@ table.button table td a {
 }
 
 .author img {
-  border-radius: 50%;
+  border-radius: 12.5px;
   width: 25px;
   height: 25px;
 }
@@ -247,9 +242,15 @@ a .event-date span {
     //   padding-right: 40px;
     // }
   }
-  > div a:not(:last-child) {
-    padding-right: 40px;
+  div a {
+    display: inline;
   }
+  .not-first {
+    padding-left: 40px;
+  }
+  // > div a:not(:last-child) {
+  //   padding-right: 40px;
+  // }
 }
 
 .footer {
@@ -294,11 +295,11 @@ a .event-date span {
   fill: black;
 }
 
-.wrapper.entry .wrapper-inner {
-  .content {
-    padding: 10px 25px;
-  }
-}
+// .wrapper.entry .wrapper-inner {
+//   .content {
+//     padding: 10px 25px;
+//   }
+// }
 
 .event {
   .month {
@@ -355,12 +356,12 @@ th.columns.no-right {
 //   height: 295px;
 // }
 
-.featured {
-  min-width: 235px;
-  min-height: 265px;
-  height: 100%;
-  width: 100%;
-}
+// .featured {
+//   min-width: 235px;
+//   min-height: 265px;
+//   height: 100%;
+//   width: 100%;
+// }
 
 .icon {
   width: 25px;
@@ -371,3 +372,14 @@ th.columns.no-right {
 //   font-size: 14px;
 //   font-size: .875rem;
 // }
+
+ul {
+  list-style-type: none;
+}
+
+td {
+  word-break: keep-all;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  hyphens: none;
+}

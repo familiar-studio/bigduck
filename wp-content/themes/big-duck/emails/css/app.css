@@ -92,20 +92,15 @@ th.columns {
   Margin: 0 auto;
   padding-left: 25px;
   padding-bottom: 12px; }
+  th.columns .columns {
+    padding-left: 0 !important;
+    padding-right: 0 !important; }
 
 th.columns.last {
   padding-right: 25px; }
 
 th.columns table:not(.button) {
   width: 100%; }
-
-th.large-1 {
-  width: 18.33333px;
-  padding-left: 12.5px;
-  padding-right: 12.5px; }
-
-th.large-1.last {
-  padding-right: 25px; }
 
 th.large-2 {
   width: 61.66667px;
@@ -128,6 +123,9 @@ th.large-3.first {
 
 th.large-3.last {
   padding-right: 25px; }
+
+.body .columns th.large-3 {
+  width: 25%; }
 
 th.large-4 {
   width: 148.33333px;
@@ -153,16 +151,27 @@ th.large-6 {
   padding-left: 12.5px;
   padding-right: 12.5px; }
 
-th.large-6.first {
-  padding-left: 25px; }
+th.large-7 {
+  width: 278.33333px;
+  padding-left: 12.5px;
+  padding-right: 12.5px; }
 
-th.large-6.last {
+th.large-7.last {
   padding-right: 25px; }
 
 th.large-8 {
   width: 321.66667px;
   padding-left: 12.5px;
   padding-right: 12.5px; }
+
+th.large-8.first {
+  padding-left: 25px; }
+
+th.large-8.last {
+  padding-right: 25px; }
+
+.body .columns th.large-8 {
+  width: 66.66667%; }
 
 th.large-9 {
   width: 365px;
@@ -172,13 +181,20 @@ th.large-9 {
 th.large-9.first {
   padding-left: 25px; }
 
+th.large-9.last {
+  padding-right: 25px; }
+
+.body .columns th.large-9 {
+  width: 75%; }
+
 img.float-center {
   margin: 0 auto;
   Margin: 0 auto;
   float: none;
   text-align: center; }
 
-table.float-center {
+table.float-center,
+th.float-center {
   margin: 0 auto;
   Margin: 0 auto;
   float: none;
@@ -300,6 +316,17 @@ table.button:visited table a,
 table.button:active table a {
   border: 0 solid #f16a49; }
 
+table.menu {
+  width: 520px; }
+  table.menu th.menu-item {
+    padding: 17px;
+    padding-right: 17px; }
+    table.menu th.menu-item a {
+      color: #f59178; }
+
+.menu[align="center"] {
+  width: auto !important; }
+
 @media only screen and (max-width: 545px) {
   table.body img {
     width: auto;
@@ -315,6 +342,9 @@ table.button:active table a {
     box-sizing: border-box;
     padding-left: 25px !important;
     padding-right: 25px !important; }
+    table.body .columns .columns {
+      padding-left: 0 !important;
+      padding-right: 0 !important; }
   th.small-2 {
     display: inline-block !important;
     width: 16.66667% !important; }
@@ -324,15 +354,38 @@ table.button:active table a {
   th.small-4 {
     display: inline-block !important;
     width: 33.33333% !important; }
+  th.small-5 {
+    display: inline-block !important;
+    width: 41.66667% !important; }
   th.small-6 {
     display: inline-block !important;
     width: 50% !important; }
+  th.small-7 {
+    display: inline-block !important;
+    width: 58.33333% !important; }
   th.small-8 {
     display: inline-block !important;
     width: 66.66667% !important; }
+  th.small-9 {
+    display: inline-block !important;
+    width: 75% !important; }
+  th.small-10 {
+    display: inline-block !important;
+    width: 83.33333% !important; }
   th.small-12 {
     display: inline-block !important;
-    width: 100% !important; } }
+    width: 100% !important; }
+  .columns th.small-12 {
+    display: block !important;
+    width: 100% !important; }
+  table.menu {
+    width: 100% !important; }
+    table.menu td,
+    table.menu th {
+      width: auto !important;
+      display: inline-block !important; }
+  table.menu[align="center"] {
+    width: auto !important; } }
 
 body,
 html,
@@ -348,9 +401,6 @@ h1 a, h2, h3 a {
   text-decoration: underline;
   text-decoration-color: #f59178; }
 
-.header .logo-text {
-  margin-left: 10px; }
-
 .logo-text {
   text-align: left;
   font-size: 15px;
@@ -362,10 +412,6 @@ h1 a, h2, h3 a {
 
 .header {
   background-color: white; }
-  .header img {
-    width: 130px;
-    height: 80px;
-    display: inline-block; }
   .header .container {
     width: 565px; }
 
@@ -433,7 +479,6 @@ table.button table td a {
     height: 25px; }
   .media h4 {
     line-height: 1;
-    padding-left: 0.5rem;
     padding-bottom: 0;
     margin-bottom: 0; }
 
@@ -449,7 +494,7 @@ table.button table td a {
   padding-left: 0; }
 
 .author img {
-  border-radius: 50%;
+  border-radius: 12.5px;
   width: 25px;
   height: 25px; }
 
@@ -476,8 +521,8 @@ table.row.event {
   max-width: 20px;
   display: inline; }
 
-.share > div a:not(:last-child) {
-  padding-right: 40px; }
+.share .not-first {
+  padding-left: 40px; }
 
 .footer {
   background-color: black; }
@@ -519,12 +564,15 @@ th.columns.no-left {
 .image-cover {
   background-size: cover; }
 
-.featured {
-  min-width: 235px;
-  min-height: 265px;
-  height: 100%;
-  width: 100%; }
-
 .icon {
   width: 25px;
   height: 25px; }
+
+ul {
+  list-style-type: none; }
+
+td {
+  word-break: keep-all;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  hyphens: none; }

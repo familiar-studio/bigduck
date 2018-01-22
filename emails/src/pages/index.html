@@ -55,27 +55,35 @@
         <columns small="12" large="5" class="no-bottom no-left featured image-cover">
           <img src="<?php echo $insight['image']; ?>">
         </columns>
-        <columns>
+        <columns small="12" large="7">
           <spacer size="20"></spacer>
-          <div class="content">
-            <div class="media">
-              <img class="icon" src="<?php echo $insight['topic']['image']; ?>"></img>
-              <h4 class="small">
-                <?php echo $insight['topic']['title']; ?>
-              </h4>
-            </div>
+            <row>
+              <columns small="2" large="3">
+                <img class="icon" src="<?php echo $insight['topic']['image']; ?>"></img>
+              </columns>
+              <columns small="10" large="9">
+                <h4 class="small">
+                  <?php echo $insight['topic']['title']; ?>
+                </h4>
+              </columns>
+            </row>
             <h3>
               <a href="<?php echo $insight['slug']; ?>">
                 <?php echo $insight['title']; ?>
               </a>
             </h3>
-            <div class="media author">
-              <img src="<?php echo $insight['headshot']; ?>"></img>
+            <spacer size="10">
+            <row class="media author">
+              <columns small="2" large="3">
+                <img src="<?php echo $insight['headshot']; ?>"></img>
+              </columns>
+              <columns small="10" large="9">
+                <spacer size="5">
               <h4 class="small">
                 <?php echo $insight['author']; ?>
               </h4>
-            </div>
-          </div>
+              </columns>
+            </row>
         </columns>
       </row>
     </container>
@@ -103,37 +111,51 @@
     foreach($eventsData as $event){ ?>
         <container>
           <row class="event">
-            <columns small="12" large="9" class="content">
+            <columns small="10" large="9">
               <spacer size="20"></spacer>
-              <div class="media">
-                <img class="icon" src="<?php echo $event['category']['icon']; ?>">
-                <h4 class="small">
-                  <?php echo $event['category']['name']; ?>
-                </h4>
-              </div>
+              <row>
+                <columns small="12" large="8">
+                  <row>
+                    <columns small="3">
+                      <img class="icon" src="<?php echo $event['category']['icon']; ?>">
+                    </columns>
+                    <columns small="9">
+                      <h4 class="small">
+                        <?php echo $event['category']['name']; ?>
+                      </h4>
+                    </columns>
+                  </row>
+                </columns>
+              </row>
               <h3>
                 <a href="<?php echo $event['url']; ?>">
                   <?php echo $event['title']; ?>
                 </a>
-                <h3>
+              </h3>
                   <spacer size="10"></spacer>
-                  <div class="media author">
-                    <img src="<?php echo $event['headshot']; ?>">
-                    <h4 class="small">
-                      <?php echo $event['author']['display_name']; ?>
-                    </h4>
-                  </div>
+                  <row>
+                    <columns small="12" large="8">
+                      <row class="author">
+                        <columns small="3">
+                          <img src="<?php echo $event['headshot']; ?>">
+                        </columns>
+                        <columns small="9">
+                        <h4 class="small">
+                          <?php echo $event['author']['display_name']; ?>
+                        </h4>
+                      </columns>
+                    </row>
+                  </columns>
+                  <!-- <columns small="1" large="4"></columns> -->
+                </row>
             </columns>
-            <columns small="0" large="2"></columns>
-            <columns small="12" large="1">
+            <columns small="2" large="3">
               <spacer size="20"></spacer>
-              <div class="event-date">
-                <div class="">
+              <div class="float-right event-date">
                   <spacer size="8"></spacer>
                   <span class="month"><?php echo $event['month']; ?></span>
                   <spacer size="3"></spacer>
                   <span class="date"><?php echo $event['day']; ?></span>
-                </div>
               </div>
             </columns>
           </row>
