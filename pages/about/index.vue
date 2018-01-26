@@ -251,15 +251,16 @@ export default {
     data["openJobs"] = openJobs;
     data["team"] = team.data;
     data["jobs"] = jobs.data;
-
-    // arrange clients into sectors:
-    const sectors = store.state.sectors.sort();
     data["openHouse"] = openHouse.data;
+
+    // // arrange clients into sectors:
+    const sectors = store.state.sectors.sort();
+
     return data;
   },
   computed: {
     page() {
-      return this.pageObject[0];
+      return this.pageObject ? this.pageObject[0] : null;
     },
     sectorsByIndex() {
       return this.$store.getters["getSectorsIndexedById"];
@@ -276,9 +277,13 @@ export default {
       this.openJobs[jobId] = !this.openJobs[jobId];
     },
     teamMemberBySlug(slug) {
-      return this.team.filter(teamMember => {
-        return teamMember.slug === slug;
-      })[0];
+      if (this.team) {
+        return this.team.filter(teamMember => {
+          return teamMember.slug === slug;
+        })[0];
+      } else {
+        return { headshot: {} };
+      }
     }
   }
 };
