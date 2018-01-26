@@ -113,6 +113,9 @@ th.large-2.first {
 th.large-2.last {
   padding-right: 25px; }
 
+.body .columns th.large-2 {
+  width: 16.66667%; }
+
 th.large-3 {
   width: 105px;
   padding-left: 12.5px;
@@ -123,9 +126,6 @@ th.large-3.first {
 
 th.large-3.last {
   padding-right: 25px; }
-
-.body .columns th.large-3 {
-  width: 25%; }
 
 th.large-4 {
   width: 148.33333px;
@@ -150,6 +150,12 @@ th.large-6 {
   width: 235px;
   padding-left: 12.5px;
   padding-right: 12.5px; }
+
+th.large-6.first {
+  padding-left: 25px; }
+
+th.large-6.last {
+  padding-right: 25px; }
 
 th.large-7 {
   width: 278.33333px;
@@ -181,11 +187,35 @@ th.large-9 {
 th.large-9.first {
   padding-left: 25px; }
 
-th.large-9.last {
+th.large-10 {
+  width: 408.33333px;
+  padding-left: 12.5px;
+  padding-right: 12.5px; }
+
+th.large-10.last {
   padding-right: 25px; }
 
-.body .columns th.large-9 {
-  width: 75%; }
+.body .columns th.large-10 {
+  width: 83.33333%; }
+
+th.large-12 {
+  width: 495px;
+  padding-left: 12.5px;
+  padding-right: 12.5px; }
+
+th.large-12.first {
+  padding-left: 25px; }
+
+th.large-12.last {
+  padding-right: 25px; }
+
+.body .columns th.large-12 {
+  width: 100%; }
+
+th.expander {
+  visibility: hidden;
+  width: 0;
+  padding: 0 !important; }
 
 img.float-center {
   margin: 0 auto;
@@ -354,21 +384,12 @@ table.menu {
   th.small-4 {
     display: inline-block !important;
     width: 33.33333% !important; }
-  th.small-5 {
-    display: inline-block !important;
-    width: 41.66667% !important; }
   th.small-6 {
     display: inline-block !important;
     width: 50% !important; }
-  th.small-7 {
-    display: inline-block !important;
-    width: 58.33333% !important; }
   th.small-8 {
     display: inline-block !important;
     width: 66.66667% !important; }
-  th.small-9 {
-    display: inline-block !important;
-    width: 75% !important; }
   th.small-10 {
     display: inline-block !important;
     width: 83.33333% !important; }
@@ -521,24 +542,12 @@ table.row.event {
   max-width: 20px;
   display: inline; }
 
-.share .not-first {
-  padding-left: 40px; }
-
 .footer {
   background-color: black; }
   .footer td {
     color: white; }
   .footer .container {
     background-color: transparent; }
-  .footer ul {
-    list-style-type: none; }
-    .footer ul li,
-    .footer ul li a {
-      color: white;
-      font-size: 18px;
-      line-height: 1.22;
-      font-weight: 600;
-      font-family: "Calibre", -apple-system, BlinkMacSystemFont, sans-serif; }
   .footer .unsubscribe a {
     color: white;
     font-size: 12px;
@@ -568,11 +577,48 @@ th.columns.no-left {
   width: 25px;
   height: 25px; }
 
-ul {
-  list-style-type: none; }
-
 td {
   word-break: keep-all;
   -webkit-hyphens: none;
   -moz-hyphens: none;
   hyphens: none; }
+
+.address th, .address th a {
+  color: white;
+  padding-bottom: 0;
+  font-size: 18px;
+  line-height: 1.22;
+  font-weight: 600;
+  font-family: "Calibre", -apple-system, BlinkMacSystemFont, sans-serif; }
+
+#facebook, #twitter, #linked-in {
+  width: 100%; }
+
+#facebook {
+  max-width: 22px;
+  max-height: 40px;
+  height: 40px; }
+
+#twitter {
+  max-width: 48px;
+  max-height: 40px;
+  height: 40px; }
+
+#linked-in {
+  max-height: 40px;
+  max-width: 40px;
+  height: 40px; }
+
+@media screen and (max-width: 768px) {
+  #facebook {
+    max-width: 11px;
+    max-height: 20px;
+    height: 20px; }
+  #twitter {
+    max-width: 24px;
+    max-height: 20px;
+    height: 20px; }
+  #linked-in {
+    max-width: 20px;
+    max-height: 20px;
+    height: 20px; } }

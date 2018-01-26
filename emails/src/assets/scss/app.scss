@@ -245,9 +245,9 @@ a .event-date span {
   div a {
     display: inline;
   }
-  .not-first {
-    padding-left: 40px;
-  }
+  // .not-first {
+  //   padding-left: 40px;
+  // }
   // > div a:not(:last-child) {
   //   padding-right: 40px;
   // }
@@ -382,4 +382,53 @@ td {
   -webkit-hyphens: none;
   -moz-hyphens: none;
   hyphens: none;
+}
+
+.address {
+  th, th a {
+    color: white;
+    padding-bottom: 0;
+    font-size: 18px;
+    line-height: 1.22;
+    font-weight: 600;
+    font-family: $header-font-family;
+  }
+}
+
+#facebook, #twitter, #linked-in {
+  width: 100%;
+}
+
+#facebook {
+  max-width: 22px;
+  max-height: 40px;
+  height: 40px;
+}
+#twitter {
+  max-width: 48px;
+  max-height: 40px;
+  height: 40px;
+}
+#linked-in {
+  max-height: 40px;
+  max-width: 40px;
+  height: 40px;
+}
+
+@media screen and (max-width: 768px) {
+  #facebook {
+    max-width: 11px;
+    max-height: 20px;
+    height: 20px;
+  }
+  #twitter {
+    max-width: 24px;
+    max-height: 20px;
+    height: 20px;
+  }
+  #linked-in {
+    max-width: 20px;
+    max-height: 20px;
+    height: 20px;
+  }
 }
