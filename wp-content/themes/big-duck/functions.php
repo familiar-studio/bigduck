@@ -24,9 +24,34 @@ function bd_pre_get_posts( $query ) {
 	return $query;
 }
 
+function my_post_attributes( array $attributes, WP_Post $post) {
+	switch($post->post_type) {
+		case 'bd_insight':
+			$attributes['short_description'] = get_field('short_description', $post->ID);
+			break;
+		case 'bd_case_study':
+			$attributes['client_name'] = get_field('client_name', $post->ID);
+			break;
+		case 'bd_event':
+			$attributes['subtitle'] = get_field('subtitle', $post->ID);
+      $attributes['start_time'] = get_field('start_time', $post->ID);
+			break;
+	}
+	return $attributes;
+}
+
+function my_insights_index_settings( array $settings ) {
+  $settings['attributesToIndex'][] = 'unordered(short_description)';
+  $settings['attributesToSnippet'][] = 'short_description:50';
+  return $settings;
+}
+
 
 
 add_filter('pre_get_posts', 'bd_pre_get_posts');
+add_filter('algolia_posts_bd_insight_index_settings', 'my_insights_index_settings');
+add_filter('algolia_post_shared_attributes', 'my_post_attributes', 10, 2 );
+add_filter('algolia_searchable_post_shared_attributtes', 'my_post_attributes', 10, 2);
 
 add_action( 'save_post', function( $post_id ) {
   if ( class_exists( 'WP_REST_Cache' ) ) {
