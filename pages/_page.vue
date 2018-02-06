@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import Axios from "axios"; import WPAPI from 'wpapi'; let wp = new WPAPI({ endpoint: '//bigducknyc.com/wp-json'});
+import Axios from "axios";
 import Page from "~/components/Page";
 
 export default {
@@ -22,8 +22,8 @@ export default {
         title: data.title.rendered,
         content: data.content.rendered
       };
-    } else {
-      return redirect("/insights/" + params.page);
+    // } else {
+    //   return redirect("/insights/" + params.page);
     }
   },
   components: {
@@ -79,4 +79,3 @@ export default {
   }
 };
 </script>
-

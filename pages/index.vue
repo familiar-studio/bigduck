@@ -121,19 +121,23 @@ export default {
       ]
     };
   },
-  async asyncData(context) {
-    console.log(context)
+  async asyncData({ store }) {
     let data = {};
-    let page = await context.wp.pages().id(37)
+    let response = await Axios.get(
+      store.getters["hostname"] + "wp/v2/pages/37"
+    );
+    let page = response.data;
     if (page && page.acf) {
       data.relatedWorkIds = page.acf.featured_case_studies.map(work => {
         return work.ID;
       });
       if (data.relatedWorkIds) {
-        await context.wp.caseStudies().param('include', data.relatedWorkIds).then(response => {
+        await Axios.get(store.getters["hostname"] + "wp/v2/bd_case_study", {
+          params: { include: data.relatedWorkIds }
+        }).then(response => {
           let orderedCaseStudies = [];
           data.relatedWorkIds.forEach((id, index) => {
-            orderedCaseStudies[index] = response.find(case_study => {
+            orderedCaseStudies[index] = response.data.find(case_study => {
               return case_study.id === id;
             });
           });
@@ -141,7 +145,7 @@ export default {
         });
       }
       return {
-        page: page,
+        page: response.data,
         ...data,
         upcomingEventIds: page.acf.upcoming_events.map(event => {
           return event.ID;

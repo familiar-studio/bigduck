@@ -99,7 +99,7 @@
 </template>
 
 <script>
-import Axios from "axios"; import WPAPI from 'wpapi'; let wp = new WPAPI({ endpoint: '//bigducknyc.com/wp-json'});
+import Axios from "axios";
 import CryptoJS from "crypto-js";
 import { mapGetters, mapMutations } from "vuex";
 

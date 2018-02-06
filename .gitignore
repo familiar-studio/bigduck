@@ -12,7 +12,6 @@ dist
 
 backups
 
-
 wp-admin
 wp-includes
 
@@ -22,11 +21,3 @@ wp-content/uploads
 wp-content/backups
 wp-content/backup-db
 wp-content/cache
-
-
-
-
-
-
-
-

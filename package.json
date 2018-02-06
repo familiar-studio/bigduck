@@ -5,7 +5,8 @@
   "author": "Keith Mancuso <keithmancuso@gmail.com>",
   "private": true,
   "dependencies": {
-    "@nuxtjs/axios": "^4.1.1",
+    "@nuxtjs/axios": "^5.0.0",
+    "@nuxtjs/proxy": "^1.1.4",
     "ava": "^0.19.1",
     "axios": "^0.16.2",
     "babel-polyfill": "^6.26.0",
@@ -24,14 +25,14 @@
     "sass-resources-loader": "^1.2.1",
     "vee-validate": "^2.0.0-rc.5",
     "vue": "^2.5.13",
+    "vue-instantsearch": "^1.4.0",
     "vue-scrollto": "2.6.10",
     "vue-style-loader": "^3.0.1",
     "vue-viewport": "^0.0.1",
-    "vue-waypoint": "^2.4.0",
-    "wpapi": "^1.1.2"
+    "vue-waypoint": "^2.4.0"
   },
   "scripts": {
-    "dev": "nuxt",
+    "dev": "PROXY_API_URL=http://bigduck.test nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",

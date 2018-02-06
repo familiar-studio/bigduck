@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import Axios from "axios"; import WPAPI from 'wpapi'; let wp = new WPAPI({ endpoint: '//bigducknyc.com/wp-json'});
+import Axios from "axios";  
 import Event from "~/components/Event.vue";
 import Post from "~/components/Post.vue";
 import { mapGetters } from "vuex";

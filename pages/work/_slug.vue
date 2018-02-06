@@ -124,7 +124,7 @@
   </div>
 </template>
 <script>
-import Axios from "axios"; import WPAPI from 'wpapi'; let wp = new WPAPI({ endpoint: '//bigducknyc.com/wp-json'});
+import Axios from "axios";  
 import GravityForm from "~/components/GravityForm.vue";
 import Service from "~/components/Service.vue";
 import share from "~/components/Share.vue";
