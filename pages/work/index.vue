@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import Axios from "axios"; import WPAPI from 'wpapi'; let wp = new WPAPI({ endpoint: '//bigducknyc.com/wp-json'});
 import Featured from "~/components/Featured.vue";
 
 export default {

@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import Axios from "axios";
+import Axios from "axios"; import WPAPI from 'wpapi'; let wp = new WPAPI({ endpoint: '//bigducknyc.com/wp-json'});
 
 export default {
   data() {

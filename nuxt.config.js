@@ -95,7 +95,7 @@ module.exports = {
   */
   loading: "~/components/loading.vue",
   router: {
-    middleware: ["nextCta", "redirects"],
+    middleware: ["nextCta", "redirects", "wpapi"],
     scrollBehavior: function(to, from, savedPosition) {
       return { x: 0, y: 0 };
     }

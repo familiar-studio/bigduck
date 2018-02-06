@@ -60,7 +60,7 @@ import FilterList from "~/components/FilterList.vue";
 import { mapState, mapGetters } from "vuex";
 import InlineCallout from "~/components/InlineCallout.vue";
 import Chat from "~/components/Chat.vue";
-import axios from "axios";
+import Axios from "axios"; import WPAPI from 'wpapi'; let wp = new WPAPI({ endpoint: '//bigducknyc.com/wp-json'});
 
 export default {
   name: "events",

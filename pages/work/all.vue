@@ -33,7 +33,7 @@ import Work from "~/components/Work.vue";
 import FilterList from "~/components/FilterList.vue";
 import Chat from "~/components/Chat.vue";
 
-import Axios from "axios";
+import Axios from "axios"; import WPAPI from 'wpapi'; let wp = new WPAPI({ endpoint: '//bigducknyc.com/wp-json'});
 import { mapState, mapGetters } from "vuex";
 
 export default {

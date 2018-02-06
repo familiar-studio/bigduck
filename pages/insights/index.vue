@@ -42,7 +42,7 @@
   </div>
 </template>
 <script>
-import axios from "axios";
+import Axios from "axios"; import WPAPI from 'wpapi'; let wp = new WPAPI({ endpoint: '//bigducknyc.com/wp-json'});
 import Chat from "~/components/Chat.vue";
 import FilterList from "~/components/FilterList.vue";
 import InlineCallout from "~/components/InlineCallout.vue";
