@@ -34,7 +34,7 @@
   </style>
   <link rel="stylesheet" type="text/css" href="{{root}}/css/app.css">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="viewport" content="width=device-width" initial-scale="1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
   <meta name=”x-apple-disable-message-reformatting” />
   <!-- <meta name=“x-apple-disable-message-reformatting”> -->
   <title>{{subject}}</title>
@@ -49,8 +49,9 @@
       <td class="center" align="center" valign="top">
         <center>
           {{> header }} {{!-- Pages you create in the src/pages/ folder are inserted here when the flattened emails are created. --}}
-          {{> body}} {{> footer}}
+          {{> body}}
 
+          {{> footer}}
         </center>
       </td>
     </tr>

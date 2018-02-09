@@ -17,7 +17,9 @@ h4 {
 
 .underline {
   text-decoration: underline;
+  -webkit-text-decoration-color: $primary-color;
   text-decoration-color: $primary-color;
+
 }
 
 .header .logo-text {
@@ -131,11 +133,11 @@ table tbody tr td .body p a {
   @extend .underline;
 }
 
-.body {
-  // padding: 0 1.5rem;
-  padding: 0 30px;
-  //font-family: $body-font-family;
-}
+// .body {
+//   // padding: 0 1.5rem;
+//   padding: 0 30px;
+//   //font-family: $body-font-family;
+// }
 
 .body p {
   color: $primary-color;
@@ -261,9 +263,7 @@ a .event-date span {
   svg {
     fill: white;
   }
-  .container {
-    background-color: transparent;
-  }
+
   .logo {
     width: 105px;
   }
@@ -430,5 +430,20 @@ td {
     max-width: 20px;
     max-height: 20px;
     height: 20px;
+  }
+}
+
+.bg-white {
+  background-color: white;
+}
+
+.bg-black {
+  background-color: black;
+}
+
+@media only screen and (max-width: 545px) {
+  table.body .no-x-padding-small {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
   }
 }

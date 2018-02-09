@@ -68,7 +68,7 @@ table.body {
   width: 100%; }
 
 table.container {
-  background: #fff;
+  background: #f5f2f2;
   width: 520px;
   margin: 0 auto;
   Margin: 0 auto;
@@ -209,6 +209,9 @@ th.large-12.first {
 th.large-12.last {
   padding-right: 25px; }
 
+th.large-12 center {
+  min-width: 445px; }
+
 .body .columns th.large-12 {
   width: 100%; }
 
@@ -233,7 +236,6 @@ th.float-center {
 body,
 table.body,
 h1,
-h2,
 h3,
 h4,
 td,
@@ -249,7 +251,6 @@ a {
   line-height: 27px; }
 
 h1,
-h2,
 h3,
 h4 {
   color: inherit;
@@ -261,9 +262,6 @@ h4 {
 
 h1 {
   font-size: 36px; }
-
-h2 {
-  font-size: 35px; }
 
 h3 {
   font-size: 25px; }
@@ -346,6 +344,16 @@ table.button:visited table a,
 table.button:active table a {
   border: 0 solid #f16a49; }
 
+table.callout {
+  margin-bottom: 16px;
+  Margin-bottom: 16px; }
+
+th.callout-inner {
+  width: 100%;
+  border: 1px solid #cccccc;
+  padding: 10px;
+  background: #fff; }
+
 table.menu {
   width: 520px; }
   table.menu th.menu-item {
@@ -412,14 +420,14 @@ body,
 html,
 a,
 h1,
-h2,
 h3,
 h4 {
   hyphens: none;
   font-smooth: never; }
 
-h1 a, h2, h3 a {
+.underline, h1 a, h3 a {
   text-decoration: underline;
+  -webkit-text-decoration-color: #f59178;
   text-decoration-color: #f59178; }
 
 .logo-text {
@@ -461,11 +469,6 @@ h1 {
     line-height: 1;
     font-weight: bold; }
 
-h2 {
-  text-align: center;
-  background-position: 0 100%;
-  line-height: 1.1; }
-
 h3 {
   color: #232323; }
   h3 a {
@@ -480,9 +483,6 @@ h4 {
   font-size: 14px;
   font-weight: 600;
   margin-bottom: 0; }
-
-.body {
-  padding: 0 30px; }
 
 table.button table td a {
   text-transform: uppercase;
@@ -502,10 +502,6 @@ table.button table td a {
     line-height: 1;
     padding-bottom: 0;
     margin-bottom: 0; }
-
-.entry {
-  background-color: white;
-  padding-bottom: 40px; }
 
 .featured img {
   width: 100%; }
@@ -546,8 +542,6 @@ table.row.event {
   background-color: black; }
   .footer td {
     color: white; }
-  .footer .container {
-    background-color: transparent; }
   .footer .unsubscribe a {
     color: white;
     font-size: 12px;
@@ -622,3 +616,14 @@ td {
     max-width: 20px;
     max-height: 20px;
     height: 20px; } }
+
+.bg-white {
+  background-color: white; }
+
+.bg-black {
+  background-color: black; }
+
+@media only screen and (max-width: 545px) {
+  table.body .no-x-padding-small {
+    padding-left: 0px !important;
+    padding-right: 0px !important; } }
