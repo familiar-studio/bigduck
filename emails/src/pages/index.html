@@ -1,14 +1,18 @@
 <container class="main">
+  <row>
+    <columns>
   <center>
     <spacer size="30"></spacer>
     <span class="date main-date"><?php echo date('F j, Y'); ?></span>
     <spacer size="10"></spacer>
-    <h1>
+    <h1 class="underline">
       <a href="<?php echo $mainInsightData['slug'] ?>">
         <?php echo $mainInsightData['title']; ?>
       </a>
     </h1>
   </center>
+</columns>
+</row>
   <spacer size="20"></spacer>
   <wrapper>
     <div class="hero image-cover" style=""></div>
@@ -17,16 +21,18 @@
     </center>
   </wrapper>
   <spacer size="20"></spacer>
-  <div class="body">
+  <wrapper>
+    <row>
+    <columns>
     <?php
         echo $mainInsightData['text'];
       ?>
-  </div>
+    </columns>
+  </row>
   <spacer size="10"></spacer>
   <center>
     <button href="<?php echo $mainInsightData['slug']; ?>">Keep Reading</button>
   </center>
-  <wrapper>
     <spacer size="30"></spacer>
     <!-- <center>
       <h2>Insights</h2>
@@ -36,23 +42,18 @@
         <spacer size="5"></spacer>
       </columns>
       <columns small="4" class="text">
-        <h2>Insights</h2>
+        <h1 class="underline">Insights</h1>
       </columns>
       <columns small="4" class="line">
         <spacer size="5"></spacer>
       </columns>
     </row>
     <spacer size="20"></spacer>
-  </wrapper>
-  <container>
-  </container>
   <?php
   if($insightData) {
     foreach($insightData as $index=>$insight) { ?>
-
-    <container class="entry">
-      <row>
-        <columns small="12" large="5" class="no-bottom no-left featured image-cover">
+      <row class="bg-white">
+        <columns small="12" large="5" class="no-bottom no-left featured image-cover no-x-padding-small">
           <img src="<?php echo $insight['image']; ?>">
         </columns>
         <columns small="12" large="7">
@@ -86,11 +87,12 @@
             </row>
         </columns>
       </row>
-    </container>
+    </wrapper>
     <spacer size="30"></spacer>
     <?php
-    }
-  } ?>
+  }
+} ?>
+      <wrapper>
       <!-- <center>
         <h2>Upcoming events</h2>
       </center> -->
@@ -99,12 +101,13 @@
           <spacer size="5"></spacer>
         </columns>
         <columns small="8" class="text">
-          <h2>Upcoming events</h2>
+          <h1 class="underline">Upcoming events</h1>
         </columns>
         <columns small="2" class="line">
           <spacer size="5"></spacer>
         </columns>
       </row>
+    </wrapper>
       <spacer size="20"></spacer>
       <?php
   if($eventsData){
@@ -174,23 +177,22 @@
             <!-- <center>
               <h2><?php echo $section['heading']; ?></h2>
             </center> -->
-            <row>
-              <columns small="2" class="line">
+            <container>
+            <!-- <row>
+              <columns small="2">
                 <spacer size="5"></spacer>
               </columns>
-              <columns small="8" class="text">
-                <h2>
+              <columns small="8"> -->
+                <h1 class="underline">
                   <?php echo $section['heading']; ?>
-                </h2>
-              </columns>
-              <columns small="2" class="line">
+                </h1>
+              <!-- </columns>
+              <columns small="2">
                 <spacer size="5"></spacer>
               </columns>
-            </row>
+            </row> -->
             <spacer size="20"></spacer>
-            <div class="body">
               <?php echo $section['body']; ?>
-            </div>
             <spacer size="40"></spacer>
             <?php if($section['button_text']){ ?>
             <center>
@@ -210,7 +212,7 @@
                 <spacer size="5"></spacer>
               </columns>
               <columns small="6" class="text">
-                <h2>Follow us</h2>
+                <h1 class="underline">Follow us</h1>
               </columns>
               <columns small="3" class="line">
                 <spacer size="5"></spacer>
