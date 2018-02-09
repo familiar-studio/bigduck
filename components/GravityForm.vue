@@ -310,7 +310,7 @@ export default {
             this.formData.input_19 = this.title;
             this.formData.input_20 = this.gatedContent;
           }
-          var response = await axios.post(
+          var response = await Axios.post(
             this.baseUrl + "forms/" + this.formId + "/submissions",
             { input_values: this.formData },
             {
@@ -373,7 +373,7 @@ export default {
   async created() {
     var signature = this.CalculateSig("forms/" + this.formId, "GET");
 
-    const response = await axios.get(
+    const response = await Axios.get(
       this.baseUrl + "forms/" + this.formId + "/",
       {
         params: {

@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import Axios from "axios";  
+import Axios from "axios";
 import Event from "~/components/Event.vue";
 import Post from "~/components/Post.vue";
 import { mapGetters } from "vuex";
@@ -161,7 +161,7 @@ export default {
     this.totalInsightsPages = responseInsights.data.pages;
     this.relatedInsights = responseInsights.data.data;
   },
-  async asyncData({ store, params }) {
+  async asyncData({ app, store, params }) {
     let response = await Axios.get(
       store.getters["hostname"] + "familiar/v1/team/" + params.slug
     );
@@ -175,7 +175,7 @@ export default {
       this.fetchMoreInsights();
     },
     async fetchMoreInsights() {
-      let response = await Axios.get(
+      let response = await this.$axios.get(
         this.hostname +
           "familiar/v1/insights/user/" +
           this.member.slug +

@@ -11,6 +11,7 @@
               <h6>Insight</h6>
               <h3><span class="underline-change hover-color" v-html="result.post_title"></span></h3>
               <div class="card-text" v-html="result.short_description"></div>
+              <h4 v-html="result.body"></h4>
             </router-link>
             <router-link v-else-if="result.post_type == 'bd_case_study'" :to="{name: 'work-slug', params: {slug: result.slug}}" href="">
               <h6>Work</h6>
@@ -43,7 +44,7 @@
 </template>
 
 <script>
-import Axios from "axios";  
+import Axios from "axios";
 import { createFromAlgoliaCredentials, createFromSerialized } from 'vue-instantsearch'
 const searchStore = createFromAlgoliaCredentials('R3PZL8WP9J',
   '65ae7f31389bada450fa79a104e7fc9f')
