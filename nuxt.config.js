@@ -95,9 +95,11 @@ module.exports = {
   ],
   axios: {
     credentials: false,
+    baseURL: "https://bigducknyc.com/wp-json/",
     errorHandler(errorReason, { error }) {
       error("Request Error: " + errorReason);
     }
+
   },
   /*
 

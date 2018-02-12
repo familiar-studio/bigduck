@@ -102,16 +102,14 @@ export default {
   methods: {
     async search() {
       ///wp-json/wp/v2/multiple-post-type?search=awesome&type[]=post&type[]=page&type[]=article
-      let results = await Axios.get(
-        this.$store.getters.hostname + "wp/v2/multiple-post-type",
-        {
+      let results = await this.$axios.$get("/wp/v2/multiple-post-type", {
           params: {
             search: this.query,
             type: ["bd_insight", "bd_service", "bd_case_study, bd_event"]
           }
         }
       );
-      this.results = results.data;
+      this.results = results;
       this.results.forEach(result => {
         result["post-type"] = result.guid.rendered
           .split("?post_type=")[1]

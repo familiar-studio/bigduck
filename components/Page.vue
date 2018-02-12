@@ -18,7 +18,6 @@
   </div>
 </template>
 <script>
-import Axios from 'axios'
 import GravityForm from '~/components/GravityForm'
 
 export default {

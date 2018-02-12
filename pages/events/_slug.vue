@@ -125,7 +125,6 @@
   </div>
 </template>
 <script>
-import Axios from "axios";  
 import Chat from "~/components/Chat.vue";
 import dateFns from "date-fns";
 import Event from "~/components/Event.vue";
@@ -204,13 +203,12 @@ export default {
       };
     }
   },
-  async asyncData({ store, query, params }) {
+  async asyncData({ app, store, query, params }) {
     let data = {};
-    let response = await Axios.get(
-      store.getters["hostname"] + "wp/v2/bd_event",
+    let response = await app.$axios.$get("/wp/v2/bd_event",
       { params: { slug: params.slug } }
     );
-    data.event = response.data[0];
+    data.event = response[0];
     data.relatedEventsIds = data.event.acf.related_events
       ? data.event.acf.related_events.map(e => {
           return e.ID;
@@ -226,7 +224,7 @@ export default {
   created() {
     // get related events
     if (this.relatedEventsIds) {
-      Axios.get(this.hostname + "wp/v2/bd_event", {
+      this.$axios.$get("/wp/v2/bd_event", {
         params: { include: this.relatedEventsIds }
       }).then(response => {
         this.relatedEvents = response.data;
@@ -235,7 +233,7 @@ export default {
 
     // get related insights
     if (this.relatedInsightsIds) {
-      Axios.get(this.hostname + "wp/v2/bd_insight", {
+      this.$axios.$get("/wp/v2/bd_insight", {
         params: { include: this.relatedInsightsIds }
       }).then(response => {
         this.relatedInsights = response.data;

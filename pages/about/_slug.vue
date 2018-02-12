@@ -62,7 +62,6 @@
 </template>
 
 <script>
-import Axios from "axios";
 import Event from "~/components/Event.vue";
 import Post from "~/components/Post.vue";
 import { mapGetters } from "vuex";
@@ -144,13 +143,10 @@ export default {
   async created() {
     //let relatedEventIds = this.member.events.map((event) => { return event.ID })
     //    if (relatedEventIds && relatedEventIds.length > 0) {
-    let response = await Axios.get(
-      this.hostname + "familiar/v1/events/user/" + this.member.slug
-    );
-    this.relatedEvents = response.data.events;
+    let response = await this.$axios.$get("/familiar/v1/events/user/" + this.member.slug);
+    this.relatedEvents = response.events;
     //}
-    let responseInsights = await Axios.get(
-      this.hostname + "familiar/v1/insights/user/" + this.member.slug,
+    let responseInsights = await this.$axios.$get("/familiar/v1/insights/user/" + this.member.slug,
       {
         params: {
           posts_per_page: this.insightsPerPage,
@@ -158,15 +154,13 @@ export default {
         }
       }
     );
-    this.totalInsightsPages = responseInsights.data.pages;
-    this.relatedInsights = responseInsights.data.data;
+    this.totalInsightsPages = responseInsights.pages;
+    this.relatedInsights = responseInsights.data;
   },
   async asyncData({ app, store, params }) {
-    let response = await Axios.get(
-      store.getters["hostname"] + "familiar/v1/team/" + params.slug
-    );
+    let response = await app.$axios.$get("/familiar/v1/team/" + params.slug);
     return {
-      member: response.data
+      member: response
     };
   },
   methods: {
@@ -175,16 +169,15 @@ export default {
       this.fetchMoreInsights();
     },
     async fetchMoreInsights() {
-      let response = await this.$axios.get(
-        this.hostname +
-          "familiar/v1/insights/user/" +
+      let response = await this.$axios.$get(
+          "/familiar/v1/insights/user/" +
           this.member.slug +
           "?posts_per_page=" +
           this.insightsPerPage +
           "&page=" +
           this.insightsPage
       );
-      this.relatedInsights = this.relatedInsights.concat(response.data.data);
+      this.relatedInsights = this.relatedInsights.concat(response.data);
     }
   }
 };

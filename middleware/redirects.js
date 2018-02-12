@@ -32,7 +32,7 @@ export default function({ route, redirect }) {
 
   };
 
-  console.log("path", route.path);
+  // console.log("path", route.path);
   if (redirects[route.path]) {
     return redirect(301, redirects[route.path]);
   }

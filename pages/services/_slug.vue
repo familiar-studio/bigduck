@@ -73,7 +73,6 @@
   </div>
 </template>
 <script>
-import Axios from "axios";  
 import ColorCallout from "~/components/ColorCallout.vue";
 import FAQ from "~/components/FAQ.vue";
 import GravityForm from "~/components/GravityForm.vue";
@@ -167,20 +166,19 @@ export default {
   async created() {
     let relatedWorkIds = this.service.acf.related_case_studies;
     if (relatedWorkIds && typeof relatedWorkIds !== "undefined") {
-      let response = await Axios.get(
-        this.$store.getters["hostname"] +
-          "wp/v2/bd_case_study?" +
-          relatedWorkIds.map(obj => "include[]=" + obj.ID).join("&")
-      );
-      this.relatedCaseStudies = response.data;
+      let response = await this.$axios.$get("/wp/v2/bd_case_study", {
+        params: {
+          include: relatedWorkIds
+        }
+      })
+      this.relatedCaseStudies = response;
     }
   },
-  async asyncData({ store, route }) {
-    let response = await store.dispatch("fetchByQuery", {
-      path: "wp/v2/bd_service",
-      query: { slug: route.params.slug }
-    });
-    return { service: response.data[0] };
+  async asyncData({ app, store, route }) {
+    const response = await app.$axios.$get("/wp/v2/bd_service", {
+      params: { slug: route.params.slug }
+    })
+    return { service: response[0] };
   }
 };
 </script>
