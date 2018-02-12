@@ -180,8 +180,6 @@
   </div>
 </template>
 <script>
-import Axios from "axios";
-
 import dateFns from "date-fns";
 import GravityForm from "~/components/GravityForm.vue";
 import { mapState, mapGetters, mapActions } from "vuex";
@@ -208,14 +206,13 @@ export default {
       completedGate: false
     };
   },
-  async asyncData({ state, params, store, error }) {
+  async asyncData({ app, state, params, store, error }) {
     let data = {};
     try {
-      let response = await Axios.get(
-        store.getters["hostname"] + "wp/v2/bd_insight",
+      let response = await app.$axios.$get("/wp/v2/bd_insight",
         { params: { slug: params.slug } }
       );
-      data.insight = response.data[0];
+      data.insight = response[0];
       if (data.insight.acf.related_case_studies) {
         data.relatedWorkIds = data.insight.acf.related_case_studies.map(
           caseStudy => {
@@ -375,24 +372,24 @@ export default {
   created() {
     // get related case studies
     if (this.relatedWorkIds) {
-      Axios.get(this.hostname + "wp/v2/bd_case_study", {
+      this.$axios.$get("/wp/v2/bd_case_study", {
         params: { include: this.relatedWorkIds }
       }).then(response => {
-        this.relatedCaseStudies = response.data;
+        this.relatedCaseStudies = response;
       });
     }
     if (this.relatedInsightIds) {
-      Axios.get(this.hostname + "wp/v2/bd_insight", {
+      this.$axios.$get("/wp/v2/bd_insight", {
         params: { include: this.relatedInsightIds }
       }).then(response => {
-        this.relatedInsights = response.data;
+        this.relatedInsights = response;
       });
     }
     if (this.authorIds) {
-      Axios.get(this.hostname + "acf/v3/users", {
+      this.$axios.$get("/acf/v3/users", {
         params: { include: this.authorIds }
       }).then(response => {
-        this.authors = response.data;
+        this.authors = response;
       });
     }
 

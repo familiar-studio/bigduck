@@ -4,17 +4,16 @@
 </template>
 
 <script>
-import Axios from "axios";
 import Page from "~/components/Page";
 
 export default {
   // if url doesnt exist try and find it in insights
-  async asyncData({ store, redirect, params }) {
-    let response = await Axios.get(store.getters["hostname"] + "wp/v2/pages", {
+  async asyncData({ app, store, redirect, params }) {
+    const response = await app.$axios.$get("/wp/v2/pages", {
       params: { slug: params.page }
-    });
-    if (response.data.length > 0) {
-      var data = response.data[0];
+    })
+    if (response.length > 0) {
+      var data = response[0];
       return {
         data: data,
         image: data.acf.featured_image,
@@ -79,4 +78,3 @@ export default {
   }
 };
 </script>
-

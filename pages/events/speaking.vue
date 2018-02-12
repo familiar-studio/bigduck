@@ -3,7 +3,6 @@
   </Page>
 </template>
 <script>
-import Axios from "axios";
 import Page from "~/components/Page";
 
 export default {
@@ -57,11 +56,9 @@ export default {
       };
     }
   },
-  async asyncData({ store }) {
-    let response = await Axios.get(
-      store.getters["hostname"] + "wp/v2/pages?slug=speaking-engagements"
-    );
-    var data = response.data[0];
+  async asyncData({ app, store }) {
+    let response = await app.$axios.$get("/wp/v2/pages?slug=speaking-engagements");
+    var data = response[0];
     return {
       data: data,
       image: data.acf.featured_image,

@@ -99,7 +99,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import CryptoJS from "crypto-js";
 import { mapGetters, mapMutations } from "vuex";
 
@@ -310,7 +309,7 @@ export default {
             this.formData.input_19 = this.title;
             this.formData.input_20 = this.gatedContent;
           }
-          var response = await axios.post(
+          var response = await this.$axios.$post(
             this.baseUrl + "forms/" + this.formId + "/submissions",
             { input_values: this.formData },
             {
@@ -324,9 +323,9 @@ export default {
           );
 
           console.log(response);
-          if (!response.data.response.is_valid) {
-            if (response.data.response) {
-              var errors = response.data.response.validation_messages;
+          if (!response.response.is_valid) {
+            if (response.response) {
+              var errors = response.response.validation_messages;
             }
             var first = Object.keys(errors)[0];
             this.error = "Field " + first + ": " + errors[first];
@@ -373,7 +372,7 @@ export default {
   async created() {
     var signature = this.CalculateSig("forms/" + this.formId, "GET");
 
-    const response = await axios.get(
+    const response = await this.$axios.$get(
       this.baseUrl + "forms/" + this.formId + "/",
       {
         params: {
@@ -384,12 +383,12 @@ export default {
       }
     );
     if (response.status === 200) {
-      if (response.data.response.confirmations) {
-        var confirmations = response.data.response.confirmations;
+      if (response.response.confirmations) {
+        var confirmations = response.response.confirmations;
         this.confirmation =
           confirmations[Object.keys(confirmations)[0]].message;
       }
-      this.gravityFormData = response.data.response;
+      this.gravityFormData = response.response;
       this.initializeForm();
     }
   }

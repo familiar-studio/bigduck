@@ -70,7 +70,6 @@
   </div>
 </template>
 <script>
-import Axios from "axios";
 import Featured from "~/components/Featured.vue";
 import Event from "~/components/Event.vue";
 import Post from "~/components/Post.vue";
@@ -121,23 +120,21 @@ export default {
       ]
     };
   },
-  async asyncData({ store }) {
+  async asyncData({ app, store }) {
     let data = {};
-    let response = await Axios.get(
-      store.getters["hostname"] + "wp/v2/pages/37"
-    );
-    let page = response.data;
+    const response = await app.$axios.$get("/wp/v2/pages/37")
+    let page = response;
     if (page && page.acf) {
       data.relatedWorkIds = page.acf.featured_case_studies.map(work => {
         return work.ID;
       });
       if (data.relatedWorkIds) {
-        await Axios.get(store.getters["hostname"] + "wp/v2/bd_case_study", {
+        await app.$axios.$get("/wp/v2/bd_case_study", {
           params: { include: data.relatedWorkIds }
         }).then(response => {
           let orderedCaseStudies = [];
           data.relatedWorkIds.forEach((id, index) => {
-            orderedCaseStudies[index] = response.data.find(case_study => {
+            orderedCaseStudies[index] = response.find(case_study => {
               return case_study.id === id;
             });
           });
@@ -145,7 +142,7 @@ export default {
         });
       }
       return {
-        page: response.data,
+        page: response,
         ...data,
         upcomingEventIds: page.acf.upcoming_events.map(event => {
           return event.ID;
@@ -196,17 +193,17 @@ export default {
     this.interval = setInterval(this.nextFrame, this.frameInterval);
 
     if (this.upcomingEventIds) {
-      Axios.get(this.hostname + "wp/v2/bd_event", {
+      this.$axios.$get(this.hostname + "wp/v2/bd_event", {
         params: { include: this.upcomingEventIds }
       }).then(response => {
-        this.upcomingEvents = response.data;
+        this.upcomingEvents = response;
       });
     }
     if (this.latestInsightIds) {
-      Axios.get(this.hostname + "wp/v2/bd_insight", {
+      this.$axios.get(this.hostname + "wp/v2/bd_insight", {
         params: { include: this.latestInsightIds }
       }).then(response => {
-        this.latestInsights = response.data;
+        this.latestInsights = response;
       });
     }
   },

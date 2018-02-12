@@ -125,7 +125,7 @@
               </article>
               <v-waypoint @waypoint-in="activateSection('jobs')"></v-waypoint>
 
-              <article id="jobs" class="mb-5">
+              <article id="jobs" class="my-5">
                 <h1>{{ page.acf.jobs_headline }}</h1>
                 <div v-html="page.acf.jobs_body" class="mb-3"></div>
                 <div v-if="jobs">
@@ -161,7 +161,6 @@
   </div>
 </template>
 <script>
-import Axios from "axios";
 import Event from "~/components/Event.vue";
 import Chat from "~/components/Chat.vue";
 import Vue from "vue";
@@ -227,30 +226,28 @@ export default {
       activeSection: "we-believe"
     };
   },
-  async asyncData({ store, query, dispatch }) {
+  async asyncData({ app, store, query, dispatch }) {
     let data = {};
-    let page = await Axios.get(
-      store.getters["hostname"] + "wp/v2/pages?slug=about"
-    );
+    let page = await app.$axios.$get("/wp/v2/pages?slug=about");
     let openCategories = {};
 
-    page.data[0].acf.clients.forEach(client => {
+    page[0].acf.clients.forEach(client => {
       openCategories[client.client_category] = false;
     });
     data["openCategories"] = openCategories;
-    data["pageObject"] = page.data;
+    data["pageObject"] = page;
     let [team, jobs, openHouse] = await Promise.all([
-      store.dispatch("fetch", "familiar/v1/team"),
-      store.dispatch("fetch", "wp/v2/bd_job"),
-      store.dispatch("fetch", "wp/v2/bd_event?event_category=31")
+      app.$axios.$get("/familiar/v1/team"),
+      app.$axios.$get("/wp/v2/bd_job"),
+      app.$axios.$get("/wp/v2/bd_event?event_category=31")
     ]);
     let openJobs = {};
-    jobs.data.forEach(job => {
+    jobs.forEach(job => {
       openJobs[job.id] = false;
     });
     data["openJobs"] = openJobs;
-    data["team"] = team.data;
-    data["jobs"] = jobs.data;
+    data["team"] = team;
+    data["jobs"] = jobs;
 
     // arrange clients into sectors:
     const sectors = store.state.sectors.sort();
