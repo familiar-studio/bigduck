@@ -14,38 +14,9 @@ export default {
       return {
         title: "Featured Work",
         meta: [
-          {
-            hid: "og:title",
-            content: "Featured Work"
-          },
-          {
-            hid: "twitter:title",
-            content: "Featured Work"
-          },
-          {
-            hid: "description",
-            content: "Learn more about what we've done."
-          },
-          {
-            hid: "og:description",
-            content: "Learn more about what we've done."
-          },
-          {
-            hid: "twitter:description",
-            content: "Learn more about what we've done."
-          },
-          {
-            hid: "image",
-            content: this.featured[0].acf.hero_image.url
-          },
-          {
-            hid: "og:image:url",
-            content: this.featured[0].acf.hero_image.url
-          },
-          {
-            hid: "twitter:image",
-            content: this.featured[0].acf.hero_image.url
-          }
+          ...this.$metaDescription("Learn more about what we've done."),
+          ...this.$metaTitles("Featured Work"),
+          ...this.$metaImages(this.featured[0].acf.hero_image.url)
         ]
       };
     }

@@ -53,31 +53,9 @@ export default {
       return {
         title: "Services",
         meta: [
-          {
-            hid: "og:title",
-            property: "og:title",
-            content: "Services"
-          },
-          {
-            hid: "twitter:title",
-            property: "twitter:title",
-            content: "Services"
-          },
-          {
-            hid: "description",
-            name: "description",
-            content: this.servicesPage.acf.text
-          },
-          {
-            hid: "og:description",
-            property: "og:description",
-            content: this.servicesPage.acf.text
-          },
-          {
-            hid: "twitter:description",
-            property: "twitter:description",
-            content: this.servicesPage.acf.text
-          }
+          ...this.$metaDescription(this.servicesPage.acf.text),
+          ...this.$metaTitles("Services"),
+          ...this.$metaImages()
         ]
       };
     }

@@ -73,46 +73,9 @@ export default {
       return {
         title: this.member.name,
         meta: [
-          {
-            hid: "og:title",
-            property: "og:title",
-            content: this.member.name + " | Big Duck"
-          },
-          {
-            hid: "twitter:title",
-            property: "twitter:title",
-            content: this.member.name + " | Big Duck"
-          },
-          {
-            hid: "description",
-            name: "description",
-            content: this.member.job_title
-          },
-          {
-            hid: "og:description",
-            property: "og:description",
-            content: this.member.job_title
-          },
-          {
-            hid: "twitter:description",
-            property: "twitter:description",
-            content: this.member.job_title
-          },
-          {
-            hid: "image",
-            property: "image",
-            content: this.member.headshot.url
-          },
-          {
-            hid: "og:image:url",
-            property: "og:image:url",
-            content: this.member.headshot.url
-          },
-          {
-            hid: "twitter:image",
-            property: "twitter:image",
-            content: this.member.headshot.url
-          }
+          ...this.$metaDescription(this.member.job_title),
+          ...this.$metaTitles(this.member.name + " | Big Duck"),
+          ...this.$metaImages(this.member.headshot.url)
         ]
       };
     }

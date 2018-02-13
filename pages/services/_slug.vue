@@ -86,46 +86,9 @@ export default {
       return {
         title: this.service.title.rendered,
         meta: [
-          {
-            hid: "og:title",
-            property: "og:title",
-            content: this.service.title.rendered + " | Big Duck"
-          },
-          {
-            hid: "twitter:title",
-            property: "twitter:title",
-            content: this.service.title.rendered + " | Big Duck"
-          },
-          {
-            hid: "description",
-            name: "description",
-            content: this.service.acf.introduction
-          },
-          {
-            hid: "og:description",
-            property: "og:description",
-            content: this.service.acf.introduction
-          },
-          {
-            hid: "twitter:description",
-            property: "twitter:description",
-            content: this.service.acf.introduction
-          },
-          {
-            hid: "image",
-            property: "image",
-            content: this.service.acf.featured_image.url
-          },
-          {
-            hid: "og:image:url",
-            property: "og:image:url",
-            content: this.service.acf.featured_image.url
-          },
-          {
-            hid: "twitter:image",
-            property: "twitter:image",
-            content: this.service.acf.featured_image.url
-          }
+          ...this.$metaDescription(this.service.acf.introduction),
+          ...this.$metaTitles(this.service.title.rendered + " | Big Duck"),
+          ...this.$metaImages(this.service.acf.featured_image.url)
         ]
       };
     }
@@ -164,7 +127,7 @@ export default {
     FAQ
   },
   async created() {
-    let relatedWorkIds = this.service.acf.related_case_studies;
+    let relatedWorkIds = this.service.acf.related_case_studies.map((study) => study.ID);
     if (relatedWorkIds && typeof relatedWorkIds !== "undefined") {
       let response = await this.$axios.$get("/wp/v2/bd_case_study", {
         params: {

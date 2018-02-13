@@ -138,55 +138,9 @@ export default {
       return {
         title: this.caseStudy.title.rendered,
         meta: [
-          {
-            hid: "og:title",
-            property: "og:title",
-            content: this.caseStudy.title.rendered + " | Big Duck"
-          },
-          {
-            hid: "twitter:title",
-            property: "twitter:title",
-            content: this.caseStudy.title.rendered + " | Big Duck"
-          },
-          {
-            hid: "description",
-            name: "description",
-            content: this.caseStudy.acf.short_description.replace(
-              /(<([^>]+)>)/gi,
-              ""
-            )
-          },
-          {
-            hid: "og:description",
-            property: "og:description",
-            content: this.caseStudy.acf.short_description.replace(
-              /(<([^>]+)>)/gi,
-              ""
-            )
-          },
-          {
-            hid: "twitter:description",
-            property: "twitter:description",
-            content: this.caseStudy.acf.short_description.replace(
-              /(<([^>]+)>)/gi,
-              ""
-            )
-          },
-          {
-            hid: "image",
-            property: "image",
-            content: this.caseStudy.acf.hero_image.url
-          },
-          {
-            hid: "og:image:url",
-            property: "og:image:url",
-            content: this.caseStudy.acf.hero_image.url
-          },
-          {
-            hid: "twitter:image",
-            property: "twitter:image",
-            content: this.caseStudy.acf.hero_image.url
-          }
+          ...this.$metaDescription(this.caseStudy.acf.short_description.replace(/(<([^>]+)>)/gi,"")),
+          ...this.$metaTitles(this.caseStudy.title.rendered + " | Big Duck"),
+          ...this.$metaImages(this.caseStudy.acf.hero_image.url)
         ]
       };
     }

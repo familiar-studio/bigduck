@@ -74,31 +74,9 @@ export default {
       return {
         title: "Upcoming Events",
         meta: [
-          {
-            hid: "og:title",
-            property: "og:title",
-            content: "Upcoming Events"
-          },
-          {
-            hid: "twitter:title",
-            property: "twitter:title",
-            content: "Upcoming Events"
-          },
-          {
-            hid: "description",
-            name: "description",
-            content: "Learn more about our upcoming events."
-          },
-          {
-            hid: "og:description",
-            property: "og:description",
-            content: "Learn more about our upcoming events."
-          },
-          {
-            hid: "twitter:description",
-            property: "twitter:description",
-            content: "Learn more about our upcoming events."
-          }
+          ...this.$metaDescription("Learn more about our upcoming events."),
+          ...this.$metaTitles("Upcoming Events | Big Duck"),
+          ...this.$metaImages()
         ]
       };
     }

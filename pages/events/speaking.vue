@@ -12,46 +12,9 @@ export default {
       return {
         title: this.title,
         meta: [
-          {
-            hid: "og:title",
-            property: "og:title",
-            content: this.title
-          },
-          {
-            hid: "twitter:title",
-            property: "twitter:title",
-            content: this.title
-          },
-          {
-            hid: "description",
-            name: "description",
-            content: "Interested in having Big Duck speak at your organization?"
-          },
-          {
-            hid: "og:description",
-            property: "og:description",
-            content: "Interested in having Big Duck speak at your organization?"
-          },
-          {
-            hid: "twitter:description",
-            property: "twitter:description",
-            content: "Interested in having Big Duck speak at your organization?"
-          },
-          {
-            hid: "image",
-            property: "image",
-            content: this.image
-          },
-          {
-            hid: "og:image:url",
-            property: "og:image:url",
-            content: this.image
-          },
-          {
-            hid: "twitter:image",
-            property: "twitter:image",
-            content: this.image
-          }
+          ...this.$metaDescription("Interested in having Big Duck speak at your organization?"),
+          ...this.$metaTitles(this.title),
+          ...this.$metaImages(this.image)
         ]
       };
     }

@@ -92,7 +92,6 @@
 </template>
 
 <script>
-import Axios from "axios";
 import FilterList from "~/components/FilterList";
 import { createFromAlgoliaCredentials, createFromSerialized } from 'vue-instantsearch'
 const searchStore = createFromAlgoliaCredentials('R3PZL8WP9J',
@@ -130,26 +129,9 @@ export default {
     return {
       title: "Search",
       meta: [
-        {
-          hid: "og:title",
-          content: "Search"
-        },
-        {
-          hid: "twitter:title",
-          content: "Search"
-        },
-        {
-          hid: "description",
-          content: "Find anything on our site."
-        },
-        {
-          hid: "og:description",
-          content: "Find anything on our site."
-        },
-        {
-          hid: "twitter:description",
-          content: "Find anything on our site."
-        }
+        ...this.$metaDescription("Find anything on our site."),
+        ...this.$metaTitles("Search"),
+        ...this.$metaImages()
       ]
     };
   },

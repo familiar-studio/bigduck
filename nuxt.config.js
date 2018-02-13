@@ -86,7 +86,8 @@ module.exports = {
     { src: "~/plugins/ga.js", ssr: false },
     { src: "~/plugins/scrollto.js", ssr: false },
     { src: "~/plugins/waypoint.js", ssr: false },
-    { src: "~/plugins/search.js" }
+    { src: "~/plugins/search.js" },
+    { src: "~/plugins/meta.js" }
   ],
   modules: [
     // Simple usage

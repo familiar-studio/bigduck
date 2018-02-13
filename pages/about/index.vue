@@ -176,46 +176,9 @@ export default {
       return {
         title: this.page.acf.we_believe_headline,
         meta: [
-          {
-            hid: "og:title",
-            property: "og:title",
-            content: this.page.acf.we_believe_headline
-          },
-          {
-            hid: "twitter:title",
-            property: "twitter:title",
-            content: this.page.acf.we_believe_headline
-          },
-          {
-            hid: "description",
-            name: "description",
-            content: this.page.acf.we_believe_body
-          },
-          {
-            hid: "og:description",
-            property: "og:description",
-            content: this.page.acf.we_believe_body
-          },
-          {
-            hid: "twitter:description",
-            property: "twitter:description",
-            content: this.page.acf.we_believe_body
-          },
-          {
-            hid: "image",
-            property: "image",
-            content: this.page.acf.featured_image.url
-          },
-          {
-            hid: "og:image:url",
-            property: "og:image:url",
-            content: this.page.acf.featured_image.url
-          },
-          {
-            hid: "twitter:image",
-            property: "twitter:image",
-            content: this.page.acf.featured_image.url
-          }
+          ...this.$metaDescription(this.page.acf.we_believe_body),
+          ...this.$metaTitles(this.page.acf.we_believe_headline),
+          ...this.$metaImages(this.page.acf.featured_image.url)
         ]
       };
     }
@@ -251,7 +214,7 @@ export default {
 
     // arrange clients into sectors:
     const sectors = store.state.sectors.sort();
-    data["openHouse"] = openHouse.data;
+    data["openHouse"] = openHouse;
     return data;
   },
   computed: {
