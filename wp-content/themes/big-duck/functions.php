@@ -25,22 +25,41 @@ function bd_pre_get_posts( $query ) {
 }
 
 function get_body_fields($postId) {
-  return array_filter(get_fields($post->ID), function($field) {
+  // find fields whose names contain 'body'
+  if (!is_array(get_fields($postId))){
+    return [];
+  }
+  return array_filter(get_fields($postId), function($field) {
     // Do not convert type since zero is a valid response and 0 == false but not 0 === false
     return strpos($field, "body") !== false;
   }, ARRAY_FILTER_USE_KEY);
 }
 
 function my_post_attributes( array $attributes, WP_Post $post) {
+  error_log('firing my_post_attributes');
+
   $attributes['post_name'] = $post->post_name;
   // Find matrix field with 'body' in the name
-  // $bodyFields = get_body_fields($post->ID);
-  // foreach($bodyFields as $field => $value) {
-  //   $attributes[$field] = $value;
-  // }
+  error_log($post->ID);
+  $bodyFields = get_body_fields($post->ID);
+  $attributes['body'] = "";
+
+  if (is_array($bodyFields)) {
+    foreach($bodyFields as $field => $value) {
+      if (is_array($value)) {
+        foreach($value as $name => $fieldValue) {
+          if($fieldValue["acf_fc_layout"] === "text") {
+            // take an HTML decoded, concatenated string of maximum 8000 chars
+            $attributes['body'] = substr(html_entity_decode(strip_tags($fieldValue["text"] . $attributes["body"])), 0, 8000);
+          }
+        }
+      }
+    }
+  }
+
 	switch($post->post_type) {
 		case 'bd_insight':
-			$attributes['short_description'] = get_field('short_description', $post->ID);
+			$attributes['short_description'] = strip_tags(get_field('short_description', $post->ID));
 			break;
 		case 'bd_case_study':
 			$attributes['client_name'] = get_field('client_name', $post->ID);
@@ -51,14 +70,27 @@ function my_post_attributes( array $attributes, WP_Post $post) {
       $attributes['start_time'] = get_field('start_time', $post->ID);
       $attributes['text'] = get_field('text', $post->ID);
 			break;
+    case 'bd_service':
+      $attributes['introduction'] = get_field('introduction', $post->ID);
+      $attributes['short_description'] = get_field('short_description', $post->ID);
+      break;
+
     // case ''
 	}
 	return $attributes;
 }
 
+function indexBodyField($settings) {
+  $settings['attributesToIndex'][] = 'unordered(body)';
+  $settings['attributesToSnippet'][] = 'body:50';
+  return $settings;
+}
+
 function my_insights_index_settings( array $settings ) {
   $settings['attributesToIndex'][] = 'unordered(short_description)';
   $settings['attributesToSnippet'][] = 'short_description:50';
+  $settings = indexBodyField($settings);
+  error_log(json_encode($settings));
   return $settings;
 }
 
@@ -68,14 +100,43 @@ function my_events_index_settings( array $settings ) {
   $settings['attributesToIndex'][] = 'unordered(text)';
   $settings['attributesToSnippet'][] = 'text:50';
   $settings['attributesToIndex'][] = 'start_time';
+  $settings = indexBodyField($settings);
+  error_log(json_encode($settings));
   return $settings;
 }
 
+function my_case_studies_index_settings( array $settings ) {
+  $settings['attributesToIndex'][] = 'unordered(short_description)';
+  $settings['attributesToSnippet'][] = 'short_description:50';
+  $settings['attributesToIndex'][] = 'unordered(introduction)';
+  $settings = indexBodyField($settings);
+  error_log(json_encode($settings));
+  return $settings;
+}
+
+function my_posts_index_settings( array $settings) {
+  $settings['attributesToIndex'][] = 'unordered(short_description)';
+  $settings['attributesToSnippet'][] = 'short_description:50';
+  $settings['attributesToIndex'][] = 'unordered(introduction)';
+  $settings['attributesToSnippet'][] = 'introduction:50';
+  $settings['attributesToIndex'][] = 'unordered(subtitle)';
+  $settings['attributesToSnippet'][] = 'subtitle:50';
+  $settings['attributesToIndex'][] = 'unordered(text)';
+  $settings['attributesToSnippet'][] = 'text:50';
+  $settings['attributesToIndex'][] = 'start_time';
+  $settings['attributesToIndex'][] = 'unordered(body)';
+  $settings['attributesToSnippet'][] = 'body:50';
+  error_log("firing");
+  return $settings;
+}
+
+add_filter('algolia_searchable_posts_index_settings', 'my_posts_index_settings');
 add_filter('pre_get_posts', 'bd_pre_get_posts');
 add_filter('algolia_posts_bd_insight_index_settings', 'my_insights_index_settings');
+add_filter('algolia_posts_bd_case_study_index_settings', 'my_case_studies_index_settings');
 add_filter('algolia_posts_bd_event_index_settings', 'my_events_index_settings');
 add_filter('algolia_post_shared_attributes', 'my_post_attributes', 10, 2 );
-add_filter('algolia_searchable_post_shared_attributtes', 'my_post_attributes', 10, 2);
+add_filter('algolia_searchable_post_shared_attributes', 'my_post_attributes', 10, 2);
 
 add_action( 'save_post', function( $post_id ) {
   if ( class_exists( 'WP_REST_Cache' ) ) {

@@ -3,7 +3,7 @@
     <div class="search-bar">
       <div class="container">
       <ais-index :search-store="searchStore" >
-      <ais-search-box class="form-inline"></ais-search-box>
+      <ais-search-box class="form-inline" autocomplete="on"></ais-search-box>
       <ais-results>
         <template slot-scope="{ result }">
           <div class="search-result">
@@ -55,7 +55,6 @@ export default {
     return {
       totalPages: null,
       query: null,
-      results: null,
       searchStore: null
     };
   },
@@ -88,34 +87,13 @@ export default {
   },
   async asyncData({ route, store }) {
     searchStore.start()
+    searchStore.refresh()
     await searchStore.waitUntilInSync()
 
     return { serializedSearchStore: searchStore.serialize()}
   },
   created () {
     this.searchStore = createFromSerialized(this.serializedSearchStore)
-  },
-  mounted() {
-    this.query = this.$route.query.query;
-    this.search();
-  },
-  methods: {
-    async search() {
-      ///wp-json/wp/v2/multiple-post-type?search=awesome&type[]=post&type[]=page&type[]=article
-      let results = await this.$axios.$get("/wp/v2/multiple-post-type", {
-          params: {
-            search: this.query,
-            type: ["bd_insight", "bd_service", "bd_case_study, bd_event"]
-          }
-        }
-      );
-      this.results = results;
-      this.results.forEach(result => {
-        result["post-type"] = result.guid.rendered
-          .split("?post_type=")[1]
-          .split("&")[0];
-      });
-    }
   }
 };
 </script>
