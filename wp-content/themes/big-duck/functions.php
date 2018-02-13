@@ -36,11 +36,8 @@ function get_body_fields($postId) {
 }
 
 function my_post_attributes( array $attributes, WP_Post $post) {
-  error_log('firing my_post_attributes');
-
   $attributes['post_name'] = $post->post_name;
   // Find matrix field with 'body' in the name
-  error_log($post->ID);
   $bodyFields = get_body_fields($post->ID);
   $attributes['body'] = "";
 
@@ -69,13 +66,15 @@ function my_post_attributes( array $attributes, WP_Post $post) {
 			$attributes['subtitle'] = get_field('subtitle', $post->ID);
       $attributes['start_time'] = get_field('start_time', $post->ID);
       $attributes['text'] = get_field('text', $post->ID);
-			break;
+		  break;
     case 'bd_service':
-      $attributes['introduction'] = get_field('introduction', $post->ID);
-      $attributes['short_description'] = get_field('short_description', $post->ID);
+      $attributes['introduction'] = strip_tags(get_field('introduction', $post->ID));
+      $attributes['short_description'] = strip_tags(get_field('short_description', $post->ID));
       break;
-
-    // case ''
+		case 'bd_job':
+			$attributes['job_description'] = strip_tags(get_field('job_description', $post->ID));
+			$attributes['requirements_body'] = strip_tags(get_field('requirements_body', $post->ID));
+			break;
 	}
 	return $attributes;
 }
@@ -90,7 +89,6 @@ function my_insights_index_settings( array $settings ) {
   $settings['attributesToIndex'][] = 'unordered(short_description)';
   $settings['attributesToSnippet'][] = 'short_description:50';
   $settings = indexBodyField($settings);
-  error_log(json_encode($settings));
   return $settings;
 }
 
@@ -101,7 +99,6 @@ function my_events_index_settings( array $settings ) {
   $settings['attributesToSnippet'][] = 'text:50';
   $settings['attributesToIndex'][] = 'start_time';
   $settings = indexBodyField($settings);
-  error_log(json_encode($settings));
   return $settings;
 }
 
@@ -110,7 +107,6 @@ function my_case_studies_index_settings( array $settings ) {
   $settings['attributesToSnippet'][] = 'short_description:50';
   $settings['attributesToIndex'][] = 'unordered(introduction)';
   $settings = indexBodyField($settings);
-  error_log(json_encode($settings));
   return $settings;
 }
 
@@ -126,7 +122,12 @@ function my_posts_index_settings( array $settings) {
   $settings['attributesToIndex'][] = 'start_time';
   $settings['attributesToIndex'][] = 'unordered(body)';
   $settings['attributesToSnippet'][] = 'body:50';
-  error_log("firing");
+	$settings['attributesToIndex'][] = 'unordered(content)';
+	$settings['attributesToSnippet'][] = 'content:50';
+	$settings['attributesToIndex'][] = 'unordered(job_description)';
+	$settings['attributesToSnippet'][] = 'job_description:50';
+	$settings['attributesToIndex'][] = 'unordered(requirements_body)';
+	$settings['attributesToSnippet'][] = 'requirements_body:50';
   return $settings;
 }
 
