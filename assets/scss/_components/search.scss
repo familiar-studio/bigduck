@@ -133,3 +133,20 @@
     }
   }
 }
+
+.search-main {
+  @include media-breakpoint-down (md) {
+    width: 720px;
+    max-width: 100%;
+  }
+  @include media-breakpoint-down (sm) {
+    width: 540px;
+    max-width: 100%;
+  }
+  @include media-breakpoint-down(lg) {
+    padding-right: 15px !important;
+    padding-left: 15px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}

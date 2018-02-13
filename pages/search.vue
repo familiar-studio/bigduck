@@ -4,6 +4,11 @@
     <div class="search-bar">
       <div class="container">
       <ais-search-box class="form-inline" placeholder="Search"></ais-search-box>
+      <!-- <ais-stats>
+        <template slot-scope="{ totalResults, query }">
+        Showing {{ totalResults }} results.
+      </template>
+      </ais-stats> -->
       </div>
     </div>
     <div class="row no-gutters">
@@ -22,18 +27,13 @@
               <div class="label label-lg">Type</div>
               <ais-refinement-list attribute-name="taxonomies.type" :sort-by="['name:asc']"></ais-refinement-list>
             </div>
-            <!-- <div class="label label-lg">Event Category</div>
-            <div class="media-list">
-              <ais-refinement-list attribute-name="taxonomies.event_category"></ais-refinement-list>
-            </div> -->
-
           </div>
 
         </div>
       </div>
-      <div class="col-lg-9 col-xl-8">
+      <div class="col-lg-9 col-xl-8 search-main">
       <ul class="list-unstyled">
-    <ais-results>
+    <ais-results results-per-page="20">
       <template slot-scope="{ result }">
         <li>
           <div class="search-result">
@@ -81,7 +81,7 @@
 
     </ais-results>
     <ais-no-results></ais-no-results>
-    <ais-pagination></ais-pagination>
+    <ais-pagination @page-change="onPageChange"></ais-pagination>
   </ul>
 </div>
 <div class="col-lg-2"></div>
@@ -121,6 +121,9 @@ export default {
   methods: {
     togglePostType(e) {
       this.selectedPostType = this.selectedPostType === e.id ? null : e.id
+    },
+    onPageChange() {
+      window.scrollTo(0,0);
     }
   },
   head() {
@@ -173,7 +176,8 @@ export default {
   .ais-refinement-list__checkbox[value="Pages"] + .ais-refinement-list__value,
   .ais-refinement-list__checkbox[value="Sidebar CTAs"] + .ais-refinement-list__value,
   .ais-refinement-list__checkbox[value="Emails"] + .ais-refinement-list__value,
-  .ais-refinement-list__checkbox[value="Posts"] + .ais-refinement-list__value {
+  .ais-refinement-list__checkbox[value="Posts"] + .ais-refinement-list__value,
+  .ais-pagination__item.ais-pagination__item--disabled {
     display: none;
   }
 </style>
