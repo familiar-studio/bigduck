@@ -2,9 +2,9 @@ import axios from "axios";
 
 export const state = () => ({
   userProfile: null,
-  localHostname: "http://bigduck.dev/wp-json/",
+  localHostname: "http://bigduck.test/wp-json/",
   remoteHostname: "https://bigducknyc.com/wp-json/",
-  bareLocalHostname: "http://bigduck.dev/",
+  bareLocalHostname: "http://bigduck.test/",
   bareRemoteHostname: "https://bigducknyc.com/",
   categories: null,
   categoriesPath: "wp/v2/categories/",

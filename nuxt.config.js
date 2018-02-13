@@ -74,20 +74,33 @@ module.exports = {
     mode: "out-in",
     appear: true
   },
+  proxy: process.env.PROXY_API_URL
+    ? [
+        ["/wp-admin", { target: process.env.PROXY_API_URL }],
+        ["/wp-json", { target: process.env.PROXY_API_URL }]
+      ]
+    : [],
   plugins: [
     { src: "~/plugins/vue-validate", ssr: false },
     { src: "~/plugins/newfangled.js", ssr: false },
     { src: "~/plugins/ga.js", ssr: false },
     { src: "~/plugins/scrollto.js", ssr: false },
-    { src: "~/plugins/waypoint.js", ssr: false }
+    { src: "~/plugins/waypoint.js", ssr: false },
+    { src: "~/plugins/search.js" },
+    { src: "~/plugins/meta.js" }
   ],
   modules: [
     // Simple usage
-    "@nuxtjs/axios"
+    "@nuxtjs/axios",
+    "@nuxtjs/proxy"
   ],
   axios: {
     credentials: false,
-    baseURL: "https://bigducknyc.com/wp-json/"
+    baseURL: "https://bigducknyc.com/wp-json/",
+    errorHandler(errorReason, { error }) {
+      error("Request Error: " + errorReason);
+    }
+
   },
   /*
 

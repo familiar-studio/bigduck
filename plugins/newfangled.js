@@ -1,5 +1,5 @@
 import jscookie from "js-cookie";
-import axios from "axios";
+import Axios from "axios";  
 
 export default ({ app: { router }, store }) => {
   /*

@@ -42,7 +42,6 @@
   </div>
 </template>
 <script>
-import axios from "axios";
 import Chat from "~/components/Chat.vue";
 import FilterList from "~/components/FilterList.vue";
 import InlineCallout from "~/components/InlineCallout.vue";
@@ -50,13 +49,16 @@ import { mapState, mapGetters } from "vuex";
 import Post from "~/components/Post.vue";
 export default {
   name: "insights",
-  async asyncData({ store, query, errro }) {
-    store.commit("resetPage");
-    const response = await store.dispatch("fetchByQuery", {
-      isPaged: true,
-      query: query,
-      path: "wp/v2/bd_insight"
-    });
+  async asyncData({ app, store, query, errro }) {
+    let params = {page: 1, per_page: 8};
+    ['topic', 'type', 'slug', 'event_category'].map((s) => {
+      if (query[s]) {
+        params[s] = query[s]
+      }
+    })
+    const response = await app.$axios.get("/wp/v2/bd_insight", {
+      params: params
+    })
     return {
       insights: response.data,
       totalPages: response.headers["x-wp-totalpages"],
@@ -67,7 +69,9 @@ export default {
     return {
       previouslyLoadedInsights: 0,
       callout: null,
-      insights: []
+      insights: [],
+      page: 1,
+      postsPerPage: 8
     };
   },
   head() {
@@ -75,31 +79,9 @@ export default {
       return {
         title: "Insights",
         meta: [
-          {
-            hid: "og:title",
-            property: "og:title",
-            content: "Insights"
-          },
-          {
-            hid: "twitter:title",
-            property: "twitter:title",
-            content: "Insights"
-          },
-          {
-            hid: "description",
-            name: "description",
-            content: "Read more about the results of our work."
-          },
-          {
-            hid: "og:description",
-            property: "og:description",
-            content: "Read more about the results of our work."
-          },
-          {
-            hid: "twitter:description",
-            property: "twitter:description",
-            content: "Read more about the results of our work."
-          }
+          ...this.$metaDescription("Read more about the results of our work."),
+          ...this.$metaTitles("Insights"),
+          ...this.$metaImages()
         ]
       };
     }
@@ -139,31 +121,37 @@ export default {
       this.$router.push({ name: "insights", query: null });
     },
     async filterResults() {
-      this.$store.commit("resetPage");
-      const response = await this.$store.dispatch("fetchByQuery", {
-        isPaged: true,
-        path: "wp/v2/bd_insight",
-        query: this.$route.query
-      });
+      let params = {page: this.page, per_page: 8};
+      ['topic', 'type', 'slug', 'event_category'].map((s) => {
+        if (query[s]) {
+          params[s] = query[s]
+        }
+      })
+      const response = app.$axios.get("/wp/v2/bd_insight", {
+        params: params
+      })
       this.insights = response.data;
       this.totalPages = response.headers["x-wp-totalpages"];
       this.totalRecords = response.headers["x-wp-total"];
     },
     async nextPage() {
-      this.$store.commit("nextPage");
+      this.page++
       this.previouslyLoadedInsights = this.insights.length;
-      let query = Object.assign({}, this.$route.query);
-      const response = await this.$store.dispatch("fetchByQuery", {
-        isPaged: true,
-        query: query,
-        path: "wp/v2/bd_insight"
-      });
+      let params = {page: this.page, per_page: 8};
+      ['topic', 'type', 'slug', 'event_category'].map((s) => {
+        if (query[s]) {
+          params[s] = query[s]
+        }
+      })
+      const response = app.$axios.get("/wp/v2/bd_insight", {
+        params: params
+      })
       this.insights = this.insights.concat(response.data);
     }
   },
   async created() {
-    let response = await axios.get(this.hostname + "wp/v2/pages?slug=insights");
-    var data = response.data[0];
+    let response = await this.$axios.$get(this.hostname + "wp/v2/pages?slug=insights");
+    var data = response[0];
     this.callout = data.acf;
   }
 };

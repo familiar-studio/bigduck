@@ -1,0 +1,37 @@
+[13-Feb-2018 21:40:36 UTC] about to facet
+[13-Feb-2018 21:42:38 UTC] PHP Fatal error:  Uncaught TypeError: Argument 2 passed to my_posts_index_settings() must be an instance of WP_Post, none given, called in /Users/scott/Sites/bigduck/wp-includes/class-wp-hook.php on line 300 and defined in /Users/scott/Sites/bigduck/wp-content/themes/big-duck/functions.php:138
+Stack trace:
+#0 /Users/scott/Sites/bigduck/wp-includes/class-wp-hook.php(300): my_posts_index_settings(Array)
+#1 /Users/scott/Sites/bigduck/wp-includes/plugin.php(203): WP_Hook->apply_filters(Array, Array)
+#2 /Users/scott/Sites/bigduck/wp-content/plugins/search-by-algolia-instant-relevant-results/includes/indices/class-algolia-posts-index.php(223): apply_filters('algolia_posts_i...', Array, 'post')
+#3 /Users/scott/Sites/bigduck/wp-content/plugins/search-by-algolia-instant-relevant-results/includes/indices/class-algolia-index.php(302): Algolia_Posts_Index->get_settings()
+#4 /Users/scott/Sites/bigduck/wp-content/plugins/search-by-algolia-instant-relevant-results/includes/indices/class-algolia-index.php(295): Algolia_Index->push_settings()
+ in /Users/scott/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 138
+[13-Feb-2018 21:42:42 UTC] about to facet
+[13-Feb-2018 21:43:12 UTC] PHP Fatal error:  Uncaught TypeError: Argument 2 passed to my_posts_index_settings() must be an instance of WP_Post, none given, called in /Users/scott/Sites/bigduck/wp-includes/class-wp-hook.php on line 300 and defined in /Users/scott/Sites/bigduck/wp-content/themes/big-duck/functions.php:138
+Stack trace:
+#0 /Users/scott/Sites/bigduck/wp-includes/class-wp-hook.php(300): my_posts_index_settings(Array)
+#1 /Users/scott/Sites/bigduck/wp-includes/plugin.php(203): WP_Hook->apply_filters(Array, Array)
+#2 /Users/scott/Sites/bigduck/wp-content/plugins/search-by-algolia-instant-relevant-results/includes/indices/class-algolia-posts-index.php(223): apply_filters('algolia_posts_i...', Array, 'post')
+#3 /Users/scott/Sites/bigduck/wp-content/plugins/search-by-algolia-instant-relevant-results/includes/indices/class-algolia-index.php(302): Algolia_Posts_Index->get_settings()
+#4 /Users/scott/Sites/bigduck/wp-content/plugins/search-by-algolia-instant-relevant-results/includes/indices/class-algolia-index.php(295): Algolia_Index->push_settings()
+ in /Users/scott/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 138
+[13-Feb-2018 21:43:30 UTC] PHP Fatal error:  Uncaught TypeError: Argument 2 passed to my_posts_index_settings() must be an instance of WP_Post, none given, called in /Users/scott/Sites/bigduck/wp-includes/class-wp-hook.php on line 300 and defined in /Users/scott/Sites/bigduck/wp-content/themes/big-duck/functions.php:138
+Stack trace:
+#0 /Users/scott/Sites/bigduck/wp-includes/class-wp-hook.php(300): my_posts_index_settings(Array)
+#1 /Users/scott/Sites/bigduck/wp-includes/plugin.php(203): WP_Hook->apply_filters(Array, Array)
+#2 /Users/scott/Sites/bigduck/wp-content/plugins/search-by-algolia-instant-relevant-results/includes/indices/class-algolia-posts-index.php(223): apply_filters('algolia_posts_i...', Array, 'post')
+#3 /Users/scott/Sites/bigduck/wp-content/plugins/search-by-algolia-instant-relevant-results/includes/indices/class-algolia-index.php(302): Algolia_Posts_Index->get_settings()
+#4 /Users/scott/Sites/bigduck/wp-content/plugins/search-by-algolia-instant-relevant-results/includes/indices/class-algolia-index.php(295): Algolia_Index->push_settings()
+ in /Users/scott/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 138
+[13-Feb-2018 21:43:34 UTC] PHP Fatal error:  Uncaught TypeError: Argument 2 passed to my_posts_index_settings() must be an instance of WP_Post, none given, called in /Users/scott/Sites/bigduck/wp-includes/class-wp-hook.php on line 300 and defined in /Users/scott/Sites/bigduck/wp-content/themes/big-duck/functions.php:138
+Stack trace:
+#0 /Users/scott/Sites/bigduck/wp-includes/class-wp-hook.php(300): my_posts_index_settings(Array)
+#1 /Users/scott/Sites/bigduck/wp-includes/plugin.php(203): WP_Hook->apply_filters(Array, Array)
+#2 /Users/scott/Sites/bigduck/wp-content/plugins/search-by-algolia-instant-relevant-results/includes/indices/class-algolia-posts-index.php(223): apply_filters('algolia_posts_i...', Array, 'post')
+#3 /Users/scott/Sites/bigduck/wp-content/plugins/search-by-algolia-instant-relevant-results/includes/indices/class-algolia-index.php(302): Algolia_Posts_Index->get_settings()
+#4 /Users/scott/Sites/bigduck/wp-content/plugins/search-by-algolia-instant-relevant-results/includes/indices/class-algolia-index.php(295): Algolia_Index->push_settings()
+ in /Users/scott/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 138
+[13-Feb-2018 21:49:21 UTC] about to facet
+[13-Feb-2018 21:59:17 UTC] about to facet
+[13-Feb-2018 22:07:49 UTC] about to facet

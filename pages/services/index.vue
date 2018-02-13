@@ -53,31 +53,9 @@ export default {
       return {
         title: "Services",
         meta: [
-          {
-            hid: "og:title",
-            property: "og:title",
-            content: "Services"
-          },
-          {
-            hid: "twitter:title",
-            property: "twitter:title",
-            content: "Services"
-          },
-          {
-            hid: "description",
-            name: "description",
-            content: this.servicesPage.acf.text
-          },
-          {
-            hid: "og:description",
-            property: "og:description",
-            content: this.servicesPage.acf.text
-          },
-          {
-            hid: "twitter:description",
-            property: "twitter:description",
-            content: this.servicesPage.acf.text
-          }
+          ...this.$metaDescription(this.servicesPage.acf.text),
+          ...this.$metaTitles("Services"),
+          ...this.$metaImages()
         ]
       };
     }
@@ -95,17 +73,18 @@ export default {
       });
     }
   },
-  async asyncData({ store, query, state }) {
+  async asyncData({ app, store, query, state }) {
     const [page, services] = await Promise.all([
-      store.dispatch("fetchByQuery", {
-        query: query,
-        path: "wp/v2/pages?slug=services"
+      app.$axios.$get("/wp/v2/pages?slug=services", {
+        params: query
       }),
-      store.dispatch("fetchByQuery", { query: query, path: "wp/v2/bd_service" })
+      app.$axios.$get("/wp/v2/bd_service", {
+        params: query
+      })
     ]);
     let data = {};
-    data["servicesPage"] = page.data[0];
-    data["services"] = services.data.reverse();
+    data["servicesPage"] = page[0];
+    data["services"] = services.reverse();
     return data;
   }
 };

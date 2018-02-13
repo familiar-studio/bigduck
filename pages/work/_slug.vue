@@ -124,7 +124,6 @@
   </div>
 </template>
 <script>
-import Axios from "axios";
 import GravityForm from "~/components/GravityForm.vue";
 import Service from "~/components/Service.vue";
 import share from "~/components/Share.vue";
@@ -139,55 +138,9 @@ export default {
       return {
         title: this.caseStudy.title.rendered,
         meta: [
-          {
-            hid: "og:title",
-            property: "og:title",
-            content: this.caseStudy.title.rendered + " | Big Duck"
-          },
-          {
-            hid: "twitter:title",
-            property: "twitter:title",
-            content: this.caseStudy.title.rendered + " | Big Duck"
-          },
-          {
-            hid: "description",
-            name: "description",
-            content: this.caseStudy.acf.short_description.replace(
-              /(<([^>]+)>)/gi,
-              ""
-            )
-          },
-          {
-            hid: "og:description",
-            property: "og:description",
-            content: this.caseStudy.acf.short_description.replace(
-              /(<([^>]+)>)/gi,
-              ""
-            )
-          },
-          {
-            hid: "twitter:description",
-            property: "twitter:description",
-            content: this.caseStudy.acf.short_description.replace(
-              /(<([^>]+)>)/gi,
-              ""
-            )
-          },
-          {
-            hid: "image",
-            property: "image",
-            content: this.caseStudy.acf.hero_image.url
-          },
-          {
-            hid: "og:image:url",
-            property: "og:image:url",
-            content: this.caseStudy.acf.hero_image.url
-          },
-          {
-            hid: "twitter:image",
-            property: "twitter:image",
-            content: this.caseStudy.acf.hero_image.url
-          }
+          ...this.$metaDescription(this.caseStudy.acf.short_description.replace(/(<([^>]+)>)/gi,"")),
+          ...this.$metaTitles(this.caseStudy.title.rendered + " | Big Duck"),
+          ...this.$metaImages(this.caseStudy.acf.hero_image.url)
         ]
       };
     }
@@ -231,28 +184,16 @@ export default {
       this.submittedForm = true;
     }
   },
-  async asyncData({ params, store }) {
+  async asyncData({ app, params, store }) {
     let data = {};
-    let response = await Axios.get(
-      store.getters["hostname"] + "wp/v2/bd_case_study?slug=" + params.slug
-    );
-    console.log(
-      store.getters["hostname"] + "wp/v2/bd_case_study?slug=" + params.slug
-    );
-    data["caseStudy"] = response.data[0];
+    let response = await app.$axios.$get("/wp/v2/bd_case_study?slug=" + params.slug);
+    data["caseStudy"] = response[0];
     return data;
   },
   async created() {
     let topics = this.caseStudy.topic;
-    let related = await Axios.get(
-      this.hostname + "wp/v2/bd_service?topic=" + topics[0]
-    );
-    this.relatedService = related.data[0];
-    // let relatedWorkIds = this.caseStudy.acf.related_case_studies
-    // if (typeof relatedWorkIds !== 'undefined' && relatedWorkIds) {
-    //   let response = await Axios.get(this.$store.getters['hostname'] + 'wp/v2/bd_case_study?' + relatedWorkIds.map((obj) => 'include[]=' + obj.ID).join('&'))
-    //   this.relatedCaseStudies = response.data
-    // }
+    let related = await this.$axios.$get("/wp/v2/bd_service?topic=" + topics[0])
+    this.relatedService = related[0]
   }
 };
 </script>

@@ -62,7 +62,6 @@
 </template>
 
 <script>
-import Axios from "axios";
 import Event from "~/components/Event.vue";
 import Post from "~/components/Post.vue";
 import { mapGetters } from "vuex";
@@ -74,46 +73,9 @@ export default {
       return {
         title: this.member.name,
         meta: [
-          {
-            hid: "og:title",
-            property: "og:title",
-            content: this.member.name + " | Big Duck"
-          },
-          {
-            hid: "twitter:title",
-            property: "twitter:title",
-            content: this.member.name + " | Big Duck"
-          },
-          {
-            hid: "description",
-            name: "description",
-            content: this.member.job_title
-          },
-          {
-            hid: "og:description",
-            property: "og:description",
-            content: this.member.job_title
-          },
-          {
-            hid: "twitter:description",
-            property: "twitter:description",
-            content: this.member.job_title
-          },
-          {
-            hid: "image",
-            property: "image",
-            content: this.member.headshot.url
-          },
-          {
-            hid: "og:image:url",
-            property: "og:image:url",
-            content: this.member.headshot.url
-          },
-          {
-            hid: "twitter:image",
-            property: "twitter:image",
-            content: this.member.headshot.url
-          }
+          ...this.$metaDescription(this.member.job_title),
+          ...this.$metaTitles(this.member.name + " | Big Duck"),
+          ...this.$metaImages(this.member.headshot.url)
         ]
       };
     }
@@ -144,13 +106,10 @@ export default {
   async created() {
     //let relatedEventIds = this.member.events.map((event) => { return event.ID })
     //    if (relatedEventIds && relatedEventIds.length > 0) {
-    let response = await Axios.get(
-      this.hostname + "familiar/v1/events/user/" + this.member.slug
-    );
-    this.relatedEvents = response.data.events;
+    let response = await this.$axios.$get("/familiar/v1/events/user/" + this.member.slug);
+    this.relatedEvents = response.events;
     //}
-    let responseInsights = await Axios.get(
-      this.hostname + "familiar/v1/insights/user/" + this.member.slug,
+    let responseInsights = await this.$axios.$get("/familiar/v1/insights/user/" + this.member.slug,
       {
         params: {
           posts_per_page: this.insightsPerPage,
@@ -158,15 +117,13 @@ export default {
         }
       }
     );
-    this.totalInsightsPages = responseInsights.data.pages;
-    this.relatedInsights = responseInsights.data.data;
+    this.totalInsightsPages = responseInsights.pages;
+    this.relatedInsights = responseInsights.data;
   },
-  async asyncData({ store, params }) {
-    let response = await Axios.get(
-      store.getters["hostname"] + "familiar/v1/team/" + params.slug
-    );
+  async asyncData({ app, store, params }) {
+    let response = await app.$axios.$get("/familiar/v1/team/" + params.slug);
     return {
-      member: response.data
+      member: response
     };
   },
   methods: {
@@ -175,16 +132,15 @@ export default {
       this.fetchMoreInsights();
     },
     async fetchMoreInsights() {
-      let response = await Axios.get(
-        this.hostname +
-          "familiar/v1/insights/user/" +
+      let response = await this.$axios.$get(
+          "/familiar/v1/insights/user/" +
           this.member.slug +
           "?posts_per_page=" +
           this.insightsPerPage +
           "&page=" +
           this.insightsPage
       );
-      this.relatedInsights = this.relatedInsights.concat(response.data.data);
+      this.relatedInsights = this.relatedInsights.concat(response.data);
     }
   }
 };
