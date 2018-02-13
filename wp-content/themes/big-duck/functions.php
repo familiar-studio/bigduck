@@ -110,7 +110,12 @@ function my_case_studies_index_settings( array $settings ) {
   return $settings;
 }
 
-function my_posts_index_settings( array $settings) {
+function my_searchable_posts_index_settings( array $settings) {
+  error_log("about to facet");
+	$settings['attributesForFaceting'][] = 'post_type_label';
+	$settings['attributesForFaceting'][] = 'taxonomies.event_category';
+	$settings['attributesForFaceting'][] = 'taxonomies.topic';
+  $settings['attributesForFaceting'][] = 'taxonomies.type';
   $settings['attributesToIndex'][] = 'unordered(short_description)';
   $settings['attributesToSnippet'][] = 'short_description:50';
   $settings['attributesToIndex'][] = 'unordered(introduction)';
@@ -131,7 +136,23 @@ function my_posts_index_settings( array $settings) {
   return $settings;
 }
 
-add_filter('algolia_searchable_posts_index_settings', 'my_posts_index_settings');
+// function my_posts_index_settings( array $settings, WP_Post $post) {
+//   error_log($post);
+//   return $settings;
+// }
+
+function exclude_post_types( $should_index, WP_Post $post ) {
+  $excluded_post_types = array( 'bd_email', 'sidebarcta', 'page', 'post');
+  if ( false === $should_index ) {
+    return false;
+  }
+
+  return ! in_array( $post->post_type, $excluded_post_types, true ) ;
+}
+
+add_filter('algolia_searchable_posts_index_settings', 'my_searchable_posts_index_settings');
+// add_filter('algolia_posts_index_settings', 'my_posts_index_settings');
+add_filter('algolia_should_index_searchable_post', 'exclude_post_types', 10, 2 );
 add_filter('pre_get_posts', 'bd_pre_get_posts');
 add_filter('algolia_posts_bd_insight_index_settings', 'my_insights_index_settings');
 add_filter('algolia_posts_bd_case_study_index_settings', 'my_case_studies_index_settings');
