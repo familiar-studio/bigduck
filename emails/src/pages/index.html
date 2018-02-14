@@ -139,9 +139,11 @@
                   <row>
                     <columns small="12" large="8">
                       <row class="author">
+                        <?php if(isset($event['headshot'])){ ?>
                         <columns small="2">
                           <img src="<?php echo $event['headshot']; ?>">
                         </columns>
+                        <?php } ?>
                         <columns small="10">
                         <h4 class="small">
                           <?php echo $event['author']['display_name']; ?>
@@ -171,8 +173,7 @@
             <button href="https://bigducknyc.com/events">View More</button>
           </center>
           <spacer size="40"></spacer>
-          <?php
-  if (sections) {
+          <?php if ($sections) {
     foreach($sections as $section)  { ?>
             <!-- <center>
               <h2><?php echo $section['heading']; ?></h2>

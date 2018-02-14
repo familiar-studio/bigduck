@@ -90,8 +90,18 @@
     } else {
       $icon = $category ? get_taxonomy_icon_png(get_fields($category)['taxonomy-icon']) : null;
     }
-    $relatedTeamMember = $meta['related_team_members'][0];
-    $headshot = get_field('headshot', 'user_' . $relatedTeamMember['ID'])['sizes']['small-thumbnail'];
+    $headshot = null;
+    if (count($meta['related_team_members']) > 0 && is_array($meta['related_team_members'])){
+      $relatedTeamMember = $meta['related_team_members'][0];
+      if ($relatedTeamMember) {
+        $headshot = get_field('headshot', 'user_' . $relatedTeamMember['ID'])['sizes']['small-thumbnail'];
+      }
+    } elseif (count($meta['guest_speakers']) > 0){
+      $relatedTeamMember = array(
+        'display_name' => $meta['guest_speakers'][0]['speaker_name']
+      );
+    }
+
     $date = date_create($event->start_time);
     return array(
       'title' => $event->post_title,
