@@ -44,6 +44,7 @@
                   <img v-else :src="globals.backup_author_image" class="round author-img mr-2">
                   <div>
                     <nuxt-link :to="'/about/' + author.user_nicename">{{author.display_name}}</nuxt-link>
+                    <nuxt-link :to="'/about/' + insight.acf.author.user_nicename">{{insight.acf.author.display_name}}</nuxt-link>
                   </div>
                 </div>
 
@@ -95,7 +96,14 @@
               <div class="hidden-lg-up mt-4">
                 <Share></Share>
               </div>
+
+              <div v-if="insight && insight.acf.transcription">
+                <h2>Transcription</h2>
+                <div v-html="insight.acf.transcription"></div>
+              </div>
+
             </article>
+
             <div v-if="insight && insight.acf.is_gated_content">
 
               <div class="form-light">
