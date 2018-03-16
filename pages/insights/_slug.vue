@@ -61,7 +61,8 @@
                 <span>Big Duck</span>
               </div>
 
-              <div v-for="block in insight.acf.body">
+              <div v-for="block, index in insight.acf.body">
+
 
                 <div v-if="block.acf_fc_layout == 'text'" v-html="block.text" :class="['block-' + block.acf_fc_layout]"></div>
                 <div v-if="block.acf_fc_layout == 'quote'" class="block-pullquote">
@@ -73,8 +74,33 @@
                   </blockquote>
                 </div>
 
-                <div v-if="block.acf_fc_layout == 'video'" :class="['block-' + block.acf_fc_layout]" class="embed-responsive embed-responsive-16by9" v-html="block.video">
+                <!-- Video -->
+                <div v-if="block.acf_fc_layout === 'video'" :class="['block-' + block.acf_fc_layout]" class="embed-responsive embed-responsive-16by9" v-html="block.video">
                 </div>
+
+                <!-- oEmbed -->
+                <template v-if="block.acf_fc_layout === 'custom_embed'">
+                  <div :class="['block-' + block.acf_fc_layout]" v-html="block.embed" class="mt-5">
+                  </div>
+                  <div class="mt-3" >
+                    <a :href="block.subscription_link" target="_blank" class="btn btn-primary subscribe-callout" v-if="block.subscription_link">
+                    {{ block.subscription_callout_text }}
+                  </a>
+                  </div>
+                </template>
+
+                <!-- Video and embed transcriptions -->
+                <template v-if="(block.acf_fc_layout === 'video' || block.acf_fc_layout === 'custom_embed') && block.transcription.length > 0">
+                  <p class="mt-3">
+                    <a href="#" @click.prevent="toggleTranscription(index)">
+                      <template v-if="showTranscription[index]">Hide transcript</template>
+                      <template v-else>View transcript</template>
+                    </a>
+                  </p>
+                  <div v-if="showTranscription[index]" v-html="block.transcription" class="rich-text mt-3"></div>
+                </template>
+
+
 
                 <div v-if="block.acf_fc_layout == 'callout'" class="block-pullquote">
                   <div v-html="block.text" class="text"></div>
@@ -213,7 +239,8 @@ export default {
       relatedInsights: null,
       authors: null,
       contentRefreshed: false,
-      completedGate: false
+      completedGate: false,
+      showTranscription: {}
     };
   },
   async asyncData({ state, params, store, error }) {
@@ -420,6 +447,9 @@ export default {
   },
   methods: {
     ...mapActions(["fetch"]),
+    toggleTranscription(index) {
+      this.$set(this.showTranscription, index, !this.showTranscription[index])
+    },
     prependIndefiniteArticle(word) {
       if (word) {
         if ("aeiou".indexOf(word.split("")[0].toLowerCase()) > -1) {
