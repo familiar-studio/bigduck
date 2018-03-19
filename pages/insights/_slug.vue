@@ -206,11 +206,20 @@ export default {
       completedGate: false
     };
   },
-  async asyncData({ app, state, params, store, error }) {
+  async asyncData({ app, state, params, store, error, query }) {
     let data = {};
     try {
+      let requestParams = { slug: params.slug }
+
+      if (query.preview === "true") {
+        requestParams['status'] = 'draft'
+      }
+
       let response = await app.$axios.$get("/wp/v2/bd_insight",
-        { params: { slug: params.slug } }
+        {
+          params: requestParams,
+          withCredentials: query.preview === "true"
+         }
       );
       data.insight = response[0];
       if (data.insight.acf.related_case_studies) {

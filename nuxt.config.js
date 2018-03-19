@@ -83,16 +83,24 @@ module.exports = {
   ],
   modules: [
     // Simple usage
+    "@nuxtjs/auth",
+    '@nuxtjs/proxy',
     "@nuxtjs/axios"
   ],
   axios: {
-    credentials: false,
-    baseURL: "https://bigducknyc.com/wp-json/",
+    withCredentials: true,
+    // baseURL: "https://bigducknyc.com/wp-json/",
+    baseURL: "https://bigduck.test/wp-json",
     errorHandler(errorReason, { error }) {
       error("Request Error: " + errorReason);
     }
-
   },
+  proxy: process.env.PROXY_API_URL
+  ? [
+      ["/wp-json", { target: process.env.PROXY_API_URL }],
+      ["/wp-admin", { target: process.env.PROXY_API_URL }]
+    ]
+  : [],
   /*
 
   ** Customize the progress-bar color

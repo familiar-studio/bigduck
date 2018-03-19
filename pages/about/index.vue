@@ -248,10 +248,12 @@ export default {
     data["openJobs"] = openJobs;
     data["team"] = team;
     data["jobs"] = jobs;
+    data["openHouse"] = openHouse;
 
+    // `Array.prototype.sort()` sorts in place, which is not allowed on the state
+    let unsortedSectors = store.state.sectors.concat([]);
     // arrange clients into sectors:
-    const sectors = store.state.sectors.sort();
-    data["openHouse"] = openHouse.data;
+    const sectors = unsortedSectors.sort();
     return data;
   },
   computed: {

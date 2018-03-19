@@ -30,10 +30,10 @@
     "vue-scrollto": "2.11.0",
     "vue-style-loader": "^4.0.2",
     "vue-viewport": "^0.0.1",
-    "vue-waypoint": "^3.2.2"
+    "vue-waypoint": "^2.4.0"
   },
   "scripts": {
-    "dev": "nuxt",
+    "dev": "PROXY_API_URL=http://bigduck.test nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",

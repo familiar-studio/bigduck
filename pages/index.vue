@@ -200,7 +200,7 @@ export default {
       });
     }
     if (this.latestInsightIds) {
-      this.$axios.get(this.hostname + "wp/v2/bd_insight", {
+      this.$axios.$get(this.hostname + "wp/v2/bd_insight", {
         params: { include: this.latestInsightIds }
       }).then(response => {
         this.latestInsights = response;
