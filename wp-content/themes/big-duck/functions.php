@@ -340,6 +340,8 @@ class StarterSite  {
 
 	function register_routes() {
 
+
+
 		register_rest_route( 'familiar/v1', '/featured-work', array(
 			'methods' => 'GET',
 			'callback' => array($this, 'featured_work')
@@ -372,6 +374,11 @@ class StarterSite  {
 			'methods' => 'GET',
 			'callback' => array($this, 'get_gated_id')
 		));
+    register_rest_route('familiar/v1', '/get-bd-nonce-for-authentication', array(
+      'methods' => 'GET',
+      'callback' => array($this, 'get_bd_nonce_for_authentication')
+    ));
+
 	}
 
 	function get_gated_id ($request) {
@@ -419,6 +426,13 @@ class StarterSite  {
 		}
 		return new WP_REST_Response($team_member);
 	}
+
+  function get_bd_nonce_for_authentication() {
+    return new WP_REST_Response(array(
+      'endpoint' => esc_url_raw( rest_url() ),
+      'nonce' => wp_create_nonce( 'wp_rest' )
+    ));
+  }
 
 	function insights_by_user($data) {
 		$nicename = $data->get_params('id')['id'];
@@ -545,6 +559,8 @@ class StarterSite  {
 
 		return new WP_REST_Response(array('events' => $events));
 	}
+
+
 
 	function featured_work($data) {
 		$work = get_posts(array(
