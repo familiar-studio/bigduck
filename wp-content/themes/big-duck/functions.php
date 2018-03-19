@@ -1,5 +1,18 @@
 <?php
 
+function bd_change_preview_post_link ($preview_link) {
+  $url = parse_url($preview_link);
+  $sample_permalink = get_sample_permalink($url['p']);
+  $base = $sample_permalink[0];
+  $slug = $sample_permalink[1];
+  if ($base && $slug) {
+    $preview_link = str_replace("%pagename%", $slug, $base . '?preview=true');
+  }
+  return $preview_link;
+}
+
+add_filter('preview_post_link', 'bd_change_preview_post_link');
+
 
 function bd_pre_get_posts( $query ) {
 	// if( is_admin() ) {
