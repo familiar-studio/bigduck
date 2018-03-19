@@ -136,11 +136,6 @@ function my_searchable_posts_index_settings( array $settings) {
   return $settings;
 }
 
-// function my_posts_index_settings( array $settings, WP_Post $post) {
-//   error_log($post);
-//   return $settings;
-// }
-
 function exclude_post_types( $should_index, WP_Post $post ) {
   $excluded_post_types = array( 'bd_email', 'sidebarcta', 'page', 'post');
   if ( false === $should_index ) {
@@ -151,7 +146,6 @@ function exclude_post_types( $should_index, WP_Post $post ) {
 }
 
 add_filter('algolia_searchable_posts_index_settings', 'my_searchable_posts_index_settings');
-// add_filter('algolia_posts_index_settings', 'my_posts_index_settings');
 add_filter('algolia_should_index_searchable_post', 'exclude_post_types', 10, 2 );
 add_filter('pre_get_posts', 'bd_pre_get_posts');
 add_filter('algolia_posts_bd_insight_index_settings', 'my_insights_index_settings');
