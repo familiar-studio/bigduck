@@ -727,7 +727,9 @@ class StarterSite  {
 			$content = '';
 			if (!is_null($body) && $body){
 				foreach($body as $block) {
-					$content .= $block['text'];
+          if (isset($block['text'])) {
+            $content .= $block['text'];
+          }
 				}
 			}
 			$wordCount = str_word_count(strip_tags($content));
@@ -800,7 +802,7 @@ class StarterSite  {
 		$events = get_posts(array(
 			'post_type' => 'tribe_events',
 			'meta_key' => 'related_team_members',
-			'meta_value' => $object['id']
+			'meta_value' => $data['id']
 		));
 		foreach($events as $event){
 			$event_tms = get_field('related_team_members', 'tribe_events_' . $event->ID);

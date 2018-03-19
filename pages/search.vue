@@ -33,7 +33,7 @@
       </div>
       <div class="col-lg-9 col-xl-8 search-main">
       <ul class="list-unstyled">
-    <ais-results results-per-page="20">
+    <ais-results :results-per-page="20">
       <template slot-scope="{ result }">
         <li>
           <div class="search-result">

@@ -117,6 +117,11 @@ module.exports = {
     middleware: ["nextCta", "redirects"],
     scrollBehavior: function(to, from, savedPosition) {
       return { x: 0, y: 0 };
+    },
+    beforeEach: function (to, from, next) {
+      console.log('to', to)
+      console.log('from', from)
+      next()
     }
   },
   css: [{ src: "~/assets/scss/styles.scss", lang: "scss" }],
