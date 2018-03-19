@@ -65,6 +65,18 @@ export default {
       totalRecords: response.headers["x-wp-total"]
     };
   },
+  async beforeRouteUpdate(to, from, next) {
+    let params = {page: this.page, per_page: 8};
+
+    const response = await this.$axios.get("/wp/v2/bd_insight", {
+      params: to.query
+    })
+
+    this.totalPages = response.headers["x-wp-totalpages"];
+    this.totalRecords = response.headers["x-wp-total"];
+    response.data.map((e, i) => this.$set(this.insights, i, e))
+    next()
+  },
   data() {
     return {
       previouslyLoadedInsights: 0,
@@ -102,9 +114,7 @@ export default {
       return this.$route.query.topic;
     }
   },
-  watch: {
-    "$route.query": "filterResults"
-  },
+
   methods: {
     toggleTaxonomy(event) {
       // make a copy of the current query string
@@ -120,20 +130,20 @@ export default {
     resetFilters() {
       this.$router.push({ name: "insights", query: null });
     },
-    async filterResults() {
-      let params = {page: this.page, per_page: 8};
-      ['topic', 'type', 'slug', 'event_category'].map((s) => {
-        if (query[s]) {
-          params[s] = query[s]
-        }
-      })
-      const response = app.$axios.get("/wp/v2/bd_insight", {
-        params: params
-      })
-      this.insights = response.data;
-      this.totalPages = response.headers["x-wp-totalpages"];
-      this.totalRecords = response.headers["x-wp-total"];
-    },
+    // async filterResults() {
+    //   let params = {page: this.page, per_page: 8};
+    //   ['topic', 'type', 'slug', 'event_category'].map((s) => {
+    //     if (query[s]) {
+    //       params[s] = query[s]
+    //     }
+    //   })
+    //   const response = app.$axios.get("/wp/v2/bd_insight", {
+    //     params: params
+    //   })
+    //   this.insights = response.data;
+    //   this.totalPages = response.headers["x-wp-totalpages"];
+    //   this.totalRecords = response.headers["x-wp-total"];
+    // },
     async nextPage() {
       this.page++
       this.previouslyLoadedInsights = this.insights.length;

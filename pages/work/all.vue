@@ -57,8 +57,12 @@ export default {
       return this.$route.query.topic;
     }
   },
-  watch: {
-    "$route.query": "filterResults"
+  async beforeRouteUpdate(to, from, next) {
+    const response = await this.$axios.$get("/wp/v2/bd_case_study", {
+      params: to.query
+    })
+    response.map((e, i) => this.$set(this.work, i, e))
+    next()
   },
   async asyncData({ app, store, query }) {
     let params = { page: 1, per_page: 8 };
@@ -95,17 +99,10 @@ export default {
       } else {
         query[event.taxonomy] = event.id;
       }
-      this.$router.push({ name: "work-all", query: query });
+      this.$router.replace({ name: "work-all", query: query });
     },
     resetFilters() {
-      this.$router.push({ name: "work-all", query: null });
-    },
-    async filterResults() {
-      this.page = 1
-      const response = await this.$axios.$get("/wp/v2/bd_case_study", {
-        params: this.$route.query
-      })
-      this.insights = response;
+      this.$router.replace({ name: "work-all", query: null });
     }
   }
 };

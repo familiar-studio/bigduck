@@ -123,26 +123,13 @@ export default {
  },
   async beforeRouteUpdate( to, from, next ){
       this.page = 1
-      let params = {page: this.page, per_page: this.postsPerPage}
-      let query = Object.assign({}, to.query);
-      ['topic', 'type', 'slug', 'event_category'].map((s) => {
-        if (query[s]) {
-          params[s] = query[s]
-        }
-      })
       const response = await this.$axios.get("/wp/v2/bd_event", {
-        params: params
+        params: to.query
       })
-      console.log('events before new query: ', this.events.length)
-      this.events = response.data
-      console.log('events after new query: ', this.events.length)
-      console.log('firing beforeRouteUpdate')
-      console.log(this.events.length)
+      response.data.map((e, i) => this.$set(this.events, i, e))
       this.totalPages = response.headers["x-wp-totalpages"];
       this.totalRecords = response.headers["x-wp-total"];
 
-      // if `next()` is called, the query string updates correctly, as do the current filters' highlights, which depend on it
-      // if `next()` is not called, the correct events are listed but the current filters are incorrect
       next()
   },
   methods: {

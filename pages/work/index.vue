@@ -32,7 +32,7 @@ export default {
     });
     if (data.relatedWorkIds) {
       await app.$axios
-        .$get(store.getters["hostname"] + "wp/v2/bd_case_study", {
+        .$get("wp/v2/bd_case_study", {
           params: { include: data.relatedWorkIds }
         })
         .then(response => {
