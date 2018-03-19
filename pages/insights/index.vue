@@ -74,7 +74,11 @@ export default {
 
     this.totalPages = response.headers["x-wp-totalpages"];
     this.totalRecords = response.headers["x-wp-total"];
-    response.data.map((e, i) => this.$set(this.insights, i, e))
+    if(response.data.length > 0){
+      response.data.map((e, i) => this.$set(this.insights, i, e))
+    } else {
+      this.insights.splice(0)
+    }
     next()
   },
   data() {

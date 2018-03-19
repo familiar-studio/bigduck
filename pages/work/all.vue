@@ -58,10 +58,15 @@ export default {
     }
   },
   async beforeRouteUpdate(to, from, next) {
+    console.log(to.query)
     const response = await this.$axios.$get("/wp/v2/bd_case_study", {
       params: to.query
     })
-    response.map((e, i) => this.$set(this.work, i, e))
+    if (response.length > 0){
+      response.map((e, i) => this.$set(this.work, i, e))
+    } else {
+      this.work.splice(0)
+    }
     next()
   },
   async asyncData({ app, store, query }) {

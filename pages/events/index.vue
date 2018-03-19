@@ -126,7 +126,11 @@ export default {
       const response = await this.$axios.get("/wp/v2/bd_event", {
         params: to.query
       })
-      response.data.map((e, i) => this.$set(this.events, i, e))
+      if (response.data.length > 0) {
+        response.data.map((e, i) => this.$set(this.events, i, e))
+      } else {
+        this.events.splice(0)
+      }
       this.totalPages = response.headers["x-wp-totalpages"];
       this.totalRecords = response.headers["x-wp-total"];
 
