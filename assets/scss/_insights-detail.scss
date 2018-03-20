@@ -81,3 +81,8 @@
 .two-up-card .card-header {
   padding: 0;
 }
+
+.subscribe-callout.btn-primary:hover {
+  @extend .bg-change;
+  color: $gray-darker;
+}

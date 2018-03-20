@@ -461,21 +461,37 @@ class StarterSite  {
 
 		$user = get_user_by('slug', $nicename);
 
+    $relatedInsights = get_field('related_insights', 'user_' . $user->ID);
 
-		$rawInsights = new WP_Query(array(
-			'post_type' => 'bd_insight',
-			'offset' => $offset,
-			'posts_per_page' => $per_page,
-			'paged' => true,
+    // get posts the user has authored if there are not related insights
+    if ($relatedInsights) {
+      $relatedInsightIds = [];
+      foreach($relatedInsights as $relatedInsight) {
+        $relatedInsightIds[] = $relatedInsight;
+      }
+      $queryArgs = array(
+        'post__in' => $relatedInsightIds
+      );
+    } else {
+      $queryArgs = array(
+        'meta_query' => array(
+          array(
+            'key' => 'author',
+            'value' => $user->ID,
+            'compare' => 'IN'
+          )
+        )
+      );
+    }
 
-			'meta_query' => array(
-				array(
-					'key' => 'author',
-					'value' => $user->ID,
-					'compare' => 'IN'
-				)
-			)
-		));
+    $query = array_merge(array(
+      'post_type' => 'bd_insight',
+      'offset' => $offset,
+      'posts_per_page' => $per_page,
+      'paged' => true,
+    ), $queryArgs);
+    $rawInsights = new WP_Query($query);
+
 		$total = $rawInsights->max_num_pages;
 		$insights = array();
 		foreach($rawInsights->posts as $rawInsight){
