@@ -1,10 +1,16 @@
 <?php
 
 function bd_change_preview_post_link ($preview_link) {
+  // return $preview_link;
   $url = parse_url($preview_link);
-  $sample_permalink = get_sample_permalink($url['p']);
-  $base = $sample_permalink[0];
-  $slug = $sample_permalink[1];
+  parse_str($url['query'], $query);
+  $base = null;
+  $slug = null;
+  if (isset($query['p'])) {
+    $sample_permalink = get_sample_permalink($query['p']);
+    $base = $sample_permalink[0];
+    $slug = $sample_permalink[1];
+  }
   if ($base && $slug) {
     $preview_link = str_replace("%pagename%", $slug, $base . '?preview=true');
   }
