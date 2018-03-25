@@ -96,7 +96,7 @@ module.exports = {
     }]
   ],
   axios: {
-    proxy: true,
+    proxy: false,
     retry: true,
     //withCredentials: false,
     prefix:'/wp-json',
