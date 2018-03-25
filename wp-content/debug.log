@@ -127,3 +127,90 @@ Stack trace:
 [25-Mar-2018 20:04:19 UTC] PHP Warning:  file_get_contents(https://bigducknyc.com/wp-content/uploads/2017/05/brands.svg): failed to open stream: Connection refused in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 791
 [25-Mar-2018 20:04:19 UTC] PHP Warning:  file_get_contents(https://bigducknyc.com/wp-content/uploads/2017/05/campaigns.svg): failed to open stream: Connection refused in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 791
 [25-Mar-2018 20:04:19 UTC] PHP Warning:  file_get_contents(https://bigducknyc.com/wp-content/uploads/2017/05/teams.svg): failed to open stream: Connection refused in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 791
+[25-Mar-2018 20:40:29 UTC] PHP Warning:  file_get_contents(): SSL operation failed with code 1. OpenSSL Error messages:
+error:14090086:SSL routines:ssl3_get_server_certificate:certificate verify failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 775
+[25-Mar-2018 20:40:29 UTC] PHP Warning:  file_get_contents(): Failed to enable crypto in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 775
+[25-Mar-2018 20:40:29 UTC] PHP Warning:  file_get_contents(https://bigducknyc.com/wp-content/uploads/2017/05/arts.svg): failed to open stream: operation failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 775
+[25-Mar-2018 20:40:29 UTC] PHP Warning:  file_get_contents(): SSL operation failed with code 1. OpenSSL Error messages:
+error:14090086:SSL routines:ssl3_get_server_certificate:certificate verify failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 791
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): Failed to enable crypto in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 791
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(https://bigducknyc.com/wp-content/uploads/2017/05/brands.svg): failed to open stream: operation failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 791
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): SSL operation failed with code 1. OpenSSL Error messages:
+error:14090086:SSL routines:ssl3_get_server_certificate:certificate verify failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 775
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): Failed to enable crypto in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 775
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(https://bigducknyc.com/wp-content/uploads/2017/05/foundations.svg): failed to open stream: operation failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 775
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): SSL operation failed with code 1. OpenSSL Error messages:
+error:14090086:SSL routines:ssl3_get_server_certificate:certificate verify failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 791
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): Failed to enable crypto in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 791
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(https://bigducknyc.com/wp-content/uploads/2017/05/campaigns.svg): failed to open stream: operation failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 791
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): SSL operation failed with code 1. OpenSSL Error messages:
+error:14090086:SSL routines:ssl3_get_server_certificate:certificate verify failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 775
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): Failed to enable crypto in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 775
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(https://bigducknyc.com/wp-content/uploads/2017/06/education.svg): failed to open stream: operation failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 775
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): SSL operation failed with code 1. OpenSSL Error messages:
+error:14090086:SSL routines:ssl3_get_server_certificate:certificate verify failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 791
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): Failed to enable crypto in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 791
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(https://bigducknyc.com/wp-content/uploads/2017/05/teams.svg): failed to open stream: operation failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 791
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): SSL operation failed with code 1. OpenSSL Error messages:
+error:14090086:SSL routines:ssl3_get_server_certificate:certificate verify failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 775
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): Failed to enable crypto in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 775
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(https://bigducknyc.com/wp-content/uploads/2017/05/environment.svg): failed to open stream: operation failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 775
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): SSL operation failed with code 1. OpenSSL Error messages:
+error:14090086:SSL routines:ssl3_get_server_certificate:certificate verify failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 775
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): Failed to enable crypto in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 775
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(https://bigducknyc.com/wp-content/uploads/2017/06/faith.svg): failed to open stream: operation failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 775
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): SSL operation failed with code 1. OpenSSL Error messages:
+error:14090086:SSL routines:ssl3_get_server_certificate:certificate verify failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 775
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): Failed to enable crypto in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 775
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): SSL operation failed with code 1. OpenSSL Error messages:
+error:14090086:SSL routines:ssl3_get_server_certificate:certificate verify failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 783
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): Failed to enable crypto in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 783
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(https://bigducknyc.com/wp-content/uploads/2017/05/family.svg): failed to open stream: operation failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 775
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): SSL operation failed with code 1. OpenSSL Error messages:
+error:14090086:SSL routines:ssl3_get_server_certificate:certificate verify failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 767
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): Failed to enable crypto in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 767
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(https://bigducknyc.com/wp-content/uploads/2017/06/article.svg): failed to open stream: operation failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 783
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(https://bigducknyc.com/wp-content/uploads/2017/06/open-house.svg): failed to open stream: operation failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 767
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): SSL operation failed with code 1. OpenSSL Error messages:
+error:14090086:SSL routines:ssl3_get_server_certificate:certificate verify failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 775
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): Failed to enable crypto in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 775
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(https://bigducknyc.com/wp-content/uploads/2017/06/health.svg): failed to open stream: operation failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 775
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): SSL operation failed with code 1. OpenSSL Error messages:
+error:14090086:SSL routines:ssl3_get_server_certificate:certificate verify failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 767
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): Failed to enable crypto in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 767
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): SSL operation failed with code 1. OpenSSL Error messages:
+error:14090086:SSL routines:ssl3_get_server_certificate:certificate verify failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 783
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): Failed to enable crypto in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 783
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(https://bigducknyc.com/wp-content/uploads/2017/06/conference.svg): failed to open stream: operation failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 767
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(https://bigducknyc.com/wp-content/uploads/2017/06/books.svg): failed to open stream: operation failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 783
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): SSL operation failed with code 1. OpenSSL Error messages:
+error:14090086:SSL routines:ssl3_get_server_certificate:certificate verify failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 775
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): Failed to enable crypto in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 775
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(https://bigducknyc.com/wp-content/uploads/2017/06/international.svg): failed to open stream: operation failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 775
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): SSL operation failed with code 1. OpenSSL Error messages:
+error:14090086:SSL routines:ssl3_get_server_certificate:certificate verify failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 783
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): Failed to enable crypto in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 783
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): SSL operation failed with code 1. OpenSSL Error messages:
+error:14090086:SSL routines:ssl3_get_server_certificate:certificate verify failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 767
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): Failed to enable crypto in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 767
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(https://bigducknyc.com/wp-content/uploads/2017/06/podcasts.svg): failed to open stream: operation failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 783
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(https://bigducknyc.com/wp-content/uploads/2017/06/open-house.svg): failed to open stream: operation failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 767
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): SSL operation failed with code 1. OpenSSL Error messages:
+error:14090086:SSL routines:ssl3_get_server_certificate:certificate verify failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 775
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): Failed to enable crypto in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 775
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(https://bigducknyc.com/wp-content/uploads/2017/06/justice.svg): failed to open stream: operation failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 775
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php:775) in /Users/keithmancuso/Sites/bigduck/wp-includes/rest-api/class-wp-rest-server.php on line 1266
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php:775) in /Users/keithmancuso/Sites/bigduck/wp-includes/rest-api/class-wp-rest-server.php on line 1266
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php:775) in /Users/keithmancuso/Sites/bigduck/wp-includes/rest-api/class-wp-rest-server.php on line 1266
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): SSL operation failed with code 1. OpenSSL Error messages:
+error:14090086:SSL routines:ssl3_get_server_certificate:certificate verify failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 767
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): SSL operation failed with code 1. OpenSSL Error messages:
+error:14090086:SSL routines:ssl3_get_server_certificate:certificate verify failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 783
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): Failed to enable crypto in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 767
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): Failed to enable crypto in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 783
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(https://bigducknyc.com/wp-content/uploads/2017/06/webinars-1.svg): failed to open stream: operation failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 767
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(https://bigducknyc.com/wp-content/uploads/2017/06/webinars.svg): failed to open stream: operation failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 783
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): SSL operation failed with code 1. OpenSSL Error messages:
+error:14090086:SSL routines:ssl3_get_server_certificate:certificate verify failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 767
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(): Failed to enable crypto in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 767
+[25-Mar-2018 20:40:30 UTC] PHP Warning:  file_get_contents(https://bigducknyc.com/wp-content/uploads/2017/06/workshop-2.svg): failed to open stream: operation failed in /Users/keithmancuso/Sites/bigduck/wp-content/themes/big-duck/functions.php on line 767

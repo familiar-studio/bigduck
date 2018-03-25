@@ -170,7 +170,6 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["hostname"]),
     expires() {
       var d = new Date();
       var expiration = 3600;
@@ -183,8 +182,6 @@ export default {
       let fieldTitle = this.formIdsToLabels[
         "input_" + id
       ];
-
-      console.log(this.errors.first(id));
       let badErrorMsg = this.errors.first(id);
       return badErrorMsg.split(id + " field").join(fieldTitle);
     },
@@ -218,7 +215,6 @@ export default {
             });
           }
           if (field.label == "Opt-In") {
-            console.log("optin", field);
             let optIn = false;
             if (Array.isArray(this.formData["input_" + field.id])) {
               optIn = this.formData["input_" + field.id][0] == 1 ? true : false;

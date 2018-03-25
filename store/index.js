@@ -2,16 +2,10 @@ import axios from "axios";
 
 export const state = () => ({
   userProfile: null,
-  localHostname: "http://bigduck.test/wp-json/",
-  remoteHostname: "https://bigducknyc.com/wp-json/",
-  bareLocalHostname: "http://bigduck.test/",
-  bareRemoteHostname: "https://bigducknyc.com/",
   categories: null,
-  categoriesPath: "wp/v2/categories/",
   ctas: [],
   activeCtaIndex: 0,
   eventCategories: null,
-  eventCategoriesPath: "wp/v2/event_category",
   globals: null,
   form: null,
   menuCallouts: null,
@@ -22,11 +16,8 @@ export const state = () => ({
   query: {},
   relatedInsightsPerPage: 2,
   sectors: null,
-  sectorsPath: "wp/v2/sector",
   topics: null,
-  topicsPath: "wp/v2/topic",
-  types: null,
-  typesPath: "wp/v2/type"
+  types: null
 });
 
 export const mutations = {
@@ -135,23 +126,11 @@ export const actions = {
   error(context, error) {
     console.warn(error);
   },
-  async fetch({ commit, state}, path) {
-
-
-    return await this.$axios.$get(path);
-  },
-
   async fetchGlobals({commit, state}) {
 
     const data = await this.$axios.$get("/acf/v3/options/globals");
       commit("setGlobals", data.acf);
       return data;
-
-    // return axios
-    //   .get(context.rootGetters.hostname + "acf/v3/options/globals")
-    //   .then(response => {
-    //     context.commit("setGlobals", response.data.acf);
-    //   });
   },
   async fetchTopics({ commit, state}) {
     if (state.topics == null) {
@@ -159,11 +138,7 @@ export const actions = {
       const data = await this.$axios.$get("/wp/v2/topic");
       commit("setTopics", data);
       return data;
-      // return axios
-      //   .get(context.rootGetters.hostname + context.state.topicsPath)
-      //   .then(response => {
-      //     context.commit("setTopics", response.data);
-      //   });
+
     } else {
       return null;
     }
@@ -174,86 +149,29 @@ export const actions = {
       const data = await this.$axios.$get("/wp/v2/sector");
       commit("setSectors", data);
       return data;
-      // return axios
-      //   .get(context.rootGetters.hostname + context.state.sectorsPath)
-      //   .then(response => {
-      //     context.commit("setSectors", response.data);
-      //   });
+
     } else {
       return null;
     }
   },
   async fetchTypes({state, commit, getters, rootGetters}) {
     if (state.topics == null) {
-      // return axios.get(rootGetters.hostname +state.typesPath)
-      //   .then(response => {
-      //     commit("setTypes", response.data);
-      //   });
-
       const data = await this.$axios.$get("/wp/v2/type");
       commit("setTypes", data);
       return data;
-
-
     } else {
-      return null;
+      return [];
     }
   },
   async fetchEventCategories({commit, state}) {
-
     const data = await this.$axios.$get("/wp/v2/event_category");
     commit("setEventCategories", data);
     return data;
-
-    // return axios
-    //   .get(context.rootGetters.hostname + context.state.eventCategoriesPath)
-    //   .then(response => {
-    //     context.commit("setEventCategories", response.data);
-    //   });
-  },
-  fetchByQuery(context, { query, path, isPaged }) {
-    // if page has changed, make the query again as it was, only with page updated
-    // if the query has changed reset page to 1
-    let queryString = "";
-    let params = {};
-    if (isPaged) {
-      params.page = context.state.page;
-      params.per_page = context.state.postsPerPage;
-    }
-
-    if (query.topic) {
-      params.topic = query.topic;
-    }
-    if (query.type) {
-      params.type = query.type;
-    }
-
-    if (query.slug) {
-      params.slug = query.slug;
-    }
-    if (query.event_category) {
-      params.event_category = query.event_category;
-    }
-
-    //return this.$axios.$get(args.path + queryString);
-    //return axios.get(context.getters.hostname + args.path + queryString);
-    return axios.get(context.rootGetters.hostname + path, { params: params });
-  },
-  async fetchOne({ dispatch, commit, getters, rootGetters }, args) {
-    let response = await axios.get(
-      rootGetters.hostname + args.path + "/" + args.slug
-    );
-    return response.data;
   },
   async fetchCTAs({  commit }) {
     const data = await this.$axios.$get("/wp/v2/sidebarcta");
     commit("setCTAs", data);
     return data;
-
-    // let response = await axios.get(rootGetters.hostname + "wp/v2/sidebarcta");
-    // if (response.data && response.data[0]) {
-    //   commit("setCTAs", response.data);
-    // }
   }
 };
 
@@ -264,26 +182,6 @@ export const getters = {
     } else {
       return null;
     }
-  },
-  hostname: state => {
-    // if ((window.location.hostname.indexOf('localhost') > -1 || window.location.hostname.indexOf('.dev') > -1)) {
-    //   return state.localHostname
-    // } else {
-    //   return state.remoteHostname
-    // }
-
-    //return state.localHostname;
-    return 'https://bigducknyc.com/wp-json/';
-  },
-  bareHostname: state => {
-    // if ((window.location.hostname.indexOf('localhost') > -1 || window.location.hostname.indexOf('.dev') > -1)) {
-    //   return state.bareLocalHostname
-    // } else {
-    // return state.bareRemoteHostname
-    // }
-
-    //return state.bareLocalHostname;
-    return state.bareRemoteHostname;
   },
   relatedInsightsPerPage: state => {
     return state.relatedInsightsPerPage;

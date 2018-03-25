@@ -74,12 +74,7 @@ module.exports = {
     mode: "out-in",
     appear: true
   },
-  proxy: process.env.PROXY_API_URL
-    ? [
-        ["/wp-admin", { target: process.env.PROXY_API_URL }],
-        ["/wp-json", { target: process.env.PROXY_API_URL }]
-      ]
-    : [],
+
   plugins: [
     { src: "~/plugins/vue-validate", ssr: false },
     { src: "~/plugins/newfangled.js", ssr: false },
@@ -88,7 +83,6 @@ module.exports = {
     { src: "~/plugins/meta.js" }
   ],
   modules: [
-
     "@nuxtjs/axios",
     "@nuxtjs/proxy",
     ['@nuxtjs/google-analytics', {
@@ -96,7 +90,8 @@ module.exports = {
     }]
   ],
   axios: {
-    proxy: false,
+    credentials: false,
+    proxy: true,
     retry: true,
     //withCredentials: false,
     prefix:'/wp-json',
@@ -126,8 +121,7 @@ module.exports = {
       return { x: 0, y: 0 };
     },
     beforeEach: function (to, from, next) {
-      console.log('to', to)
-      console.log('from', from)
+
       next()
     }
   },
@@ -135,7 +129,11 @@ module.exports = {
   /*
   ** Build configuration
   */
-
+  render: {
+    http2: {
+      push: true
+    }
+  },
   build: {
     /*
     ** Run ESLINT on save

@@ -405,7 +405,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["fetch"]),
+
     toggleTranscription(index) {
       this.$set(this.showTranscription, index, !this.showTranscription[index])
     },

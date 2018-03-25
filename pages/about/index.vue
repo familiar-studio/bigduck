@@ -43,7 +43,6 @@
         </div>
         <div class="col-xl-8">
           <div class="container">
-            <!-- <div v-scroll-spy="scrollPos" :steps="30" :time="200"> -->
             <div>
               <article id="we-believe" class="main overlap section">
                 <h1>{{ page.acf.we_believe_headline }}</h1>
@@ -237,7 +236,6 @@ export default {
   },
   methods: {
     handleStepEnter({ element, index, direction }) {
-      console.log('activated',element.id);
       this.activeSection = element.id;
     },
     toggleClient(categoryId) {

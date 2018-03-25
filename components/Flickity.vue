@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     toggleSize() {
-      console.log('toggle size')
+      //console.log('toggle size')
       this.open = !this.open
       setTimeout(() => {
         this.flickity.resize()

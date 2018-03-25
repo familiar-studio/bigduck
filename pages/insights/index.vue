@@ -164,7 +164,7 @@ export default {
     }
   },
   async created() {
-    let response = await this.$axios.$get(this.hostname + "wp/v2/pages?slug=insights");
+    let response = await this.$axios.$get("/wp/v2/pages?slug=insights");
     var data = response[0];
     this.callout = data.acf;
   }

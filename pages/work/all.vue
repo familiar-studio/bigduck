@@ -58,7 +58,6 @@ export default {
     }
   },
   async beforeRouteUpdate(to, from, next) {
-    console.log(to.query)
     const response = await this.$axios.$get("/wp/v2/bd_case_study", {
       params: to.query
     })
