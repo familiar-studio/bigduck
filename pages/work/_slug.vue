@@ -128,7 +128,7 @@ import GravityForm from "~/components/GravityForm.vue";
 import Service from "~/components/Service.vue";
 import share from "~/components/Share.vue";
 import Work from "~/components/Work.vue";
-import { mapState, mapGetters } from "vuex";
+import { mapState } from "vuex";
 import flickity from "~/components/Flickity.vue";
 
 export default {
@@ -162,7 +162,6 @@ export default {
   },
   computed: {
     ...mapState(["callouts", "topics", "types"]),
-    ...mapGetters(["hostname"]),
     id() {
       return this.$route.params.id;
     },

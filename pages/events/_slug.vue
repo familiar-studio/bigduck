@@ -213,7 +213,6 @@ export default {
   computed: {
     ...mapState(["globals", "callouts", "topics"]),
     ...mapGetters([
-      "hostname",
       "getTopicsIndexedById",
       "getEventCategoriesIndexedById"
     ]),

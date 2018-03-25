@@ -64,7 +64,6 @@
 <script>
 import Event from "~/components/Event.vue";
 import Post from "~/components/Post.vue";
-import { mapGetters } from "vuex";
 
 export default {
   name: "team-member",
@@ -94,7 +93,6 @@ export default {
     Post
   },
   computed: {
-    ...mapGetters(["hostname", "relatedInsightsPerPage"]),
     relatedEventsLength() {
       if (this.relatedEvents && this.relatedEvents) {
         return this.relatedEvents.length;

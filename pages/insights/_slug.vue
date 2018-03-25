@@ -295,7 +295,7 @@ export default {
   },
   computed: {
     ...mapState(["types", "topics", "globals"]),
-    ...mapGetters(["hostname", "getTopicsIndexedById", "getTypesIndexedById"]),
+    ...mapGetters([ "getTopicsIndexedById", "getTypesIndexedById"]),
     backupImage() {
       let images = this.globals.backup_insights_images;
       return images[this.insight.id % images.length].backup_insight_image;

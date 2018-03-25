@@ -21,8 +21,7 @@ export default {
         title: data.title.rendered,
         content: data.content.rendered
       };
-    // } else {
-    //   return redirect("/insights/" + params.page);
+
     }
   },
   components: {

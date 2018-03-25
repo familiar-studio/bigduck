@@ -41,7 +41,7 @@
 
         <div class="col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
           <div class="container">
-            <div v-if="upcomingEvents" class="">
+            <div v-if="upcomingEvents.length" class="">
               <h2 class="mb-3">Featured Events</h2>
 
               <div class="" v-for="(event, index) in upcomingEvents">
@@ -153,7 +153,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["hostname"]),
+
     word() {
       return this.words[this.wordIndex];
     },
@@ -168,14 +168,14 @@ export default {
     this.interval = setInterval(this.nextFrame, this.frameInterval);
 
     if (this.upcomingEventIds) {
-      this.$axios.$get(this.hostname + "wp/v2/bd_event", {
+      this.$axios.$get("/wp/v2/bd_event", {
         params: { include: this.upcomingEventIds }
       }).then(response => {
         this.upcomingEvents = response;
       });
     }
     if (this.latestInsightIds) {
-      this.$axios.$get(this.hostname + "wp/v2/bd_insight", {
+      this.$axios.$get("/wp/v2/bd_insight", {
         params: { include: this.latestInsightIds }
       }).then(response => {
         this.latestInsights = response;

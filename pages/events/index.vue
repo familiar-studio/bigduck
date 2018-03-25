@@ -94,8 +94,7 @@ export default {
     ...mapState(["categories", "eventCategories", "topics", "callouts"]),
     ...mapGetters([
       "getTopicsIndexedById",
-      "getEventCategoriesIndexedById",
-      "hostname"
+      "getEventCategoriesIndexedById"
     ]),
     selectedCategory() {
       return this.$route.query.event_category;

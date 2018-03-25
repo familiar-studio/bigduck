@@ -110,7 +110,7 @@ export default {
   },
   computed: {
     ...mapState(["types", "topics"]),
-    ...mapGetters(["getTopicsIndexedById", "getTypesIndexedById", "hostname"]),
+    ...mapGetters(["getTopicsIndexedById", "getTypesIndexedById"]),
     selectedType() {
       return this.$route.query.type;
     },

@@ -25,8 +25,7 @@ export default {
     let data = {};
     const response = await app.$axios.$get("/wp/v2/pages/50")
     let page = response;
-    // let response = await axios.get(store.getters.hostname + 'familiar/v1/featured-work')
-    // data.featured = response.data
+
     data.relatedWorkIds = page.acf.featured_case_studies.map(work => {
       return work.ID;
     });
