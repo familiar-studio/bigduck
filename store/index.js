@@ -190,8 +190,8 @@ export const actions = {
       //     commit("setTypes", response.data);
       //   });
 
-      const data = await this.$axios.$get("/wp/v2/sector");
-      commit("setSectors", data);
+      const data = await this.$axios.$get("/wp/v2/type");
+      commit("setTypes", data);
       return data;
 
 
@@ -273,7 +273,7 @@ export const getters = {
     // }
 
     //return state.localHostname;
-    return 'http://bigducknyc.com/wp-json/ç';
+    return 'https://bigducknyc.com/wp-json/';
   },
   bareHostname: state => {
     // if ((window.location.hostname.indexOf('localhost') > -1 || window.location.hostname.indexOf('.dev') > -1)) {

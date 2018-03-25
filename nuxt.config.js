@@ -96,14 +96,19 @@ module.exports = {
     }]
   ],
   axios: {
-    withCredentials: false,
+    proxy: true,
+    retry: true,
+    //withCredentials: false,
     prefix:'/wp-json',
     // baseURL: "https://bigducknyc.com/wp-json/",
     //baseURL: "https://bigduck.test/wp-json",
+    https: process.env.NODE_ENV == "production" ? true : false,
+
     errorHandler(errorReason, { error }) {
       error("Request Error: " + errorReason);
     }
   },
+
   proxy: process.env.PROXY_API_URL
   ? [
       ["/wp-json", { target: process.env.PROXY_API_URL }],
