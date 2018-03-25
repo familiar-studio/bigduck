@@ -96,8 +96,9 @@ module.exports = {
   ],
   axios: {
     withCredentials: true,
+    prefix:'/wp-json',
     // baseURL: "https://bigducknyc.com/wp-json/",
-    baseURL: "https://bigduck.test/wp-json",
+    //baseURL: "https://bigduck.test/wp-json",
     errorHandler(errorReason, { error }) {
       error("Request Error: " + errorReason);
     }
