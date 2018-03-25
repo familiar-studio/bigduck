@@ -96,7 +96,7 @@ module.exports = {
     }]
   ],
   axios: {
-    withCredentials: true,
+    withCredentials: false,
     prefix:'/wp-json',
     // baseURL: "https://bigducknyc.com/wp-json/",
     //baseURL: "https://bigduck.test/wp-json",
