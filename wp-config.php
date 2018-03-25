@@ -32,9 +32,9 @@ if (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != "on") {
 		define('SSL', true);
 }
 
-define('WP_HOME','http://bigducknyc.com');
+define('WP_HOME','https://bigducknyc.com');
 //
-define('WP_SITEURL','http://bigducknyc.com');
+define('WP_SITEURL','https://bigducknyc.com');
 
 // define('WP_HOME', 'https://bigduck.test');
 //

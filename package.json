@@ -35,7 +35,7 @@
   "scripts": {
     "dev": "PROXY_API_URL=http://bigduck.test nuxt",
     "build": "nuxt build",
-    "start": "nuxt start",
+    "start": "API_URL=https://bigducknyc.com/wp-json nuxt start",
     "db": "gulp db",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
