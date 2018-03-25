@@ -41,7 +41,7 @@
 
         <div class="col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
           <div class="container">
-            <div v-if="upcomingEvents.length" class="">
+            <div v-if="upcomingEvents&& upcomingEvents.length" class="">
               <h2 class="mb-3">Featured Events</h2>
 
               <div class="" v-for="(event, index) in upcomingEvents">
@@ -52,7 +52,7 @@
           </div>
 
           <div class="container">
-            <div v-if="latestInsights" class="my-5">
+            <div v-if="latestInsights && latestInsights.length" class="my-5">
               <h2 class="mb-3">Recent Insights</h2>
 
               <div class="" v-for="(insight, index) in latestInsights">
