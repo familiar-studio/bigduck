@@ -181,9 +181,11 @@ export default {
   methods: {
     semanticError(id) {
       let fieldTitle = this.formIdsToLabels[
-        "input_" + this.errors.errors[0].field
+        "input_" + id
       ];
-      let badErrorMsg = this.errors.errors[0].msg;
+
+      console.log(this.errors.first(id));
+      let badErrorMsg = this.errors.first(id);
       return badErrorMsg.split(id + " field").join(fieldTitle);
     },
     CalculateSig(route, method) {

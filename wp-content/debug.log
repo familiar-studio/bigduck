@@ -35,3 +35,45 @@ Stack trace:
 [13-Feb-2018 21:49:21 UTC] about to facet
 [13-Feb-2018 21:59:17 UTC] about to facet
 [13-Feb-2018 22:07:49 UTC] about to facet
+[25-Mar-2018 17:22:14 UTC] PHP Warning:  mysqli_real_connect(): MySQL server has gone away in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:22:14 UTC] PHP Warning:  mysqli_real_connect(): Error while reading greeting packet. PID=22203 in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:22:14 UTC] PHP Warning:  mysqli_real_connect(): (HY000/2006): MySQL server has gone away in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:22:34 UTC] PHP Warning:  mysqli_real_connect(): MySQL server has gone away in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:22:34 UTC] PHP Warning:  mysqli_real_connect(): Error while reading greeting packet. PID=22204 in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:22:34 UTC] PHP Warning:  mysqli_real_connect(): (HY000/2006): MySQL server has gone away in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:28:59 UTC] PHP Warning:  mysqli_real_connect(): MySQL server has gone away in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:28:59 UTC] PHP Warning:  mysqli_real_connect(): Error while reading greeting packet. PID=22204 in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:28:59 UTC] PHP Warning:  mysqli_real_connect(): (HY000/2006): MySQL server has gone away in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:29:01 UTC] PHP Warning:  mysqli_real_connect(): MySQL server has gone away in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:29:01 UTC] PHP Warning:  mysqli_real_connect(): Error while reading greeting packet. PID=22203 in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:29:01 UTC] PHP Warning:  mysqli_real_connect(): (HY000/2006): MySQL server has gone away in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:29:02 UTC] PHP Warning:  mysqli_real_connect(): MySQL server has gone away in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:29:02 UTC] PHP Warning:  mysqli_real_connect(): Error while reading greeting packet. PID=22204 in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:29:02 UTC] PHP Warning:  mysqli_real_connect(): (HY000/2006): MySQL server has gone away in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:29:02 UTC] PHP Warning:  mysqli_real_connect(): MySQL server has gone away in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:29:02 UTC] PHP Warning:  mysqli_real_connect(): Error while reading greeting packet. PID=22203 in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:29:02 UTC] PHP Warning:  mysqli_real_connect(): (HY000/2006): MySQL server has gone away in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:29:03 UTC] PHP Warning:  mysqli_real_connect(): MySQL server has gone away in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:29:03 UTC] PHP Warning:  mysqli_real_connect(): Error while reading greeting packet. PID=22204 in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:29:03 UTC] PHP Warning:  mysqli_real_connect(): (HY000/2006): MySQL server has gone away in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:29:03 UTC] PHP Warning:  mysqli_real_connect(): MySQL server has gone away in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:29:03 UTC] PHP Warning:  mysqli_real_connect(): Error while reading greeting packet. PID=22203 in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:29:03 UTC] PHP Warning:  mysqli_real_connect(): (HY000/2006): MySQL server has gone away in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:29:04 UTC] PHP Warning:  mysqli_real_connect(): MySQL server has gone away in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:29:04 UTC] PHP Warning:  mysqli_real_connect(): Error while reading greeting packet. PID=22204 in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:29:04 UTC] PHP Warning:  mysqli_real_connect(): (HY000/2006): MySQL server has gone away in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:29:05 UTC] PHP Warning:  mysqli_real_connect(): MySQL server has gone away in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:29:05 UTC] PHP Warning:  mysqli_real_connect(): Error while reading greeting packet. PID=22203 in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:29:05 UTC] PHP Warning:  mysqli_real_connect(): (HY000/2006): MySQL server has gone away in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:29:05 UTC] PHP Warning:  mysqli_real_connect(): MySQL server has gone away in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:29:05 UTC] PHP Warning:  mysqli_real_connect(): Error while reading greeting packet. PID=22204 in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:29:05 UTC] PHP Warning:  mysqli_real_connect(): (HY000/2006): MySQL server has gone away in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:29:06 UTC] PHP Warning:  mysqli_real_connect(): MySQL server has gone away in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:29:06 UTC] PHP Warning:  mysqli_real_connect(): Error while reading greeting packet. PID=22203 in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:29:06 UTC] PHP Warning:  mysqli_real_connect(): (HY000/2006): MySQL server has gone away in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:34:19 UTC] PHP Warning:  mysqli_real_connect(): (HY000/2002): No such file or directory in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:34:21 UTC] PHP Warning:  mysqli_real_connect(): (HY000/2002): No such file or directory in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:34:23 UTC] PHP Warning:  mysqli_real_connect(): (HY000/2002): No such file or directory in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:34:24 UTC] PHP Warning:  mysqli_real_connect(): (HY000/2002): No such file or directory in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:34:24 UTC] PHP Warning:  mysqli_real_connect(): (HY000/2002): No such file or directory in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603
+[25-Mar-2018 17:34:24 UTC] PHP Warning:  mysqli_real_connect(): (HY000/2002): No such file or directory in /Users/keithmancuso/Sites/bigduck/wp-includes/wp-db.php on line 1603

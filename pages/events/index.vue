@@ -28,7 +28,7 @@
               </div>
             </div>
             <div v-if="events && events.length > 0">
-              <div v-for="(event, index) in events" :key="event.id">
+              <div v-for="(event, index) in events" :key="'wrapper-'+event.id">
                 <Event :entry="event" :index="index"></Event>
 
                 <InlineCallout class="mb-5" v-if="index % 5 == 1 && index < events.length - 1" :callout="callout"></InlineCallout>

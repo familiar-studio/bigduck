@@ -83,16 +83,18 @@ module.exports = {
   plugins: [
     { src: "~/plugins/vue-validate", ssr: false },
     { src: "~/plugins/newfangled.js", ssr: false },
-    { src: "~/plugins/ga.js", ssr: false },
     { src: "~/plugins/scrollto.js", ssr: false },
-    { src: "~/plugins/waypoint.js", ssr: false },
+   // { src: "~/plugins/waypoint.js", ssr: false },
     { src: "~/plugins/search.js" },
     { src: "~/plugins/meta.js" }
   ],
   modules: [
-    // Simple usage
+
     "@nuxtjs/axios",
-    "@nuxtjs/proxy"
+    "@nuxtjs/proxy",
+    ['@nuxtjs/google-analytics', {
+      id: 'UA-22713924-1'
+    }]
   ],
   axios: {
     withCredentials: true,
