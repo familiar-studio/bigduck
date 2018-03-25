@@ -13,9 +13,7 @@
           <div v-if="work">
             <Work :work="work" v-if="work.length > 0"></Work>
             <div v-else>
-              There is currently no work in
-              <span v-if="selectedTopic">{{getTopicsIndexedById[selectedTopic].name}}</span>
-
+              <span v-if="selectedTopic">There is currently no work in {{getTopicsIndexedById[selectedTopic].name}}</span>
             </div>
           </div>
         </div>
@@ -33,7 +31,6 @@ import Work from "~/components/Work.vue";
 import FilterList from "~/components/FilterList.vue";
 import Chat from "~/components/Chat.vue";
 
-import Axios from "axios";
 import { mapState, mapGetters } from "vuex";
 
 export default {
@@ -44,7 +41,8 @@ export default {
       selected: {
         topic: null,
         sector: null
-      }
+      },
+      page: 1
     };
   },
   components: {
@@ -59,53 +57,38 @@ export default {
       return this.$route.query.topic;
     }
   },
-  watch: {
-    "$route.query": "filterResults"
-  },
-  async asyncData({ store, query }) {
-    try {
-      store.commit("resetPage");
-      const response = await store.dispatch("fetchByQuery", {
-        query: query,
-        path: "wp/v2/bd_case_study"
-      });
-      return {
-        work: response.data
-      };
-    } catch (e) {
-      console.error(e);
+  async beforeRouteUpdate(to, from, next) {
+    console.log(to.query)
+    const response = await this.$axios.$get("/wp/v2/bd_case_study", {
+      params: to.query
+    })
+    if (response.length > 0){
+      response.map((e, i) => this.$set(this.work, i, e))
+    } else {
+      this.work.splice(0)
     }
+    next()
+  },
+  async asyncData({ app, store, query }) {
+    let params = { page: 1, per_page: 8 };
+    if (query.topic) {
+      params.topic = query.topic
+    }
+    const response  = await app.$axios.$get("/wp/v2/bd_case_study", {
+      params: params
+    })
+    return {
+      work: response
+    };
   },
   head() {
     if (this.work[0]) {
       return {
         title: "Work - All Projects",
         meta: [
-          {
-            hid: "og:title",
-            property: "og:title",
-            content: "Work - All Projects | Big Duck"
-          },
-          {
-            hid: "twitter:title",
-            property: "twitter:title",
-            content: "Work - All Projects | Big Duck"
-          },
-          {
-            hid: "description",
-            name: "description",
-            content: "All Projects"
-          },
-          {
-            hid: "og:description",
-            property: "og:description",
-            content: "All Projects"
-          },
-          {
-            hid: "twitter:description",
-            property: "twitter:description",
-            content: "All Projects"
-          }
+          ...this.$metaDescription("All Projects"),
+          ...this.$metaTitles("Work - All Projects | Big Duck"),
+          ...this.$metaImages()
         ]
       };
     }
@@ -121,19 +104,10 @@ export default {
       } else {
         query[event.taxonomy] = event.id;
       }
-      this.$router.push({ name: "work-all", query: query });
+      this.$router.replace({ name: "work-all", query: query });
     },
     resetFilters() {
-      this.$router.push({ name: "work-all", query: null });
-    },
-    async filterResults() {
-      this.$store.commit("resetPage");
-      const response = await this.$store.dispatch("fetchByQuery", {
-        path: "wp/v2/bd_case_study",
-        query: this.$route.query
-      });
-
-      this.insights = response.data;
+      this.$router.replace({ name: "work-all", query: null });
     }
   }
 };

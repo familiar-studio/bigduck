@@ -3,7 +3,6 @@
   </Page>
 </template>
 <script>
-import Axios from "axios";
 import Page from "~/components/Page";
 
 export default {
@@ -13,55 +12,16 @@ export default {
       return {
         title: this.title,
         meta: [
-          {
-            hid: "og:title",
-            property: "og:title",
-            content: this.title
-          },
-          {
-            hid: "twitter:title",
-            property: "twitter:title",
-            content: this.title
-          },
-          {
-            hid: "description",
-            name: "description",
-            content: "Interested in having Big Duck speak at your organization?"
-          },
-          {
-            hid: "og:description",
-            property: "og:description",
-            content: "Interested in having Big Duck speak at your organization?"
-          },
-          {
-            hid: "twitter:description",
-            property: "twitter:description",
-            content: "Interested in having Big Duck speak at your organization?"
-          },
-          {
-            hid: "image",
-            property: "image",
-            content: this.image
-          },
-          {
-            hid: "og:image:url",
-            property: "og:image:url",
-            content: this.image
-          },
-          {
-            hid: "twitter:image",
-            property: "twitter:image",
-            content: this.image
-          }
+          ...this.$metaDescription("Interested in having Big Duck speak at your organization?"),
+          ...this.$metaTitles(this.title),
+          ...this.$metaImages(this.image)
         ]
       };
     }
   },
-  async asyncData({ store }) {
-    let response = await Axios.get(
-      store.getters["hostname"] + "wp/v2/pages?slug=speaking-engagements"
-    );
-    var data = response.data[0];
+  async asyncData({ app, store }) {
+    let response = await app.$axios.$get("/wp/v2/pages?slug=speaking-engagements");
+    var data = response[0];
     return {
       data: data,
       image: data.acf.featured_image,

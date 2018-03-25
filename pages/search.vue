@@ -1,130 +1,162 @@
 <template lang="html">
   <div>
+    <ais-index :search-store="searchStore" :query="queryString">
     <div class="search-bar">
       <div class="container">
-        <form @submit.prevent="search()" class="form-inline">
-          <input type="text" placeholder="Search" v-model="query" class="form-control form-control-lg"/>
-          <button type="submit" class="btn btn-secondary">
-            <svg width="26px" height="26px" viewBox="0 0 26 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="search-icon">
-              <path d="M25.5611068,23.4388932 C26.146029,24.0268104 26.146029,24.9731896 25.5574713,25.5647236 C25.2731412,25.8461524 24.8928615,26 24.5,26 C24.1053281,26 23.7235341,25.8447477 23.4388932,25.5601068 L15.0643004,17.185514 C13.4604395,18.3533221 11.5289078,19 9.5,19 C4.26071525,19 0,14.7392847 0,9.5 C0,4.26071525 4.26071525,0 9.5,0 C14.7392847,0 19,4.26071525 19,9.5 C19,11.528581 18.353522,13.4600566 17.1863031,15.0640896 L25.5611068,23.4388932 Z M3,9.5 C3,13.0837153 5.91628475,16 9.5,16 C13.0837153,16 16,13.0837153 16,9.5 C16,5.91628475 13.0837153,3 9.5,3 C5.91628475,3 3,5.91628475 3,9.5 Z"></path>
-            </svg>
-          </button>
-        </form>
+      <ais-search-box class="form-inline" placeholder="Search"></ais-search-box>
+      <!-- <ais-stats>
+        <template slot-scope="{ totalResults, query }">
+        Showing {{ totalResults }} results.
+      </template>
+      </ais-stats> -->
       </div>
     </div>
-    <div class="container">
-      <ul v-if="results && results.length > 0" class="list-unstyled">
-        <li v-for="result in results">
-          <div class="search-result">
-            <router-link v-if="result['post-type'] == 'bd_insight'" :to="{name: 'insights-slug', params: {slug: result.slug}}" href="">
-              <h6>Insight</h6>
-              <h3><span class="underline-change hover-color" v-html="result.title.rendered"></span></h3>
-              <div class="card-text" v-html="result.acf.short_description"></div>
-            </router-link>
-            <router-link v-else-if="result['post-type'] == 'bd_case_study'" :to="{name: 'work-slug', params: {slug: result.slug}}" href="">
-              <h6>Work</h6>
-              <h3><span class="underline-change hover-color" v-html="result.acf.client_name"></span></h3>
-              <div class="card-text" v-html="result.title.rendered"></div>
-            </router-link>
-            <router-link v-else-if="result['type'] == 'page'" :to="{ path: result.slug}" href="">
-              <h6>Page</h6>
-              <h3><span class="underline-change hover-color" v-html="result.title.rendered"></span></h3>
-              <div class="card-text" v-html="result.acf.subtitle"></div>
-            </router-link>
-            <router-link v-else-if="result['type'] == 'bd_event'" :to="{name: 'events-slug', params: {slug: result.slug}}" href="">
-              <h6>Event {{result.acf.start_time}}</h6>
-              <h3><span class="underline-change hover-color" v-html="result.title.rendered"></span></h3>
-              <div class="card-text" v-html="result.acf.subtitle"></div>
-            </router-link>
-            <router-link v-else-if="result['type'] == 'bd_service'" :to="{name: 'services-slug', params: {slug: result.slug}}" href="">
-              <h6>Service</h6>
-              <h3><span class="underline-change hover-color" v-html="result.title.rendered"></span></h3>
-              <div class="card-text" v-html="result.acf.short_description"></div>
-            </router-link>
-            <router-link v-else :to="{name: 'insights-slug', params: {slug: result.slug}}" href="">
-              <h6>Insight</h6>
-              <h3><span class="underline-change hover-color" v-html="result.title.rendered"></span></h3>
-              <div class="card-text" v-html="result.acf.short_description"></div>
-            </router-link>
+    <div class="row no-gutters">
 
-            <!-- <hr/> -->
+      <div class="col-lg-3 col-xl-2">
+        <div class="filter-bar menu">
+          <div class="filter-list">
+            <div class="media-list">
+              <div class="label label-lg">Section</div>
+              <ais-refinement-list attribute-name="post_type_label" :sort-by="['name:asc']"></ais-refinement-list>
+            </div>
+            <div class="media-list">
+              <div class="label label-lg">Topic</div>
+              <ais-refinement-list attribute-name="taxonomies.topic" :sort-by="['name:asc']"></ais-refinement-list>
+            </div>
+            <div class="media-list">
+              <div class="label label-lg">Type</div>
+              <ais-refinement-list attribute-name="taxonomies.type" :sort-by="['name:asc']"></ais-refinement-list>
+            </div>
           </div>
-        </li>
-      </ul>
 
-      <h3 v-else class="mt-5">We couldn’t find any search results for &ldquo;{{query}}.&rdquo;</h3>
+        </div>
+      </div>
+      <div class="col-lg-9 col-xl-8 search-main">
+          <div class="container mt-4">
+    <ais-results :results-per-page="20">
+      <div class="card card-block mb-4" slot-scope="{ result }">
 
-    </div>
+          <div class="search-result">
+          <router-link v-if="result.post_type == 'bd_insight' && (selectedPostType === 'insights' || selectedPostType === null)" :to="{name: 'insights-slug', params: {slug: result.post_name}}" href="">
+            <h6>Insight</h6>
+            <h3><span class="underline-change hover-color" v-html="result.post_title"></span></h3>
+           <div class="card-text"v-html="result.short_description"></div>
+          </router-link>
+          <router-link v-else-if="result.post_type == 'bd_case_study' && (selectedPostType === 'work' || selectedPostType === null)" :to="{name: 'work-slug', params: {slug: result.post_name}}" href="">
+            <h6>Work</h6>
+            <h3><span class="underline-change hover-color" v-html="result.client_name"></span></h3>
+            <div class="card-text"  v-html="result.short_description"></div>
+          </router-link>
+          <router-link v-else-if="result['post_type'] == 'bd_event' && (selectedPostType === 'events' || selectedPostType === null)" :to="{name: 'events-slug', params: {slug: result.post_name}}" href="">
+            <h6>Event
+              {{result.start_time}}
+            </h6>
+            <h3><span class="underline-change hover-color" v-html="result.post_title"></span></h3>
+            <div class="card-text" v-html="result.subtitle"></div>
+            <div class="card-text" v-if="result._snippetResult.text !== null && typeof result._snippetResult.text !== 'undefined'" v-html="result._snippetResult.text.value"></div>
+          </router-link>
+          <router-link v-else-if="result['post_type'] == 'bd_job' && (selectedPostType === 'jobs' || selectedPostType === null)" :to="{name: 'about', params: {slug: result.post_name}}" href="">
+            <h6>Job</h6>
+            <h3><span class="underline-change hover-color" v-html="result.post_title"></span></h3>
+            <div class="card-text"  v-html="result.job_description"></div>
+          </router-link>
+          <router-link v-else-if="result['post_type'] == 'bd_service' && (selectedPostType === 'services' || selectedPostType === null)" :to="{name: 'services-slug', params: {slug: result.post_name}}">
+            <h6>Service</h6>
+            <h3><span class="underline-change hover-color" v-html="result.post_title"></span></h3>
+            <div class="card-text"  v-html="result.short_description"></div>
+
+          </router-link>
+        </div>
+        </div>
+
+
+
+    </ais-results>
+
+    <ais-no-results></ais-no-results>
+    <ais-pagination @page-change="onPageChange"></ais-pagination>
+ </div>
+</div>
+<div class="col-lg-2"></div>
+  </div>
+  </ais-index>
+
   </div>
 </template>
 
 <script>
-import Axios from "axios";
+import Post from "~/components/Post.vue";
+
+import FilterList from "~/components/FilterList";
+import { createFromAlgoliaCredentials, createFromSerialized } from 'vue-instantsearch'
+const searchStore = createFromAlgoliaCredentials('R3PZL8WP9J',
+  '65ae7f31389bada450fa79a104e7fc9f')
+searchStore.indexName = "wp_searchable_posts"
 
 export default {
+  components: {
+    FilterList,
+    Post
+  },
   data() {
     return {
       totalPages: null,
       query: null,
-      results: null
+      searchStore: null,
+      postTypes: [
+        { name: 'Insights', id: 'insights'},
+        { name: 'Work', id: 'work' },
+        { name: 'Events', id: 'events' },
+        { name: 'Jobs', id: 'jobs' },
+        { name: 'Services', id: 'services' }
+      ],
+      selectedPostType: null
     };
+  },
+  methods: {
+    togglePostType(e) {
+      this.selectedPostType = this.selectedPostType === e.id ? null : e.id
+    },
+    onPageChange() {
+      window.scrollTo(0,0);
+    }
   },
   head() {
     return {
       title: "Search",
       meta: [
-        {
-          hid: "og:title",
-          content: "Search"
-        },
-        {
-          hid: "twitter:title",
-          content: "Search"
-        },
-        {
-          hid: "description",
-          content: "Find anything on our site."
-        },
-        {
-          hid: "og:description",
-          content: "Find anything on our site."
-        },
-        {
-          hid: "twitter:description",
-          content: "Find anything on our site."
-        }
+        ...this.$metaDescription("Find anything on our site."),
+        ...this.$metaTitles("Search"),
+        ...this.$metaImages()
       ]
     };
   },
   async asyncData({ route, store }) {
-    // let response = await Axios.get(store.getters.hostname + 'wp/v2/bd_insight?filter[s]=' + route.query.query)
-    // return {
-    //   results: response.data
-    // }
+    searchStore.start()
+    searchStore.refresh()
+    await searchStore.waitUntilInSync()
+
+    return { serializedSearchStore: searchStore.serialize()}
   },
-  mounted() {
-    this.query = this.$route.query.query;
-    this.search();
+  created () {
+    this.searchStore = createFromSerialized(this.serializedSearchStore)
   },
-  methods: {
-    async search() {
-      ///wp-json/wp/v2/multiple-post-type?search=awesome&type[]=post&type[]=page&type[]=article
-      let results = await Axios.get(
-        this.$store.getters.hostname + "wp/v2/multiple-post-type",
-        {
-          params: {
-            search: this.query,
-            type: ["bd_insight", "bd_service", "bd_case_study, bd_event"]
-          }
-        }
-      );
-      this.results = results.data;
-      this.results.forEach(result => {
-        result["post-type"] = result.guid.rendered
-          .split("?post_type=")[1]
-          .split("&")[0];
-      });
+  computed: {
+    queryString () {
+      return this.$route.query.query;
     }
   }
 };
 </script>
+<style>
+  .ais-refinement-list__checkbox,
+  .ais-refinement-list__count,
+  .ais-refinement-list__checkbox[value="Pages"] + .ais-refinement-list__value,
+  .ais-refinement-list__checkbox[value="Sidebar CTAs"] + .ais-refinement-list__value,
+  .ais-refinement-list__checkbox[value="Emails"] + .ais-refinement-list__value,
+  .ais-refinement-list__checkbox[value="Posts"] + .ais-refinement-list__value,
+  .ais-pagination__item.ais-pagination__item--disabled {
+    display: none;
+  }
+</style>

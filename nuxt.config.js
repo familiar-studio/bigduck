@@ -74,21 +74,42 @@ module.exports = {
     mode: "out-in",
     appear: true
   },
+  proxy: process.env.PROXY_API_URL
+    ? [
+        ["/wp-admin", { target: process.env.PROXY_API_URL }],
+        ["/wp-json", { target: process.env.PROXY_API_URL }]
+      ]
+    : [],
   plugins: [
     { src: "~/plugins/vue-validate", ssr: false },
     { src: "~/plugins/newfangled.js", ssr: false },
-    { src: "~/plugins/ga.js", ssr: false },
     { src: "~/plugins/scrollto.js", ssr: false },
-    { src: "~/plugins/waypoint.js", ssr: false }
+    { src: "~/plugins/search.js" },
+    { src: "~/plugins/meta.js" }
   ],
   modules: [
-    // Simple usage
-    "@nuxtjs/axios"
+
+    "@nuxtjs/axios",
+    "@nuxtjs/proxy",
+    ['@nuxtjs/google-analytics', {
+      id: 'UA-22713924-1'
+    }]
   ],
   axios: {
-    credentials: false,
-    baseURL: "https://bigducknyc.com/wp-json/"
+    withCredentials: true,
+    prefix:'/wp-json',
+    // baseURL: "https://bigducknyc.com/wp-json/",
+    //baseURL: "https://bigduck.test/wp-json",
+    errorHandler(errorReason, { error }) {
+      error("Request Error: " + errorReason);
+    }
   },
+  proxy: process.env.PROXY_API_URL
+  ? [
+      ["/wp-json", { target: process.env.PROXY_API_URL }],
+      ["/wp-admin", { target: process.env.PROXY_API_URL }]
+    ]
+  : [],
   /*
 
   ** Customize the progress-bar color
@@ -98,6 +119,11 @@ module.exports = {
     middleware: ["nextCta", "redirects"],
     scrollBehavior: function(to, from, savedPosition) {
       return { x: 0, y: 0 };
+    },
+    beforeEach: function (to, from, next) {
+      console.log('to', to)
+      console.log('from', from)
+      next()
     }
   },
   css: [{ src: "~/assets/scss/styles.scss", lang: "scss" }],
@@ -109,7 +135,7 @@ module.exports = {
     /*
     ** Run ESLINT on save
     */
-    vendor: ["axios", "date-fns", "crypto-js", "flickity", "babel-polyfill"],
+    vendor: ["intersection-observer", "axios", "date-fns", "crypto-js", "flickity", "babel-polyfill", '~/components/GravityForm'],
     extend(config, ctx) {
       if (ctx.isClient) {
         config.module.rules.push({

@@ -145,7 +145,6 @@
 </template>
 
 <script>
-import Axios from 'axios'
 import GravityForm from '~/components/GravityForm.vue'
 import Logo from '~/components/Logo.vue'
 import SearchOverlay from '~/components/SearchOverlay.vue'

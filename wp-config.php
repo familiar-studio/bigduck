@@ -33,8 +33,12 @@ if (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != "on") {
 }
 
 define('WP_HOME','https://bigducknyc.com');
-
+//
 define('WP_SITEURL','https://bigducknyc.com');
+
+// define('WP_HOME', 'https://bigduck.test');
+//
+// define('WP_SITEURL', 'https://bigduck.test');
 
 
 define('DB_NAME', 'bigduck_wordpress');
@@ -94,7 +98,9 @@ $table_prefix  = 'wp_';
  *
  * @link https://codex.wordpress.org/Debugging_in_WordPress
  */
-define('WP_DEBUG', false);
+define('WP_DEBUG', true);
+define( 'WP_DEBUG_LOG', true );
+
 
 /* That's all, stop editing! Happy blogging. */
 

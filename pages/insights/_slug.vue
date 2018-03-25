@@ -214,8 +214,6 @@
   </div>
 </template>
 <script>
-import Axios from "axios";
-
 import dateFns from "date-fns";
 import GravityForm from "~/components/GravityForm.vue";
 import { mapState, mapGetters, mapActions } from "vuex";
@@ -243,14 +241,22 @@ export default {
       showTranscription: {}
     };
   },
-  async asyncData({ state, params, store, error }) {
+  async asyncData({ app, state, params, store, error, query }) {
     let data = {};
     try {
-      let response = await Axios.get(
-        store.getters["hostname"] + "wp/v2/bd_insight",
-        { params: { slug: params.slug } }
+      let requestParams = { slug: params.slug }
+
+      if (query.preview === "true") {
+        requestParams['status'] = 'draft'
+      }
+
+      let response = await app.$axios.$get("/wp/v2/bd_insight",
+        {
+          params: requestParams,
+          withCredentials: query.preview === "true"
+         }
       );
-      data.insight = response.data[0];
+      data.insight = response[0];
       if (data.insight.acf.related_case_studies) {
         data.relatedWorkIds = data.insight.acf.related_case_studies.map(
           caseStudy => {
@@ -280,63 +286,16 @@ export default {
       return {
         title: this.title,
         meta: [
-          {
-            hid: "og:title",
-            property: "og:title",
-            content: this.title + " | Big Duck"
-          },
-          {
-            hid: "twitter:title",
-            property: "twitter:title",
-            content: this.title + " | Big Duck"
-          },
-          {
-            hid: "description",
-            name: "description",
-            content: this.description
-          },
-          {
-            hid: "og:description",
-            property: "og:description",
-            content: this.description
-          },
-          {
-            hid: "twitter:description",
-            property: "twitter:description",
-            content: this.description
-          },
-          {
-            hid: "image",
-            property: "image",
-            content: this.insight.acf.featured_image
-          },
-          {
-            hid: "og:image:url",
-            property: "og:image:url",
-            content: this.insight.acf.featured_image
-          },
-          {
-            hid: "twitter:image",
-            property: "twitter:image",
-            content: this.insight.acf.featured_image
-          },
-          {
-            name: "og:type",
-            property: "og:type",
-            content: "article"
-          },
-          {
-            name: "twitter:card",
-            property: "twitter:card",
-            content: "summary"
-          }
+          ...this.$metaDescription(this.description),
+          ...this.$metaTitles(this.title + " | Big Duck"),
+          ...this.$metaImages(this.insight.acf.featured_image)
         ]
       };
     }
   },
   computed: {
     ...mapState(["types", "topics", "globals"]),
-    ...mapGetters(["hostname", "getTopicsIndexedById", "getTypesIndexedById"]),
+    ...mapGetters([ "getTopicsIndexedById", "getTypesIndexedById"]),
     backupImage() {
       let images = this.globals.backup_insights_images;
       return images[this.insight.id % images.length].backup_insight_image;
@@ -410,24 +369,24 @@ export default {
   created() {
     // get related case studies
     if (this.relatedWorkIds) {
-      Axios.get(this.hostname + "wp/v2/bd_case_study", {
+      this.$axios.$get("/wp/v2/bd_case_study", {
         params: { include: this.relatedWorkIds }
       }).then(response => {
-        this.relatedCaseStudies = response.data;
+        this.relatedCaseStudies = response;
       });
     }
     if (this.relatedInsightIds) {
-      Axios.get(this.hostname + "wp/v2/bd_insight", {
+      this.$axios.$get("/wp/v2/bd_insight", {
         params: { include: this.relatedInsightIds }
       }).then(response => {
-        this.relatedInsights = response.data;
+        this.relatedInsights = response;
       });
     }
     if (this.authorIds) {
-      Axios.get(this.hostname + "acf/v3/users", {
+      this.$axios.$get("/acf/v3/users", {
         params: { include: this.authorIds }
       }).then(response => {
-        this.authors = response.data;
+        this.authors = response;
       });
     }
 

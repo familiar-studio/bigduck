@@ -45,14 +45,12 @@
           <div class="container">
             <!-- <div v-scroll-spy="scrollPos" :steps="30" :time="200"> -->
             <div>
-              <v-waypoint @waypoint-in="activateSection('we-believe')"></v-waypoint>
-              <article id="we-believe" class="main overlap">
+              <article id="we-believe" class="main overlap section">
                 <h1>{{ page.acf.we_believe_headline }}</h1>
                 <div v-html="page.acf.we_believe_body"></div>
                 <h1>{{ page.our_clients_headline }}</h1>
               </article>
-              <v-waypoint @waypoint-in="activateSection('clients')"></v-waypoint>
-              <article class="my-5" v-if="sectorsByIndex" id="clients">
+              <article class="my-5 section" v-if="sectorsByIndex" id="clients">
                 <h1 v-html="page.acf.our_clients_headline"></h1>
                 <div v-html="page.acf.clients_body" class="mb-4-5"></div>
 
@@ -75,9 +73,8 @@
                   </div>
                 </div>
               </article>
-              <v-waypoint @waypoint-in="activateSection('values')"></v-waypoint>
-              <article class="values bg-change break-container">
-                <h1 id="values">{{ page.acf.values_headline }}</h1>
+              <article id="values" class="values bg-change break-container section">
+                <h1 >{{ page.acf.values_headline }}</h1>
                 <div v-html="page.acf.values_body"></div>
                 <ul class="list-unstyled">
                   <li v-for="value in page.acf.values_">
@@ -91,9 +88,8 @@
                   </li>
                 </ul>
               </article>
-              <v-waypoint @waypoint-in="activateSection('team')"></v-waypoint>
 
-              <article class="break-container bg-white team py-5">
+              <article id="team" class="break-container bg-white team py-5 section">
                 <h1 id="team">{{page.acf.team_headline}}</h1>
                 <div v-html="page.acf.team_body" class="mb-4-5"></div>
 
@@ -114,18 +110,17 @@
                   </div>
                 </div>
               </article>
-              <v-waypoint @waypoint-in="activateSection('open-house')"></v-waypoint>
 
-              <article v-if="openHouse" class="openHouse my-5">
+
+              <article v-if="openHouse" id="open-house" class="openHouse my-5 section" >
                 <h1 id="open-house">Open House</h1>
                 <div v-html="page.acf.open_house_body" class="mb-5"></div>
                 <div class="" v-for="(event, index) in openHouse">
                   <Event :entry="event" :index="index" :relatedTeamMembers="event.related_team_members.data"></Event>
                 </div>
               </article>
-              <v-waypoint @waypoint-in="activateSection('jobs')"></v-waypoint>
 
-              <article id="jobs" class="mb-5">
+              <article id="jobs" class="my-5 section">
                 <h1>{{ page.acf.jobs_headline }}</h1>
                 <div v-html="page.acf.jobs_body" class="mb-3"></div>
                 <div v-if="jobs">
@@ -161,10 +156,9 @@
   </div>
 </template>
 <script>
-import Axios from "axios";
 import Event from "~/components/Event.vue";
 import Chat from "~/components/Chat.vue";
-import Vue from "vue";
+
 
 export default {
   name: "about",
@@ -177,46 +171,9 @@ export default {
       return {
         title: this.page.acf.we_believe_headline,
         meta: [
-          {
-            hid: "og:title",
-            property: "og:title",
-            content: this.page.acf.we_believe_headline
-          },
-          {
-            hid: "twitter:title",
-            property: "twitter:title",
-            content: this.page.acf.we_believe_headline
-          },
-          {
-            hid: "description",
-            name: "description",
-            content: this.page.acf.we_believe_body
-          },
-          {
-            hid: "og:description",
-            property: "og:description",
-            content: this.page.acf.we_believe_body
-          },
-          {
-            hid: "twitter:description",
-            property: "twitter:description",
-            content: this.page.acf.we_believe_body
-          },
-          {
-            hid: "image",
-            property: "image",
-            content: this.page.acf.featured_image.url
-          },
-          {
-            hid: "og:image:url",
-            property: "og:image:url",
-            content: this.page.acf.featured_image.url
-          },
-          {
-            hid: "twitter:image",
-            property: "twitter:image",
-            content: this.page.acf.featured_image.url
-          }
+          ...this.$metaDescription(this.page.acf.we_believe_body),
+          ...this.$metaTitles(this.page.acf.we_believe_headline),
+          ...this.$metaImages(this.page.acf.featured_image.url)
         ]
       };
     }
@@ -227,34 +184,34 @@ export default {
       activeSection: "we-believe"
     };
   },
-  async asyncData({ store, query, dispatch }) {
+  async asyncData({ app, store, query, dispatch }) {
     let data = {};
-    let page = await Axios.get(
-      store.getters["hostname"] + "wp/v2/pages?slug=about"
-    );
+    let page = await app.$axios.$get("/wp/v2/pages?slug=about");
     let openCategories = {};
 
-    page.data[0].acf.clients.forEach(client => {
+    page[0].acf.clients.forEach(client => {
       openCategories[client.client_category] = false;
     });
     data["openCategories"] = openCategories;
-    data["pageObject"] = page.data;
+    data["pageObject"] = page;
     let [team, jobs, openHouse] = await Promise.all([
-      store.dispatch("fetch", "familiar/v1/team"),
-      store.dispatch("fetch", "wp/v2/bd_job"),
-      store.dispatch("fetch", "wp/v2/bd_event?event_category=31")
+      app.$axios.$get("/familiar/v1/team"),
+      app.$axios.$get("/wp/v2/bd_job"),
+      app.$axios.$get("/wp/v2/bd_event?event_category=31")
     ]);
     let openJobs = {};
-    jobs.data.forEach(job => {
+    jobs.forEach(job => {
       openJobs[job.id] = false;
     });
     data["openJobs"] = openJobs;
-    data["team"] = team.data;
-    data["jobs"] = jobs.data;
+    data["team"] = team;
+    data["jobs"] = jobs;
+    data["openHouse"] = openHouse;
 
+    // `Array.prototype.sort()` sorts in place, which is not allowed on the state
+    let unsortedSectors = store.state.sectors.concat([]);
     // arrange clients into sectors:
-    const sectors = store.state.sectors.sort();
-    data["openHouse"] = openHouse.data;
+    const sectors = unsortedSectors.sort();
     return data;
   },
   computed: {
@@ -265,9 +222,23 @@ export default {
       return this.$store.getters["getSectorsIndexedById"];
     }
   },
+  mounted() {
+    const scrollama = require("scrollama");
+    const scroller = scrollama();
+    this.$nextTick(() => {
+      scroller
+        .setup({
+          step: ".section", // required
+          offset: 0.6, // optional, default = 0.5
+          debug: false,
+        })
+        .onStepEnter(this.handleStepEnter);
+    });
+  },
   methods: {
-    activateSection(sectionName) {
-      this.activeSection = sectionName;
+    handleStepEnter({ element, index, direction }) {
+      console.log('activated',element.id);
+      this.activeSection = element.id;
     },
     toggleClient(categoryId) {
       this.openCategories[categoryId] = !this.openCategories[categoryId];

@@ -1,5 +1,24 @@
 <?php
 
+function bd_change_preview_post_link ($preview_link) {
+  // return $preview_link;
+  $url = parse_url($preview_link);
+  parse_str($url['query'], $query);
+  $base = null;
+  $slug = null;
+  if (isset($query['p'])) {
+    $sample_permalink = get_sample_permalink($query['p']);
+    $base = $sample_permalink[0];
+    $slug = $sample_permalink[1];
+  }
+  if ($base && $slug) {
+    $preview_link = str_replace("%pagename%", $slug, $base . '?preview=true');
+  }
+  return $preview_link;
+}
+
+add_filter('preview_post_link', 'bd_change_preview_post_link');
+
 
 function bd_pre_get_posts( $query ) {
 	// if( is_admin() ) {
@@ -24,9 +43,135 @@ function bd_pre_get_posts( $query ) {
 	return $query;
 }
 
+function get_body_fields($postId) {
+  // find fields whose names contain 'body'
+  if (!is_array(get_fields($postId))){
+    return [];
+  }
+  return array_filter(get_fields($postId), function($field) {
+    // Do not convert type since zero is a valid response and 0 == false but not 0 === false
+    return strpos($field, "body") !== false;
+  }, ARRAY_FILTER_USE_KEY);
+}
 
+function my_post_attributes( array $attributes, WP_Post $post) {
+  $attributes['post_name'] = $post->post_name;
+  // Find matrix field with 'body' in the name
+  $bodyFields = get_body_fields($post->ID);
+  $attributes['body'] = "";
 
+  if (is_array($bodyFields)) {
+    foreach($bodyFields as $field => $value) {
+      if (is_array($value)) {
+        foreach($value as $name => $fieldValue) {
+          if($fieldValue["acf_fc_layout"] === "text") {
+            // take an HTML decoded, concatenated string of maximum 8000 chars
+            $attributes['body'] = substr(html_entity_decode(strip_tags($fieldValue["text"] . $attributes["body"])), 0, 8000);
+          }
+        }
+      }
+    }
+  }
+
+	switch($post->post_type) {
+		case 'bd_insight':
+			$attributes['short_description'] = strip_tags(get_field('short_description', $post->ID));
+			break;
+		case 'bd_case_study':
+			$attributes['client_name'] = get_field('client_name', $post->ID);
+      $attributes['short_description'] = get_field('short_description', $post->ID);
+			break;
+		case 'bd_event':
+			$attributes['subtitle'] = get_field('subtitle', $post->ID);
+      $attributes['start_time'] = get_field('start_time', $post->ID);
+      $attributes['text'] = get_field('text', $post->ID);
+		  break;
+    case 'bd_service':
+      $attributes['introduction'] = strip_tags(get_field('introduction', $post->ID));
+      $attributes['short_description'] = strip_tags(get_field('short_description', $post->ID));
+      break;
+		case 'bd_job':
+			$attributes['job_description'] = strip_tags(get_field('job_description', $post->ID));
+			$attributes['requirements_body'] = strip_tags(get_field('requirements_body', $post->ID));
+			break;
+	}
+	return $attributes;
+}
+
+function indexBodyField($settings) {
+  $settings['attributesToIndex'][] = 'unordered(body)';
+  $settings['attributesToSnippet'][] = 'body:50';
+  return $settings;
+}
+
+function my_insights_index_settings( array $settings ) {
+  $settings['attributesToIndex'][] = 'unordered(short_description)';
+  $settings['attributesToSnippet'][] = 'short_description:50';
+  $settings = indexBodyField($settings);
+  return $settings;
+}
+
+function my_events_index_settings( array $settings ) {
+  $settings['attributesToIndex'][] = 'unordered(subtitle)';
+  $settings['attributesToSnippet'][] = 'subtitle:50';
+  $settings['attributesToIndex'][] = 'unordered(text)';
+  $settings['attributesToSnippet'][] = 'text:50';
+  $settings['attributesToIndex'][] = 'start_time';
+  $settings = indexBodyField($settings);
+  return $settings;
+}
+
+function my_case_studies_index_settings( array $settings ) {
+  $settings['attributesToIndex'][] = 'unordered(short_description)';
+  $settings['attributesToSnippet'][] = 'short_description:50';
+  $settings['attributesToIndex'][] = 'unordered(introduction)';
+  $settings = indexBodyField($settings);
+  return $settings;
+}
+
+function my_searchable_posts_index_settings( array $settings) {
+  error_log("about to facet");
+	$settings['attributesForFaceting'][] = 'post_type_label';
+	$settings['attributesForFaceting'][] = 'taxonomies.event_category';
+	$settings['attributesForFaceting'][] = 'taxonomies.topic';
+  $settings['attributesForFaceting'][] = 'taxonomies.type';
+  $settings['attributesToIndex'][] = 'unordered(short_description)';
+  $settings['attributesToSnippet'][] = 'short_description:50';
+  $settings['attributesToIndex'][] = 'unordered(introduction)';
+  $settings['attributesToSnippet'][] = 'introduction:50';
+  $settings['attributesToIndex'][] = 'unordered(subtitle)';
+  $settings['attributesToSnippet'][] = 'subtitle:50';
+  $settings['attributesToIndex'][] = 'unordered(text)';
+  $settings['attributesToSnippet'][] = 'text:50';
+  $settings['attributesToIndex'][] = 'start_time';
+  $settings['attributesToIndex'][] = 'unordered(body)';
+  $settings['attributesToSnippet'][] = 'body:50';
+	$settings['attributesToIndex'][] = 'unordered(content)';
+	$settings['attributesToSnippet'][] = 'content:50';
+	$settings['attributesToIndex'][] = 'unordered(job_description)';
+	$settings['attributesToSnippet'][] = 'job_description:50';
+	$settings['attributesToIndex'][] = 'unordered(requirements_body)';
+	$settings['attributesToSnippet'][] = 'requirements_body:50';
+  return $settings;
+}
+
+function exclude_post_types( $should_index, WP_Post $post ) {
+  $excluded_post_types = array( 'bd_email', 'sidebarcta', 'page', 'post');
+  if ( false === $should_index ) {
+    return false;
+  }
+
+  return ! in_array( $post->post_type, $excluded_post_types, true ) ;
+}
+
+add_filter('algolia_searchable_posts_index_settings', 'my_searchable_posts_index_settings');
+add_filter('algolia_should_index_searchable_post', 'exclude_post_types', 10, 2 );
 add_filter('pre_get_posts', 'bd_pre_get_posts');
+add_filter('algolia_posts_bd_insight_index_settings', 'my_insights_index_settings');
+add_filter('algolia_posts_bd_case_study_index_settings', 'my_case_studies_index_settings');
+add_filter('algolia_posts_bd_event_index_settings', 'my_events_index_settings');
+add_filter('algolia_post_shared_attributes', 'my_post_attributes', 10, 2 );
+add_filter('algolia_searchable_post_shared_attributes', 'my_post_attributes', 10, 2);
 
 add_action( 'save_post', function( $post_id ) {
   if ( class_exists( 'WP_REST_Cache' ) ) {
@@ -214,6 +359,8 @@ class StarterSite  {
 
 	function register_routes() {
 
+
+
 		register_rest_route( 'familiar/v1', '/featured-work', array(
 			'methods' => 'GET',
 			'callback' => array($this, 'featured_work')
@@ -246,6 +393,11 @@ class StarterSite  {
 			'methods' => 'GET',
 			'callback' => array($this, 'get_gated_id')
 		));
+    register_rest_route('familiar/v1', '/get-bd-nonce-for-authentication', array(
+      'methods' => 'GET',
+      'callback' => array($this, 'get_bd_nonce_for_authentication')
+    ));
+
 	}
 
 	function get_gated_id ($request) {
@@ -293,6 +445,13 @@ class StarterSite  {
 		}
 		return new WP_REST_Response($team_member);
 	}
+
+  function get_bd_nonce_for_authentication() {
+    return new WP_REST_Response(array(
+      'endpoint' => esc_url_raw( rest_url() ),
+      'nonce' => wp_create_nonce( 'wp_rest' )
+    ));
+  }
 
 	function insights_by_user($data) {
 		$nicename = $data->get_params('id')['id'];
@@ -435,6 +594,8 @@ class StarterSite  {
 
 		return new WP_REST_Response(array('events' => $events));
 	}
+
+
 
 	function featured_work($data) {
 		$work = get_posts(array(
@@ -588,7 +749,9 @@ class StarterSite  {
 			$content = '';
 			if (!is_null($body) && $body){
 				foreach($body as $block) {
-					$content .= $block['text'];
+          if (isset($block['text'])) {
+            $content .= $block['text'];
+          }
 				}
 			}
 			$wordCount = str_word_count(strip_tags($content));
@@ -661,7 +824,7 @@ class StarterSite  {
 		$events = get_posts(array(
 			'post_type' => 'tribe_events',
 			'meta_key' => 'related_team_members',
-			'meta_value' => $object['id']
+			'meta_value' => $data['id']
 		));
 		foreach($events as $event){
 			$event_tms = get_field('related_team_members', 'tribe_events_' . $event->ID);
