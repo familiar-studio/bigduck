@@ -11,7 +11,7 @@
       },
       "env": {
         "NODE_ENV": "production",
-        "API_URL": "https://bigducknyc.org/wp-json"
+        "API_URL": "https://bigducknyc.com/wp-json"
       }
     }
   ]

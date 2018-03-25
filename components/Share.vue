@@ -27,7 +27,7 @@ export default {
       if (process.browser) {
         return window.location.href
       } else {
-        return "https://bigducknyc.org" + this.$route.fullPath
+        return "https://bigducknyc.com" + this.$route.fullPath
       }
     },
     title() {
