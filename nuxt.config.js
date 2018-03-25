@@ -84,7 +84,6 @@ module.exports = {
     { src: "~/plugins/vue-validate", ssr: false },
     { src: "~/plugins/newfangled.js", ssr: false },
     { src: "~/plugins/scrollto.js", ssr: false },
-   // { src: "~/plugins/waypoint.js", ssr: false },
     { src: "~/plugins/search.js" },
     { src: "~/plugins/meta.js" }
   ],
@@ -136,7 +135,7 @@ module.exports = {
     /*
     ** Run ESLINT on save
     */
-    vendor: ["axios", "date-fns", "crypto-js", "flickity", "babel-polyfill"],
+    vendor: ["intersection-observer", "axios", "date-fns", "crypto-js", "flickity", "babel-polyfill", '~/components/GravityForm'],
     extend(config, ctx) {
       if (ctx.isClient) {
         config.module.rules.push({

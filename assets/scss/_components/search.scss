@@ -98,9 +98,9 @@
   @extend .media;
 }
 .ais-refinement-list__item--active .ais-refinement-list__value {
-  @extend .bg-change;
-  color: white;
-  display: inline;
+  @extend .color-change;
+  // color: white;
+   display: inline;
 }
 
 .ais-refinement-list__label {

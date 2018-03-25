@@ -17,6 +17,7 @@
         <div class="filter-bar menu">
           <div class="filter-list">
             <div class="media-list">
+              <div class="label label-lg">Section</div>
               <ais-refinement-list attribute-name="post_type_label" :sort-by="['name:asc']"></ais-refinement-list>
             </div>
             <div class="media-list">
@@ -32,24 +33,20 @@
         </div>
       </div>
       <div class="col-lg-9 col-xl-8 search-main">
-      <ul class="list-unstyled">
+          <div class="container mt-4">
     <ais-results :results-per-page="20">
-      <template slot-scope="{ result }">
-        <li>
+      <div class="card card-block mb-4" slot-scope="{ result }">
+
           <div class="search-result">
           <router-link v-if="result.post_type == 'bd_insight' && (selectedPostType === 'insights' || selectedPostType === null)" :to="{name: 'insights-slug', params: {slug: result.post_name}}" href="">
             <h6>Insight</h6>
             <h3><span class="underline-change hover-color" v-html="result.post_title"></span></h3>
-            <div class="card-text" v-if="result._snippetResult.short_description.matchLevel === 'full'" v-html="result._snippetResult.short_description.value"></div>
-            <div class="card-text" v-else-if="result._snippetResult.body.matchLevel === 'full'" v-html="result._snippetResult.body.value"></div>
-            <div class="card-text" v-else v-html="result.short_description"></div>
+           <div class="card-text"v-html="result.short_description"></div>
           </router-link>
           <router-link v-else-if="result.post_type == 'bd_case_study' && (selectedPostType === 'work' || selectedPostType === null)" :to="{name: 'work-slug', params: {slug: result.post_name}}" href="">
             <h6>Work</h6>
             <h3><span class="underline-change hover-color" v-html="result.client_name"></span></h3>
-            <div class="card-text" v-if="result._snippetResult.short_description.matchLevel === 'full'" v-html="result._snippetResult.short_description.value"></div>
-            <div class="card-text" v-else-if="result._snippetResult.body.matchLevel === 'full'" v-html="result._snippetResult.body.value"></div>
-            <div class="card-text" v-else v-html="result.post_title"></div>
+            <div class="card-text"  v-html="result.short_description"></div>
           </router-link>
           <router-link v-else-if="result['post_type'] == 'bd_event' && (selectedPostType === 'events' || selectedPostType === null)" :to="{name: 'events-slug', params: {slug: result.post_name}}" href="">
             <h6>Event
@@ -62,27 +59,24 @@
           <router-link v-else-if="result['post_type'] == 'bd_job' && (selectedPostType === 'jobs' || selectedPostType === null)" :to="{name: 'about', params: {slug: result.post_name}}" href="">
             <h6>Job</h6>
             <h3><span class="underline-change hover-color" v-html="result.post_title"></span></h3>
-            <div class="card-text" v-if="result._snippetResult.job_description.matchLevel === 'full'" v-html="result._snippetResult.job_description.matchLevel.value"></div>
-            <div class="card-text" v-else-if="result._snippetResult.requirements_body.matchLevel === 'full'" v-html="result._snippetResult.requirements_body.value"></div>
-            <div class="card-text" v-else v-html="result.job_description"></div>
+            <div class="card-text"  v-html="result.job_description"></div>
           </router-link>
           <router-link v-else-if="result['post_type'] == 'bd_service' && (selectedPostType === 'services' || selectedPostType === null)" :to="{name: 'services-slug', params: {slug: result.post_name}}">
             <h6>Service</h6>
             <h3><span class="underline-change hover-color" v-html="result.post_title"></span></h3>
-            <div class="card-text" v-if="result._snippetResult.body.matchLevel === 'full'" v-html="result._snippetResult.body.value"></div>
-            <div class="card-text" v-else-if="result._snippetResult.introduction.matchLevel === 'full'" v-html="result._snippetResult.introduction.value"></div>
-            <div class="card-text" v-else-if="result._snippetResult.short_description.matchLevel === 'full'" v-html="result._snippetResult.short_description.value"></div>
-            <div class="card-text" v-else v-html="result.short_description"></div>
+            <div class="card-text"  v-html="result.short_description"></div>
 
           </router-link>
         </div>
-        </li>
-      </template>
+        </div>
+
+
 
     </ais-results>
+
     <ais-no-results></ais-no-results>
     <ais-pagination @page-change="onPageChange"></ais-pagination>
-  </ul>
+ </div>
 </div>
 <div class="col-lg-2"></div>
   </div>
@@ -92,6 +86,8 @@
 </template>
 
 <script>
+import Post from "~/components/Post.vue";
+
 import FilterList from "~/components/FilterList";
 import { createFromAlgoliaCredentials, createFromSerialized } from 'vue-instantsearch'
 const searchStore = createFromAlgoliaCredentials('R3PZL8WP9J',
@@ -100,7 +96,8 @@ searchStore.indexName = "wp_searchable_posts"
 
 export default {
   components: {
-    FilterList
+    FilterList,
+    Post
   },
   data() {
     return {
