@@ -73,7 +73,7 @@
                 </div>
               </article>
               <article id="values" class="values bg-change break-container section">
-                <h1 >{{ page.acf.values_headline }}</h1>
+                <h1>{{ page.acf.values_headline }}</h1>
                 <div v-html="page.acf.values_body"></div>
                 <ul class="list-unstyled">
                   <li v-for="value in page.acf.values_">
@@ -110,8 +110,7 @@
                 </div>
               </article>
 
-
-              <article v-if="openHouse" id="open-house" class="openHouse my-5 section" >
+              <article v-if="openHouse" id="open-house" class="openHouse my-5 section">
                 <h1 id="open-house">Open House</h1>
                 <div v-html="page.acf.open_house_body" class="mb-5"></div>
                 <div class="" v-for="(event, index) in openHouse">
@@ -157,7 +156,6 @@
 <script>
 import Event from "~/components/Event.vue";
 import Chat from "~/components/Chat.vue";
-
 
 export default {
   name: "about",
@@ -228,8 +226,8 @@ export default {
       scroller
         .setup({
           step: ".section", // required
-          offset: 0.6, // optional, default = 0.5
-          debug: false,
+          offset: 0.6 // optional, default = 0.5
+          //debug: true
         })
         .onStepEnter(this.handleStepEnter);
     });
