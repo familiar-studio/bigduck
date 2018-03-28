@@ -110,9 +110,7 @@ export const actions = {
     const loaded = await context.dispatch("loadAppInitNeed");
     context.commit("processTypeVerbs");
   },
-  loadAppInitNeed({
-    dispatch
-  }) {
+  loadAppInitNeed({ dispatch }) {
     return Promise.all([
       dispatch("fetchGlobals"),
       dispatch("fetchTopics"),
@@ -127,62 +125,57 @@ export const actions = {
   error(context, error) {
     console.warn(error);
   },
-  async fetchGlobals({
-    commit,
-    state
-  }) {
-    const data = await this.$axios.$get("/acf/v3/options/globals");
+  async fetchGlobals({ commit, state }) {
+    const data = await this.$axios.$get(
+      "https://bigducknyc.com/wp-json/acf/v3/options/globals"
+    );
     commit("setGlobals", data.acf);
     return data;
   },
-  async fetchTopics({
-    commit,
-    state
-  }) {
+  async fetchTopics({ commit, state }) {
     if (state.topics == null) {
-      const data = await this.$axios.$get("/wp/v2/topic");
+      const data = await this.$axios.$get(
+        "https://bigducknyc.com/wp-json/wp/v2/topic"
+      );
       commit("setTopics", data);
       return data;
     } else {
       return null;
     }
   },
-  async fetchSectors({
-    commit,
-    state
-  }) {
+  async fetchSectors({ commit, state }) {
     if (state.topics == null) {
-      const data = await this.$axios.$get("/wp/v2/sector");
+      const data = await this.$axios.$get(
+        "https://bigducknyc.com/wp-json/wp/v2/sector"
+      );
       commit("setSectors", data);
       return data;
     } else {
       return null;
     }
   },
-  async fetchTypes({
-    state,
-    commit
-  }) {
+  async fetchTypes({ state, commit }) {
     if (state.topics == null) {
-      const data = await this.$axios.$get("/wp/v2/type");
+      const data = await this.$axios.$get(
+        "https://bigducknyc.com/wp-json/wp/v2/type"
+      );
       commit("setTypes", data);
       return data;
     } else {
       return null;
     }
   },
-  async fetchEventCategories({
-    commit,
-    state
-  }) {
-    const data = await this.$axios.$get("/wp/v2/event_category");
+  async fetchEventCategories({ commit, state }) {
+    const data = await this.$axios.$get(
+      "https://bigducknyc.com/wp-json/wp/v2/event_category"
+    );
     commit("setEventCategories", data);
     return data;
   },
-  async fetchCTAs({
-    commit
-  }) {
-    const data = await this.$axios.$get("/wp/v2/sidebarcta");
+  async fetchCTAs({ commit }) {
+    const data = await this.$axios.$get(
+      "https://bigducknyc.com/wp-json/wp/v2/sidebarcta"
+    );
     commit("setCTAs", data);
     return data;
   }
@@ -203,7 +196,7 @@ export const getters = {
     return state.previousQuery;
   },
   getTopicsIndexedById: state => {
-    if (state.topics) {
+    if (state.topics && Array.isArray(state.topics)) {
       let topicsByIndex = {};
       state.topics.forEach(topic => {
         topicsByIndex[topic.id] = topic;
@@ -212,7 +205,7 @@ export const getters = {
     }
   },
   getTypesIndexedById: state => {
-    if (state.types) {
+    if (state.types && Array.isArray(state.types)) {
       let typesByIndex = {};
 
       state.types.forEach(type => {

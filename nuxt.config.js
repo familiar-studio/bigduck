@@ -93,9 +93,12 @@ module.exports = {
     ]
   ],
   axios: {
-    credentials: false,
+    credentials: true,
     proxy: true,
     retry: true,
+    debug: true,
+    proxyHeaders: false,
+
     //withCredentials: false,
     prefix: "/wp-json",
     // baseURL: "https://bigducknyc.com/wp-json/",
