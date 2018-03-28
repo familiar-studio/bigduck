@@ -104,10 +104,7 @@ module.exports = {
     prefix: "/wp-json",
     // baseURL: "https://bigducknyc.com/wp-json/",
     //baseURL: "https://bigduck.test/wp-json",
-    https:
-      process.env.NODE_ENV == "production" || ctx.env.NODE_ENV == "production"
-        ? true
-        : false,
+    https: true,
 
     errorHandler(errorReason, { error }) {
       error("Request Error: " + errorReason);
