@@ -127,7 +127,7 @@ module.exports = {
       next();
     }
   },
-  mode: "spa",
+  //mode: "spa",
   css: [{ src: "~/assets/scss/styles.scss", lang: "scss" }],
   /*
   ** Build configuration
