@@ -85,16 +85,19 @@ module.exports = {
   modules: [
     "@nuxtjs/axios",
     "@nuxtjs/proxy",
-    ['@nuxtjs/google-analytics', {
-      id: 'UA-22713924-1'
-    }]
+    [
+      "@nuxtjs/google-analytics",
+      {
+        id: "UA-22713924-1"
+      }
+    ]
   ],
   axios: {
     credentials: false,
     proxy: true,
     retry: true,
     //withCredentials: false,
-    prefix:'/wp-json',
+    prefix: "/wp-json",
     // baseURL: "https://bigducknyc.com/wp-json/",
     //baseURL: "https://bigduck.test/wp-json",
     https: process.env.NODE_ENV == "production" ? true : false,
@@ -105,11 +108,11 @@ module.exports = {
   },
 
   proxy: process.env.PROXY_API_URL
-  ? [
-      ["/wp-json", { target: process.env.PROXY_API_URL }],
-      ["/wp-admin", { target: process.env.PROXY_API_URL }]
-    ]
-  : [],
+    ? [
+        ["/wp-json", { target: process.env.PROXY_API_URL }],
+        ["/wp-admin", { target: process.env.PROXY_API_URL }]
+      ]
+    : [],
   /*
 
   ** Customize the progress-bar color
@@ -120,11 +123,11 @@ module.exports = {
     scrollBehavior: function(to, from, savedPosition) {
       return { x: 0, y: 0 };
     },
-    beforeEach: function (to, from, next) {
-
-      next()
+    beforeEach: function(to, from, next) {
+      next();
     }
   },
+  mode: "spa",
   css: [{ src: "~/assets/scss/styles.scss", lang: "scss" }],
   /*
   ** Build configuration
@@ -138,7 +141,15 @@ module.exports = {
     /*
     ** Run ESLINT on save
     */
-    vendor: ["intersection-observer", "axios", "date-fns", "crypto-js", "flickity", "babel-polyfill", '~/components/GravityForm'],
+    vendor: [
+      "intersection-observer",
+      "axios",
+      "date-fns",
+      "crypto-js",
+      "flickity",
+      "babel-polyfill",
+      "~/components/GravityForm"
+    ],
     extend(config, ctx) {
       if (ctx.isClient) {
         config.module.rules.push({
