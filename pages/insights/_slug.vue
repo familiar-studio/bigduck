@@ -63,7 +63,6 @@
 
               <div v-for="block, index in insight.acf.body">
 
-
                 <div v-if="block.acf_fc_layout == 'text'" v-html="block.text" :class="['block-' + block.acf_fc_layout]"></div>
                 <div v-if="block.acf_fc_layout == 'quote'" class="block-pullquote">
                   <blockquote>
@@ -80,12 +79,12 @@
 
                 <!-- oEmbed -->
                 <template v-if="block.acf_fc_layout === 'custom_embed'">
-                  <div :class="['block-' + block.acf_fc_layout]" v-html="block.embed" class="mt-5">
+                  <div :class="['block-' + block.acf_fc_layout]" v-html="block.embed" class="">
                   </div>
-                  <div class="mt-3" >
+                  <div class="mt-3">
                     <a :href="block.subscription_link" target="_blank" class="btn btn-primary subscribe-callout" v-if="block.subscription_link">
-                    {{ block.subscription_callout_text }}
-                  </a>
+                      {{ block.subscription_callout_text }}
+                    </a>
                   </div>
                 </template>
 
@@ -99,8 +98,6 @@
                   </p>
                   <div v-if="showTranscription[index]" v-html="block.transcription" class="rich-text mt-3"></div>
                 </template>
-
-
 
                 <div v-if="block.acf_fc_layout == 'callout'" class="block-pullquote">
                   <div v-html="block.text" class="text"></div>
@@ -244,18 +241,16 @@ export default {
   async asyncData({ app, state, params, store, error, query }) {
     let data = {};
     try {
-      let requestParams = { slug: params.slug }
+      let requestParams = { slug: params.slug };
 
       if (query.preview === "true") {
-        requestParams['status'] = 'draft'
+        requestParams["status"] = "draft";
       }
 
-      let response = await app.$axios.$get("/wp/v2/bd_insight",
-        {
-          params: requestParams,
-          withCredentials: query.preview === "true"
-         }
-      );
+      let response = await app.$axios.$get("/wp/v2/bd_insight", {
+        params: requestParams,
+        withCredentials: query.preview === "true"
+      });
       data.insight = response[0];
       if (data.insight.acf.related_case_studies) {
         data.relatedWorkIds = data.insight.acf.related_case_studies.map(
@@ -295,7 +290,7 @@ export default {
   },
   computed: {
     ...mapState(["types", "topics", "globals"]),
-    ...mapGetters([ "getTopicsIndexedById", "getTypesIndexedById"]),
+    ...mapGetters(["getTopicsIndexedById", "getTypesIndexedById"]),
     backupImage() {
       let images = this.globals.backup_insights_images;
       return images[this.insight.id % images.length].backup_insight_image;
@@ -369,25 +364,31 @@ export default {
   created() {
     // get related case studies
     if (this.relatedWorkIds) {
-      this.$axios.$get("/wp/v2/bd_case_study", {
-        params: { include: this.relatedWorkIds }
-      }).then(response => {
-        this.relatedCaseStudies = response;
-      });
+      this.$axios
+        .$get("/wp/v2/bd_case_study", {
+          params: { include: this.relatedWorkIds }
+        })
+        .then(response => {
+          this.relatedCaseStudies = response;
+        });
     }
     if (this.relatedInsightIds) {
-      this.$axios.$get("/wp/v2/bd_insight", {
-        params: { include: this.relatedInsightIds }
-      }).then(response => {
-        this.relatedInsights = response;
-      });
+      this.$axios
+        .$get("/wp/v2/bd_insight", {
+          params: { include: this.relatedInsightIds }
+        })
+        .then(response => {
+          this.relatedInsights = response;
+        });
     }
     if (this.authorIds) {
-      this.$axios.$get("/acf/v3/users", {
-        params: { include: this.authorIds }
-      }).then(response => {
-        this.authors = response;
-      });
+      this.$axios
+        .$get("/acf/v3/users", {
+          params: { include: this.authorIds }
+        })
+        .then(response => {
+          this.authors = response;
+        });
     }
 
     // }
@@ -405,9 +406,8 @@ export default {
     }
   },
   methods: {
-
     toggleTranscription(index) {
-      this.$set(this.showTranscription, index, !this.showTranscription[index])
+      this.$set(this.showTranscription, index, !this.showTranscription[index]);
     },
     prependIndefiniteArticle(word) {
       if (word) {

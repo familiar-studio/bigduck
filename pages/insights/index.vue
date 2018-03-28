@@ -11,6 +11,9 @@
       <div class="col-xl-8 col-lg-9">
         <div class="container" id="content">
           <h1>Insights</h1>
+
+          <div class="mb-4" v-if="getTypesIndexedById[selectedType] && getTypesIndexedById[selectedType].description" v-html="getTypesIndexedById[selectedType].description">
+          </div>
           <div v-if="insights && insights.length > 0">
 
             <div v-for="(insight, index) in insights" :key="insight.slug">
@@ -50,15 +53,15 @@ import Post from "~/components/Post.vue";
 export default {
   name: "insights",
   async asyncData({ app, store, query, errro }) {
-    let params = {page: 1, per_page: 8};
-    ['topic', 'type', 'slug', 'event_category'].map((s) => {
+    let params = { page: 1, per_page: 8 };
+    ["topic", "type", "slug", "event_category"].map(s => {
       if (query[s]) {
-        params[s] = query[s]
+        params[s] = query[s];
       }
-    })
+    });
     const response = await app.$axios.get("/wp/v2/bd_insight", {
       params: params
-    })
+    });
     return {
       insights: response.data,
       totalPages: response.headers["x-wp-totalpages"],
@@ -66,20 +69,20 @@ export default {
     };
   },
   async beforeRouteUpdate(to, from, next) {
-    let params = {page: this.page, per_page: 8};
+    let params = { page: this.page, per_page: 8 };
 
     const response = await this.$axios.get("/wp/v2/bd_insight", {
       params: to.query
-    })
+    });
 
     this.totalPages = response.headers["x-wp-totalpages"];
     this.totalRecords = response.headers["x-wp-total"];
-    if(response.data.length > 0){
-      response.data.map((e, i) => this.$set(this.insights, i, e))
+    if (response.data.length > 0) {
+      response.data.map((e, i) => this.$set(this.insights, i, e));
     } else {
-      this.insights.splice(0)
+      this.insights.splice(0);
     }
-    next()
+    next();
   },
   data() {
     return {
@@ -149,17 +152,17 @@ export default {
     //   this.totalRecords = response.headers["x-wp-total"];
     // },
     async nextPage() {
-      this.page++
+      this.page++;
       this.previouslyLoadedInsights = this.insights.length;
-      let params = {page: this.page, per_page: 8};
-      ['topic', 'type', 'slug', 'event_category'].map((s) => {
+      let params = { page: this.page, per_page: 8 };
+      ["topic", "type", "slug", "event_category"].map(s => {
         if (query[s]) {
-          params[s] = query[s]
+          params[s] = query[s];
         }
-      })
+      });
       const response = app.$axios.get("/wp/v2/bd_insight", {
         params: params
-      })
+      });
       this.insights = this.insights.concat(response.data);
     }
   },

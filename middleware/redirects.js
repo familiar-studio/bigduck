@@ -21,15 +21,17 @@ export default function({ route, redirect }) {
     "/effective_communications_and_fundraising_for_nonprofits": "/services",
     "/we-believe": "/about",
     "/brandraising-benchmark": "/services/brandraising-benchmark",
-    "/the-power-of-a-simple-elevator-pitch": "/insights/three-signs-you-need-an-elevator-pitch-three-ways-to-get-started",
-    "/atlanta-community-food-bank-rebrand": "/work/a-stronger-brand-for-a-great-new-strategic-plan",
+    "/the-power-of-a-simple-elevator-pitch":
+      "/insights/three-signs-you-need-an-elevator-pitch-three-ways-to-get-started",
+    "/atlanta-community-food-bank-rebrand":
+      "/work/a-stronger-brand-for-a-great-new-strategic-plan",
     "/good-shepherd-nyc-human-services-branding": "/work/all",
     "/brooklyn-community-foundation-brand": "/work/all",
     "/branding-to-boost-enrollment-at-art-school": "/work/all",
     "/sarah-durham": "/about/sarah-durham",
     "/theresa-gutierrez": "/about/theresa-gutierrez",
-    "/insights/address_directions": "/directions"
-
+    "/insights/address_directions": "/directions",
+    "/podcasts": "/insights?type=21"
   };
 
   // console.log("path", route.path);
