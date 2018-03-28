@@ -96,7 +96,7 @@ module.exports = {
     credentials: true,
     proxy: true,
     retry: true,
-    debug: true,
+    debug: false,
     proxyHeaders: false,
     proxyHeadersIgnore: false,
 
@@ -104,7 +104,7 @@ module.exports = {
     prefix: "/wp-json",
     // baseURL: "https://bigducknyc.com/wp-json/",
     //baseURL: "https://bigduck.test/wp-json",
-    https: true,
+    https: process.env.NODE_ENV == "production" ? true : false,
 
     errorHandler(errorReason, { error }) {
       error("Request Error: " + errorReason);
