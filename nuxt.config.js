@@ -98,6 +98,7 @@ module.exports = {
     retry: true,
     debug: true,
     proxyHeaders: false,
+    proxyHeadersIgnore: false,
 
     //withCredentials: false,
     prefix: "/wp-json",

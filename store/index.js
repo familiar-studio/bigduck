@@ -126,17 +126,13 @@ export const actions = {
     console.warn(error);
   },
   async fetchGlobals({ commit, state }) {
-    const data = await this.$axios.$get(
-      "https://bigducknyc.com/wp-json/acf/v3/options/globals"
-    );
+    const data = await this.$axios.$get("/acf/v3/options/globals");
     commit("setGlobals", data.acf);
     return data;
   },
   async fetchTopics({ commit, state }) {
     if (state.topics == null) {
-      const data = await this.$axios.$get(
-        "https://bigducknyc.com/wp-json/wp/v2/topic"
-      );
+      const data = await this.$axios.$get("/wp/v2/topic");
       commit("setTopics", data);
       return data;
     } else {
@@ -145,9 +141,7 @@ export const actions = {
   },
   async fetchSectors({ commit, state }) {
     if (state.topics == null) {
-      const data = await this.$axios.$get(
-        "https://bigducknyc.com/wp-json/wp/v2/sector"
-      );
+      const data = await this.$axios.$get("/wp/v2/sector");
       commit("setSectors", data);
       return data;
     } else {
@@ -156,9 +150,7 @@ export const actions = {
   },
   async fetchTypes({ state, commit }) {
     if (state.topics == null) {
-      const data = await this.$axios.$get(
-        "https://bigducknyc.com/wp-json/wp/v2/type"
-      );
+      const data = await this.$axios.$get("/wp/v2/type");
       commit("setTypes", data);
       return data;
     } else {
@@ -166,16 +158,12 @@ export const actions = {
     }
   },
   async fetchEventCategories({ commit, state }) {
-    const data = await this.$axios.$get(
-      "https://bigducknyc.com/wp-json/wp/v2/event_category"
-    );
+    const data = await this.$axios.$get("/wp/v2/event_category");
     commit("setEventCategories", data);
     return data;
   },
   async fetchCTAs({ commit }) {
-    const data = await this.$axios.$get(
-      "https://bigducknyc.com/wp-json/wp/v2/sidebarcta"
-    );
+    const data = await this.$axios.$get("/wp/v2/sidebarcta");
     commit("setCTAs", data);
     return data;
   }
