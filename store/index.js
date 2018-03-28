@@ -22,7 +22,7 @@ export const state = () => ({
 
 export const mutations = {
   processTypeVerbs(state) {
-    if (state.types) {
+    if (state.types && Array.isArray(state.types)) {
       state.types.forEach(type => {
         if (type.name === "Podcasts") {
           type.verb = "Listen";
@@ -110,7 +110,9 @@ export const actions = {
     const loaded = await context.dispatch("loadAppInitNeed");
     context.commit("processTypeVerbs");
   },
-  loadAppInitNeed({ dispatch }) {
+  loadAppInitNeed({
+    dispatch
+  }) {
     return Promise.all([
       dispatch("fetchGlobals"),
       dispatch("fetchTopics"),
@@ -125,12 +127,18 @@ export const actions = {
   error(context, error) {
     console.warn(error);
   },
-  async fetchGlobals({ commit, state }) {
+  async fetchGlobals({
+    commit,
+    state
+  }) {
     const data = await this.$axios.$get("/acf/v3/options/globals");
     commit("setGlobals", data.acf);
     return data;
   },
-  async fetchTopics({ commit, state }) {
+  async fetchTopics({
+    commit,
+    state
+  }) {
     if (state.topics == null) {
       const data = await this.$axios.$get("/wp/v2/topic");
       commit("setTopics", data);
@@ -139,7 +147,10 @@ export const actions = {
       return null;
     }
   },
-  async fetchSectors({ commit, state }) {
+  async fetchSectors({
+    commit,
+    state
+  }) {
     if (state.topics == null) {
       const data = await this.$axios.$get("/wp/v2/sector");
       commit("setSectors", data);
@@ -148,7 +159,12 @@ export const actions = {
       return null;
     }
   },
-  async fetchTypes({ state, commit, getters, rootGetters }) {
+  async fetchTypes({
+    state,
+    commit,
+    getters,
+    rootGetters
+  }) {
     if (state.topics == null) {
       const data = await this.$axios.$get("/wp/v2/type");
       commit("setTypes", data);
@@ -157,12 +173,17 @@ export const actions = {
       return [];
     }
   },
-  async fetchEventCategories({ commit, state }) {
+  async fetchEventCategories({
+    commit,
+    state
+  }) {
     const data = await this.$axios.$get("/wp/v2/event_category");
     commit("setEventCategories", data);
     return data;
   },
-  async fetchCTAs({ commit }) {
+  async fetchCTAs({
+    commit
+  }) {
     const data = await this.$axios.$get("/wp/v2/sidebarcta");
     commit("setCTAs", data);
     return data;
