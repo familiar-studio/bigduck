@@ -68,7 +68,7 @@ module.exports = {
 
     __dangerouslyDisableSanitizers: ["title", "description"]
   },
-  cache: true,
+
   transition: {
     name: "page",
     mode: "out-in",
@@ -104,7 +104,10 @@ module.exports = {
     prefix: "/wp-json",
     // baseURL: "https://bigducknyc.com/wp-json/",
     //baseURL: "https://bigduck.test/wp-json",
-    https: process.env.NODE_ENV == "production" ? true : false,
+    https:
+      process.env.NODE_ENV == "production" || ctx.env.NODE_ENV == "production"
+        ? true
+        : false,
 
     errorHandler(errorReason, { error }) {
       error("Request Error: " + errorReason);
