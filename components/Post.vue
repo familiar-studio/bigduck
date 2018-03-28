@@ -11,13 +11,13 @@
         <div class="card">
           <div class="card-block" v-if="entry.type">
             <div class="badge-group" v-if="entry.type">
-              <div class="badge badge-default" v-for="(topic, index) in entry.topic">
+              <div class="badge badge-default" v-for="(topic, index) in entry.topic" v-if="getTopicsIndexedById">
                 <div v-if="entry['topic'][index] && entry['topic'][index]['term_id']" v-html="getTopicsIndexedById[entry['topic'][index]['term_id']].icon"></div>
                 <div v-else v-html="getTopicsIndexedById[entry['topic'][index]].icon"></div>
                 <div v-if="entry['topic'][index] && entry['topic'][index]['term_id']" v-html="getTopicsIndexedById[entry['topic'][index]['term_id']].name"></div>
                 <div v-else v-html="getTopicsIndexedById[entry['topic'][index]].name"></div>
               </div>
-              <div class="badge badge-default badge-type" v-for="(type, index) in entry.type">
+              <div class="badge badge-default badge-type" v-for="(type, index) in entry.type" v-if="getTypesIndexedById">
                 <div v-if="entry['type'][index] && entry['type'][index]['term_id']" v-html="getTypesIndexedById[entry['type'][index]['term_id']].icon"></div>
                 <div v-else v-html="getTypesIndexedById[entry['type'][index]].icon"></div>
                 <div v-if="entry['type'][index] && entry['type'][index]['term_id']" v-html="getTypesIndexedById[entry['type'][index]['term_id']].name"></div>
@@ -52,13 +52,13 @@
 
                 <div v-for="author in entry.authors" v-if="entry.authors.length > 0" class="media">
                   <img v-if="author.meta.headshot.sizes" :src="author.meta.headshot.sizes.thumbnail" class="round author-img mr-2">
-                  <img v-else :src="globals.backup_author_image" class="round author-img mr-2">
+                  <img v-else-if="globals" :src="globals.backup_author_image" class="round author-img mr-2">
                   <h6 class="align-self-center mb-0">
                     <span v-html="author.display_name"></span>
                   </h6>
                 </div>
                 <div v-if="entry.acf.guest_author_name" class="media ">
-                  <img :src="globals.backup_author_image" class="round author-img mr-2">
+                  <img v-if="globals" :src="globals.backup_author_image" class="round author-img mr-2">
                   <h6 class="align-self-center mb-0">
                     <span>{{entry.acf.guest_author_name}}</span>
                   </h6>
@@ -67,20 +67,20 @@
               <div v-else class="author-listing">
                 <div v-if="entry.acf.author.length > 0" class="media" v-for="author in entry.acf.author">
                   <img v-if="entry.author_headshots && entry.author_headshots[author['user_nicename']] && entry.author_headshots[author['user_nicename']].sizes" :src="entry.author_headshots[author['user_nicename']].sizes.thumbnail" class="round author-img mr-2">
-                  <img v-else :src="globals.backup_author_image" class="round author-img mr-2">
+                  <img v-else-if="globals" :src="globals.backup_author_image" class="round author-img mr-2">
                   <h6 class="align-self-center mb-0">
                     <span v-html="author.display_name"></span>
                   </h6>
                 </div>
                 <div v-if="entry.acf.guest_author_name" class="media">
-                  <img :src="globals.backup_author_image" class="round author-img mr-2">
+                  <img v-if="globals" :src="globals.backup_author_image" class="round author-img mr-2">
                   <h6 class="align-self-center mb-0">
                     <span>{{entry.acf.guest_author_name}}</span>
                   </h6>
                 </div>
               </div>
               <div v-if="!entry.acf.guest_author_name && entry.acf.author.length < 1" class="media">
-                <img :src="globals.backup_author_image" class="round author-img mr-2">
+                <img v-if="globals" :src="globals.backup_author_image" class="round author-img mr-2">
                 <h6 class="align-self-center mb-0">
                   <span>Big Duck</span>
                 </h6>
@@ -95,35 +95,38 @@
 </template>
 
 <script>
-
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters } from "vuex";
 
 export default {
-  name: 'post',
-  props: ['entry', 'categories', 'index', 'firstBlock'],
+  name: "post",
+  props: ["entry", "categories", "index", "firstBlock"],
   computed: {
-    ...mapState(['globals', 'types', 'topics']),
-    ...mapGetters(['getTopicsIndexedById', 'getTypesIndexedById']),
+    ...mapState(["globals", "types", "topics"]),
+    ...mapGetters(["getTopicsIndexedById", "getTypesIndexedById"]),
     backupImage() {
-      let images = this.globals.backup_insights_images
-      let id = this.entry.ID || this.entry.id
-      return images[id % images.length].backup_insight_image
+      if (this.globals) {
+        let images = this.globals.backup_insights_images;
+        let id = this.entry.ID || this.entry.id;
+        return images[id % images.length].backup_insight_image;
+      } else return null;
     },
     firstType() {
-      return (this.entry.type[0] && this.entry.type[0].term_id) ? parseInt(this.entry.type[0].term_id) : this.entry.type[0]
+      return this.entry.type[0] && this.entry.type[0].term_id
+        ? parseInt(this.entry.type[0].term_id)
+        : this.entry.type[0];
     },
     blockClass() {
       if (this.index === 0 && this.firstBlock) {
-        return 'first-block'
+        return "first-block";
       } else if (this.index % 2 === 0) {
-        return 'odd-block'
+        return "odd-block";
       } else {
-        return 'even-block'
+        return "even-block";
       }
     },
     slug() {
-      return this.entry.slug ? this.entry.slug : this.entry.post_name
+      return this.entry.slug ? this.entry.slug : this.entry.post_name;
     }
   }
-}
+};
 </script>

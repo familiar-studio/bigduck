@@ -14,7 +14,7 @@
 
             </div>
 
-            <div class="navbar-collapse" id="main-menu">
+            <div class="navbar-collapse" id="main-menu" v-if="globals">
               <div class="label tagline hidden-sm-up">Smart communications for nonprofits</div>
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item" @mouseover="hover('services')" @mouseleave="hovering = false">
@@ -145,19 +145,17 @@
 </template>
 
 <script>
-import GravityForm from '~/components/GravityForm.vue'
-import Logo from '~/components/Logo.vue'
-import SearchOverlay from '~/components/SearchOverlay.vue'
+import GravityForm from "~/components/GravityForm.vue";
+import Logo from "~/components/Logo.vue";
+import SearchOverlay from "~/components/SearchOverlay.vue";
 
-
-import { mapState, mapGetters, mapMutations } from 'vuex'
+import { mapState, mapGetters, mapMutations } from "vuex";
 
 export default {
   components: {
     Logo,
     GravityForm,
     SearchOverlay
-
   },
   data() {
     return {
@@ -169,48 +167,58 @@ export default {
       query: null,
       searchVisible: false,
       totalColors: 7
-    }
+    };
   },
   head() {
     return {
       htmlAttrs: {
-        class: 'color-' + this.currentColor
+        class: "color-" + this.currentColor
       }
-    }
+    };
   },
   computed: {
-    ...mapState(['globals']),
-    ...mapGetters(['activeCta']),
+    ...mapState(["globals"]),
+    ...mapGetters(["activeCta"]),
     page() {
-      if (this.$route.name === 'index') {
-        return 'homepage'
+      if (this.$route.name === "index") {
+        return "homepage";
       } else if (this.$route.name) {
-        return this.$route.name
+        return this.$route.name;
       } else {
-        return ''
+        return "";
       }
     },
     showFooter() {
-      if (this.page === 'work-slug' || this.page === 'contact' || this.page === 'services-slug' || this.page === 'events-speaking') {
-        return false
+      if (
+        this.page === "work-slug" ||
+        this.page === "contact" ||
+        this.page === "services-slug" ||
+        this.page === "events-speaking"
+      ) {
+        return false;
       }
-      return true
+      return true;
     },
     showChat() {
-      if (this.page === 'homepage' || this.page === 'work-all' || this.page === 'services' || this.page === 'insights') {
-        return false
+      if (
+        this.page === "homepage" ||
+        this.page === "work-all" ||
+        this.page === "services" ||
+        this.page === "insights"
+      ) {
+        return false;
       }
-      return true
+      return true;
     }
   },
   watch: {
-    '$route': function() {
-      this.navVisible = false
+    $route: function() {
+      this.navVisible = false;
     }
   },
   methods: {
     toggleNav() {
-      this.navVisible = !this.navVisible
+      this.navVisible = !this.navVisible;
     },
     hideNav() {
       this.navVisible = false;
@@ -219,41 +227,38 @@ export default {
       // Stupid method to deal with the fact that animated svgs cant be in links
       // ref: https://rrott.com/blog/svg/issue-with-css-transition-animation-in-safari.html
 
-      this.$router.push('/');
+      this.$router.push("/");
       this.navVisible = false;
     },
 
     showSearch() {
-      this.searchVisible = true
+      this.searchVisible = true;
     },
     hideSearch() {
-      this.searchVisible = false
+      this.searchVisible = false;
     },
     handleScroll() {
-      this.haveScrolled = window.scrollY > 20
+      this.haveScrolled = window.scrollY > 20;
     },
     changeColor() {
       if (this.currentColor < this.totalColors) {
-        this.currentColor++
+        this.currentColor++;
       } else {
-        this.currentColor = 1
+        this.currentColor = 1;
       }
     },
     hover(id) {
-      this.hovering = true
-      this.currentText = id
+      this.hovering = true;
+      this.currentText = id;
     }
-
   },
   created() {
     if (process.browser) {
-      setInterval(this.changeColor, 5000)
-      window.addEventListener('scroll', this.handleScroll)
+      setInterval(this.changeColor, 5000);
+      window.addEventListener("scroll", this.handleScroll);
 
-      this.$store.dispatch('fetchCTAs')
-
-
+      this.$store.dispatch("fetchCTAs");
     }
   }
-}
+};
 </script>
