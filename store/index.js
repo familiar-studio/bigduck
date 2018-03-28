@@ -161,16 +161,14 @@ export const actions = {
   },
   async fetchTypes({
     state,
-    commit,
-    getters,
-    rootGetters
+    commit
   }) {
     if (state.topics == null) {
       const data = await this.$axios.$get("/wp/v2/type");
       commit("setTypes", data);
       return data;
     } else {
-      return [];
+      return null;
     }
   },
   async fetchEventCategories({
