@@ -32,13 +32,13 @@ if (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != "on") {
 		define('SSL', true);
 }
 
-define('WP_HOME','https://bigducknyc.com');
+// define('WP_HOME','https://bigducknyc.com');
 //
-define('WP_SITEURL','https://bigducknyc.com');
+// define('WP_SITEURL','https://bigducknyc.com');
 
-// define('WP_HOME', 'https://bigduck.test');
-//
-// define('WP_SITEURL', 'https://bigduck.test');
+define('WP_HOME', 'https://bigduck.test');
+
+define('WP_SITEURL', 'https://bigduck.test');
 
 
 define('DB_NAME', 'bigduck_wordpress');

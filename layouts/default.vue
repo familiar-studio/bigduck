@@ -96,7 +96,7 @@
                 </a>
               </li>
               <li>
-                <a href="http://www.bigducknyc.com/rssmgr/feed.php?co%3Dblog_makerssfeed%26ot%5Bblog_id%5D%3D1047%26en%3D1ad45" target="_blank">
+                <a href="http://www.bigducknyc.com/feed" target="_blank">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                     <path d="M0.000218181818,13.0570909 C6.03342342,13.0570909 10.9442182,17.9675917 10.9442182,24 L15.3078545,24 C15.3078545,15.5582468 8.44230597,8.69345455 0.000218181818,8.69345455 L0.000218181818,13.0570909 Z"></path>
                     <path d="M0,17.9712 L0,23.9995636 L6,23.9995636 C6,20.2762909 3.71890909,17.9712 0,17.9712"></path>

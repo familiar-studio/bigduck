@@ -1,7 +1,7 @@
 {
   "apps": [
     {
-      "name": "staging",
+      "name": "site",
       "script": "npm",
       "args": "start",
       "watch": false,
