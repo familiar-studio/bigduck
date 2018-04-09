@@ -1,5 +1,14 @@
 <?php
 
+function bd_get_feed($query) {
+  if ( isset($query['feed']) ) {
+    $query['post_type'] = array( 'bd_case_study', 'bd_insight', 'bd_service', 'bd_event', 'bd_job');
+  }
+  return $query;
+}
+
+add_filter('request', 'bd_get_feed');
+
 function bd_change_preview_post_link ($preview_link) {
   // return $preview_link;
   $url = parse_url($preview_link);
