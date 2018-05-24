@@ -3,7 +3,7 @@
     {
       "name": "site",
       "script": "npm",
-      "max_memory_restart" : "30M",
+      "max_memory_restart" : "55M",
       "args": "start",
       "watch": false,
       "ignore_watch": ["node_modules", "wp-content", "wp-admin", "wp-includes"],
